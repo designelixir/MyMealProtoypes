@@ -1,0 +1,21 @@
+{
+  "name": "webscrapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "casperjs main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apify": "^2.2.1",
+    "casperjs": "^1.1.4",
+    "phantomjs": "^2.1.7",
+    "phantomjs-prebuilt": "^2.1.16",
+    "puppeteer": "^13.0.1",
+    "slimerjs": "^1.0.0"
+  }
+}
