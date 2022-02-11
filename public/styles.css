@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap");
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+/* input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus {
+  border-color: #48bf84;
+  box-shadow: 0 1px 1px #48bf84 inset, 0 0 8px #48bf84;
+} */
+.noscroll::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  display: none;
+}
+input.close {
+  color: #fff;
+  opacity: 1;
+}
+.placetext::-webkit-input-placeholder {
+  color: white;
+}
+.hover:hover {
+  border: 1px solid white;
+}
