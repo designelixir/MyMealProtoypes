@@ -3,49 +3,42 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import history from "../../utils/history";
 
-export const fetchQuestions = createAsyncThunk(
-  "question/fetchQuestions",
+export const fetchAllergies = createAsyncThunk(
+  "question/fetchAllergies",
   async () => {
-    const { data } = await axios.get(`/api/questions`);
+    const { data } = await axios.get(`/api/allergies`);
 
     return data;
   }
 );
 
 const INIT_STATE = {
-  questions: [],
+  allergies: [],
   isLoading: true,
   hasError: false,
 };
 //Slice
 /////////////////////////////////////////////////////////////
-const questionSlice = createSlice({
-  name: "question",
+const allergySlice = createSlice({
+  name: "allergy",
   initialState: INIT_STATE,
   reducers: {
     setNew(state, action) {
       return { ...state };
     },
-    clearAnswer(state, action) {
-      const questionId = action.payload;
-      const questions = state.questions.filter(
-        (question) => question.id !== questionId
-      );
-      return { ...state, questions };
-    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchQuestions.pending, (state, action) => {
+      .addCase(fetchAllergies.pending, (state, action) => {
         state.isLoading = true;
         state.hasError = false;
       })
-      .addCase(fetchQuestions.fulfilled, (state, action) => {
-        state.questions = action.payload;
+      .addCase(fetchAllergies.fulfilled, (state, action) => {
+        state.allergies = action.payload;
         state.isLoading = false;
         state.hasError = false;
       })
-      .addCase(fetchQuestions.rejected, (state, action) => {
+      .addCase(fetchAllergies.rejected, (state, action) => {
         state = INIT_STATE;
       });
   },
@@ -53,12 +46,12 @@ const questionSlice = createSlice({
 
 //Actions
 /////////////////////////////////////////////////////////////
-export const { setNew, clearAnswer } = questionSlice.actions;
+export const { setNew } = allergySlice.actions;
 
 //Reducer
 /////////////////////////////////////////////////////////////
-export default questionSlice.reducer;
+export default allergySlice.reducer;
 
 //Selectors
 /////////////////////////////////////////////////////////////
-export const selectQuestion = (state) => state.question;
+export const selectAllergy = (state) => state.allergy;

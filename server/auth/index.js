@@ -1,13 +1,15 @@
 const router = require("express").Router();
+const pkg = require("../../package.json");
+
 const {
-  models: { User, Permission },
+  models: { User, Token },
 } = require("../db");
 module.exports = router;
 
 router.post("/login", async (req, res, next) => {
   try {
-    const tokenFof = await User.authenticate(req.body);
-    res.cookie("tokenFof", tokenFof, { maxAge: 432000000 });
+    const token = await User.authenticate(req.body);
+    res.cookie(`token-${pkg.name}`, token, { maxAge: 432000000 });
     res.sendStatus(201);
   } catch (err) {
     next(err);
@@ -17,8 +19,8 @@ router.post("/login", async (req, res, next) => {
 router.post("/signup", async (req, res, next) => {
   try {
     const user = await User.create(req.body);
-    const token = await User.authenticate(user);
-    res.cookie("tokenFof", token, { maxAge: 432000000 });
+    const token = await user.generateToken();
+    res.cookie(`token-${pkg.name}`, token, { maxAge: 432000000 });
     res.sendStatus(201);
   } catch (err) {
     if (err.name === "SequelizeUniqueConstraintError") {
@@ -31,16 +33,16 @@ router.post("/signup", async (req, res, next) => {
 
 router.put("/register", async (req, res, next) => {
   try {
-    const { password, firstName, lastName, id } = req.body;
-    let toUpdate = await User.findByPk(id);
+    const { userId, data } = req.body;
 
-    await toUpdate.update(
-      { password, firstName, lastName, status: "Active" },
-      { where: { id }, include: [Permission] }
-    );
-    const user = await User.findByPk(id);
+    const user = await User.findByPk(userId, { include: [Token] });
+    await user.update({
+      ...data,
+    });
+    user.token.destroy();
+
     const token = await user.generateToken();
-    res.cookie("tokenFof", tokenFof, { maxAge: 432000000 });
+    res.cookie(`token-${pkg.name}`, token, { maxAge: 432000000 });
     res.sendStatus(201);
   } catch (err) {
     next(err);
@@ -49,7 +51,7 @@ router.put("/register", async (req, res, next) => {
 
 router.get("/me", async (req, res, next) => {
   try {
-    res.json(await User.findByToken(req.cookies.tokenFof));
+    res.json(await User.findByToken(req.cookies[`token-${pkg.name}`]));
   } catch (ex) {
     next(ex);
   }
@@ -57,11 +59,11 @@ router.get("/me", async (req, res, next) => {
 
 router.delete("/logout", async (req, res, next) => {
   try {
-    let cookie = req.cookies.tokenFof;
+    let cookie = req.cookies[`token-${pkg.name}`];
     if (cookie === undefined) {
       console.log("No Cookie Destroyed");
     } else {
-      res.cookie("tokenFof", "", { maxAge: 0 });
+      res.cookie(`token-${pkg.name}`, "", { maxAge: 0 });
       console.log("Cookie Destroyed");
     }
     res.sendStatus(204);

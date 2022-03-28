@@ -2,11 +2,20 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import history from "../../utils/history";
 
+export const sendNewInvitation = createAsyncThunk(
+  "auth/sendNewInvitation",
+  async (body) => {
+    await axios.post(`/api/invitations`, body);
+  }
+);
+
 export const receiveInvitation = createAsyncThunk(
   "auth/receiveInvitation",
-  async (inviteId) => {
-    const { data } = await axios.get(`/api/invitations?inviteId=${inviteId}`);
-    return data.id;
+  async (accessToken) => {
+    const { data } = await axios.get(
+      `/api/invitations?accessToken=${accessToken}`
+    );
+    return data;
   }
 );
 
@@ -79,7 +88,9 @@ export const changeEmail = createAsyncThunk(
 const INIT_STATE = {
   auth: { permissions: [] },
   id: null,
+  validatingInvitation: true,
   validInvitation: null,
+  registerSuccessful: false,
   loggedIn: false,
   preCheck: false,
 };
@@ -121,14 +132,23 @@ const authSlice = createSlice({
       .addCase(reset.fulfilled, (state, action) => {
         state = INIT_STATE;
       })
+      .addCase(receiveInvitation.pending, (state, action) => {
+        state.validatingInvitation = true;
+        state.validInvitation = false;
+        state.isLoading = false;
+        state.hasError = false;
+      })
       .addCase(receiveInvitation.fulfilled, (state, action) => {
         state.id = action.payload;
+        state.validatingInvitation = false;
         state.validInvitation = true;
         state.isLoading = false;
         state.hasError = false;
         // history.push("/");
       })
       .addCase(receiveInvitation.rejected, (state, action) => {
+        state.validatingInvitation = false;
+        state.validInvitation = false;
         state.isLoading = false;
         state.hasError = true;
       })
@@ -138,6 +158,8 @@ const authSlice = createSlice({
         state.preCheck = true;
         state.isLoading = false;
         state.hasError = false;
+        state.registerSuccessful = true;
+        history.push("/");
         window.location.reload();
       })
       .addCase(registerInvitation.rejected, (state, action) => {

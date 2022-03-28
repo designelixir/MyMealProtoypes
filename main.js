@@ -16,7 +16,6 @@ const init = async () => {
     } else {
       await db.sync();
     }
-    console.log("Hello");
     app.listen(PORT, () => console.log(`Serving on port ${PORT}`));
   } catch (ex) {
     console.log("Err", ex);

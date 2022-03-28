@@ -3,95 +3,70 @@
 
 const {
   db,
-  models: { User, Tag, Question, UserAnswered, Streak },
+  models: {
+    User,
+    Corporation,
+    Restaurant,
+    Location,
+    Menu,
+    Category,
+    MenuItem,
+    Allergy,
+    AllergyType,
+  },
 } = require("../server/db");
-
-const csvParser = require("./csv");
 
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
 
-  const { user_seed_data } = require("./seed_data");
-
-  const myDB = {
-    users: (() =>
-      user_seed_data.map((user) => {
-        const { f, l, r, a } = user;
-        return {
-          firstName: f,
-          lastName: l,
-          email: `${f + l}@factorfiction.com`,
-          password: "12345678",
-          role: r,
-          affiliation: a,
-        };
-      }))(),
-  };
-  const { users } = myDB;
+  const {
+    user_seed_data,
+    allergies_seed_data,
+    allergy_type_seed_data,
+    menu_item_seed_data,
+  } = require("./seed_data");
 
   //Create Users in Database
-  const allUsers = await User.bulkCreate(users, {
+  const allUsers = await User.bulkCreate(user_seed_data, {
     returning: true,
   });
 
-  //Parse Questions from CSV
-  const { rawQuestions, rawTags } = await csvParser();
-
-  //Format Questions into Array of objects for creation
-  const questions = Object.values(rawQuestions).map((question) => {
-    const { text, answer, explanation, expiration, source, tags } = question;
-    return { text, answer, explanation, source, status: "Approved" };
-  });
-  //Create Questions in Database
-  const allQuestions = await Question.bulkCreate(questions, {
+  const allAllergies = await Allergy.bulkCreate(allergies_seed_data, {
     returning: true,
   });
 
-  //Format tags into Array of objects for creation
-  const tags = [...rawTags].map((tag) => ({ name: tag }));
-  //Create Tags in Database
-  const allTags = await Tag.bulkCreate(tags, {
+  const allAllergyTypes = await AllergyType.bulkCreate(allergy_type_seed_data, {
     returning: true,
   });
 
-  //Reduce rawQuestions into an object to easily grab the tags assocaited to each question
-  const questionTags = Object.values(rawQuestions).reduce(
-    (tagsObj, question) => {
-      const { text, tags } = question;
-      tagsObj[text] = tags;
-      return tagsObj;
-    },
-    {}
-  );
-
-  //Associate all tags to specific questions
-  for (const question of allQuestions) {
-    const { text } = question;
-    const tags = questionTags[text];
-    for (const tagName of tags) {
-      const foundTag = allTags.find((tag) => {
-        return tag.name === tagName;
-      });
-      if (foundTag) {
-        await question.addTag(foundTag.id);
-      }
-    }
-  }
-
-  const [admin, user] = allUsers;
-  const [one, two, three, four] = allQuestions;
-
-  //Create a UserAnswered as correct
-  const answered = await UserAnswered.create({
-    answeredCorrectly: true,
-    userId: user.id,
-    questionId: one.id,
+  const allMenuItems = await MenuItem.bulkCreate(menu_item_seed_data, {
+    returning: true,
   });
 
-  //Create a streak and associate UserAnswered
-  const streak = await Streak.create({ score: 900, userId: user.id });
-  await streak.addUseranswered(answered);
+  const [admin] = allUsers;
+
+  const [shellfish, soy, peanuts, garlic, egg, dairy] = allAllergies;
+
+  const [unsafe, cross, mod] = allAllergyTypes;
+
+  const [ham, cheese, bacon] = allMenuItems;
+
+  await unsafe.setAllergy(shellfish);
+  await cross.setAllergy(soy);
+  await mod.setAllergy(peanuts);
+
+  await ham.addAllergytypes([unsafe, cross, mod]);
+
+  // await cheese.addAllergytype(cross);
+
+  // await cheese.addAllergytype(mod);
+
+  await ham.getAllergytypes({ include: [Allergy] }).then((allergyTypes) => {
+    allergyTypes.forEach(({ allergy, type }) => {
+      console.log(allergy.name, type);
+    });
+  });
 }
 
 /*

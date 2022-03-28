@@ -7,8 +7,8 @@ import { Container } from "react-bootstrap";
 const Main = () => {
   return (
     <Container>
-      {/* <Routes /> */}
-      <Home />
+      <Routes />
+      {/* <Home /> */}
     </Container>
   );
 };

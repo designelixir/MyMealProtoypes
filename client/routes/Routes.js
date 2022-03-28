@@ -8,7 +8,13 @@ import Portal from "../interface/Portal";
 import AuthForm from "../views/AuthForm";
 import FourOhFour from "../views/FourOhFour";
 import Home from "../views/Home";
+import Menu from "../views/Menu";
 import Authenticate from "../views/Authenticate";
+import Dashboard from "../views/Dashboard";
+import Corporation from "../views/Corporation";
+import RegisterInvite from "../views/RegisterInvite";
+import Restaurant from "../views/Restaurant";
+import Category from "../views/Category";
 
 const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
   useEffect(() => {
@@ -28,8 +34,31 @@ const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
             path="/login"
             render={(props) => renderer(Authenticate, props)}
           />
-          <Route exact path="/" render={(props) => renderer(Home, props)} />
-
+          <Route
+            exact
+            path="/"
+            render={(props) => renderer(Dashboard, props)}
+          />
+          <Route
+            exact
+            path="/corporations/:corporationId"
+            render={(props) => renderer(Corporation, props)}
+          />
+          <Route
+            exact
+            path="/corporations/:corporationId/restaurants/:restaurantId"
+            render={(props) => renderer(Restaurant, props)}
+          />
+          <Route
+            exact
+            path="/corporations/:corporationId/restaurants/:restaurantId/menus/:menuId"
+            render={(props) => renderer(Menu, props)}
+          />
+          <Route
+            exact
+            path="/corporations/:corporationId/restaurants/:restaurantId/menus/:menuId/categories/:categoryId"
+            render={(props) => renderer(Category, props)}
+          />
           <Route
             exact
             path="/:any"
@@ -38,7 +67,17 @@ const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
         </Switch>
       ) : (
         <Switch>
-          <Route exact path="/" render={(props) => renderer(AuthForm, props)} />
+          <Route exact path="/" render={(props) => renderer(Home, props)} />
+          <Route
+            exact
+            path="/invite/:accessToken"
+            render={(props) => renderer(RegisterInvite, props)}
+          />
+          <Route
+            exact
+            path="/menus/:menuId"
+            render={(props) => renderer(Menu, props)}
+          />
           <Route
             exact
             path="/login"

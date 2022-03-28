@@ -2,31 +2,63 @@
 const { Op } = require("sequelize");
 const db = require("./db");
 
-const { User, Question, Tag, Streak, UserAnswered } = require("./models");
+const {
+  User,
+  Corporation,
+  Restaurant,
+  Location,
+  Menu,
+  Category,
+  MenuItem,
+  Allergy,
+  AllergyType,
+  Token,
+} = require("./models");
 
-//User Submitted Questions
-User.hasMany(Question);
+User.hasOne(Token);
+Token.belongsTo(User);
 
-//Streaks Table
-Streak.belongsTo(User);
+User.hasOne(Corporation);
+Corporation.belongsTo(User);
 
-//UserAnswered Table
-User.belongsToMany(Question, { through: UserAnswered });
-Question.belongsToMany(User, { through: UserAnswered });
+Corporation.hasMany(Restaurant);
+Restaurant.belongsTo(Corporation);
 
-Streak.hasMany(UserAnswered);
+Restaurant.hasMany(Location);
+Location.belongsTo(Restaurant);
 
-Question.belongsToMany(Tag, { through: "question-tags" });
-Tag.belongsToMany(Question, { through: "question-tags" });
+Restaurant.hasMany(Menu);
+Menu.belongsTo(Restaurant);
+
+Menu.belongsToMany(Location, { through: "location-menu" });
+
+Menu.belongsToMany(Allergy, { through: "menu-allergies" });
+
+Menu.hasMany(Category);
+Category.belongsTo(Menu);
+
+Category.hasMany(MenuItem);
+MenuItem.belongsTo(Category);
+
+AllergyType.belongsTo(Allergy);
+// Allergy.belongsToMany(AllergyType, { through: "allergy-allergyType" });
+
+MenuItem.belongsToMany(AllergyType, { through: "menuitem-allergyType" });
+// AllergyType.belongsTo(MenuItem);
 
 module.exports = {
   db,
   Op,
   models: {
     User,
-    Question,
-    Tag,
-    UserAnswered,
-    Streak,
+    Corporation,
+    Restaurant,
+    Location,
+    Menu,
+    Category,
+    MenuItem,
+    Allergy,
+    AllergyType,
+    Token,
   },
 };

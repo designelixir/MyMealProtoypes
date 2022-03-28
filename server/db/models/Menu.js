@@ -1,11 +1,11 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const Streak = db.define("streak", {
-  score: {
-    type: Sequelize.INTEGER,
+const Menu = db.define("menu", {
+  name: {
+    type: Sequelize.STRING,
     allowNull: false,
   },
 });
 
-module.exports = Streak;
+module.exports = Menu;

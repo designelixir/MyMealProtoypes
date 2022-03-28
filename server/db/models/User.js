@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
+const { nameFormat } = require("./utils/getters");
 const SALT_ROUNDS = 5;
 
 const User = db.define("user", {
@@ -11,17 +11,9 @@ const User = db.define("user", {
   fullName: {
     type: Sequelize.VIRTUAL,
     get() {
-      if (!this.firstName || !this.lastName) {
-        return "No Name";
-      }
-      const [firstF, ...restF] = this.firstName;
-      const [firstL, ...restL] = this.lastName;
-      return `${firstF.toUpperCase() + restF.join("")} ${
-        firstL.toUpperCase() + restL.join("")
-      }`;
+      return nameFormat.call(this);
     },
   },
-
   email: {
     type: Sequelize.STRING,
     unique: true,
@@ -34,21 +26,11 @@ const User = db.define("user", {
     type: Sequelize.STRING,
   },
   role: {
-    type: Sequelize.ENUM("User", "Admin"),
-    allowNull: false,
-  },
-  affiliation: {
-    type: Sequelize.ENUM("Democrat", "Republican", "Independent", "Other"),
+    type: Sequelize.ENUM("Admin", "Corporation"),
     allowNull: false,
   },
 });
-/**
- *  username: {
-    type: Sequelize.STRING,
-    unique: true,
-    allowNull: false,
-  },
- */
+
 module.exports = User;
 
 /**

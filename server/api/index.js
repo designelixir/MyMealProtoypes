@@ -1,7 +1,11 @@
 const router = require("express").Router();
 
-router.use("/questions", require("./questions"));
-router.use("/streaks", require("./streaks"));
+router.use("/allergies", require("./allergies"));
+router.use("/menus", require("./menus"));
+router.use("/corporations", require("./corporations"));
+router.use("/restaurants", require("./restaurants"));
+router.use("/categories", require("./categories"));
+router.use("/invitations", require("./invitations"));
 
 router.use((req, res, next) => {
   const err = new Error("API route not found!");
