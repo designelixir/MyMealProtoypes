@@ -86,6 +86,10 @@ const corporationSlice = createSlice({
       .addCase(fetchCorporations.rejected, (state, action) => {
         state = INIT_STATE;
       })
+      .addCase(fetchCorporation.pending, (state, action) => {
+        state.isLoading = true;
+        state.hasError = false;
+      })
       .addCase(fetchCorporation.fulfilled, (state, action) => {
         state.corporation = action.payload;
         state.isLoading = false;

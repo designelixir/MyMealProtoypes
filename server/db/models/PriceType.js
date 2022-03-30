@@ -1,23 +1,11 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 const { dollar } = require("./utils/getters");
-const MenuItem = db.define("menuitem", {
-  name: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  image: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  description: {
-    type: Sequelize.TEXT,
-    allowNull: false,
-  },
+
+const PriceType = db.define("pricetype", {
   type: {
-    type: Sequelize.ENUM("Single", "Variation"),
+    type: Sequelize.STRING,
     allowNull: false,
-    defaultValue: "Single",
   },
   price: {
     type: Sequelize.INTEGER,
@@ -32,4 +20,4 @@ const MenuItem = db.define("menuitem", {
   },
 });
 
-module.exports = MenuItem;
+module.exports = PriceType;

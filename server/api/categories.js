@@ -11,6 +11,7 @@ const {
     Menu,
     Category,
     MenuItem,
+    PriceType,
     Allergy,
     AllergyType,
   },
@@ -33,8 +34,18 @@ router.post("/:categoryId/menuitems", requireToken, async (req, res, next) => {
   try {
     const { categoryId } = req.params;
 
-    const { menuItem, allergyTypes } = req.body;
-    const createdMenuItem = await MenuItem.create({ ...menuItem, categoryId });
+    const { menuItem, priceType, priceTypes, allergyTypes } = req.body;
+
+    const createdMenuItem = await MenuItem.create({
+      ...menuItem,
+      type: priceType,
+      categoryId,
+    });
+    if (priceType === "Variation") {
+      for (const pt of Object.values(priceTypes)) {
+        await PriceType.create({ ...pt, menuitemId: createdMenuItem.id });
+      }
+    }
 
     const menuItemAllergies = [];
     for (const allergyId in allergyTypes) {

@@ -17,8 +17,8 @@ import { fetchCorporation } from "../redux/reducers/corporation";
 
 const Restaurant = ({
   getData,
+  isLoading,
   allergies,
-  corporation,
   match,
   restaurant,
   addMenu,
@@ -43,6 +43,10 @@ const Restaurant = ({
     }, []);
     addMenu({ data: { name, restaurantId }, allergyIds: ids });
   };
+
+  if (isLoading) {
+    return <></>;
+  }
   return (
     <Container>
       <Breadcrumb listProps={{ className: "ps-0 justify-content-start" }}>
@@ -56,7 +60,7 @@ const Restaurant = ({
           onClick={() => history.push(`/corporations/${corporationId}`)}
           style={{ color: "#4e66f8" }}
         >
-          {corporation.name}
+          {restaurant.corporation && restaurant.corporation.name}
         </Breadcrumb.Item>
 
         <Breadcrumb.Item active>{restaurant.name}</Breadcrumb.Item>
@@ -111,20 +115,19 @@ const Restaurant = ({
 
 const mapState = (state) => {
   const { allergies } = state.allergy;
-  const { restaurant } = state.restaurant;
-  const { corporation } = state.corporation;
+  const { restaurant, isLoading } = state.restaurant;
   return {
+    isLoading,
     allergies,
     restaurant,
-    corporation,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     getData({ restaurantId, corporationId }) {
-      dispatch(fetchCorporation(corporationId));
       dispatch(fetchRestaurant(restaurantId));
+      // dispatch(fetchCorporation(corporationId));
       dispatch(fetchAllergies());
     },
     addMenu(data) {

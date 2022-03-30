@@ -10,6 +10,7 @@ const {
   Menu,
   Category,
   MenuItem,
+  PriceType,
   Allergy,
   AllergyType,
   Token,
@@ -46,6 +47,9 @@ AllergyType.belongsTo(Allergy);
 MenuItem.belongsToMany(AllergyType, { through: "menuitem-allergyType" });
 // AllergyType.belongsTo(MenuItem);
 
+MenuItem.hasMany(PriceType);
+PriceType.belongsTo(MenuItem);
+
 module.exports = {
   db,
   Op,
@@ -57,6 +61,7 @@ module.exports = {
     Menu,
     Category,
     MenuItem,
+    PriceType,
     Allergy,
     AllergyType,
     Token,

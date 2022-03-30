@@ -6,6 +6,7 @@ module.exports = {
   Menu: require("./Menu"),
   Category: require("./Category"),
   MenuItem: require("./MenuItem"),
+  PriceType: require("./PriceType"),
   Allergy: require("./Allergy"),
   AllergyType: require("./AllergyType"),
   Token: require("./Token"),

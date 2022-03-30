@@ -45,4 +45,5 @@ module.exports = {
     { name: "Cheese", image: "image_url", description: "oo cheese", price: 5 },
     { name: "Bacon", image: "image_url", description: "mmm bacon", price: 7 },
   ],
+  price_type_seed_data: [{ type: "Ham", price: 100 }],
 };

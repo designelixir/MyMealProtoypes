@@ -14,14 +14,7 @@ import { createCategory, fetchMenu } from "../redux/reducers/menu";
 import { fetchCorporation } from "../redux/reducers/corporation";
 import { fetchRestaurant } from "../redux/reducers/restaurant";
 
-const Menu = ({
-  getData,
-  match,
-  menu,
-  restaurant,
-  corporation,
-  addCategory,
-}) => {
+const Menu = ({ getData, match, isLoading, menu, addCategory }) => {
   const history = useHistory();
   const { restaurantId, corporationId, menuId } = match.params;
   useEffect(() => {
@@ -33,6 +26,9 @@ const Menu = ({
     setCategoryName("");
     addCategory({ menuId, body: { name: categoryName, menuId } });
   };
+  if (isLoading) {
+    return <></>;
+  }
   return (
     <Container>
       <Breadcrumb listProps={{ className: "ps-0 justify-content-start" }}>
@@ -46,7 +42,7 @@ const Menu = ({
           onClick={() => history.push(`/corporations/${corporationId}`)}
           style={{ color: "#4e66f8" }}
         >
-          {corporation.name}
+          {menu.restaurant && menu.restaurant.corporation.name}
         </Breadcrumb.Item>
         <Breadcrumb.Item
           onClick={() =>
@@ -56,7 +52,7 @@ const Menu = ({
           }
           style={{ color: "#4e66f8" }}
         >
-          {restaurant.name}
+          {menu.restaurant && menu.restaurant.name}
         </Breadcrumb.Item>
 
         <Breadcrumb.Item active>{menu.name}</Breadcrumb.Item>
@@ -99,22 +95,19 @@ const Menu = ({
 };
 
 const mapState = (state) => {
-  const { menu } = state.menu;
-  const { restaurant } = state.restaurant;
-  const { corporation } = state.corporation;
+  const { menu, isLoading } = state.menu;
   return {
+    isLoading,
     menu,
-    restaurant,
-    corporation,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     getData({ menuId, restaurantId, corporationId }) {
-      dispatch(fetchCorporation(corporationId));
-      dispatch(fetchRestaurant(restaurantId));
       dispatch(fetchMenu(menuId));
+      // dispatch(fetchRestaurant(restaurantId));
+      // dispatch(fetchCorporation(corporationId));
     },
     addCategory(data) {
       dispatch(createCategory(data));

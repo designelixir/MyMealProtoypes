@@ -11,6 +11,7 @@ const {
     Menu,
     Category,
     MenuItem,
+    PriceType,
     Allergy,
     AllergyType,
   },
@@ -25,6 +26,7 @@ async function seed() {
     allergies_seed_data,
     allergy_type_seed_data,
     menu_item_seed_data,
+    price_type_seed_data,
   } = require("./seed_data");
 
   //Create Users in Database
@@ -41,6 +43,10 @@ async function seed() {
   });
 
   const allMenuItems = await MenuItem.bulkCreate(menu_item_seed_data, {
+    returning: true,
+  });
+
+  const allPriceTypes = await PriceType.bulkCreate(price_type_seed_data, {
     returning: true,
   });
 

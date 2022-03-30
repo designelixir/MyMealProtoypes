@@ -63,6 +63,10 @@ const menuSlice = createSlice({
         state.isLoading = false;
         state.hasError = false;
       })
+      .addCase(fetchMenu.pending, (state, action) => {
+        state.isLoading = true;
+        state.hasError = false;
+      })
       .addCase(fetchMenu.fulfilled, (state, action) => {
         state.menu = action.payload;
         state.isLoading = false;

@@ -9,6 +9,7 @@ import { Link, useHistory } from "react-router-dom";
 export const Corporation = ({
   getCorporation,
   match,
+  isLoading,
   corporation,
   addRestaurant,
 }) => {
@@ -22,6 +23,9 @@ export const Corporation = ({
     setRestaurantName("");
     addRestaurant({ restaurantName, corporationId });
   };
+  if (isLoading) {
+    return <></>;
+  }
   return (
     <Container>
       <Breadcrumb listProps={{ className: "ps-0 justify-content-start" }}>
@@ -71,8 +75,9 @@ export const Corporation = ({
 };
 
 const mapState = (state) => {
-  const { corporation } = state.corporation;
+  const { corporation, isLoading } = state.corporation;
   return {
+    isLoading,
     corporation,
   };
 };

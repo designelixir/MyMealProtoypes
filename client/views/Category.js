@@ -15,15 +15,7 @@ import { createMenuItem, fetchCategory } from "../redux/reducers/category";
 import { fetchCorporation } from "../redux/reducers/corporation";
 import { fetchRestaurant } from "../redux/reducers/restaurant";
 
-const Category = ({
-  getData,
-  match,
-  category,
-  menu,
-  restaurant,
-  corporation,
-  addMenuItem,
-}) => {
+const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
   const history = useHistory();
   const { categoryId, restaurantId, corporationId, menuId } = match.params;
   useEffect(() => {
@@ -31,6 +23,28 @@ const Category = ({
   }, []);
   const [creating, setCreating] = useState(false);
   const [allergyTypes, setAllergyTypes] = useState({});
+  const [priceType, setPriceType] = useState("Single");
+  const [priceTypes, setPriceTypes] = useState({ 0: { type: "", price: 0 } });
+  const handleChangePriceTypes = ({ name, value, idx }) => {
+    setPriceTypes({
+      ...priceTypes,
+      [idx]: {
+        ...priceTypes[idx],
+        [name]: value,
+      },
+    });
+  };
+  const handleAddPriceTypes = (nextIdx) => {
+    setPriceTypes({ ...priceTypes, [nextIdx]: { type: "", price: 0 } });
+  };
+  const handleRemovePriceTypes = (idx) => {
+    delete priceTypes[idx];
+    const reKeyed = {};
+    Object.values(priceTypes).forEach((pt, i) => {
+      reKeyed[i] = pt;
+    });
+    setPriceTypes(reKeyed);
+  };
   const handleAddMenuItem = (menuAllergies) => {
     const thing = {};
     for (const { id } of menuAllergies) {
@@ -80,8 +94,14 @@ const Category = ({
   };
   const handleNewMenuItem = () => {
     resetMenuItem();
-    addMenuItem({ categoryId, body: { menuItem, allergyTypes } });
+    addMenuItem({
+      categoryId,
+      body: { menuItem, priceType, priceTypes, allergyTypes },
+    });
   };
+  if (isLoading) {
+    return <></>;
+  }
   return (
     <Container>
       <Breadcrumb listProps={{ className: "ps-0 justify-content-start" }}>
@@ -95,7 +115,7 @@ const Category = ({
           onClick={() => history.push(`/corporations/${corporationId}`)}
           style={{ color: "#4e66f8" }}
         >
-          {corporation.name}
+          {category.menu && category.menu.restaurant.corporation.name}
         </Breadcrumb.Item>
         <Breadcrumb.Item
           onClick={() =>
@@ -105,7 +125,7 @@ const Category = ({
           }
           style={{ color: "#4e66f8" }}
         >
-          {restaurant.name}
+          {category.menu && category.menu.restaurant.name}
         </Breadcrumb.Item>
         <Breadcrumb.Item
           onClick={() =>
@@ -115,7 +135,7 @@ const Category = ({
           }
           style={{ color: "#4e66f8" }}
         >
-          {menu.name}
+          {category.menu && category.menu.name}
         </Breadcrumb.Item>
 
         <Breadcrumb.Item active>{category.name}</Breadcrumb.Item>
@@ -151,29 +171,90 @@ const Category = ({
               <Form.Control
                 type="text"
                 name="image"
-                placeholder="image"
+                placeholder="Image"
                 value={menuItem.image}
                 onChange={handleChangeMenuItem}
               />
             </Col>
-            <Col>
+            <Container>
               <Form.Control
-                type="text"
+                type="textarea"
+                as="textarea"
                 name="description"
-                placeholder="description"
+                placeholder="Description"
                 value={menuItem.description}
                 onChange={handleChangeMenuItem}
               />
-            </Col>
+            </Container>
+          </Row>
+          <Row>
             <Col>
-              <Form.Control
-                type="number"
-                name="price"
-                placeholder="price"
-                value={menuItem.price}
-                onChange={handleChangeMenuItem}
-              />
+              {["Single", "Variation"].map((type) => (
+                <Form.Check
+                  inline
+                  label={type}
+                  type="radio"
+                  value={type}
+                  checked={priceType === type}
+                  onChange={({ target: { value } }) => setPriceType(value)}
+                />
+              ))}
             </Col>
+            <Container>
+              {priceType === "Single" ? (
+                <Form.Control
+                  type="number"
+                  name="price"
+                  placeholder="price"
+                  value={menuItem.price}
+                  onChange={handleChangeMenuItem}
+                />
+              ) : (
+                (() => {
+                  const pts = Object.values(priceTypes);
+                  return pts.map((pt, idx) => (
+                    <>
+                      <Row>
+                        <Col>
+                          <Form.Control
+                            type="text"
+                            name="type"
+                            placeholder="Type"
+                            value={pt.type}
+                            onChange={({ target: { name, value } }) =>
+                              handleChangePriceTypes({ name, value, idx })
+                            }
+                          />
+                        </Col>
+                        <Col>
+                          <Form.Control
+                            type="number"
+                            name="price"
+                            placeholder="Price"
+                            value={pt.price}
+                            onChange={({ target: { name, value } }) =>
+                              handleChangePriceTypes({ name, value, idx })
+                            }
+                          />
+                        </Col>
+                        {idx !== 0 && (
+                          <Col lg={1}>
+                            <Button onClick={() => handleRemovePriceTypes(idx)}>
+                              -
+                            </Button>
+                          </Col>
+                        )}
+                      </Row>
+                      {idx === pts.length - 1 && (
+                        <Button onClick={() => handleAddPriceTypes(pts.length)}>
+                          +
+                        </Button>
+                      )}
+                    </>
+                  ));
+                })()
+              )}
+            </Container>
           </Row>
           <Container className="d-flex flex-column">
             {category.menu &&
@@ -249,8 +330,7 @@ const Category = ({
                 disabled={
                   menuItem.description === "" ||
                   menuItem.image === "" ||
-                  menuItem.name === "" ||
-                  menuItem.price === 0
+                  menuItem.name === ""
                 }
                 onClick={handleNewMenuItem}
               >
@@ -274,15 +354,10 @@ const Category = ({
 };
 
 const mapState = (state) => {
-  const { category } = state.category;
-  const { menu } = state.menu;
-  const { restaurant } = state.restaurant;
-  const { corporation } = state.corporation;
+  const { category, isLoading } = state.category;
   return {
+    isLoading,
     category,
-    menu,
-    restaurant,
-    corporation,
   };
 };
 
@@ -290,9 +365,9 @@ const mapDispatch = (dispatch) => {
   return {
     getData({ categoryId, menuId, restaurantId, corporationId }) {
       dispatch(fetchCategory(categoryId));
-      dispatch(fetchCorporation(corporationId));
-      dispatch(fetchRestaurant(restaurantId));
-      dispatch(fetchMenu(menuId));
+      // dispatch(fetchMenu(menuId));
+      // dispatch(fetchRestaurant(restaurantId));
+      // dispatch(fetchCorporation(corporationId));
     },
     addMenuItem(data) {
       dispatch(createMenuItem(data));
