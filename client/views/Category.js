@@ -346,7 +346,11 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
       {category.menuitems &&
         category.menuitems.map((menuitem) => (
           <Container>
-            <Link to={`/menuitems/${menuitem.id}`}>{menuitem.name}</Link>
+            <Link
+              to={`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}/menuitems/${menuitem.id}`}
+            >
+              {menuitem.name}
+            </Link>
           </Container>
         ))}
     </Container>

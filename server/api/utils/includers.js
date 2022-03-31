@@ -8,6 +8,7 @@ const {
     Allergy,
     Category,
     MenuItem,
+    PriceType,
     AllergyType,
   },
 } = require("../../db");
@@ -24,9 +25,20 @@ const menuIncluder = {
   include: [Allergy, Category, { model: Restaurant, ...restaurantIncluder }],
 };
 
+const menuitemIncluder = {
+  include: [
+    { model: Category, include: [{ model: Menu, ...menuIncluder }] },
+    PriceType,
+    { model: AllergyType, include: [Allergy] },
+  ],
+};
+
 const categoryIncluder = {
   include: [
-    { model: MenuItem, include: [{ model: AllergyType, include: [Allergy] }] },
+    {
+      model: MenuItem,
+      include: [PriceType, { model: AllergyType, include: [Allergy] }],
+    },
     { model: Menu, ...menuIncluder },
   ],
 };
@@ -36,4 +48,5 @@ module.exports = {
   restaurantIncluder,
   menuIncluder,
   categoryIncluder,
+  menuitemIncluder,
 };

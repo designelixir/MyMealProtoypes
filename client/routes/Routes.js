@@ -15,6 +15,7 @@ import Corporation from "../views/Corporation";
 import RegisterInvite from "../views/RegisterInvite";
 import Restaurant from "../views/Restaurant";
 import Category from "../views/Category";
+import MenuItem from "../views/MenuItem";
 
 const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
   useEffect(() => {
@@ -58,6 +59,11 @@ const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
             exact
             path="/corporations/:corporationId/restaurants/:restaurantId/menus/:menuId/categories/:categoryId"
             render={(props) => renderer(Category, props)}
+          />
+          <Route
+            exact
+            path="/corporations/:corporationId/restaurants/:restaurantId/menus/:menuId/categories/:categoryId/menuitems/:menuitemId"
+            render={(props) => renderer(MenuItem, props)}
           />
           <Route
             exact
