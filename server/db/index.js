@@ -6,6 +6,7 @@ const {
   User,
   Corporation,
   Restaurant,
+  Image,
   Location,
   Menu,
   Category,
@@ -27,6 +28,9 @@ Restaurant.belongsTo(Corporation);
 
 Restaurant.hasMany(Location);
 Location.belongsTo(Restaurant);
+
+Restaurant.hasOne(Image, { as: "logo", foreignKey: "logoRestaurant" });
+Restaurant.hasOne(Image, { as: "bg", foreignKey: "bgRestaurant" });
 
 Restaurant.hasMany(Menu);
 Menu.belongsTo(Restaurant);
@@ -57,6 +61,7 @@ module.exports = {
     User,
     Corporation,
     Restaurant,
+    Image,
     Location,
     Menu,
     Category,

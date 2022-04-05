@@ -6,6 +6,10 @@ const Corporation = db.define("corporation", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  crossContactProcedure: {
+    type: Sequelize.TEXT,
+    allowNull: true,
+  },
 });
 
 module.exports = Corporation;

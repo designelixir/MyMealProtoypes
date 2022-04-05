@@ -8,36 +8,33 @@ import {
 import { Link } from "react-router-dom";
 import InviteUser from "./modals/InviteUser";
 import { useHistory } from "react-router-dom";
+import CreateNewCorporation from "./modals/CreateNewCorporation";
 
 const AdminDashboard = ({ getCorporations, corporations, addCorporation }) => {
   const history = useHistory();
   useEffect(() => {
     getCorporations();
   }, []);
-  const [corporationName, setCorporationName] = useState("");
+  const [corporationData, setCorporationData] = useState({
+    name: "",
+    crossContactProcedure: "",
+  });
+  const handleChange = ({ target: { name, value } }) => {
+    setCorporationData({ ...corporationData, [name]: value });
+  };
   const handleNewCorporation = () => {
-    addCorporation(corporationName);
+    addCorporation(corporationData);
   };
   return (
     <Container>
       <Breadcrumb listProps={{ className: "ps-0 justify-content-start" }}>
         <Breadcrumb.Item active>Corporations</Breadcrumb.Item>
       </Breadcrumb>
-      <h1>Create New Corporation</h1>
-      <Row>
-        <Col>
-          <Form.Control
-            type="text"
-            value={corporationName}
-            placeholder="Name"
-            onChange={({ target: { value } }) => setCorporationName(value)}
-          />
-        </Col>
-        <Col>
-          <Button onClick={handleNewCorporation}>Add New</Button>
-        </Col>
+
+      <Row className="d-flex justify-content-start align-items-center">
+        <h1 style={{ width: "fit-content" }}>Corporations</h1>
+        <CreateNewCorporation />
       </Row>
-      <h1>Corporations</h1>
       {corporations.map((corporation) => (
         <Row>
           <Col>
@@ -63,9 +60,6 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    addCorporation(data) {
-      dispatch(createCorporation(data));
-    },
     getCorporations() {
       dispatch(fetchCorporations());
     },

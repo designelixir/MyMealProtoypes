@@ -7,6 +7,7 @@ const {
     User,
     Corporation,
     Restaurant,
+    Image,
     Location,
     Menu,
     Category,
@@ -38,6 +39,15 @@ async function seed() {
     returning: true,
   });
 
+  const restaurant = await Restaurant.create({
+    name: "Test",
+    crossContactProcedure: "Testing Only",
+    primaryColor: "#912626ff",
+  });
+
+  const logo = await Image.create({ url: "fdsa", key: "123" });
+  const bg = await Image.create({ url: "fdsa", key: "123" });
+  console.log(restaurant.__proto__);
   // const allAllergyTypes = await AllergyType.bulkCreate(allergy_type_seed_data, {
   //   returning: true,
   // });

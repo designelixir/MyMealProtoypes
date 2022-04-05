@@ -2,6 +2,7 @@ module.exports = {
   User: require("./User"),
   Corporation: require("./Corporation"),
   Restaurant: require("./Restaurant"),
+  Image: require("./Image"),
   Location: require("./Location"),
   Menu: require("./Menu"),
   Category: require("./Category"),

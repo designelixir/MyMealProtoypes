@@ -32,10 +32,8 @@ export const fetchMyCorporation = createAsyncThunk(
 
 export const createCorporation = createAsyncThunk(
   "corporation/createCorporation",
-  async (corporationName) => {
-    const { data } = await axios.post(`/api/corporations`, {
-      name: corporationName,
-    });
+  async (corporationData) => {
+    const { data } = await axios.post(`/api/corporations`, corporationData);
 
     return data;
   }

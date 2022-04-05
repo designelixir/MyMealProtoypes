@@ -4,6 +4,7 @@ const {
     User,
     Corporation,
     Restaurant,
+    Image,
     Menu,
     Allergy,
     Category,
@@ -13,14 +14,18 @@ const {
   },
 } = require("../../db");
 
-const corporationIncluder = {
-  include: [Restaurant],
-};
-
 const restaurantIncluder = {
-  include: [Corporation, Menu],
+  include: [
+    { model: Image, as: "logo" },
+    { model: Image, as: "bg" },
+    Corporation,
+    Menu,
+  ],
 };
 
+const corporationIncluder = {
+  include: [{ model: Restaurant, ...restaurantIncluder }],
+};
 const menuIncluder = {
   order: [[Category, "position", "ASC"]],
   include: [Allergy, Category, { model: Restaurant, ...restaurantIncluder }],

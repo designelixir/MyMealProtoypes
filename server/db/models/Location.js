@@ -2,6 +2,10 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 const { address } = require("./utils/getters");
 const Location = db.define("location", {
+  crossContactProcedure: {
+    type: Sequelize.TEXT,
+    allowNull: true,
+  },
   streetOne: {
     type: Sequelize.STRING,
     unique: false,

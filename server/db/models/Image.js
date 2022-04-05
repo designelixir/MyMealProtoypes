@@ -1,19 +1,14 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const Restaurant = db.define("restaurant", {
-  name: {
+const Image = db.define("image", {
+  url: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  crossContactProcedure: {
-    type: Sequelize.TEXT,
-    allowNull: true,
-  },
-  primaryColor: {
+  key: {
     type: Sequelize.STRING,
     allowNull: false,
   },
 });
-
-module.exports = Restaurant;
+module.exports = Image;

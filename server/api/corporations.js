@@ -50,11 +50,7 @@ router.get("/users/corporations", requireToken, async (req, res, next) => {
 
 router.post("/", isAdmin, async (req, res, next) => {
   try {
-    const corporationData = req.body;
-    const corporation = await Corporation.create(
-      corporationData,
-      corporationIncluder
-    );
+    const corporation = await Corporation.create(req.body, corporationIncluder);
     res.json(corporation);
   } catch (err) {
     next(err);
@@ -64,11 +60,21 @@ router.post("/", isAdmin, async (req, res, next) => {
 router.post(
   "/:corporationId/restaurants",
   requireToken,
+  upload,
   async (req, res, next) => {
     try {
       const { corporationId } = req.params;
+      console.log(req.body);
+      console.log(req.files);
+      const restaurantData = JSON.parse(req.body.restaurantData);
+      const [logo, bg] = req.files;
+      console.log(restaurantData, logo, bg);
 
-      await Restaurant.create(req.body);
+      const restaurant = await Restaurant.create(restaurantData);
+      await Promise.all([
+        restaurant.createLogo({ url: logo.location, key: logo.key }),
+        restaurant.createBg({ url: bg.location, key: bg.key }),
+      ]);
       res.json(await Corporation.findByPk(corporationId, corporationIncluder));
     } catch (err) {
       next(err);
