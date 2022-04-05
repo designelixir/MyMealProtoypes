@@ -9,11 +9,15 @@ export const fetchMenus = createAsyncThunk("menu/fetchMenus", async () => {
   return data;
 });
 
-export const fetchMenu = createAsyncThunk("menu/fetchMenu", async (menuId) => {
-  const { data } = await axios.get(`/api/menus/${menuId}`);
+export const fetchMenu = createAsyncThunk(
+  "menu/fetchMenu",
+  async ({ menuId, cb }) => {
+    const { data } = await axios.get(`/api/menus/${menuId}`);
 
-  return data;
-});
+    cb && cb(data);
+    return data;
+  }
+);
 
 export const createMenu = createAsyncThunk("menu/createMenu", async (body) => {
   const { data } = await axios.post(`/api/menus`, body);
@@ -21,11 +25,22 @@ export const createMenu = createAsyncThunk("menu/createMenu", async (body) => {
   return data;
 });
 
+export const swapCategoryOrder = createAsyncThunk(
+  "menu/swapCategoryOrder",
+  async ({ menuId, body }) => {
+    const { data } = await axios.put(
+      `/api/menus/${menuId}/categories/swap`,
+      body
+    );
+    return data;
+  }
+);
+
 export const createCategory = createAsyncThunk(
   "menu/createCategory",
-  async ({ menuId, body }) => {
+  async ({ menuId, body, cb }) => {
     const { data } = await axios.post(`/api/menus/${menuId}/categories`, body);
-
+    cb && cb(data);
     return data;
   }
 );

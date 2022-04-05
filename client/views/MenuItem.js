@@ -1,19 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  FloatingLabel,
-  Breadcrumb,
-} from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Breadcrumb } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
-import { createCategory, fetchMenu } from "../redux/reducers/menu";
-import { createMenuItem, fetchCategory } from "../redux/reducers/category";
-import { fetchCorporation } from "../redux/reducers/corporation";
-import { fetchRestaurant } from "../redux/reducers/restaurant";
 import { fetchMenuItem, updateMenuItem } from "../redux/reducers/menuitem";
 
 const MenuItem = ({
@@ -40,7 +28,6 @@ const MenuItem = ({
     getMenuItem({
       menuitemId,
       cb(menuitem) {
-        console.log(menuitem);
         handleAddAllergyTypes(
           menuitem.category.menu.allergies,
           menuitem.allergytypes
@@ -91,22 +78,25 @@ const MenuItem = ({
       allergies[id] = {
         type: "Safe",
         cross: false,
+        crossMod: false,
         modDescription: "",
         crossDescription: "",
+        crossModDescription: "",
       };
     }
     for (const allergyType of menuitemAllergyTypes) {
       allergyTypesObj[allergyType.allergyId] = {
         type: allergyType.type,
         cross: allergyType.cross,
+        crossMod: allergyType.crossMod,
         modDescription: allergyType.modDescription,
         crossDescription: allergyType.crossDescription,
+        crossModDescription: allergyType.crossModDescription,
       };
     }
-    // console.log(Object.assign(allergies, allergyTypesObj));
-
     setAllergyTypes(Object.assign(allergies, allergyTypesObj));
   };
+
   const handleChangeAllergyTypes = (allergyId, name, value) => {
     let newValues = {};
     if (name === "type" && value === "Unsafe") {
@@ -114,6 +104,13 @@ const MenuItem = ({
         ...allergyTypes[allergyId],
         [name]: value,
         cross: false,
+        crossMod: false,
+      };
+    } else if (name === "cross" && value === false) {
+      newValues = {
+        ...allergyTypes[allergyId],
+        [name]: value,
+        crossMod: false,
       };
     } else {
       newValues = {
@@ -316,13 +313,30 @@ const MenuItem = ({
                   <Col>
                     <Form.Check
                       inline
-                      label="Cross Contaminated"
+                      label="Cross Contact"
                       disabled={allergyTypes[allergy.id].type === "Unsafe"}
                       name={allergy.name}
                       type="checkbox"
                       checked={allergyTypes[allergy.id].cross}
                       onChange={({ target: { checked } }) =>
                         handleChangeAllergyTypes(allergy.id, "cross", checked)
+                      }
+                    />
+                  </Col>
+                  <Col>
+                    <Form.Check
+                      inline
+                      label="Cross Contact Modifiable"
+                      disabled={!allergyTypes[allergy.id].cross}
+                      name={allergy.name}
+                      type="checkbox"
+                      checked={allergyTypes[allergy.id].crossMod}
+                      onChange={({ target: { checked } }) =>
+                        handleChangeAllergyTypes(
+                          allergy.id,
+                          "crossMod",
+                          checked
+                        )
                       }
                     />
                   </Col>
@@ -342,6 +356,8 @@ const MenuItem = ({
                       />
                     </Col>
                   )}
+                </Row>
+                <Row>
                   {allergyTypes[allergy.id].cross && (
                     <Col>
                       <Form.Control
@@ -350,6 +366,22 @@ const MenuItem = ({
                         placeholder="Cross Contamination Procedure"
                         rows={3}
                         value={allergyTypes[allergy.id].crossDescription}
+                        onChange={({ target: { value, name } }) =>
+                          handleChangeAllergyTypes(allergy.id, name, value)
+                        }
+                      />
+                    </Col>
+                  )}
+                </Row>
+                <Row>
+                  {allergyTypes[allergy.id].crossMod && (
+                    <Col>
+                      <Form.Control
+                        as="textarea"
+                        name="crossModDescription"
+                        placeholder="Cross Contact Modification Procedure"
+                        rows={3}
+                        value={allergyTypes[allergy.id].crossModDescription}
                         onChange={({ target: { value, name } }) =>
                           handleChangeAllergyTypes(allergy.id, name, value)
                         }

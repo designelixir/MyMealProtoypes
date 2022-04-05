@@ -6,6 +6,14 @@ const Restaurant = db.define("restaurant", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  image: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  primaryColor: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
 });
 
 module.exports = Restaurant;

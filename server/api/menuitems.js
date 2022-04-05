@@ -38,22 +38,15 @@ router.put("/:menuitemId", requireToken, async (req, res, next) => {
 
     const mi = await MenuItem.findByPk(menuitemId, menuitemIncluder);
 
-    console.log(req.body);
     await mi.update({ ...menuItem, type: priceType });
 
-    const ptPromises = mi.pricetypes.map((pt) => pt.destroy());
-    // console.log(mi.__proto__);
-    await Promise.all(ptPromises);
-    // await mi.removePricetypes(currentPriceTypeIds)
+    await Promise.all(mi.pricetypes.map((pt) => pt.destroy()));
     if (priceType === "Variation") {
       for (const pt of Object.values(priceTypes)) {
         await PriceType.create({ ...pt, menuitemId });
       }
     }
-    console.log(mi.allergytypes);
-    const atPromises = mi.allergytypes.map((at) => at.destroy());
-    // console.log(mi.__proto__);
-    await Promise.all(atPromises);
+    await Promise.all(mi.allergytypes.map((at) => at.destroy()));
     const menuItemAllergies = [];
     for (const allergyId in allergyTypes) {
       const { id } = await AllergyType.create({

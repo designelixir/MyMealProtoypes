@@ -60,6 +60,28 @@ router.post("/:menuId/categories", async (req, res, next) => {
   }
 });
 
+router.put("/:menuId/categories/swap", async (req, res, next) => {
+  try {
+    const { menuId } = req.params;
+
+    const { categoryOne, categoryTwo } = req.body;
+    await Promise.all([
+      Category.update(
+        { position: categoryOne.position },
+        { where: { id: categoryOne.id } }
+      ),
+      Category.update(
+        { position: categoryTwo.position },
+        { where: { id: categoryTwo.id } }
+      ),
+    ]);
+
+    res.sendStatus(200);
+  } catch (err) {
+    next(err);
+  }
+});
+
 /**
  * POST /
  * Create streak with userAnswered questions
@@ -73,7 +95,7 @@ router.post("/items", async (req, res, next) => {
     for (const allergyId in allergyTypes) {
       const { type, description } = allergyTypes[allergyId];
       let created;
-      if (type === "Cross Contaminated") {
+      if (type === "Cross Contact") {
         created = await AllergyType.create({
           type,
           crossDescription: description,

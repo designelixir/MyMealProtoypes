@@ -3,11 +3,16 @@ import { connect } from "react-redux";
 import {
   createRestaurant,
   fetchCorporation,
+  uploadFiles,
 } from "../redux/reducers/corporation";
+import { SketchPicker } from "react-color";
+import rgbHex from "rgb-hex";
 import { Container, Row, Col, Form, Button, Breadcrumb } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
+import { useDropzone } from "react-dropzone";
 export const Corporation = ({
   getCorporation,
+  uploadImages,
   match,
   isLoading,
   corporation,
@@ -18,11 +23,43 @@ export const Corporation = ({
   useEffect(() => {
     getCorporation(corporationId);
   }, []);
-  const [restaurantName, setRestaurantName] = useState("");
-  const handleNewRestaurant = () => {
-    setRestaurantName("");
-    addRestaurant({ restaurantName, corporationId });
+  const [restaurantData, setRestaurantData] = useState({ name: "", image: "" });
+  const [restaurantBG, setRestaurantBG] = useState(undefined);
+  const [colorHex, setColorHex] = useState("#ffffff");
+  const handleChange = ({ target: { name, value } }) => {
+    setRestaurantData({ ...restaurantData, [name]: value });
   };
+  const handleNewRestaurant = () => {
+    setRestaurantData({ name: "", image: "" });
+    addRestaurant({
+      body: {
+        ...restaurantData,
+        primaryColor: colorHex,
+        corporationId,
+      },
+      corporationId,
+    });
+  };
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image/*",
+    maxFiles: 1,
+    onDrop: (acceptedFiles) => {
+      const [newBG] = acceptedFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      );
+      setRestaurantBG(newBG);
+    },
+  });
+  const handleUpload = () => {
+    const formData = new FormData();
+    if (restaurantBG) {
+      formData.append("file", restaurantBG);
+    }
+    uploadImages(formData);
+  };
+  
   if (isLoading) {
     return <></>;
   }
@@ -40,26 +77,58 @@ export const Corporation = ({
       </Breadcrumb>
       <h1>{corporation.name}</h1>
 
+      <h2>Create New Restaurant</h2>
       <Row>
         <Col>
-          <h2>Restaurants</h2>
+          <Form.Control
+            type="text"
+            name="name"
+            value={restaurantData.name}
+            placeholder="Name"
+            onChange={handleChange}
+          />
         </Col>
         <Col>
-          <Row>
-            <Col>
-              <Form.Control
-                type="text"
-                value={restaurantName}
-                placeholder="Name"
-                onChange={({ target: { value } }) => setRestaurantName(value)}
-              />
-            </Col>
-            <Col>
-              <Button onClick={handleNewRestaurant}>Add New</Button>
-            </Col>
-          </Row>
+          <Form.Control
+            type="text"
+            name="image"
+            value={restaurantData.image}
+            placeholder="Image"
+            onChange={handleChange}
+          />
+          <div className="mb-4">
+            <div {...getRootProps({ className: "dropzone dz-clickable" })}>
+              <input {...getInputProps()} />
+              <div className="dz-message text-muted">
+                <p>Drop file here or click to upload.</p>
+              </div>
+            </div>
+            <Row className="mt-4">
+              {restaurantBG && (
+                <div className="col-lg-4">
+                  <div>
+                    <img
+                      src={restaurantBG.preview}
+                      className="img-fluid rounded shadow mb-4"
+                    />
+                  </div>
+                </div>
+              )}
+            </Row>
+          </div>
+          <Button onClick={handleUpload}>Upload</Button>
+        </Col>
+        <Col>
+          <SketchPicker
+            color={colorHex}
+            onChange={(c) =>
+              setColorHex("#" + rgbHex(c.rgb.r, c.rgb.g, c.rgb.b, c.rgb.a))
+            }
+          />
         </Col>
       </Row>
+      <Button onClick={handleNewRestaurant}>Add New</Button>
+      <h2>Restaurants</h2>
       {corporation.restaurants &&
         corporation.restaurants.map((restaurant) => (
           <Container>
@@ -86,6 +155,9 @@ const mapDispatch = (dispatch) => {
   return {
     getCorporation(corporationId) {
       dispatch(fetchCorporation(corporationId));
+    },
+    uploadImages(body) {
+      dispatch(uploadFiles(body));
     },
     addRestaurant(data) {
       dispatch(createRestaurant(data));

@@ -10,6 +10,7 @@ import {
   FloatingLabel,
   Breadcrumb,
 } from "react-bootstrap";
+
 import { Link, useHistory } from "react-router-dom";
 import { createMenu, fetchRestaurant } from "../redux/reducers/restaurant";
 import { fetchAllergies } from "../redux/reducers/allergy";
@@ -78,6 +79,7 @@ const Restaurant = ({
           }
         />
       </FloatingLabel>
+
       {allergies.map((allergy) => (
         <Form.Check
           inline

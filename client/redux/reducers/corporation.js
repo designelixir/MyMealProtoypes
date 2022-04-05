@@ -43,14 +43,20 @@ export const createCorporation = createAsyncThunk(
 
 export const createRestaurant = createAsyncThunk(
   "corporation/createRestaurant",
-  async ({ restaurantName, corporationId }) => {
+  async ({ body, corporationId }) => {
     const { data } = await axios.post(
       `/api/corporations/${corporationId}/restaurants`,
-      {
-        name: restaurantName,
-        corporationId,
-      }
+      body
     );
+
+    return data;
+  }
+);
+
+export const uploadFiles = createAsyncThunk(
+  "corporation/uploadFiles",
+  async (body) => {
+    const { data } = await axios.post(`/api/corporations/upload`, body);
 
     return data;
   }

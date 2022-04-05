@@ -22,6 +22,7 @@ const restaurantIncluder = {
 };
 
 const menuIncluder = {
+  order: [[Category, "position", "ASC"]],
   include: [Allergy, Category, { model: Restaurant, ...restaurantIncluder }],
 };
 
@@ -34,6 +35,7 @@ const menuitemIncluder = {
 };
 
 const categoryIncluder = {
+  order: [["position", "ASC"]],
   include: [
     {
       model: MenuItem,

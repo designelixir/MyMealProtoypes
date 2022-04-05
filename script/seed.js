@@ -38,41 +38,41 @@ async function seed() {
     returning: true,
   });
 
-  const allAllergyTypes = await AllergyType.bulkCreate(allergy_type_seed_data, {
-    returning: true,
-  });
+  // const allAllergyTypes = await AllergyType.bulkCreate(allergy_type_seed_data, {
+  //   returning: true,
+  // });
 
-  const allMenuItems = await MenuItem.bulkCreate(menu_item_seed_data, {
-    returning: true,
-  });
+  // const allMenuItems = await MenuItem.bulkCreate(menu_item_seed_data, {
+  //   returning: true,
+  // });
 
-  const allPriceTypes = await PriceType.bulkCreate(price_type_seed_data, {
-    returning: true,
-  });
+  // const allPriceTypes = await PriceType.bulkCreate(price_type_seed_data, {
+  //   returning: true,
+  // });
 
-  const [admin] = allUsers;
+  // const [admin] = allUsers;
 
-  const [shellfish, soy, peanuts, garlic, egg, dairy] = allAllergies;
+  // const [shellfish, soy, peanuts, garlic, egg, dairy] = allAllergies;
 
-  const [unsafe, cross, mod] = allAllergyTypes;
+  // const [unsafe, cross, mod] = allAllergyTypes;
 
-  const [ham, cheese, bacon] = allMenuItems;
+  // const [ham, cheese, bacon] = allMenuItems;
 
-  await unsafe.setAllergy(shellfish);
-  await cross.setAllergy(soy);
-  await mod.setAllergy(peanuts);
+  // await unsafe.setAllergy(shellfish);
+  // await cross.setAllergy(soy);
+  // await mod.setAllergy(peanuts);
 
-  await ham.addAllergytypes([unsafe, cross, mod]);
+  // await ham.addAllergytypes([unsafe, cross, mod]);
 
-  // await cheese.addAllergytype(cross);
+  // // await cheese.addAllergytype(cross);
 
-  // await cheese.addAllergytype(mod);
+  // // await cheese.addAllergytype(mod);
 
-  await ham.getAllergytypes({ include: [Allergy] }).then((allergyTypes) => {
-    allergyTypes.forEach(({ allergy, type }) => {
-      console.log(allergy.name, type);
-    });
-  });
+  // await ham.getAllergytypes({ include: [Allergy] }).then((allergyTypes) => {
+  //   allergyTypes.forEach(({ allergy, type }) => {
+  //     console.log(allergy.name, type);
+  //   });
+  // });
 }
 
 /*

@@ -17,7 +17,7 @@ const {
 } = require("../db");
 const { corporationIncluder } = require("./utils/includers");
 
-const { requireToken, isAdmin } = require("./utils/middleware");
+const { requireToken, isAdmin, upload } = require("./utils/middleware");
 
 /**
  * GET /
@@ -75,5 +75,20 @@ router.post(
     }
   }
 );
-
+//upload.single("file")
+router.post("/upload", requireToken, upload, async (req, res, next) => {
+  try {
+    console.log(req.body);
+    // const { listingData } = req.body;
+    // const listing = await Listing.create(JSON.parse(listingData));
+    // await listing.setUser(req.user);
+    // for (file of req.files) {
+    //   const image = await Image.create({ url: file.location });
+    //   await listing.addImage(image);
+    // }
+    res.sendStatus(200);
+  } catch (err) {
+    next(err);
+  }
+});
 module.exports = router;

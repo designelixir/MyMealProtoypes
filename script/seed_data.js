@@ -30,11 +30,6 @@ module.exports = {
       crossDescription: "is crossed",
     },
     {
-      type: "Cross Contaminated",
-      modDescription: "crossed",
-      crossDescription: "is crossed",
-    },
-    {
       type: "Modifiable",
       modDescription: "can mod",
       crossDescription: "is crossed",

@@ -51,8 +51,10 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
       thing[id] = {
         type: "Safe",
         cross: false,
+        crossMod: false,
         modDescription: "",
         crossDescription: "",
+        crossModDescription: "",
       };
     }
     setAllergyTypes(thing);
@@ -65,6 +67,13 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
         ...allergyTypes[allergyId],
         [name]: value,
         cross: false,
+        crossMod: false,
+      };
+    } else if (name === "cross" && value === false) {
+      newValues = {
+        ...allergyTypes[allergyId],
+        [name]: value,
+        crossMod: false,
       };
     } else {
       newValues = {
@@ -280,13 +289,30 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
                     <Col>
                       <Form.Check
                         inline
-                        label="Cross Contaminated"
+                        label="Cross Contact"
                         disabled={allergyTypes[allergy.id].type === "Unsafe"}
                         name={allergy.name}
                         type="checkbox"
                         checked={allergyTypes[allergy.id].cross}
                         onChange={({ target: { checked } }) =>
                           handleChangeAllergyTypes(allergy.id, "cross", checked)
+                        }
+                      />
+                    </Col>
+                    <Col>
+                      <Form.Check
+                        inline
+                        label="Cross Contact Modifiable"
+                        disabled={!allergyTypes[allergy.id].cross}
+                        name={allergy.name}
+                        type="checkbox"
+                        checked={allergyTypes[allergy.id].crossMod}
+                        onChange={({ target: { checked } }) =>
+                          handleChangeAllergyTypes(
+                            allergy.id,
+                            "crossMod",
+                            checked
+                          )
                         }
                       />
                     </Col>
@@ -306,14 +332,32 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
                         />
                       </Col>
                     )}
+                  </Row>
+                  <Row>
                     {allergyTypes[allergy.id].cross && (
                       <Col>
                         <Form.Control
                           as="textarea"
                           name="crossDescription"
-                          placeholder="Cross Contamination Procedure"
+                          placeholder="Cross Contact Procedure"
                           rows={3}
                           value={allergyTypes[allergy.id].crossDescription}
+                          onChange={({ target: { value, name } }) =>
+                            handleChangeAllergyTypes(allergy.id, name, value)
+                          }
+                        />
+                      </Col>
+                    )}
+                  </Row>
+                  <Row>
+                    {allergyTypes[allergy.id].crossMod && (
+                      <Col>
+                        <Form.Control
+                          as="textarea"
+                          name="crossModDescription"
+                          placeholder="Cross Contact Modification Procedure"
+                          rows={3}
+                          value={allergyTypes[allergy.id].crossModDescription}
                           onChange={({ target: { value, name } }) =>
                             handleChangeAllergyTypes(allergy.id, name, value)
                           }

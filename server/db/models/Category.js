@@ -6,6 +6,10 @@ const Category = db.define("category", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  position: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
 });
 
 module.exports = Category;

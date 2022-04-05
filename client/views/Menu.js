@@ -10,21 +10,59 @@ import {
   Breadcrumb,
 } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
-import { createCategory, fetchMenu } from "../redux/reducers/menu";
+import {
+  createCategory,
+  fetchMenu,
+  swapCategoryOrder,
+} from "../redux/reducers/menu";
 import { fetchCorporation } from "../redux/reducers/corporation";
 import { fetchRestaurant } from "../redux/reducers/restaurant";
 
-const Menu = ({ getData, match, isLoading, menu, addCategory }) => {
+const Menu = ({
+  getMenu,
+  match,
+  isLoading,
+  menu,
+  addCategory,
+  swapCategories,
+}) => {
   const history = useHistory();
   const { restaurantId, corporationId, menuId } = match.params;
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
-    getData({ menuId, restaurantId, corporationId });
+    getMenu({
+      menuId,
+      cb(menu) {
+        setCategories(menu.categories);
+      },
+    });
   }, []);
 
   const [categoryName, setCategoryName] = useState("");
   const handleNewCategory = () => {
     setCategoryName("");
-    addCategory({ menuId, body: { name: categoryName, menuId } });
+    addCategory({
+      menuId,
+      body: { name: categoryName, position: categories.length, menuId },
+      cb(menu) {
+        setCategories(menu.categories);
+      },
+    });
+  };
+  const handleReposition = (idx, moveTo) => {
+    swapCategories({
+      menuId,
+      body: {
+        categoryOne: { id: categories[idx].id, position: idx + moveTo },
+        categoryTwo: { id: categories[idx + moveTo].id, position: idx },
+      },
+    });
+    const newCats = [...categories];
+    [newCats[idx], newCats[idx + moveTo]] = [
+      newCats[idx + moveTo],
+      newCats[idx],
+    ];
+    setCategories(newCats);
   };
   if (isLoading) {
     return <></>;
@@ -79,17 +117,35 @@ const Menu = ({ getData, match, isLoading, menu, addCategory }) => {
           </Row>
         </Col>
       </Row>
-
-      {menu.categories &&
-        menu.categories.map((category) => (
-          <Container>
-            <Link
-              to={`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${category.id}`}
+      {categories.map((category, idx) => (
+        <Container key={category.id}>
+          <Link
+            to={`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${category.id}`}
+          >
+            {category.name}
+          </Link>
+          {idx !== 0 && (
+            <Button
+              variant="Link"
+              onClick={() => {
+                handleReposition(idx, -1);
+              }}
             >
-              {category.name}
-            </Link>
-          </Container>
-        ))}
+              up
+            </Button>
+          )}
+          {idx !== categories.length - 1 && (
+            <Button
+              variant="Link"
+              onClick={() => {
+                handleReposition(idx, 1);
+              }}
+            >
+              down
+            </Button>
+          )}
+        </Container>
+      ))}
     </Container>
   );
 };
@@ -104,10 +160,13 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    getData({ menuId, restaurantId, corporationId }) {
-      dispatch(fetchMenu(menuId));
+    getMenu({ menuId, cb }) {
+      dispatch(fetchMenu({ menuId, cb }));
       // dispatch(fetchRestaurant(restaurantId));
       // dispatch(fetchCorporation(corporationId));
+    },
+    swapCategories(data) {
+      dispatch(swapCategoryOrder(data));
     },
     addCategory(data) {
       dispatch(createCategory(data));
