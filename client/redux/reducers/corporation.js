@@ -39,6 +39,18 @@ export const createCorporation = createAsyncThunk(
   }
 );
 
+export const updateCorporation = createAsyncThunk(
+  "corporation/updateCorporation",
+  async ({ corporationId, body }) => {
+    const { data } = await axios.put(
+      `/api/corporations/${corporationId}`,
+      body
+    );
+
+    return data;
+  }
+);
+
 export const createRestaurant = createAsyncThunk(
   "corporation/createRestaurant",
   async ({ body, corporationId }) => {
@@ -111,6 +123,11 @@ const corporationSlice = createSlice({
       })
       .addCase(createCorporation.fulfilled, (state, action) => {
         state.corporations = [...state.corporations, action.payload];
+        state.isLoading = false;
+        state.hasError = false;
+      })
+      .addCase(updateCorporation.fulfilled, (state, action) => {
+        state.corporation = action.payload;
         state.isLoading = false;
         state.hasError = false;
       });

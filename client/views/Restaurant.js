@@ -15,6 +15,9 @@ import { Link, useHistory } from "react-router-dom";
 import { createMenu, fetchRestaurant } from "../redux/reducers/restaurant";
 import { fetchAllergies } from "../redux/reducers/allergy";
 import { fetchCorporation } from "../redux/reducers/corporation";
+import CreateNewMenu from "./modals/CreateNewMenu";
+import Divider from "./components/Divider";
+import EditRestaurant from "./modals/EditRestaurant";
 
 const Restaurant = ({
   getData,
@@ -66,41 +69,16 @@ const Restaurant = ({
 
         <Breadcrumb.Item active>{restaurant.name}</Breadcrumb.Item>
       </Breadcrumb>
-      <h1>{restaurant.name}</h1>
 
-      <h2>Create Menu</h2>
-      <FloatingLabel label="Name" className="d-flex mb-3">
-        <Form.Control
-          type="text"
-          name="name"
-          value={menuData.name}
-          onChange={({ target: { value } }) =>
-            setMenuData({ ...menuData, name: value })
-          }
-        />
-      </FloatingLabel>
-
-      {allergies.map((allergy) => (
-        <Form.Check
-          inline
-          type="checkbox"
-          label={allergy.name}
-          name={allergy.name}
-          id={allergy.id}
-          checked={menuData.allergyIds[allergy.id] === true}
-          onChange={({ target: { id, checked } }) =>
-            setMenuData({
-              ...menuData,
-              allergyIds: {
-                ...menuData.allergyIds,
-                [id]: checked,
-              },
-            })
-          }
-        />
-      ))}
-      <Button onClick={handleCreateMenu}>Create Menu</Button>
-      <h2>Menus</h2>
+      <Row className="d-flex justify-content-start align-items-center">
+        <h1 style={{ width: "fit-content" }}>{restaurant.name}</h1>
+        <EditRestaurant restaurant={restaurant} />
+      </Row>
+      <Divider />
+      <Row className="d-flex justify-content-start align-items-center">
+        <h3 style={{ width: "fit-content" }}>Menus</h3>
+        <CreateNewMenu restaurantId={restaurantId} allergies={allergies} />
+      </Row>
       {restaurant.menus &&
         restaurant.menus.map((menu) => (
           <Container>

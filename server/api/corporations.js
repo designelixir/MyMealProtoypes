@@ -36,6 +36,18 @@ router.get("/:corporationId", requireToken, async (req, res, next) => {
     const { corporationId } = req.params;
     res.json(await Corporation.findByPk(corporationId, corporationIncluder));
   } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
+
+router.put("/:corporationId", requireToken, async (req, res, next) => {
+  try {
+    const { corporationId } = req.params;
+    await Corporation.update(req.body, { where: { id: corporationId } });
+    res.json(await Corporation.findByPk(corporationId, corporationIncluder));
+  } catch (err) {
+    console.log(err);
     next(err);
   }
 });

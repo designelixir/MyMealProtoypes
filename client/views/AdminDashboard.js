@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Container, Row, Col, Button, Form, Breadcrumb } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Form,
+  Breadcrumb,
+  ListGroup,
+  ListGroupItem,
+} from "react-bootstrap";
 import {
   createCorporation,
   fetchCorporations,
@@ -35,18 +44,23 @@ const AdminDashboard = ({ getCorporations, corporations, addCorporation }) => {
         <h1 style={{ width: "fit-content" }}>Corporations</h1>
         <CreateNewCorporation />
       </Row>
-      {corporations.map((corporation) => (
-        <Row>
-          <Col>
-            <Link to={`corporations/${corporation.id}`}>
-              {corporation.name}
-            </Link>
-          </Col>
-          <Col>
-            <InviteUser corporation={corporation} />
-          </Col>
-        </Row>
-      ))}
+
+      <ListGroup>
+        {corporations.map((corporation) => (
+          <ListGroupItem>
+            <Row>
+              <Col>
+                <Link to={`corporations/${corporation.id}`}>
+                  {corporation.name}
+                </Link>
+              </Col>
+              <Col>
+                <InviteUser corporation={corporation} />
+              </Col>
+            </Row>
+          </ListGroupItem>
+        ))}
+      </ListGroup>
     </Container>
   );
 };

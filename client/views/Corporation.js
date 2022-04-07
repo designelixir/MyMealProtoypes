@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchCorporation } from "../redux/reducers/corporation";
-import { Container, Row, Col, Form, Button, Breadcrumb } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Breadcrumb,
+  ListGroup,
+  ListGroupItem,
+} from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import CreateNewRestaurant from "./modals/CreateNewRestaurant";
+import Divider from "./components/Divider";
+import EditCorporation from "./modals/EditCorporation";
 export const Corporation = ({
   getCorporation,
-  uploadImages,
   match,
   isLoading,
   corporation,
-  addRestaurant,
 }) => {
   const history = useHistory();
   const { corporationId } = match.params;
@@ -33,8 +42,11 @@ export const Corporation = ({
 
         <Breadcrumb.Item active>{corporation.name}</Breadcrumb.Item>
       </Breadcrumb>
-      <h1>{corporation.name}</h1>
-
+      <Row className="d-flex justify-content-start align-items-center">
+        <h1 style={{ width: "fit-content" }}>{corporation.name}</h1>
+        <EditCorporation corporation={corporation} />
+      </Row>
+      <Divider />
       <Row className="d-flex justify-content-start align-items-center">
         <h3 style={{ width: "fit-content" }}>Restaurants</h3>
         <CreateNewRestaurant
@@ -42,28 +54,35 @@ export const Corporation = ({
           corporationCCP={corporation.crossContactProcedure}
         />
       </Row>
-      {corporation.restaurants &&
-        corporation.restaurants.map((restaurant) => (
-          <Container
-            onClick={() =>
-              history.push(
-                `/corporations/${corporationId}/restaurants/${restaurant.id}`
-              )
-            }
-            style={{ cursor: "pointer" }}
-          >
-            <Row className="d-flex align-items-center">
-              <Col lg={1} className="d-flex align-items-center">
-                <img
-                  style={{ width: "auto", height: 50 }}
-                  src={restaurant.logo ? restaurant.logo.url : ""}
-                  className="img-fluid rounded shadow"
-                />
-              </Col>
-              <Col>{restaurant.name}</Col>
-            </Row>
-          </Container>
-        ))}
+      <ListGroup>
+        {corporation.restaurants &&
+          corporation.restaurants.map((restaurant) => (
+            <ListGroupItem>
+              <Container
+                onClick={() =>
+                  history.push(
+                    `/corporations/${corporationId}/restaurants/${restaurant.id}`
+                  )
+                }
+                style={{ cursor: "pointer" }}
+              >
+                <Row className="d-flex align-items-center">
+                  <Col
+                    lg={1}
+                    className="d-flex justify-content-center align-items-center"
+                  >
+                    <img
+                      style={{ width: "auto", height: 50 }}
+                      src={restaurant.logo ? restaurant.logo.url : ""}
+                      className="img-fluid rounded shadow"
+                    />
+                  </Col>
+                  <Col>{restaurant.name}</Col>
+                </Row>
+              </Container>
+            </ListGroupItem>
+          ))}
+      </ListGroup>
     </Container>
   );
 };

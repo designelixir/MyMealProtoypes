@@ -42,13 +42,15 @@ const upload = multer({
   }),
 }).array("file", 10);
 
-// const s3Client = () =>
-//   new aws.S3({
-//     endpoint: new aws.Endpoint("nyc3.digitaloceanspaces.com"),
-//   });
+const s3Client = () =>
+  new aws.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  });
 
 module.exports = {
   requireToken,
   isAdmin,
   upload,
+  s3Client,
 };

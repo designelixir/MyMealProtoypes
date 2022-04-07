@@ -11,6 +11,16 @@ export const fetchRestaurant = createAsyncThunk(
     return data;
   }
 );
+
+export const editRestaurant = createAsyncThunk(
+  "corporation/editRestaurant",
+  async ({ body, restaurantId }) => {
+    const { data } = await axios.put(`/api/restaurants/${restaurantId}`, body);
+
+    return data;
+  }
+);
+
 export const createMenu = createAsyncThunk(
   "restaurant/createMenu",
   async (body) => {
@@ -22,6 +32,19 @@ export const createMenu = createAsyncThunk(
     return data;
   }
 );
+
+export const removeImage = createAsyncThunk(
+  "restaurant/removeImage",
+  async ({ restaurantId, body }) => {
+    const { data } = await axios.put(
+      `/api/restaurants/${restaurantId}/images`,
+      body
+    );
+
+    return data;
+  }
+);
+
 const INIT_STATE = {
   restaurant: {},
   isLoading: true,
@@ -52,6 +75,11 @@ const restaurantSlice = createSlice({
         state = INIT_STATE;
       })
       .addCase(createMenu.fulfilled, (state, action) => {
+        state.restaurant = action.payload;
+        state.isLoading = false;
+        state.hasError = false;
+      })
+      .addCase(editRestaurant.fulfilled, (state, action) => {
         state.restaurant = action.payload;
         state.isLoading = false;
         state.hasError = false;

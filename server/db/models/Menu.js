@@ -6,6 +6,14 @@ const Menu = db.define("menu", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  dedicatedFrom: {
+    type: Sequelize.TEXT,
+    allowNull: true,
+  },
+  orderNow: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
 });
 
 module.exports = Menu;
