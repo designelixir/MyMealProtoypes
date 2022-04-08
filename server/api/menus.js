@@ -36,6 +36,53 @@ router.get("/:menuId", async (req, res, next) => {
   }
 });
 
+router.put("/:menuId", async (req, res, next) => {
+  try {
+    const { menuId } = req.params;
+    const { menuData, allergyIds } = req.body;
+
+    await Menu.findByPk(menuId, {
+      include: [
+        Allergy,
+        {
+          model: Category,
+          include: [
+            {
+              model: MenuItem,
+              include: [AllergyType],
+            },
+          ],
+        },
+      ],
+    }).then(async (menu) => {
+      const newAllergySet = new Set(allergyIds);
+
+      for (const category of menu.categories) {
+        for (const menuitem of category.menuitems) {
+          for (const allergytype of menuitem.allergytypes) {
+            if (!newAllergySet.has(String(allergytype.allergyId)))
+              await allergytype.destroy();
+          }
+        }
+      }
+
+      const currentAllergyIds = await menu.allergies.map(({ id }) => id);
+
+      for (const allergyId of currentAllergyIds) {
+        if (!newAllergySet.has(allergyId)) {
+          await menu.removeAllergy(allergyId);
+        }
+      }
+
+      await Promise.all([menu.addAllergies(allergyIds), menu.update(menuData)]);
+    });
+
+    res.json(await Menu.findByPk(menuId, menuIncluder));
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post("/", async (req, res, next) => {
   try {
     const { data, allergyIds } = req.body;

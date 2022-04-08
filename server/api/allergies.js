@@ -24,7 +24,16 @@ const { requireToken } = require("./utils/middleware");
  */
 router.get("/", async (req, res, next) => {
   try {
-    res.json(await Allergy.findAll());
+    res.json(await Allergy.findAll({ order: [["name", "ASC"]] }));
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/", async (req, res, next) => {
+  try {
+    await Allergy.create(req.body);
+    res.json(await Allergy.findAll({ order: [["name", "ASC"]] }));
   } catch (err) {
     next(err);
   }

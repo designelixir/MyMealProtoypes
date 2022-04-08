@@ -12,6 +12,15 @@ export const fetchAllergies = createAsyncThunk(
   }
 );
 
+export const createAllergy = createAsyncThunk(
+  "question/createAllergy",
+  async (body) => {
+    const { data } = await axios.post(`/api/allergies`, body);
+
+    return data;
+  }
+);
+
 const INIT_STATE = {
   allergies: [],
   isLoading: true,
@@ -40,6 +49,11 @@ const allergySlice = createSlice({
       })
       .addCase(fetchAllergies.rejected, (state, action) => {
         state = INIT_STATE;
+      })
+      .addCase(createAllergy.fulfilled, (state, action) => {
+        state.allergies = action.payload;
+        state.isLoading = false;
+        state.hasError = false;
       });
   },
 });

@@ -2,26 +2,33 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Button, Modal, Container, Form, Row } from "react-bootstrap";
 import { createMenu } from "../../redux/reducers/restaurant";
+import { updateMenu } from "../../redux/reducers/menu";
 
-const CreateNewMenu = ({ addMenu, allergies, restaurantId }) => {
+const EditMenu = ({ menu, editMenu, allergies }) => {
   const [modalShow, setModalShow] = useState(false);
   const [menuData, setMenuData] = useState({
-    name: "",
-    dedicatedFrom: "",
-    orderNow: "",
-    allergyIds: {},
+    name: menu.name,
+    dedicatedFrom: menu.dedicatedFrom,
+    orderNow: menu.orderNow,
+    allergyIds: menu.allergies.reduce((obj, { id }) => {
+      obj[id] = true;
+      return obj;
+    }, {}),
   });
   const handleChange = ({ target: { name, value } }) => {
     setMenuData({ ...menuData, [name]: value });
   };
-  const handleCreateMenu = () => {
+  const handleEditMenu = () => {
     const { name, dedicatedFrom, orderNow, allergyIds } = menuData;
-    addMenu({
-      data: { name, dedicatedFrom, orderNow, restaurantId },
-      allergyIds: Object.keys(allergyIds).reduce((ids, id) => {
-        if (allergyIds[id]) ids.push(id);
-        return ids;
-      }, []),
+    editMenu({
+      menuId: menu.id,
+      body: {
+        menuData: { name, dedicatedFrom, orderNow },
+        allergyIds: Object.keys(allergyIds).reduce((ids, id) => {
+          if (allergyIds[id]) ids.push(id);
+          return ids;
+        }, []),
+      },
     });
     setModalShow(false);
   };
@@ -33,7 +40,7 @@ const CreateNewMenu = ({ addMenu, allergies, restaurantId }) => {
         style={{ width: "fit-content" }}
         onClick={() => setModalShow(true)}
       >
-        Create
+        Edit
       </Button>
 
       <Modal
@@ -46,7 +53,7 @@ const CreateNewMenu = ({ addMenu, allergies, restaurantId }) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Create New Menu
+            Edit Menu
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -103,7 +110,7 @@ const CreateNewMenu = ({ addMenu, allergies, restaurantId }) => {
           </Container>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={handleCreateMenu}>Create</Button>
+          <Button onClick={handleEditMenu}>Update</Button>
           <Button onClick={() => setModalShow(false)}>Close</Button>
         </Modal.Footer>
       </Modal>
@@ -116,10 +123,10 @@ const mapState = (state) => {
 };
 const mapDispatch = (dispatch) => {
   return {
-    addMenu(data) {
-      dispatch(createMenu(data));
+    editMenu(data) {
+      dispatch(updateMenu(data));
     },
   };
 };
 
-export default connect(mapState, mapDispatch)(CreateNewMenu);
+export default connect(mapState, mapDispatch)(EditMenu);

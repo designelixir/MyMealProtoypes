@@ -25,6 +25,15 @@ export const createMenu = createAsyncThunk("menu/createMenu", async (body) => {
   return data;
 });
 
+export const updateMenu = createAsyncThunk(
+  "menu/updateMenu",
+  async ({ menuId, body }) => {
+    const { data } = await axios.put(`/api/menus/${menuId}`, body);
+
+    return data;
+  }
+);
+
 export const swapCategoryOrder = createAsyncThunk(
   "menu/swapCategoryOrder",
   async ({ menuId, body }) => {
@@ -88,6 +97,11 @@ const menuSlice = createSlice({
         state.hasError = false;
       })
       .addCase(createMenu.fulfilled, (state, action) => {
+        state.menu = action.payload;
+        state.isLoading = false;
+        state.hasError = false;
+      })
+      .addCase(updateMenu.fulfilled, (state, action) => {
         state.menu = action.payload;
         state.isLoading = false;
         state.hasError = false;

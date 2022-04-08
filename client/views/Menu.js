@@ -8,6 +8,8 @@ import {
   Form,
   FloatingLabel,
   Breadcrumb,
+  ListGroup,
+  ListGroupItem,
 } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import {
@@ -17,9 +19,14 @@ import {
 } from "../redux/reducers/menu";
 import { fetchCorporation } from "../redux/reducers/corporation";
 import { fetchRestaurant } from "../redux/reducers/restaurant";
+import Divider from "./components/Divider";
+import EditMenu from "./modals/EditMenu";
+import { fetchAllergies } from "../redux/reducers/allergy";
 
 const Menu = ({
   getMenu,
+  getAllergies,
+  allergies,
   match,
   isLoading,
   menu,
@@ -30,6 +37,7 @@ const Menu = ({
   const { restaurantId, corporationId, menuId } = match.params;
   const [categories, setCategories] = useState([]);
   useEffect(() => {
+    getAllergies();
     getMenu({
       menuId,
       cb(menu) {
@@ -95,8 +103,13 @@ const Menu = ({
 
         <Breadcrumb.Item active>{menu.name}</Breadcrumb.Item>
       </Breadcrumb>
-      <h1>{menu.name}</h1>
 
+      <Row className="d-flex justify-content-start align-items-center">
+        <h1 style={{ width: "fit-content" }}>{menu.name}</h1>
+        <EditMenu menu={menu} allergies={allergies} />
+      </Row>
+
+      <Divider />
       <Row>
         <Col>
           <h2>Categories</h2>
@@ -117,44 +130,60 @@ const Menu = ({
           </Row>
         </Col>
       </Row>
-      {categories.map((category, idx) => (
-        <Container key={category.id}>
-          <Link
-            to={`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${category.id}`}
+
+      <ListGroup>
+        {categories.map((category, idx) => (
+          <ListGroupItem
+            key={category.id}
+            className="d-flex justify-content-between align-items-center"
           >
-            {category.name}
-          </Link>
-          {idx !== 0 && (
-            <Button
-              variant="Link"
-              onClick={() => {
-                handleReposition(idx, -1);
-              }}
+            <Container
+              style={{ cursor: "pointer" }}
+              onClick={() =>
+                history.push(
+                  `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${category.id}`
+                )
+              }
             >
-              up
-            </Button>
-          )}
-          {idx !== categories.length - 1 && (
-            <Button
-              variant="Link"
-              onClick={() => {
-                handleReposition(idx, 1);
-              }}
-            >
-              down
-            </Button>
-          )}
-        </Container>
-      ))}
+              {category.name}
+            </Container>
+            <div className="d-flex">
+              {idx !== 0 && (
+                <Button
+                  variant="link"
+                  className="mr-3"
+                  onClick={() => {
+                    handleReposition(idx, -1);
+                  }}
+                >
+                  up
+                </Button>
+              )}
+              {idx !== categories.length - 1 && (
+                <Button
+                  variant="link"
+                  onClick={() => {
+                    handleReposition(idx, 1);
+                  }}
+                >
+                  down
+                </Button>
+              )}
+            </div>
+          </ListGroupItem>
+        ))}
+      </ListGroup>
     </Container>
   );
 };
 
 const mapState = (state) => {
   const { menu, isLoading } = state.menu;
+  const { allergies } = state.allergy;
   return {
     isLoading,
     menu,
+    allergies,
   };
 };
 
@@ -164,6 +193,9 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchMenu({ menuId, cb }));
       // dispatch(fetchRestaurant(restaurantId));
       // dispatch(fetchCorporation(corporationId));
+    },
+    getAllergies() {
+      dispatch(fetchAllergies());
     },
     swapCategories(data) {
       dispatch(swapCategoryOrder(data));

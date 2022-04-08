@@ -9,6 +9,8 @@ import {
   Button,
   FloatingLabel,
   Breadcrumb,
+  ListGroup,
+  ListGroupItem,
 } from "react-bootstrap";
 
 import { Link, useHistory } from "react-router-dom";
@@ -79,16 +81,23 @@ const Restaurant = ({
         <h3 style={{ width: "fit-content" }}>Menus</h3>
         <CreateNewMenu restaurantId={restaurantId} allergies={allergies} />
       </Row>
-      {restaurant.menus &&
-        restaurant.menus.map((menu) => (
-          <Container>
-            <Link
-              to={`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menu.id}`}
+
+      <ListGroup>
+        {restaurant.menus &&
+          restaurant.menus.map((menu) => (
+            <ListGroupItem
+              key={menu.id}
+              style={{ cursor: "pointer" }}
+              onClick={() =>
+                history.push(
+                  `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menu.id}`
+                )
+              }
             >
               {menu.name}
-            </Link>
-          </Container>
-        ))}
+            </ListGroupItem>
+          ))}
+      </ListGroup>
     </Container>
   );
 };

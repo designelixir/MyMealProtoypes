@@ -6,14 +6,14 @@ import {
   Col,
   Button,
   Form,
-  FloatingLabel,
   Breadcrumb,
+  ListGroup,
+  ListGroupItem,
 } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
-import { createCategory, fetchMenu } from "../redux/reducers/menu";
+import { useHistory } from "react-router-dom";
 import { createMenuItem, fetchCategory } from "../redux/reducers/category";
-import { fetchCorporation } from "../redux/reducers/corporation";
-import { fetchRestaurant } from "../redux/reducers/restaurant";
+import MenuItemForm from "./formComponents/MenuItemForm";
+import Divider from "./components/Divider";
 
 const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
   const history = useHistory();
@@ -150,7 +150,7 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
         <Breadcrumb.Item active>{category.name}</Breadcrumb.Item>
       </Breadcrumb>
       <h1>{category.name}</h1>
-
+      <Divider />
       <Row>
         <Col>
           <h2>Menu Items</h2>
@@ -165,209 +165,22 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
         </Col>
       </Row>
       {creating && (
-        <Container className="d-flex flex-column">
-          <Row>
-            <Col>
-              <Form.Control
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={menuItem.name}
-                onChange={handleChangeMenuItem}
-              />
-            </Col>
-            <Col>
-              <Form.Control
-                type="text"
-                name="image"
-                placeholder="Image"
-                value={menuItem.image}
-                onChange={handleChangeMenuItem}
-              />
-            </Col>
-            <Container>
-              <Form.Control
-                type="textarea"
-                as="textarea"
-                name="description"
-                placeholder="Description"
-                value={menuItem.description}
-                onChange={handleChangeMenuItem}
-              />
-            </Container>
-          </Row>
-          <Row>
-            <Col>
-              {["Single", "Variation"].map((type) => (
-                <Form.Check
-                  inline
-                  label={type}
-                  type="radio"
-                  value={type}
-                  checked={priceType === type}
-                  onChange={({ target: { value } }) => setPriceType(value)}
-                />
-              ))}
-            </Col>
-            <Container>
-              {priceType === "Single" ? (
-                <Form.Control
-                  type="number"
-                  name="price"
-                  placeholder="price"
-                  value={menuItem.price}
-                  onChange={handleChangeMenuItem}
-                />
-              ) : (
-                (() => {
-                  const pts = Object.values(priceTypes);
-                  return pts.map((pt, idx) => (
-                    <>
-                      <Row>
-                        <Col>
-                          <Form.Control
-                            type="text"
-                            name="type"
-                            placeholder="Type"
-                            value={pt.type}
-                            onChange={({ target: { name, value } }) =>
-                              handleChangePriceTypes({ name, value, idx })
-                            }
-                          />
-                        </Col>
-                        <Col>
-                          <Form.Control
-                            type="number"
-                            name="price"
-                            placeholder="Price"
-                            value={pt.price}
-                            onChange={({ target: { name, value } }) =>
-                              handleChangePriceTypes({ name, value, idx })
-                            }
-                          />
-                        </Col>
-                        {idx !== 0 && (
-                          <Col lg={1}>
-                            <Button onClick={() => handleRemovePriceTypes(idx)}>
-                              -
-                            </Button>
-                          </Col>
-                        )}
-                      </Row>
-                      {idx === pts.length - 1 && (
-                        <Button onClick={() => handleAddPriceTypes(pts.length)}>
-                          +
-                        </Button>
-                      )}
-                    </>
-                  ));
-                })()
-              )}
-            </Container>
-          </Row>
-          <Container className="d-flex flex-column">
-            {category.menu &&
-              category.menu.allergies.map((allergy) => (
-                <Container>
-                  <Row>
-                    <Col>{allergy.name}</Col>
-                    <Col>
-                      {["Safe", "Modifiable", "Unsafe"].map((type) => (
-                        <Form.Check
-                          inline
-                          label={type}
-                          name={allergy.name}
-                          type="radio"
-                          value={type}
-                          checked={allergyTypes[allergy.id].type === type}
-                          onChange={() =>
-                            handleChangeAllergyTypes(allergy.id, "type", type)
-                          }
-                        />
-                      ))}
-                    </Col>
-                    <Col>
-                      <Form.Check
-                        inline
-                        label="Cross Contact"
-                        disabled={allergyTypes[allergy.id].type === "Unsafe"}
-                        name={allergy.name}
-                        type="checkbox"
-                        checked={allergyTypes[allergy.id].cross}
-                        onChange={({ target: { checked } }) =>
-                          handleChangeAllergyTypes(allergy.id, "cross", checked)
-                        }
-                      />
-                    </Col>
-                    <Col>
-                      <Form.Check
-                        inline
-                        label="Cross Contact Modifiable"
-                        disabled={!allergyTypes[allergy.id].cross}
-                        name={allergy.name}
-                        type="checkbox"
-                        checked={allergyTypes[allergy.id].crossMod}
-                        onChange={({ target: { checked } }) =>
-                          handleChangeAllergyTypes(
-                            allergy.id,
-                            "crossMod",
-                            checked
-                          )
-                        }
-                      />
-                    </Col>
-                  </Row>
-                  <Row>
-                    {allergyTypes[allergy.id].type === "Modifiable" && (
-                      <Col>
-                        <Form.Control
-                          as="textarea"
-                          name="modDescription"
-                          placeholder="Modification Description"
-                          rows={3}
-                          value={allergyTypes[allergy.id].modDescription}
-                          onChange={({ target: { value, name } }) =>
-                            handleChangeAllergyTypes(allergy.id, name, value)
-                          }
-                        />
-                      </Col>
-                    )}
-                  </Row>
-                  <Row>
-                    {allergyTypes[allergy.id].cross && (
-                      <Col>
-                        <Form.Control
-                          as="textarea"
-                          name="crossDescription"
-                          placeholder="Cross Contact Procedure"
-                          rows={3}
-                          value={allergyTypes[allergy.id].crossDescription}
-                          onChange={({ target: { value, name } }) =>
-                            handleChangeAllergyTypes(allergy.id, name, value)
-                          }
-                        />
-                      </Col>
-                    )}
-                  </Row>
-                  <Row>
-                    {allergyTypes[allergy.id].crossMod && (
-                      <Col>
-                        <Form.Control
-                          as="textarea"
-                          name="crossModDescription"
-                          placeholder="Cross Contact Modification Procedure"
-                          rows={3}
-                          value={allergyTypes[allergy.id].crossModDescription}
-                          onChange={({ target: { value, name } }) =>
-                            handleChangeAllergyTypes(allergy.id, name, value)
-                          }
-                        />
-                      </Col>
-                    )}
-                  </Row>
-                </Container>
-              ))}
-          </Container>
+        <>
+          <MenuItemForm
+            {...{
+              menuItem,
+              handleChangeMenuItem,
+              priceType,
+              setPriceType,
+              priceTypes,
+              handleChangePriceTypes,
+              handleAddPriceTypes,
+              handleRemovePriceTypes,
+              allergyTypes,
+              handleChangeAllergyTypes,
+            }}
+            menuitemAllergies={category.menu ? category.menu.allergies : []}
+          />
           <Row>
             <Col>
               <Button
@@ -385,18 +198,25 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
               <Button onClick={resetMenuItem}>Cancel</Button>
             </Col>
           </Row>
-        </Container>
+        </>
       )}
-      {category.menuitems &&
-        category.menuitems.map((menuitem) => (
-          <Container>
-            <Link
-              to={`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}/menuitems/${menuitem.id}`}
+
+      <ListGroup>
+        {category.menuitems &&
+          category.menuitems.map((menuitem) => (
+            <ListGroupItem
+              key={menuitem.id}
+              style={{ cursor: "pointer" }}
+              onClick={() =>
+                history.push(
+                  `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}/menuitems/${menuitem.id}`
+                )
+              }
             >
               {menuitem.name}
-            </Link>
-          </Container>
-        ))}
+            </ListGroupItem>
+          ))}
+      </ListGroup>
     </Container>
   );
 };

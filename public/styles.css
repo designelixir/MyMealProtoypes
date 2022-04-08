@@ -23,3 +23,6 @@ input.close {
 .hover:hover {
   border: 1px solid white;
 }
+.menu-item-allergytype:hover {
+  background-color: lightgray;
+}
