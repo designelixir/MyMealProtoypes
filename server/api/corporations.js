@@ -76,11 +76,9 @@ router.post(
   async (req, res, next) => {
     try {
       const { corporationId } = req.params;
-      console.log(req.body);
-      console.log(req.files);
+
       const restaurantData = JSON.parse(req.body.restaurantData);
       const [logo, bg] = req.files;
-      console.log(restaurantData, logo, bg);
 
       const restaurant = await Restaurant.create(restaurantData);
       await Promise.all([

@@ -4,6 +4,7 @@ const {
     User,
     Corporation,
     Restaurant,
+    Location,
     Image,
     Menu,
     Allergy,
@@ -20,6 +21,7 @@ const restaurantIncluder = {
     { model: Image, as: "bg" },
     Corporation,
     Menu,
+    Location,
   ],
 };
 
@@ -50,10 +52,14 @@ const categoryIncluder = {
   ],
 };
 
+const locationIncluder = {
+  include: [{ model: Menu, ...menuIncluder }],
+};
 module.exports = {
   corporationIncluder,
   restaurantIncluder,
   menuIncluder,
+  locationIncluder,
   categoryIncluder,
   menuitemIncluder,
 };

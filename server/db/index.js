@@ -35,7 +35,8 @@ Restaurant.hasOne(Image, { as: "bg", foreignKey: "bgRestaurant" });
 Restaurant.hasMany(Menu);
 Menu.belongsTo(Restaurant);
 
-Menu.belongsToMany(Location, { through: "location-menu" });
+Menu.hasMany(Location);
+Location.belongsTo(Menu);
 
 Menu.belongsToMany(Allergy, { through: "menu-allergies" });
 

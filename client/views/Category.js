@@ -206,6 +206,7 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
           category.menuitems.map((menuitem) => (
             <ListGroupItem
               key={menuitem.id}
+              action
               style={{ cursor: "pointer" }}
               onClick={() =>
                 history.push(

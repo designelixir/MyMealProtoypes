@@ -4,6 +4,7 @@ router.use("/allergies", require("./allergies"));
 router.use("/menus", require("./menus"));
 router.use("/corporations", require("./corporations"));
 router.use("/restaurants", require("./restaurants"));
+router.use("/locations", require("./locations"));
 router.use("/categories", require("./categories"));
 router.use("/menuitems", require("./menuitems"));
 router.use("/invitations", require("./invitations"));

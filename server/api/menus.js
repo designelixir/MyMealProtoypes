@@ -9,6 +9,7 @@ const {
     Restaurant,
     Location,
     Menu,
+    PriceType,
     Category,
     MenuItem,
     Allergy,
@@ -17,7 +18,8 @@ const {
 } = require("../db");
 
 const { menuIncluder } = require("./utils/includers");
-const { requireToken } = require("./utils/middleware");
+const { requireToken, uploadCSV } = require("./utils/middleware");
+const csvParser = require("./utils/csv/menu");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -42,29 +44,9 @@ router.put("/:menuId", async (req, res, next) => {
     const { menuData, allergyIds } = req.body;
 
     await Menu.findByPk(menuId, {
-      include: [
-        Allergy,
-        {
-          model: Category,
-          include: [
-            {
-              model: MenuItem,
-              include: [AllergyType],
-            },
-          ],
-        },
-      ],
+      include: [Allergy],
     }).then(async (menu) => {
       const newAllergySet = new Set(allergyIds);
-
-      for (const category of menu.categories) {
-        for (const menuitem of category.menuitems) {
-          for (const allergytype of menuitem.allergytypes) {
-            if (!newAllergySet.has(String(allergytype.allergyId)))
-              await allergytype.destroy();
-          }
-        }
-      }
 
       const currentAllergyIds = await menu.allergies.map(({ id }) => id);
 
@@ -82,6 +64,46 @@ router.put("/:menuId", async (req, res, next) => {
     next(err);
   }
 });
+
+router.post(
+  "/upload-csv/:menuId/:startingPosition",
+  uploadCSV.single("file"),
+  async (req, res, next) => {
+    try {
+      const { menuId, startingPosition } = req.params;
+      const data = await csvParser(req.file.path);
+      const categoriesNames = Object.keys(data);
+      let position = parseInt(startingPosition);
+      for (const categoryName of categoriesNames) {
+        const category = await Category.create({
+          name: categoryName,
+          position: position++,
+          menuId,
+        });
+        const menuitemNames = Object.keys(data[categoryName]);
+        for (const menuitemName of menuitemNames) {
+          const { description, priceType, priceDetails } =
+            data[categoryName][menuitemName];
+          const menuitem = await MenuItem.create({
+            name: menuitemName,
+            description,
+            type: priceType,
+            price: priceType === "Single" ? priceDetails : 0,
+            categoryId: category.id,
+          });
+          if (priceType === "Variation") {
+            for (const pt of Object.values(priceDetails)) {
+              await PriceType.create({ ...pt, menuitemId: menuitem.id });
+            }
+          }
+        }
+      }
+      res.json(await Menu.findByPk(menuId, menuIncluder));
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 router.post("/", async (req, res, next) => {
   try {
@@ -135,7 +157,6 @@ router.put("/:menuId/categories/swap", async (req, res, next) => {
  */
 router.post("/items", async (req, res, next) => {
   try {
-    console.log(req.body);
     const { menuItemData, allergyTypes } = req.body;
     const menuItem = await MenuItem.create(menuItemData);
     const menuItemAllergies = [];

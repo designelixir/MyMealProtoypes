@@ -14,12 +14,17 @@ import {
 } from "react-bootstrap";
 
 import { Link, useHistory } from "react-router-dom";
-import { createMenu, fetchRestaurant } from "../redux/reducers/restaurant";
+import {
+  createMenu,
+  duplicateMenu,
+  fetchRestaurant,
+} from "../redux/reducers/restaurant";
 import { fetchAllergies } from "../redux/reducers/allergy";
 import { fetchCorporation } from "../redux/reducers/corporation";
 import CreateNewMenu from "./modals/CreateNewMenu";
 import Divider from "./components/Divider";
 import EditRestaurant from "./modals/EditRestaurant";
+import CreateNewLocation from "./modals/CreateNewLocation";
 
 const Restaurant = ({
   getData,
@@ -28,6 +33,7 @@ const Restaurant = ({
   match,
   restaurant,
   addMenu,
+  newMenu,
 }) => {
   const history = useHistory();
   const { restaurantId, corporationId } = match.params;
@@ -82,19 +88,54 @@ const Restaurant = ({
         <CreateNewMenu restaurantId={restaurantId} allergies={allergies} />
       </Row>
 
-      <ListGroup>
+      <ListGroup className="mb-3">
         {restaurant.menus &&
           restaurant.menus.map((menu) => (
             <ListGroupItem
               key={menu.id}
+              className="d-flex justify-content-between"
+            >
+              <Container
+                style={{ cursor: "pointer" }}
+                onClick={() =>
+                  history.push(
+                    `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menu.id}`
+                  )
+                }
+              >
+                {menu.name}
+              </Container>
+              <Button
+                onClick={() => newMenu({ restaurantId, menuId: menu.id })}
+              >
+                Duplicate
+              </Button>
+            </ListGroupItem>
+          ))}
+      </ListGroup>
+
+      <Row className="d-flex justify-content-start align-items-center">
+        <h3 style={{ width: "fit-content" }}>Locations</h3>
+        <CreateNewLocation
+          restaurantId={restaurantId}
+          restaurantCCP={restaurant.crossContactProcedure}
+          restaurantMenus={restaurant.menus}
+        />
+      </Row>
+
+      <ListGroup>
+        {restaurant.locations &&
+          restaurant.locations.map((location) => (
+            <ListGroupItem
+              key={location.id}
               style={{ cursor: "pointer" }}
               onClick={() =>
                 history.push(
-                  `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menu.id}`
+                  `/corporations/${corporationId}/restaurants/${restaurantId}/locations/${location.id}`
                 )
               }
             >
-              {menu.name}
+              {location.address}
             </ListGroupItem>
           ))}
       </ListGroup>
@@ -121,6 +162,9 @@ const mapDispatch = (dispatch) => {
     },
     addMenu(data) {
       dispatch(createMenu(data));
+    },
+    newMenu(data) {
+      dispatch(duplicateMenu(data));
     },
   };
 };

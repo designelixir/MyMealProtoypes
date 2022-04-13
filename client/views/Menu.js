@@ -16,12 +16,15 @@ import {
   createCategory,
   fetchMenu,
   swapCategoryOrder,
+  uploadCSVFile,
 } from "../redux/reducers/menu";
 import { fetchCorporation } from "../redux/reducers/corporation";
 import { fetchRestaurant } from "../redux/reducers/restaurant";
 import Divider from "./components/Divider";
 import EditMenu from "./modals/EditMenu";
 import { fetchAllergies } from "../redux/reducers/allergy";
+import CreateNewLocation from "./modals/CreateNewLocation";
+import CreateNewCategory from "./modals/CreateNewCategory";
 
 const Menu = ({
   getMenu,
@@ -30,12 +33,13 @@ const Menu = ({
   match,
   isLoading,
   menu,
-  addCategory,
+
   swapCategories,
 }) => {
   const history = useHistory();
   const { restaurantId, corporationId, menuId } = match.params;
   const [categories, setCategories] = useState([]);
+
   useEffect(() => {
     getAllergies();
     getMenu({
@@ -46,17 +50,6 @@ const Menu = ({
     });
   }, []);
 
-  const [categoryName, setCategoryName] = useState("");
-  const handleNewCategory = () => {
-    setCategoryName("");
-    addCategory({
-      menuId,
-      body: { name: categoryName, position: categories.length, menuId },
-      cb(menu) {
-        setCategories(menu.categories);
-      },
-    });
-  };
   const handleReposition = (idx, moveTo) => {
     swapCategories({
       menuId,
@@ -110,31 +103,22 @@ const Menu = ({
       </Row>
 
       <Divider />
-      <Row>
-        <Col>
-          <h2>Categories</h2>
-        </Col>
-        <Col>
-          <Row>
-            <Col>
-              <Form.Control
-                type="text"
-                value={categoryName}
-                placeholder="Name"
-                onChange={({ target: { value } }) => setCategoryName(value)}
-              />
-            </Col>
-            <Col>
-              <Button onClick={handleNewCategory}>Add New</Button>
-            </Col>
-          </Row>
-        </Col>
+      <Row className="d-flex justify-content-start align-items-center">
+        <h2 style={{ width: "fit-content" }}>Categories</h2>
+        <CreateNewCategory
+          {...{
+            menuId,
+            categories,
+            setCategories,
+          }}
+        />
       </Row>
 
       <ListGroup>
         {categories.map((category, idx) => (
           <ListGroupItem
             key={category.id}
+            action
             className="d-flex justify-content-between align-items-center"
           >
             <Container
@@ -199,9 +183,6 @@ const mapDispatch = (dispatch) => {
     },
     swapCategories(data) {
       dispatch(swapCategoryOrder(data));
-    },
-    addCategory(data) {
-      dispatch(createCategory(data));
     },
   };
 };

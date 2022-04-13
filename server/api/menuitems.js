@@ -46,10 +46,7 @@ router.put("/:menuitemId", requireToken, async (req, res, next) => {
         await PriceType.create({ ...pt, menuitemId });
       }
     }
-    console.log(
-      mi.allergytypes.map(({ id }) => id),
-      allergyTypes
-    );
+
     await Promise.all(mi.allergytypes.map((at) => at.destroy()));
     const menuItemAllergies = [];
     for (const allergyId in allergyTypes) {

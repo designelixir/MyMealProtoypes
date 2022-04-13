@@ -33,6 +33,29 @@ export const createMenu = createAsyncThunk(
   }
 );
 
+export const duplicateMenu = createAsyncThunk(
+  "restaurant/duplicateMenu",
+  async ({ restaurantId, menuId }) => {
+    const { data } = await axios.post(
+      `/api/restaurants/${restaurantId}/menus/${menuId}`
+    );
+
+    return data;
+  }
+);
+
+export const createLocation = createAsyncThunk(
+  "restaurant/createLocation",
+  async ({ restaurantId, body }) => {
+    const { data } = await axios.post(
+      `/api/restaurants/${restaurantId}/locations`,
+      body
+    );
+
+    return data;
+  }
+);
+
 export const removeImage = createAsyncThunk(
   "restaurant/removeImage",
   async ({ restaurantId, body }) => {
@@ -41,6 +64,17 @@ export const removeImage = createAsyncThunk(
       body
     );
 
+    return data;
+  }
+);
+
+export const uploadCSVLocations = createAsyncThunk(
+  "restaurant/uploadCSVLocations",
+  async ({ menuId, restaurantId, body }) => {
+    const { data } = await axios.post(
+      `/api/restaurants/${restaurantId}/locations/${menuId}`,
+      body
+    );
     return data;
   }
 );
@@ -75,6 +109,21 @@ const restaurantSlice = createSlice({
         state = INIT_STATE;
       })
       .addCase(createMenu.fulfilled, (state, action) => {
+        state.restaurant = action.payload;
+        state.isLoading = false;
+        state.hasError = false;
+      })
+      .addCase(createLocation.fulfilled, (state, action) => {
+        state.restaurant = action.payload;
+        state.isLoading = false;
+        state.hasError = false;
+      })
+      .addCase(uploadCSVLocations.fulfilled, (state, action) => {
+        state.restaurant = action.payload;
+        state.isLoading = false;
+        state.hasError = false;
+      })
+      .addCase(duplicateMenu.fulfilled, (state, action) => {
         state.restaurant = action.payload;
         state.isLoading = false;
         state.hasError = false;

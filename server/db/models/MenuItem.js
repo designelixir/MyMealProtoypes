@@ -8,7 +8,7 @@ const MenuItem = db.define("menuitem", {
   },
   image: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   description: {
     type: Sequelize.TEXT,

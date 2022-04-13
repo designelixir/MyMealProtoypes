@@ -48,9 +48,11 @@ const s3Client = () =>
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   });
 
+const uploadCSV = multer({ dest: "tmp/csv/" });
 module.exports = {
   requireToken,
   isAdmin,
   upload,
   s3Client,
+  uploadCSV,
 };

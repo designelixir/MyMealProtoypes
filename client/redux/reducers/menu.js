@@ -63,6 +63,18 @@ export const createMenuItem = createAsyncThunk(
   }
 );
 
+export const uploadCSVFile = createAsyncThunk(
+  "menu/uploadCSVFile",
+  async ({ menuId, startingPosition, body, cb }) => {
+    const { data } = await axios.post(
+      `/api/menus/upload-csv/${menuId}/${startingPosition}`,
+      body
+    );
+    cb && cb(data);
+    return data;
+  }
+);
+
 const INIT_STATE = {
   menus: [],
   menu: {},

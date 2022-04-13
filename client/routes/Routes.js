@@ -16,6 +16,7 @@ import RegisterInvite from "../views/RegisterInvite";
 import Restaurant from "../views/Restaurant";
 import Category from "../views/Category";
 import MenuItem from "../views/MenuItem";
+import Location from "../views/Location";
 
 const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
   useEffect(() => {
@@ -57,6 +58,11 @@ const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
           />
           <Route
             exact
+            path="/corporations/:corporationId/restaurants/:restaurantId/locations/:locationId"
+            render={(props) => renderer(Location, props)}
+          />
+          <Route
+            exact
             path="/corporations/:corporationId/restaurants/:restaurantId/menus/:menuId/categories/:categoryId"
             render={(props) => renderer(Category, props)}
           />
@@ -87,6 +93,11 @@ const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
           <Route
             exact
             path="/login"
+            render={(props) => renderer(AuthForm, props)}
+          />
+          <Route
+            exact
+            path="/*"
             render={(props) => renderer(AuthForm, props)}
           />
         </Switch>
