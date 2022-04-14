@@ -71,6 +71,7 @@ router.post(
   async (req, res, next) => {
     try {
       const { menuId, startingPosition } = req.params;
+      const menu = await Menu.findByPk(menuId);
       const data = await csvParser(req.file.path);
       const categoriesNames = Object.keys(data);
       let position = parseInt(startingPosition);
@@ -91,11 +92,30 @@ router.post(
             price: priceType === "Single" ? priceDetails : 0,
             categoryId: category.id,
           });
+
           if (priceType === "Variation") {
             for (const pt of Object.values(priceDetails)) {
               await PriceType.create({ ...pt, menuitemId: menuitem.id });
             }
           }
+
+          const menuAllergies = await menu.getAllergies();
+
+          const menuItemAllergies = [];
+          for (const allergy of menuAllergies) {
+            const { id } = await AllergyType.create({
+              type: "Safe",
+              cross: false,
+              crossMod: false,
+              modDescription: "",
+              crossDescription: "",
+              crossModDescription: "",
+              allergyId: allergy.id,
+            });
+            menuItemAllergies.push(id);
+          }
+
+          await menuitem.addAllergytypes(menuItemAllergies);
         }
       }
       res.json(await Menu.findByPk(menuId, menuIncluder));

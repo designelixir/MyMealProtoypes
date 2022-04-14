@@ -178,13 +178,11 @@ router.post(
     try {
       const { restaurantId, menuId } = req.params;
       const locations = await csvParser(req.file.path);
-
       await Promise.all(
         locations.map((location) =>
           Location.create({ ...location, menuId, restaurantId })
         )
       );
-
       res.json(await Restaurant.findByPk(restaurantId, restaurantIncluder));
     } catch (err) {
       next(err);

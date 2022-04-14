@@ -35,7 +35,24 @@ const menuIncluder = {
 
 const menuitemIncluder = {
   include: [
-    { model: Category, include: [{ model: Menu, ...menuIncluder }] },
+    {
+      model: Category,
+      attributes: ["name"],
+      include: [
+        {
+          model: Menu,
+          attributes: ["name"],
+          include: [
+            Allergy,
+            {
+              model: Restaurant,
+              attributes: ["name"],
+              include: [{ model: Corporation, attributes: ["name"] }],
+            },
+          ],
+        },
+      ],
+    },
     PriceType,
     { model: AllergyType, include: [Allergy] },
   ],
@@ -48,7 +65,18 @@ const categoryIncluder = {
       model: MenuItem,
       include: [PriceType, { model: AllergyType, include: [Allergy] }],
     },
-    { model: Menu, ...menuIncluder },
+    {
+      model: Menu,
+      attributes: ["name"],
+      include: [
+        Allergy,
+        {
+          model: Restaurant,
+          attributes: ["name"],
+          include: [{ model: Corporation, attributes: ["name"] }],
+        },
+      ],
+    },
   ],
 };
 
