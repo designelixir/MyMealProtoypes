@@ -24,6 +24,10 @@ const MenuItemForm = ({
   allergyTypes,
   handleChangeAllergyTypes,
   menuitemAllergies,
+  handleChangeImage,
+  menuitemImage,
+  deleted,
+  handleDeleteImage,
 }) => {
   return (
     <>
@@ -36,15 +40,43 @@ const MenuItemForm = ({
         value={menuItem.name}
         onChange={handleChangeMenuItem}
       />
-      <Form.Label>Image</Form.Label>
-      <Form.Control
-        className="mb-3"
-        type="text"
-        name="image"
-        placeholder="Image"
-        value={menuItem.image}
-        onChange={handleChangeMenuItem}
-      />
+      <Form.Label>Logo</Form.Label>
+      {!deleted ? (
+        <Row className="mt-4 mb-3">
+          <Button onClick={() => handleDeleteImage()}>Delete</Button>
+          <div className="col-lg-4">
+            <div>
+              <img
+                src={menuitemImage.preview}
+                className="img-fluid rounded shadow mb-4"
+              />
+            </div>
+          </div>
+        </Row>
+      ) : (
+        <>
+          <Form.Control
+            className="mb-3"
+            type="file"
+            accept="image/*"
+            name="restaurantLogo"
+            placeholder="Logo"
+            onChange={handleChangeImage}
+          />
+          <Row className="mt-4 mb-3">
+            {menuitemImage && (
+              <div className="col-lg-4">
+                <div>
+                  <img
+                    src={menuitemImage.preview}
+                    className="img-fluid rounded shadow mb-4"
+                  />
+                </div>
+              </div>
+            )}
+          </Row>
+        </>
+      )}
       <Form.Label>Description</Form.Label>
 
       <Form.Control

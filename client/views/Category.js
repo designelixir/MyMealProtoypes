@@ -25,6 +25,7 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
   const [allergyTypes, setAllergyTypes] = useState({});
   const [priceType, setPriceType] = useState("Single");
   const [priceTypes, setPriceTypes] = useState({ 0: { type: "", price: 0 } });
+  const [menuitemImage, setMenuitemImage] = useState(undefined);
   const handleChangePriceTypes = ({ name, value, idx }) => {
     setPriceTypes({
       ...priceTypes,
@@ -88,7 +89,6 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
   };
   const menuItemInit = {
     name: "",
-    image: "",
     description: "",
     price: 0,
   };
@@ -97,15 +97,29 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
     setCreating(false);
     setMenuItem(menuItemInit);
   };
-
   const handleChangeMenuItem = ({ target: { name, value } }) => {
     setMenuItem({ ...menuItem, [name]: value });
   };
+  const handleChangeImage = ({ target: { files } }) => {
+    setMenuitemImage(
+      Object.assign(files[0], {
+        preview: URL.createObjectURL(files[0]),
+      })
+    );
+  };
   const handleNewMenuItem = () => {
     resetMenuItem();
+    const formData = new FormData();
+
+    formData.append("file", menuitemImage);
+    formData.append(
+      "data",
+      JSON.stringify({ menuItem, priceType, priceTypes, allergyTypes })
+    );
+
     addMenuItem({
       categoryId,
-      body: { menuItem, priceType, priceTypes, allergyTypes },
+      body: formData,
     });
   };
   if (isLoading) {
@@ -178,8 +192,11 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
               handleRemovePriceTypes,
               allergyTypes,
               handleChangeAllergyTypes,
+              handleChangeImage,
+              menuitemImage,
             }}
             menuitemAllergies={category.menu ? category.menu.allergies : []}
+            deleted={true}
           />
           <Row>
             <Col>
@@ -208,13 +225,29 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
               key={menuitem.id}
               action
               style={{ cursor: "pointer" }}
-              onClick={() =>
-                history.push(
-                  `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}/menuitems/${menuitem.id}`
-                )
-              }
             >
-              {menuitem.name}
+              <Container
+                onClick={() =>
+                  history.push(
+                    `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}/menuitems/${menuitem.id}`
+                  )
+                }
+                style={{ cursor: "pointer" }}
+              >
+                <Row className="d-flex align-items-center">
+                  <Col
+                    lg={1}
+                    className="d-flex justify-content-center align-items-center"
+                  >
+                    <img
+                      style={{ width: "auto", height: 50 }}
+                      src={menuitem.image ? menuitem.image.url : ""}
+                      className="img-fluid rounded shadow"
+                    />
+                  </Col>
+                  <Col>{menuitem.name}</Col>
+                </Row>
+              </Container>
             </ListGroupItem>
           ))}
       </ListGroup>

@@ -35,6 +35,7 @@ const menuIncluder = {
 
 const menuitemIncluder = {
   include: [
+    Image,
     {
       model: Category,
       attributes: ["name"],
@@ -63,7 +64,7 @@ const categoryIncluder = {
   include: [
     {
       model: MenuItem,
-      include: [PriceType, { model: AllergyType, include: [Allergy] }],
+      include: [Image, PriceType, { model: AllergyType, include: [Allergy] }],
     },
     {
       model: Menu,

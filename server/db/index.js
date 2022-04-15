@@ -55,6 +55,8 @@ MenuItem.belongsToMany(AllergyType, { through: "menuitem-allergyType" });
 MenuItem.hasMany(PriceType);
 PriceType.belongsTo(MenuItem);
 
+MenuItem.hasOne(Image);
+
 module.exports = {
   db,
   Op,

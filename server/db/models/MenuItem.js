@@ -6,10 +6,6 @@ const MenuItem = db.define("menuitem", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  image: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
   description: {
     type: Sequelize.TEXT,
     allowNull: false,

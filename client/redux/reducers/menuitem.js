@@ -20,6 +20,15 @@ export const updateMenuItem = createAsyncThunk(
   }
 );
 
+export const removeMenuitemImage = createAsyncThunk(
+  "restaurant/removeMenuitemImage",
+  async (menuitemId) => {
+    const { data } = await axios.delete(`/api/menuitems/${menuitemId}/images`);
+
+    return data;
+  }
+);
+
 const INIT_STATE = {
   menuitem: {},
   isLoading: true,

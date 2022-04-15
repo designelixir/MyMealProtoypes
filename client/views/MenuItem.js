@@ -11,7 +11,11 @@ import {
   ListGroupItem,
 } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
-import { fetchMenuItem, updateMenuItem } from "../redux/reducers/menuitem";
+import {
+  fetchMenuItem,
+  removeMenuitemImage,
+  updateMenuItem,
+} from "../redux/reducers/menuitem";
 import Divider from "./components/Divider";
 import MenuItemForm from "./formComponents/MenuItemForm";
 const MenuItem = ({
@@ -20,6 +24,7 @@ const MenuItem = ({
   isLoading,
   menuitem,
   changeMenuItem,
+  deleteImage,
 }) => {
   const history = useHistory();
   const { menuitemId, categoryId, restaurantId, corporationId, menuId } =
@@ -27,9 +32,10 @@ const MenuItem = ({
   const [allergyTypes, setAllergyTypes] = useState(undefined);
   const [priceType, setPriceType] = useState("Single");
   const [priceTypes, setPriceTypes] = useState({ 0: { type: "", price: 0 } });
+  const [menuitemImage, setMenuitemImage] = useState(undefined);
+  const [deleted, setDeleted] = useState(true);
   const [menuItem, setMenuItem] = useState({
     name: "",
-    image: "",
     price: 0,
     description: "",
   });
@@ -44,10 +50,13 @@ const MenuItem = ({
         );
         setMenuItem({
           name: menuitem.name,
-          image: menuitem.image,
           price: menuitem.price,
           description: menuitem.description,
         });
+        if (menuitem.image) {
+          setMenuitemImage({ preview: menuitem.image.url });
+          setDeleted(false);
+        }
         setPriceType(menuitem.type);
         if (menuitem.pricetypes.length) {
           setPriceTypes(
@@ -138,10 +147,36 @@ const MenuItem = ({
     setMenuItem({ ...menuItem, [name]: value });
   };
 
+  const handleChangeImage = ({ target: { files } }) => {
+    setMenuitemImage(
+      Object.assign(files[0], {
+        preview: URL.createObjectURL(files[0]),
+      })
+    );
+  };
+  const handleDeleteImage = () => {
+    setDeleted(true);
+    setMenuitemImage(undefined);
+    deleteImage(menuitemId);
+  };
   const handleUpdateMenuItem = () => {
+    const formData = new FormData();
+
+    if (menuitemImage) {
+      formData.append("file", menuitemImage);
+    }
+    formData.append(
+      "data",
+      JSON.stringify({ menuItem, priceType, priceTypes, allergyTypes })
+    );
+
+    // addMenuItem({
+    //   categoryId,
+    //   body: formData,
+    // });
     changeMenuItem({
       menuitemId,
-      body: { menuItem, priceType, priceTypes, allergyTypes },
+      body: formData,
     });
   };
   if (isLoading) {
@@ -210,6 +245,10 @@ const MenuItem = ({
           handleRemovePriceTypes,
           allergyTypes,
           handleChangeAllergyTypes,
+          handleChangeImage,
+          menuitemImage,
+          deleted,
+          handleDeleteImage,
         }}
         menuitemAllergies={
           menuitem.category && allergyTypes
@@ -250,6 +289,9 @@ const mapDispatch = (dispatch) => {
     },
     changeMenuItem(data) {
       dispatch(updateMenuItem(data));
+    },
+    deleteImage(menuitemId) {
+      dispatch(removeMenuitemImage(menuitemId));
     },
   };
 };
