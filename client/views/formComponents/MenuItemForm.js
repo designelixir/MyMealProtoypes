@@ -11,6 +11,7 @@ import {
   ListGroupItem,
 } from "react-bootstrap";
 import Divider from "../components/Divider";
+import priceFormat from "../../utils/priceFormat";
 
 const MenuItemForm = ({
   menuItem,
@@ -105,10 +106,10 @@ const MenuItemForm = ({
         <Container>
           {priceType === "Single" ? (
             <Form.Control
-              type="number"
+              type="text"
               name="price"
               placeholder="price"
-              value={menuItem.price}
+              value={priceFormat(menuItem.price)}
               onChange={handleChangeMenuItem}
             />
           ) : (
@@ -130,12 +131,16 @@ const MenuItemForm = ({
                     </Col>
                     <Col className="d-flex">
                       <Form.Control
-                        type="number"
+                        type="text"
                         name="price"
                         placeholder="Price"
-                        value={pt.price}
+                        value={priceFormat(pt.price)}
                         onChange={({ target: { name, value } }) =>
-                          handleChangePriceTypes({ name, value, idx })
+                          handleChangePriceTypes({
+                            name,
+                            value: value.replace(/[^\d]/g, ""),
+                            idx,
+                          })
                         }
                       />
                       {idx !== 0 && (

@@ -90,6 +90,7 @@ router.post(
             position,
             menuId: duplicateMenu.id,
           });
+          let menuitemPosition = 0;
           for (const menuitem of menuitems) {
             const {
               name,
@@ -97,6 +98,7 @@ router.post(
               description,
               type,
               price,
+              position,
               pricetypes,
               allergytypes,
             } = menuitem;
@@ -106,6 +108,7 @@ router.post(
               description,
               type,
               price,
+              position,
               categoryId: newCategory.id,
             });
             if (type === "Variation") {

@@ -5,12 +5,24 @@ import history from "../../utils/history";
 
 export const fetchCategory = createAsyncThunk(
   "category/fetchCategory",
-  async (categoryId) => {
+  async ({ categoryId, cb }) => {
     const { data } = await axios.get(`/api/categories/${categoryId}`);
-
+    cb && cb(data);
     return data;
   }
 );
+
+export const swapMenuitemOrder = createAsyncThunk(
+  "menu/swapMenuitemOrder",
+  async ({ categoryId, body }) => {
+    const { data } = await axios.put(
+      `/api/categories/${categoryId}/menuitems/swap`,
+      body
+    );
+    return data;
+  }
+);
+
 export const createMenuItem = createAsyncThunk(
   "category/createMenuItem",
   async ({ categoryId, body }) => {
@@ -22,6 +34,30 @@ export const createMenuItem = createAsyncThunk(
     return data;
   }
 );
+
+export const updateMenuitemArchived = createAsyncThunk(
+  "category/updateMenuitemArchived",
+  async ({ menuitemId, categoryId, body, cb }) => {
+    const { data } = await axios.put(
+      `/api/categories/${categoryId}/menuitems/${menuitemId}/archived`,
+      body
+    );
+    cb && cb(data);
+    return data;
+  }
+);
+
+export const moveAndDuplicateMenuitem = createAsyncThunk(
+  "category/moveAndDuplicateMenuitem",
+  async ({ menuitemId, categoryId, body }) => {
+    const { data } = await axios.post(
+      `/api/categories/${categoryId}/menuitems/${menuitemId}/duplicate`,
+      body
+    );
+    return data;
+  }
+);
+
 const INIT_STATE = {
   category: {},
   isLoading: true,
@@ -52,6 +88,11 @@ const categorySlice = createSlice({
         state = INIT_STATE;
       })
       .addCase(createMenuItem.fulfilled, (state, action) => {
+        state.category = action.payload;
+        state.isLoading = false;
+        state.hasError = false;
+      })
+      .addCase(updateMenuitemArchived.fulfilled, (state, action) => {
         state.category = action.payload;
         state.isLoading = false;
         state.hasError = false;

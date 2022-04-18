@@ -10,6 +10,11 @@ const Category = db.define("category", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+  archived: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
 });
 
 module.exports = Category;

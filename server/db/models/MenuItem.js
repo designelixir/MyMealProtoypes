@@ -10,6 +10,10 @@ const MenuItem = db.define("menuitem", {
     type: Sequelize.TEXT,
     allowNull: false,
   },
+  position: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
   type: {
     type: Sequelize.ENUM("Single", "Variation"),
     allowNull: false,
@@ -25,6 +29,11 @@ const MenuItem = db.define("menuitem", {
     get() {
       return dollar.call(this, "price");
     },
+  },
+  archived: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
   },
 });
 

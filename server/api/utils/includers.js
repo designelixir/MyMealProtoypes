@@ -60,7 +60,10 @@ const menuitemIncluder = {
 };
 
 const categoryIncluder = {
-  order: [["position", "ASC"]],
+  order: [
+    ["position", "ASC"],
+    [MenuItem, "position", "ASC"],
+  ],
   include: [
     {
       model: MenuItem,
@@ -71,6 +74,7 @@ const categoryIncluder = {
       attributes: ["name"],
       include: [
         Allergy,
+        { model: Category, attributes: ["name", "id"] },
         {
           model: Restaurant,
           attributes: ["name"],

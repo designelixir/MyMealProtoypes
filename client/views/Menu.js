@@ -16,6 +16,7 @@ import {
   createCategory,
   fetchMenu,
   swapCategoryOrder,
+  updateCategoryArchived,
   uploadCSVFile,
 } from "../redux/reducers/menu";
 import { fetchCorporation } from "../redux/reducers/corporation";
@@ -33,13 +34,12 @@ const Menu = ({
   match,
   isLoading,
   menu,
-
+  changeCategoryArchived,
   swapCategories,
 }) => {
   const history = useHistory();
   const { restaurantId, corporationId, menuId } = match.params;
   const [categories, setCategories] = useState([]);
-
   useEffect(() => {
     getAllergies();
     getMenu({
@@ -64,6 +64,18 @@ const Menu = ({
       newCats[idx],
     ];
     setCategories(newCats);
+  };
+  const handleChangeArchived = ({ checked, categoryId }) => {
+    changeCategoryArchived({
+      categoryId,
+      menuId,
+      body: {
+        archived: checked,
+      },
+      cb(menu) {
+        setCategories(menu.categories);
+      },
+    });
   };
   if (isLoading) {
     return <></>;
@@ -154,6 +166,20 @@ const Menu = ({
                 </Button>
               )}
             </div>
+            <div className="d-flex">
+              <Form.Check
+                inline
+                label={category.archived ? "Archived" : "Active"}
+                type="switch"
+                checked={!category.archived}
+                onChange={({ target: { checked } }) =>
+                  handleChangeArchived({
+                    checked: !checked,
+                    categoryId: category.id,
+                  })
+                }
+              />
+            </div>
           </ListGroupItem>
         ))}
       </ListGroup>
@@ -183,6 +209,9 @@ const mapDispatch = (dispatch) => {
     },
     swapCategories(data) {
       dispatch(swapCategoryOrder(data));
+    },
+    changeCategoryArchived(data) {
+      dispatch(updateCategoryArchived(data));
     },
   };
 };

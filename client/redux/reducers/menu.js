@@ -54,6 +54,18 @@ export const createCategory = createAsyncThunk(
   }
 );
 
+export const updateCategoryArchived = createAsyncThunk(
+  "category/updateCategoryArchived",
+  async ({ categoryId, menuId, body, cb }) => {
+    const { data } = await axios.put(
+      `/api/categories/${categoryId}/menus/${menuId}`,
+      body
+    );
+    cb && cb(data);
+    return data;
+  }
+);
+
 export const createMenuItem = createAsyncThunk(
   "menu/createMenuItem",
   async (body) => {
@@ -124,6 +136,11 @@ const menuSlice = createSlice({
         state.hasError = false;
       })
 
+      .addCase(updateCategoryArchived.fulfilled, (state, action) => {
+        state.menu = action.payload;
+        state.isLoading = false;
+        state.hasError = false;
+      })
       .addCase(createMenuItem.pending, (state, action) => {
         state.isLoading = true;
         state.hasError = false;

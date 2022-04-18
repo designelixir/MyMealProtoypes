@@ -16,7 +16,7 @@ const {
     AllergyType,
   },
 } = require("../db");
-const { categoryIncluder } = require("./utils/includers");
+const { categoryIncluder, menuIncluder } = require("./utils/includers");
 
 const { requireToken, isAdmin, upload } = require("./utils/middleware");
 
@@ -26,6 +26,18 @@ router.get("/:categoryId", requireToken, async (req, res, next) => {
     res.json(await Category.findByPk(categoryId, categoryIncluder));
   } catch (err) {
     console.log(err);
+    next(err);
+  }
+});
+
+router.put("/:categoryId/menus/:menuId", async (req, res, next) => {
+  try {
+    const { categoryId, menuId } = req.params;
+
+    await Category.update(req.body, { where: { id: categoryId } });
+
+    res.json(await Menu.findByPk(menuId, menuIncluder));
+  } catch (err) {
     next(err);
   }
 });
@@ -49,10 +61,12 @@ router.post(
       });
 
       const [menuitemImage] = req.files;
-      await createdMenuItem.createImage({
-        url: menuitemImage.location,
-        key: menuitemImage.key,
-      });
+      if (menuitemImage) {
+        await createdMenuItem.createImage({
+          url: menuitemImage.location,
+          key: menuitemImage.key,
+        });
+      }
 
       if (priceType === "Variation") {
         for (const pt of Object.values(priceTypes)) {
@@ -71,6 +85,116 @@ router.post(
       await createdMenuItem.addAllergytypes(menuItemAllergies);
 
       res.json(await Category.findByPk(categoryId, categoryIncluder));
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.put("/:categoryId/menuitems/swap", async (req, res, next) => {
+  try {
+    const { categoryId } = req.params;
+
+    const { menuitemOne, menuitemTwo } = req.body;
+    await Promise.all([
+      MenuItem.update(
+        { position: menuitemOne.position },
+        { where: { id: menuitemOne.id } }
+      ),
+      MenuItem.update(
+        { position: menuitemTwo.position },
+        { where: { id: menuitemTwo.id } }
+      ),
+    ]);
+
+    res.sendStatus(200);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put(
+  "/:categoryId/menuitems/:menuitemId/archived",
+  async (req, res, next) => {
+    try {
+      const { categoryId, menuitemId } = req.params;
+
+      await MenuItem.update(req.body, { where: { id: menuitemId } });
+
+      res.json(await Category.findByPk(categoryId, categoryIncluder));
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.post(
+  "/:categoryId/menuitems/:menuitemId/duplicate",
+  async (req, res, next) => {
+    try {
+      const { categoryId, menuitemId } = req.params;
+      const startingPosition = await Category.findByPk(categoryId, {
+        include: [MenuItem],
+      }).then(({ menuitems }) => menuitems.length);
+      const menuitem = await MenuItem.findByPk(menuitemId, {
+        include: [PriceType, { model: AllergyType, include: [Allergy] }],
+      });
+
+      const {
+        name,
+        image,
+        description,
+        type,
+        price,
+        pricetypes,
+        allergytypes,
+      } = menuitem;
+      const newMenuitem = await MenuItem.create({
+        name,
+        image,
+        description,
+        type,
+        price,
+        position: startingPosition,
+        categoryId,
+      });
+      if (type === "Variation") {
+        for (const pt of pricetypes) {
+          const { type, price } = pt;
+          await PriceType.create({
+            type,
+            price,
+            menuitemId: newMenuitem.id,
+          });
+        }
+      }
+      const menuItemAllergies = [];
+      for (const allergytype of allergytypes) {
+        const {
+          type,
+          cross,
+          crossMod,
+          modDescription,
+          crossDescription,
+          crossModDescription,
+          allergyId,
+        } = allergytype;
+
+        const { id } = await AllergyType.create({
+          type,
+          cross,
+          crossMod,
+          modDescription,
+          crossDescription,
+          crossModDescription,
+          allergyId,
+        });
+        menuItemAllergies.push(id);
+      }
+
+      await newMenuitem.addAllergytypes(menuItemAllergies);
+
+      res.sendStatus(200);
     } catch (err) {
       next(err);
     }

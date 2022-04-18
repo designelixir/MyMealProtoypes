@@ -82,12 +82,14 @@ router.post(
           menuId,
         });
         const menuitemNames = Object.keys(data[categoryName]);
+        let menuitemPosition = 0;
         for (const menuitemName of menuitemNames) {
           const { description, priceType, priceDetails } =
             data[categoryName][menuitemName];
           const menuitem = await MenuItem.create({
             name: menuitemName,
             description,
+            position: menuitemPosition++,
             type: priceType,
             price: priceType === "Single" ? priceDetails : 0,
             categoryId: category.id,
@@ -120,6 +122,7 @@ router.post(
       }
       res.json(await Menu.findByPk(menuId, menuIncluder));
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }

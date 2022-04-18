@@ -11,15 +11,35 @@ import {
   ListGroupItem,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { createMenuItem, fetchCategory } from "../redux/reducers/category";
+import {
+  createMenuItem,
+  fetchCategory,
+  swapMenuitemOrder,
+  updateMenuitemArchived,
+} from "../redux/reducers/category";
 import MenuItemForm from "./formComponents/MenuItemForm";
 import Divider from "./components/Divider";
-
-const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
+import MoveAndDuplicateMenuitem from "./modals/MoveAndDuplicateMenuitem";
+const Category = ({
+  getCategory,
+  match,
+  isLoading,
+  category,
+  addMenuItem,
+  swapMenuitems,
+  changeMenuitemArchived,
+}) => {
   const history = useHistory();
   const { categoryId, restaurantId, corporationId, menuId } = match.params;
+
+  const [menuitems, setMenuitems] = useState([]);
   useEffect(() => {
-    getData({ categoryId, menuId, restaurantId, corporationId });
+    getCategory({
+      categoryId,
+      cb(category) {
+        setMenuitems(category.menuitems);
+      },
+    });
   }, []);
   const [creating, setCreating] = useState(false);
   const [allergyTypes, setAllergyTypes] = useState({});
@@ -98,6 +118,9 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
     setMenuItem(menuItemInit);
   };
   const handleChangeMenuItem = ({ target: { name, value } }) => {
+    if (name === "price") {
+      value = value.replace(/[^\d]/g, "");
+    }
     setMenuItem({ ...menuItem, [name]: value });
   };
   const handleChangeImage = ({ target: { files } }) => {
@@ -114,12 +137,44 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
     formData.append("file", menuitemImage);
     formData.append(
       "data",
-      JSON.stringify({ menuItem, priceType, priceTypes, allergyTypes })
+      JSON.stringify({
+        menuItem: { ...menuItem, position: menuitems.length },
+        priceType,
+        priceTypes,
+        allergyTypes,
+      })
     );
 
     addMenuItem({
       categoryId,
       body: formData,
+    });
+  };
+  const handleReposition = (idx, moveTo) => {
+    swapMenuitems({
+      categoryId,
+      body: {
+        menuitemOne: { id: menuitems[idx].id, position: idx + moveTo },
+        menuitemTwo: { id: menuitems[idx + moveTo].id, position: idx },
+      },
+    });
+    const newCats = [...menuitems];
+    [newCats[idx], newCats[idx + moveTo]] = [
+      newCats[idx + moveTo],
+      newCats[idx],
+    ];
+    setMenuitems(newCats);
+  };
+  const handleChangeArchived = ({ checked, menuitemId }) => {
+    changeMenuitemArchived({
+      menuitemId,
+      categoryId,
+      body: {
+        archived: checked,
+      },
+      cb(category) {
+        setMenuitems(category.menuitems);
+      },
     });
   };
   if (isLoading) {
@@ -219,37 +274,78 @@ const Category = ({ getData, match, isLoading, category, addMenuItem }) => {
       )}
 
       <ListGroup>
-        {category.menuitems &&
-          category.menuitems.map((menuitem) => (
-            <ListGroupItem
-              key={menuitem.id}
-              action
+        {menuitems.map((menuitem, idx) => (
+          <ListGroupItem
+            key={menuitem.id}
+            className="d-flex justify-content-between align-items-center"
+            action
+            style={{ cursor: "pointer" }}
+          >
+            <Container
+              onClick={() =>
+                history.push(
+                  `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}/menuitems/${menuitem.id}`
+                )
+              }
               style={{ cursor: "pointer" }}
             >
-              <Container
-                onClick={() =>
-                  history.push(
-                    `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}/menuitems/${menuitem.id}`
-                  )
+              <Row className="d-flex align-items-center">
+                <Col
+                  lg={1}
+                  className="d-flex justify-content-center align-items-center"
+                >
+                  <img
+                    style={{ width: "auto", height: 50 }}
+                    src={menuitem.image ? menuitem.image.url : ""}
+                    className="img-fluid rounded shadow"
+                  />
+                </Col>
+                <Col>{menuitem.name}</Col>
+              </Row>
+            </Container>
+            <div className="d-flex">
+              {idx !== 0 && (
+                <Button
+                  variant="link"
+                  className="mr-3"
+                  onClick={() => {
+                    handleReposition(idx, -1);
+                  }}
+                >
+                  up
+                </Button>
+              )}
+              {idx !== menuitems.length - 1 && (
+                <Button
+                  variant="link"
+                  onClick={() => {
+                    handleReposition(idx, 1);
+                  }}
+                >
+                  down
+                </Button>
+              )}
+            </div>
+            <div className="d-flex">
+              <Form.Check
+                inline
+                label={menuitem.archived ? "Archived" : "Active"}
+                type="switch"
+                checked={!menuitem.archived}
+                onChange={({ target: { checked } }) =>
+                  handleChangeArchived({
+                    checked: !checked,
+                    menuitemId: menuitem.id,
+                  })
                 }
-                style={{ cursor: "pointer" }}
-              >
-                <Row className="d-flex align-items-center">
-                  <Col
-                    lg={1}
-                    className="d-flex justify-content-center align-items-center"
-                  >
-                    <img
-                      style={{ width: "auto", height: 50 }}
-                      src={menuitem.image ? menuitem.image.url : ""}
-                      className="img-fluid rounded shadow"
-                    />
-                  </Col>
-                  <Col>{menuitem.name}</Col>
-                </Row>
-              </Container>
-            </ListGroupItem>
-          ))}
+              />
+            </div>
+            <MoveAndDuplicateMenuitem
+              menuitemId={menuitem.id}
+              menuCategories={category.menu.categories}
+            />
+          </ListGroupItem>
+        ))}
       </ListGroup>
     </Container>
   );
@@ -265,14 +361,17 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    getData({ categoryId, menuId, restaurantId, corporationId }) {
-      dispatch(fetchCategory(categoryId));
-      // dispatch(fetchMenu(menuId));
-      // dispatch(fetchRestaurant(restaurantId));
-      // dispatch(fetchCorporation(corporationId));
+    getCategory({ categoryId, cb }) {
+      dispatch(fetchCategory({ categoryId, cb }));
     },
     addMenuItem(data) {
       dispatch(createMenuItem(data));
+    },
+    swapMenuitems(data) {
+      dispatch(swapMenuitemOrder(data));
+    },
+    changeMenuitemArchived(data) {
+      dispatch(updateMenuitemArchived(data));
     },
   };
 };
