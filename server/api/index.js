@@ -7,6 +7,7 @@ router.use("/restaurants", require("./restaurants"));
 router.use("/locations", require("./locations"));
 router.use("/categories", require("./categories"));
 router.use("/menuitems", require("./menuitems"));
+router.use("/frontends", require("./frontends"));
 router.use("/invitations", require("./invitations"));
 
 router.use((req, res, next) => {

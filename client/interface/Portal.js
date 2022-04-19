@@ -6,7 +6,7 @@ import { receiveInvitation } from "../redux/reducers/auth";
 
 export const Portal = ({ Component, props, auth, preCheck }) => {
   return (
-    <main className="container" style={{ height: "calc(100vh - 112px)" }}>
+    <main style={{ height: "100vh" }}>
       {!preCheck ? (
         <Loading />
       ) : !auth.id ? (

@@ -1,0 +1,1 @@
+{"version":3,"file":"./public/css/main.css","mappings":"AAAA;EACE,qBAAqB;AACvB;AACA;EACE,qBAAqB;AACvB","sources":["webpack://MyMeal/client/views/frontend/css/styles.css"],"sourcesContent":[".wtf {\n  border: 1px solid red;\n}\n#wtf-id {\n  border: 1px solid red;\n}\n"],"names":[],"sourceRoot":""}

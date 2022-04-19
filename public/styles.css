@@ -1,28 +1,118 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap");
+
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
-/* input[type="password"]:focus,
-input[type="search"]:focus,
-input[type="text"]:focus {
-  border-color: #48bf84;
-  box-shadow: 0 1px 1px #48bf84 inset, 0 0 8px #48bf84;
-} */
 .noscroll::-webkit-scrollbar {
-  width: 0; /* Remove scrollbar space */
+  width: 0;
   display: none;
 }
+
 input.close {
   color: #fff;
   opacity: 1;
 }
+
 .placetext::-webkit-input-placeholder {
   color: white;
 }
-.hover:hover {
-  border: 1px solid white;
+
+.gray-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: gray;
+  opacity: 0.6;
+  z-index: 5;
 }
-.menu-item-allergytype:hover {
-  background-color: lightgray;
+
+.above-overlay {
+  z-index: 10;
 }
+
+.welcome-header {
+  margin-bottom: 2rem;
+  font-size: 50px;
+  font-weight: 500;
+  text-align: center;
+}
+.welcome-logo {
+  height: 150px;
+  width: fit-content;
+  margin-top: 1.5rem;
+}
+
+.restriction-logo {
+  height: 100px;
+  width: fit-content;
+  margin-top: 1.5rem;
+}
+
+.restriction-container {
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 0;
+}
+
+.restriction-header {
+  min-height: 100px;
+  width: 100%;
+  font-size: 2rem;
+  font-weight: 500;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.allergy-header {
+  height: 40px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  /* font-size: 2rem;
+  font-weight: 500; */
+  border-radius: 1rem;
+  /* margin-bottom: 1rem; */
+}
+
+.allergy-card {
+  border-radius: 20px;
+  /* min-height: 40px; */
+  background: white;
+  /* padding: 0.5rem 1rem; */
+  width: 30%;
+  margin-bottom: 1rem;
+}
+
+.allergy-info {
+  border-radius: 20px;
+  height: 100px;
+  text-align: center;
+  font-size: 12px;
+}
+.cross-contact-button {
+  width: fit-content;
+  font-size: 12px;
+  border-radius: 1.5rem;
+  padding: 0 1rem;
+}
+.welcome-button {
+  border-radius: 0.25rem;
+  border: none;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  font-size: 20px;
+}
+
+/* section .layout::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-attachment: fixed;
+  filter: blur(8px);
+} */

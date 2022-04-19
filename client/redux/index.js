@@ -10,6 +10,7 @@ import restaurant from "./reducers/restaurant";
 import location from "./reducers/location";
 import category from "./reducers/category";
 import menuitem from "./reducers/menuitem";
+import frontend from "./reducers/frontend";
 
 const rootReducer = combineReducers({
   auth,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   menuitem,
   allergy,
   menu,
+  frontend,
 });
 
 export default rootReducer;

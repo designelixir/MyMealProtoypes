@@ -17,6 +17,7 @@ import Restaurant from "../views/Restaurant";
 import Category from "../views/Category";
 import MenuItem from "../views/MenuItem";
 import Location from "../views/Location";
+import Welcome from "../views/frontend/Welcome";
 
 const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
   useEffect(() => {
@@ -70,6 +71,11 @@ const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
             exact
             path="/corporations/:corporationId/restaurants/:restaurantId/menus/:menuId/categories/:categoryId/menuitems/:menuitemId"
             render={(props) => renderer(MenuItem, props)}
+          />
+          <Route
+            exact
+            path="/order/restaurants/:restaurantId/locations/:locationId"
+            render={(props) => renderer(Welcome, props)}
           />
           <Route
             exact

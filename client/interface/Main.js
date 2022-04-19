@@ -6,10 +6,10 @@ import { Container } from "react-bootstrap";
 
 const Main = () => {
   return (
-    <Container>
+    <div>
       <Routes />
       {/* <Home /> */}
-    </Container>
+    </div>
   );
 };
 

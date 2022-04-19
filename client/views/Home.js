@@ -74,7 +74,7 @@ const Home = ({
 
   return (
     <Container>
-      <h1>Create Menu</h1>
+      <h1 className="wtf">Create Menu</h1>
       <FloatingLabel label="Name" className="d-flex mb-3">
         <Form.Control
           type="text"

@@ -11,11 +11,8 @@ const MoveAndDuplicateMenuitem = ({
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const [moveToCategory, setMoveToCategory] = useState("");
-  // const handleChange = ({ target: { name, value } }) => {
-  //   setCorporationData({ ...corporationData, [name]: value });
-  // };
+
   const handleMoveMenuitem = () => {
-    // editCorporation({ corporationId: corporation.id, body: corporationData });
     moveMenuitem({ menuitemId, categoryId: moveToCategory });
     setModalShow(false);
   };
@@ -26,7 +23,7 @@ const MoveAndDuplicateMenuitem = ({
         style={{ width: "fit-content" }}
         onClick={() => setModalShow(true)}
       >
-        Move to
+        Duplicate to
       </Button>
 
       <Modal
