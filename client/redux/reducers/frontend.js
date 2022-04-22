@@ -15,6 +15,7 @@ export const fetchFrontendRestaurant = createAsyncThunk(
 
 const INIT_STATE = {
   restaurant: {},
+  selectedAllergies: {},
   isLoading: true,
   hasError: false,
 };
@@ -24,8 +25,8 @@ const frontendSlice = createSlice({
   name: "frontend",
   initialState: INIT_STATE,
   reducers: {
-    setNew(state, action) {
-      return { ...state };
+    setSelectedAllergy(state, action) {
+      return { ...state, selectedAllergies: action.payload };
     },
   },
   extraReducers: (builder) => {
@@ -47,7 +48,7 @@ const frontendSlice = createSlice({
 
 //Actions
 /////////////////////////////////////////////////////////////
-export const { setNew } = frontendSlice.actions;
+export const { setSelectedAllergy } = frontendSlice.actions;
 
 //Reducer
 /////////////////////////////////////////////////////////////

@@ -12,13 +12,14 @@ const {
     Image,
     Category,
     MenuItem,
+    PriceType,
     Allergy,
     AllergyType,
   },
 } = require("../db");
 
 const { requireToken } = require("./utils/middleware");
-
+const { frontendIncluder } = require("./utils/includers");
 /**
  * GET /
  * All Allergies
@@ -29,24 +30,13 @@ router.get(
     try {
       const { restaurantId, locationId } = req.params;
 
-      const restaurant = await Restaurant.findByPk(restaurantId, {
-        include: [
-          { model: Image, as: "logo" },
-          { model: Image, as: "bg" },
-          {
-            model: Location,
-            where: { id: locationId },
-            include: [
-              {
-                model: Menu,
-                include: [{ model: Allergy, attributes: ["id", "name"] }],
-              },
-            ],
-          },
-        ],
-      });
+      const restaurant = await Restaurant.findByPk(
+        restaurantId,
+        frontendIncluder(locationId)
+      );
       res.json(restaurant || {});
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }

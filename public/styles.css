@@ -106,13 +106,91 @@ input.close {
   font-size: 20px;
 }
 
-/* section .layout::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-attachment: fixed;
-  filter: blur(8px);
-} */
+.see-menu-button {
+  border-radius: 2rem;
+  border: none;
+  font-weight: 600;
+  padding: 0.5rem 2rem;
+  font-size: 20px;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.rounded-button {
+  border-radius: 2rem;
+  border: none;
+  font-weight: 600;
+  padding: 0.5rem 2rem;
+  font-size: 20px;
+}
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  border-radius: 2rem;
+}
+.nav-pills .nav-link {
+  border-radius: 2rem;
+}
+.menu-logo {
+  height: fit-content;
+  width: 130px;
+  margin-top: 1.5rem;
+}
+
+.menu-sub-title {
+  font-size: 18px;
+}
+
+.category-nav {
+  border: 1px solid black;
+  border-radius: 2rem;
+  padding: 0.5rem;
+  overflow: scroll;
+  flex-wrap: nowrap;
+}
+
+.category-nav > div {
+  width: fit-content;
+  border-radius: 2rem;
+}
+
+.category-nav > div > p {
+  padding: 0.25rem;
+  margin: 0px;
+}
+
+.menuitem-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.menuitem-card {
+  width: 50%;
+  margin: 0px;
+  margin-bottom: 2rem;
+}
+.menuitem-card div {
+  width: 200px;
+  margin: 0;
+}
+.price-type {
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 300;
+  padding-left: 0px;
+}
+
+.menuitem-card-img {
+  height: 100px;
+  width: 100px;
+}
+@media (max-width: 768px) {
+  .menuitem-container {
+    flex-direction: column;
+  }
+  .menuitem-card {
+    width: 100%;
+    min-width: 350px;
+    margin: 0px;
+    margin-bottom: 2rem;
+  }
+}

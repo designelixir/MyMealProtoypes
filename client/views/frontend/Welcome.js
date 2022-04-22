@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { fetchFrontendRestaurant } from "../../redux/reducers/frontend";
 import { Container, Image, Button } from "react-bootstrap";
-import { MainScreen } from "./MainScreen";
-import { Restrictions } from "./Restrictions";
+import MainScreen from "./MainScreen";
+import Restrictions from "./Restrictions";
 // import "./css/styles.css";
 
 const Welcome = ({ match, getRestaurant, isLoading, restaurant }) => {

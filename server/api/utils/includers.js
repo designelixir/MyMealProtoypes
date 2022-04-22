@@ -88,6 +88,42 @@ const categoryIncluder = {
 const locationIncluder = {
   include: [{ model: Menu, ...menuIncluder }],
 };
+
+const frontendIncluder = (locationId) => ({
+  order: [
+    [Location, Menu, Category, "position", "ASC"],
+    [Location, Menu, Category, MenuItem, "position", "ASC"],
+  ],
+  include: [
+    { model: Image, as: "logo" },
+    { model: Image, as: "bg" },
+    {
+      model: Location,
+      where: { id: locationId },
+      include: [
+        {
+          model: Menu,
+          include: [
+            { model: Allergy, attributes: ["id", "name"] },
+            {
+              model: Category,
+              where: { archived: false },
+              include: {
+                model: MenuItem,
+                where: { archived: false },
+                include: [
+                  Image,
+                  PriceType,
+                  { model: AllergyType, include: [Allergy] },
+                ],
+              },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+});
 module.exports = {
   corporationIncluder,
   restaurantIncluder,
@@ -95,4 +131,5 @@ module.exports = {
   locationIncluder,
   categoryIncluder,
   menuitemIncluder,
+  frontendIncluder,
 };

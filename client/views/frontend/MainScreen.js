@@ -1,8 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Container, Image, Button } from "react-bootstrap";
 
-export const MainScreen = ({ restaurant, setHasRestrictions }) => {
+const MainScreen = ({ restaurant, setHasRestrictions }) => {
+  const history = useHistory();
   return (
     <Container
       className="d-flex flex-column justify-content-evenly align-items-center"
@@ -24,6 +26,7 @@ export const MainScreen = ({ restaurant, setHasRestrictions }) => {
             backgroundColor: "white",
             color: "black",
           }}
+          onClick={() => history.push(`${location.pathname}/menu`)}
         >
           I'M READY TO ORDER
         </Button>

@@ -18,6 +18,7 @@ import Category from "../views/Category";
 import MenuItem from "../views/MenuItem";
 import Location from "../views/Location";
 import Welcome from "../views/frontend/Welcome";
+import OrderMenu from "../views/frontend/OrderMenu";
 
 const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
   useEffect(() => {
@@ -76,6 +77,11 @@ const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
             exact
             path="/order/restaurants/:restaurantId/locations/:locationId"
             render={(props) => renderer(Welcome, props)}
+          />
+          <Route
+            exact
+            path="/order/restaurants/:restaurantId/locations/:locationId/menu"
+            render={(props) => renderer(OrderMenu, props)}
           />
           <Route
             exact

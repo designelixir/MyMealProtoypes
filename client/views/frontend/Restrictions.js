@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 import { Container, Image, Button, Row } from "react-bootstrap";
+import { setSelectedAllergy } from "../../redux/reducers/frontend";
 
-export const Restrictions = ({ restaurant, setHasRestrictions }) => {
+const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
+  const history = useHistory();
+  const location = useLocation();
   const [selectedAllergies, setSelectedAllergies] = useState(
     restaurant.locations[0].menu.allergies.reduce((allergyObj, allergy) => {
       allergyObj[allergy.id] = { selected: false, cross: false };
@@ -121,6 +125,16 @@ export const Restrictions = ({ restaurant, setHasRestrictions }) => {
             </div>
           ))}
         </Container>
+        <Button
+          className="see-menu-button"
+          style={{ backgroundColor: restaurant.primaryColor }}
+          onClick={() => {
+            setSelected(selectedAllergies);
+            history.push(`${location.pathname}/menu`);
+          }}
+        >
+          See Menu
+        </Button>
       </Container>
     </Container>
   );
@@ -128,6 +142,12 @@ export const Restrictions = ({ restaurant, setHasRestrictions }) => {
 
 const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = {};
+const mapDispatch = (dispatch) => {
+  return {
+    setSelected(selectedAllergies) {
+      dispatch(setSelectedAllergy(selectedAllergies));
+    },
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Restrictions);
+export default connect(mapStateToProps, mapDispatch)(Restrictions);
