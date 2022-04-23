@@ -5,17 +5,8 @@ import { Container, Row, Image, Button, Tabs, Tab } from "react-bootstrap";
 import CrossContact from "./modals/CrossContact";
 import MenuItems from "./MenuItems";
 
-const OrderMenu = ({ restaurant }) => {
+const OrderMenu = ({ restaurant, selectedAllergies }) => {
   const location = useLocation();
-
-  // Array(15)
-  //   .fill("")
-  //   .map((_, idx) => ({ id: idx, name: "Category" }));
-  // [
-  //   { id: 0, name: "One" },
-  //   { id: 1, name: "Two" },
-  //   { id: 2, name: "Three" },
-  // ];
   if (!restaurant.id) {
     return <Redirect to={`${location.pathname.replace("/menu", "")}`} />;
   }
@@ -62,6 +53,14 @@ const OrderMenu = ({ restaurant }) => {
             </div>
           ))}
         </Row>
+        <Row className="d-flex ">
+          Filtered by:{" "}
+          {Object.values(selectedAllergies)
+            .filter(({ selected }) => selected)
+            .map(({ name }) => (
+              <p style={{ width: "fit-content" }}>{name}</p>
+            ))}
+        </Row>
         <MenuItems category={activeCategory} />
       </Container>
     </Container>
@@ -69,9 +68,10 @@ const OrderMenu = ({ restaurant }) => {
 };
 
 const mapState = (state) => {
-  const { restaurant } = state.frontend;
+  const { restaurant, selectedAllergies } = state.frontend;
   return {
     restaurant,
+    selectedAllergies,
   };
 };
 

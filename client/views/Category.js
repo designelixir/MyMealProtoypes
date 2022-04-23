@@ -291,7 +291,8 @@ const Category = ({
             >
               <Row className="d-flex align-items-center">
                 <Col
-                  lg={1}
+                  lg={3}
+                  // style={{ width: 100 }}
                   className="d-flex justify-content-center align-items-center"
                 >
                   <img

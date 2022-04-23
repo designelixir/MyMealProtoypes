@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Container, Image, Row, Col } from "react-bootstrap";
 import priceFormat from "../../utils/priceFormat";
 
-const MenuItemCard = ({ menuitem }) => {
+const MenuItemCard = ({ menuitem, selectedAllergies }) => {
   return (
     <Container className="menuitem-card d-flex justify-content-between align-items-start">
       <Container className="d-flex flex-column justify-content-start align-items-start">
@@ -20,6 +20,30 @@ const MenuItemCard = ({ menuitem }) => {
             ))}
           </Row>
         )}
+        {menuitem.allergytypes
+          .filter(
+            (allergytype) =>
+              allergytype.allergyId in selectedAllergies &&
+              selectedAllergies[allergytype.allergyId].selected
+          )
+          .map((allergytype) => {
+            const isSafe = allergytype.type === "Safe";
+            const isMod = allergytype.type === "Modifiable";
+            const isCross = allergytype.cross;
+            const isCrossMod = allergytype.crossMod;
+
+            return (
+              <p
+                style={{
+                  width: "fit-content",
+                  color: isSafe ? "green" : isMod && "orange",
+                }}
+              >
+                {allergytype.allergy.name}
+                {isCross && <span style={{ color: "red" }}>*</span>}
+              </p>
+            );
+          })}
       </Container>
       <Image
         className="menuitem-card-img"

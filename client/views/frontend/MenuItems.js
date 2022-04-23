@@ -14,13 +14,19 @@ const MenuItems = ({ category, selectedAllergies }) => {
       <p>Safe</p>
       <Container className="menuitem-container">
         {safeMenuitems.map((menuitem) => (
-          <MenuItemCard menuitem={menuitem} />
+          <MenuItemCard
+            menuitem={menuitem}
+            selectedAllergies={selectedAllergies}
+          />
         ))}
       </Container>
       <p>Mod</p>
       <Container className="menuitem-container">
         {modMenuitems.map((menuitem) => (
-          <MenuItemCard menuitem={menuitem} />
+          <MenuItemCard
+            menuitem={menuitem}
+            selectedAllergies={selectedAllergies}
+          />
         ))}
       </Container>
     </div>

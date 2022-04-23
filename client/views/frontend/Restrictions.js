@@ -9,14 +9,18 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
   const location = useLocation();
   const [selectedAllergies, setSelectedAllergies] = useState(
     restaurant.locations[0].menu.allergies.reduce((allergyObj, allergy) => {
-      allergyObj[allergy.id] = { selected: false, cross: false };
+      allergyObj[allergy.id] = {
+        name: allergy.name,
+        selected: false,
+        cross: false,
+      };
       return allergyObj;
     }, {})
   );
   return (
     <Container
-      className="d-flex flex-column justify-content-start align-items-center"
-      style={{ height: "100%", padding: "1rem 4rem" }}
+      className="d-flex flex-column justify-content-start align-items-center noscroll"
+      style={{ height: "100%", padding: "1rem 4rem", overflow: "scroll" }}
     >
       <Container className="d-flex flex-column justify-content-center align-items-center">
         <Image
