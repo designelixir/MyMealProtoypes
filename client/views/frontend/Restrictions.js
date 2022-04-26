@@ -20,7 +20,7 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
   return (
     <Container
       className="d-flex flex-column justify-content-start align-items-center noscroll"
-      style={{ height: "100%", padding: "1rem 4rem", overflow: "scroll" }}
+      style={{ height: "100%", overflow: "scroll" }}
     >
       <Container className="d-flex flex-column justify-content-center align-items-center">
         <Image
@@ -38,7 +38,7 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
         >
           Select Your Dietary Resitrictions
         </Row>
-        <Container className="d-flex flex-wrap justify-content-between">
+        <Container className="d-flex flex-wrap justify-content-evenly">
           {restaurant.locations[0].menu.allergies.map((allergy) => (
             <div
               key={allergy.id}

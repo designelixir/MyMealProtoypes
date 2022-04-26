@@ -9,7 +9,11 @@ const CrossContact = ({ CCP, primaryColor }) => {
     <>
       <Button
         variant="link"
-        style={{ color: primaryColor }}
+        style={{
+          color: primaryColor,
+          padding: 0,
+          marginBottom: "1rem",
+        }}
         onClick={() => setModalShow(true)}
       >
         Cross Contact Procedure

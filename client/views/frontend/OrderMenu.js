@@ -19,16 +19,20 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
       </Row>
       <Container>
         <Row className="d-flex flex-column justify-content-start align-items-start">
-          <h1>{restaurant.name}</h1>
+          <h1 className="menu-title">{restaurant.name}</h1>
           <h2 className="menu-sub-title">{restaurant.locations[0].address}</h2>
         </Row>
         <Button
           className="rounded-button"
-          style={{ backgroundColor: restaurant.primaryColor }}
+          style={{
+            backgroundColor: restaurant.primaryColor,
+          }}
         >
           Order Now
         </Button>
-        <p>{restaurant.locations[0].menu.dedicatedFrom}</p>
+        <p style={{ fontWeight: 600 }}>
+          {restaurant.locations[0].menu.dedicatedFrom}
+        </p>
         <CrossContact
           CCP={restaurant.locations[0].crossContactProcedure}
           primaryColor={restaurant.primaryColor}
@@ -53,15 +57,18 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
             </div>
           ))}
         </Row>
-        <Row className="d-flex ">
-          Filtered by:{" "}
+        <Row className="d-flex pt-3 filtered-by align-items-center">
+          <p style={{ paddingLeft: "0.5rem" }}>Filtered By: </p>
           {Object.values(selectedAllergies)
             .filter(({ selected }) => selected)
             .map(({ name }) => (
-              <p style={{ width: "fit-content" }}>{name}</p>
+              <p key={name}>{name}</p>
             ))}
         </Row>
-        <MenuItems category={activeCategory} />
+        <MenuItems
+          category={activeCategory}
+          primaryColor={restaurant.primaryColor}
+        />
       </Container>
     </Container>
   );

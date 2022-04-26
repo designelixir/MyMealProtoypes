@@ -93,6 +93,7 @@ const frontendIncluder = (locationId) => ({
   order: [
     [Location, Menu, Category, "position", "ASC"],
     [Location, Menu, Category, MenuItem, "position", "ASC"],
+    [Location, Menu, Category, MenuItem, AllergyType, Allergy, "name", "ASC"],
   ],
   include: [
     { model: Image, as: "logo" },
