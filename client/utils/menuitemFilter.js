@@ -1,6 +1,7 @@
 export default (menuitems, selectedAllergies) => {
   const safe = new Set();
   const mod = new Set();
+  const cross = new Set();
   const unsafe = new Set();
   menuitems.forEach((menuitem) => {
     for (const allergytype of menuitem.allergytypes) {
@@ -33,6 +34,7 @@ export default (menuitems, selectedAllergies) => {
           allergytype.allergyId in selectedAllergies &&
           selectedAllergies[allergytype.allergyId].selected
         ) {
+          cross.add(menuitem.id);
           if (selectedAllergies[allergytype.allergyId].cross) {
             if (allergytype.crossMod) {
               mod.add(menuitem.id);
@@ -47,10 +49,15 @@ export default (menuitems, selectedAllergies) => {
 
   const safeMenuitems = menuitems.filter(
     (menuitem) =>
-      safe.has(menuitem.id) && !unsafe.has(menuitem.id) && !mod.has(menuitem.id)
+      safe.has(menuitem.id) &&
+      !unsafe.has(menuitem.id) &&
+      !mod.has(menuitem.id) &&
+      !cross.has(menuitem.id)
   );
   const modMenuitems = menuitems.filter(
-    (menuitem) => mod.has(menuitem.id) && !unsafe.has(menuitem.id)
+    (menuitem) =>
+      cross.has(menuitem.id) ||
+      (mod.has(menuitem.id) && !unsafe.has(menuitem.id))
   );
   return { safeMenuitems, modMenuitems };
 };

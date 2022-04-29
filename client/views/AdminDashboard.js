@@ -58,14 +58,14 @@ const AdminDashboard = ({
       <Divider />
       <ListGroup>
         {corporations.map((corporation) => (
-          <ListGroupItem
-            key={corporation.id}
-            onClick={() => history.push(`/corporations/${corporation.id}`)}
-            style={{ cursor: "pointer" }}
-            className="mb-3"
-          >
+          <ListGroupItem key={corporation.id} className="mb-3">
             <Row>
-              <Col>{corporation.name}</Col>
+              <Col
+                onClick={() => history.push(`/corporations/${corporation.id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                {corporation.name}
+              </Col>
               <Col>
                 <InviteUser corporation={corporation} />
               </Col>

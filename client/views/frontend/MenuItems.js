@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Container, Row } from "react-bootstrap";
 import menuitemFilter from "../../utils/menuitemFilter";
@@ -10,6 +10,9 @@ const MenuItems = ({ primaryColor, category, selectedAllergies }) => {
     selectedAllergies
   );
   const [showSafe, setShowSafe] = useState(true);
+  useEffect(() => {
+    setShowSafe(safeMenuitems.length > 0);
+  }, [category]);
   return (
     <div>
       <Container
@@ -46,21 +49,31 @@ const MenuItems = ({ primaryColor, category, selectedAllergies }) => {
         </p>
       </Container>
       <Container className="menuitem-container">
-        {showSafe
-          ? safeMenuitems.map((menuitem) => (
+        {showSafe ? (
+          safeMenuitems.length ? (
+            safeMenuitems.map((menuitem) => (
               <MenuItemCard
                 key={menuitem.id}
                 menuitem={menuitem}
+                primaryColor={primaryColor}
                 selectedAllergies={selectedAllergies}
               />
             ))
-          : modMenuitems.map((menuitem) => (
-              <MenuItemCard
-                key={menuitem.id}
-                menuitem={menuitem}
-                selectedAllergies={selectedAllergies}
-              />
-            ))}
+          ) : (
+            <p>No Items</p>
+          )
+        ) : modMenuitems.length ? (
+          modMenuitems.map((menuitem) => (
+            <MenuItemCard
+              key={menuitem.id}
+              primaryColor={primaryColor}
+              menuitem={menuitem}
+              selectedAllergies={selectedAllergies}
+            />
+          ))
+        ) : (
+          <p>No Items</p>
+        )}
       </Container>
     </div>
   );

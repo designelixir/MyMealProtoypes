@@ -10,9 +10,11 @@ const CrossContact = ({ CCP, primaryColor }) => {
       <Button
         variant="link"
         style={{
-          color: primaryColor,
+          color: "black",
           padding: 0,
-          marginBottom: "1rem",
+          marginBottom: "1.5rem",
+          fontSize: "1.25rem",
+          textAlign: "left",
         }}
         onClick={() => setModalShow(true)}
       >
