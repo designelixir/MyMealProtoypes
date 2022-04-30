@@ -84,11 +84,18 @@ router.post(
         const menuitemNames = Object.keys(data[categoryName]);
         let menuitemPosition = 0;
         for (const menuitemName of menuitemNames) {
-          const { description, priceType, priceDetails } =
-            data[categoryName][menuitemName];
+          const {
+            description,
+            ingredients,
+            nutritionFacts,
+            priceType,
+            priceDetails,
+          } = data[categoryName][menuitemName];
           const menuitem = await MenuItem.create({
             name: menuitemName,
             description,
+            ingredients,
+            nutritionFacts,
             position: menuitemPosition++,
             type: priceType,
             price: priceType === "Single" ? priceDetails : 0,

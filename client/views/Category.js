@@ -110,6 +110,8 @@ const Category = ({
   const menuItemInit = {
     name: "",
     description: "",
+    ingredients: "",
+    nutritionFacts: "",
     price: 0,
   };
   const [menuItem, setMenuItem] = useState(menuItemInit);
@@ -148,6 +150,9 @@ const Category = ({
     addMenuItem({
       categoryId,
       body: formData,
+      cb(category) {
+        setMenuitems(category.menuitems);
+      },
     });
   };
   const handleReposition = (idx, moveTo) => {
@@ -256,11 +261,7 @@ const Category = ({
           <Row>
             <Col>
               <Button
-                disabled={
-                  menuItem.description === "" ||
-                  menuItem.image === "" ||
-                  menuItem.name === ""
-                }
+                disabled={menuItem.description === "" || menuItem.name === ""}
                 onClick={handleNewMenuItem}
               >
                 Create

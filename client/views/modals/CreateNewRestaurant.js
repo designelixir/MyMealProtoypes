@@ -34,8 +34,8 @@ const CreateNewRestaurant = ({
   const handleNewRestaurant = () => {
     const formData = new FormData();
 
-    formData.append("file", restaurantLogo);
-    formData.append("file", restaurantBG);
+    formData.append("restaurantLogo", restaurantLogo);
+    formData.append("restaurantBg", restaurantBG);
     formData.append(
       "restaurantData",
       JSON.stringify({

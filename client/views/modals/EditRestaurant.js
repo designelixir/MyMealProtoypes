@@ -38,10 +38,10 @@ const EditRestaurant = ({ restaurant, updateRestaurant, deleteImage }) => {
     const formData = new FormData();
 
     if (restaurantLogo) {
-      formData.append("file", restaurantLogo);
+      formData.append("restaurantLogo", restaurantLogo);
     }
     if (restaurantBG) {
-      formData.append("file", restaurantBG);
+      formData.append("restaurantBg", restaurantBG);
     }
     formData.append(
       "restaurantData",
@@ -51,7 +51,7 @@ const EditRestaurant = ({ restaurant, updateRestaurant, deleteImage }) => {
         primaryColor: colorHex,
       })
     );
-    formData.append("deleted", JSON.stringify(deleted));
+    // formData.append("deleted", JSON.stringify(deleted));
     updateRestaurant({
       body: formData,
       restaurantId: restaurant.id,

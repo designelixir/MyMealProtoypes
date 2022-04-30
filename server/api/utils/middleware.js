@@ -26,6 +26,31 @@ const isAdmin = async (req, res, next) => {
   }
 };
 
+const uploadRestaurantFields = multer({
+  storage: multerS3({
+    s3: new aws.S3({
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      Bucket: "my-meal-images",
+    }),
+    bucket: "my-meal-images",
+    acl: "public-read",
+    key: function (request, file, cb) {
+      console.log(file);
+      cb(null, Date.now() + "-" + file.originalname);
+    },
+  }),
+}).fields([
+  {
+    name: "restaurantLogo",
+    maxCount: 1,
+  },
+  {
+    name: "restaurantBg",
+    maxCount: 1,
+  },
+]);
+
 const upload = multer({
   storage: multerS3({
     s3: new aws.S3({
@@ -49,9 +74,11 @@ const s3Client = () =>
   });
 
 const uploadCSV = multer({ dest: "tmp/csv/" });
+
 module.exports = {
   requireToken,
   isAdmin,
+  uploadRestaurantFields,
   upload,
   s3Client,
   uploadCSV,

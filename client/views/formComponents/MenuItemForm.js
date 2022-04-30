@@ -90,6 +90,30 @@ const MenuItemForm = ({
         onChange={handleChangeMenuItem}
       />
 
+      <Form.Label>Ingredients</Form.Label>
+
+      <Form.Control
+        className="mb-3"
+        type="textarea"
+        as="textarea"
+        name="ingredients"
+        placeholder="Ingredients"
+        value={menuItem.ingredients}
+        onChange={handleChangeMenuItem}
+      />
+
+      <Form.Label>Nutrition Facts</Form.Label>
+
+      <Form.Control
+        className="mb-3"
+        type="textarea"
+        as="textarea"
+        name="nutritionFacts"
+        placeholder="Nutrition Facts"
+        value={menuItem.nutritionFacts}
+        onChange={handleChangeMenuItem}
+      />
+
       <Row className="mb-3">
         <Col>
           <Form.Label className="me-3">Price</Form.Label>

@@ -17,7 +17,11 @@ const {
 } = require("../db");
 const { corporationIncluder } = require("./utils/includers");
 
-const { requireToken, isAdmin, upload } = require("./utils/middleware");
+const {
+  requireToken,
+  isAdmin,
+  uploadRestaurantFields,
+} = require("./utils/middleware");
 
 /**
  * GET /
@@ -72,39 +76,48 @@ router.post("/", isAdmin, async (req, res, next) => {
 router.post(
   "/:corporationId/restaurants",
   requireToken,
-  upload,
+  uploadRestaurantFields,
   async (req, res, next) => {
     try {
       const { corporationId } = req.params;
 
       const restaurantData = JSON.parse(req.body.restaurantData);
-      const [logo, bg] = req.files;
+
+      const logo = req.files.restaurantLogo;
+      const bg = req.files.restaurantBg;
 
       const restaurant = await Restaurant.create(restaurantData);
-      await Promise.all([
-        restaurant.createLogo({ url: logo.location, key: logo.key }),
-        restaurant.createBg({ url: bg.location, key: bg.key }),
-      ]);
+      if (logo) {
+        await restaurant.createLogo({
+          url: logo[0].location,
+          key: logo[0].key,
+        });
+      }
+      if (bg) {
+        await restaurant.createBg({ url: bg[0].location, key: bg[0].key });
+      }
+
       res.json(await Corporation.findByPk(corporationId, corporationIncluder));
     } catch (err) {
       next(err);
     }
   }
 );
+
 //upload.single("file")
-router.post("/upload", requireToken, upload, async (req, res, next) => {
-  try {
-    console.log(req.body);
-    // const { listingData } = req.body;
-    // const listing = await Listing.create(JSON.parse(listingData));
-    // await listing.setUser(req.user);
-    // for (file of req.files) {
-    //   const image = await Image.create({ url: file.location });
-    //   await listing.addImage(image);
-    // }
-    res.sendStatus(200);
-  } catch (err) {
-    next(err);
-  }
-});
+// router.post("/upload", requireToken, upload, async (req, res, next) => {
+//   try {
+//     console.log(req.body);
+//     // const { listingData } = req.body;
+//     // const listing = await Listing.create(JSON.parse(listingData));
+//     // await listing.setUser(req.user);
+//     // for (file of req.files) {
+//     //   const image = await Image.create({ url: file.location });
+//     //   await listing.addImage(image);
+//     // }
+//     res.sendStatus(200);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 module.exports = router;

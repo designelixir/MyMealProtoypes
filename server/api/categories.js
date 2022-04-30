@@ -142,8 +142,9 @@ router.post(
 
       const {
         name,
-        image,
         description,
+        ingredients,
+        nutritionFacts,
         type,
         price,
         pricetypes,
@@ -151,8 +152,9 @@ router.post(
       } = menuitem;
       const newMenuitem = await MenuItem.create({
         name,
-        image,
         description,
+        ingredients,
+        nutritionFacts,
         type,
         price,
         position: startingPosition,

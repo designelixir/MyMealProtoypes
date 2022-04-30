@@ -11,6 +11,8 @@ async function parseData(data) {
           categoryName,
           dishName,
           dishDescription,
+          ingredients,
+          nutritionFacts,
           priceType,
           priceDetails,
         ] = rows[i];
@@ -18,6 +20,8 @@ async function parseData(data) {
           ...rawData[categoryName],
           [dishName]: {
             description: dishDescription,
+            ingredients,
+            nutritionFacts,
             priceType,
             priceDetails: (() => {
               if (priceType === "Single") return priceDetails;

@@ -25,12 +25,12 @@ export const swapMenuitemOrder = createAsyncThunk(
 
 export const createMenuItem = createAsyncThunk(
   "category/createMenuItem",
-  async ({ categoryId, body }) => {
+  async ({ categoryId, body, cb }) => {
     const { data } = await axios.post(
       `/api/categories/${categoryId}/menuitems`,
       body
     );
-
+    cb && cb(data);
     return data;
   }
 );

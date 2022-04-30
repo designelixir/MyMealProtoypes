@@ -8,7 +8,15 @@ const MenuItem = db.define("menuitem", {
   },
   description: {
     type: Sequelize.TEXT,
-    allowNull: false,
+    allowNull: true,
+  },
+  ingredients: {
+    type: Sequelize.TEXT,
+    allowNull: true,
+  },
+  nutritionFacts: {
+    type: Sequelize.TEXT,
+    allowNull: true,
   },
   position: {
     type: Sequelize.INTEGER,

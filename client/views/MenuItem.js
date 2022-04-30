@@ -38,6 +38,8 @@ const MenuItem = ({
     name: "",
     price: 0,
     description: "",
+    ingredients: "",
+    nutritionFacts: "",
   });
 
   useEffect(() => {
@@ -52,6 +54,8 @@ const MenuItem = ({
           name: menuitem.name,
           price: menuitem.price,
           description: menuitem.description,
+          ingredients: menuitem.ingredients,
+          nutritionFacts: menuitem.nutritionFacts,
         });
         if (menuitem.image) {
           setMenuitemImage({ preview: menuitem.image.url });

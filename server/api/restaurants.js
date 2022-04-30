@@ -24,6 +24,7 @@ const {
   isAdmin,
   s3Client,
   upload,
+  uploadRestaurantFields,
   uploadCSV,
 } = require("./utils/middleware");
 const csvParser = require("./utils/csv/location");
@@ -220,34 +221,36 @@ router.put("/:restaurantId/images", requireToken, async (req, res, next) => {
   }
 });
 
-router.put("/:restaurantId", requireToken, upload, async (req, res, next) => {
-  try {
-    const { restaurantId } = req.params;
-    const restaurantData = JSON.parse(req.body.restaurantData);
+router.put(
+  "/:restaurantId",
+  requireToken,
+  uploadRestaurantFields,
+  async (req, res, next) => {
+    try {
+      const { restaurantId } = req.params;
+      const restaurantData = JSON.parse(req.body.restaurantData);
 
-    const restaurant = await Restaurant.findByPk(restaurantId);
-    await restaurant.update(restaurantData);
+      const restaurant = await Restaurant.findByPk(restaurantId);
+      await restaurant.update(restaurantData);
 
-    const deleted = JSON.parse(req.body.deleted);
+      const logo = req.files.restaurantLogo;
+      const bg = req.files.restaurantBg;
 
-    if (deleted.Logo && deleted.Bg) {
-      const [logo, bg] = req.files;
-      await Promise.all([
-        restaurant.createLogo({ url: logo.location, key: logo.key }),
-        restaurant.createBg({ url: bg.location, key: bg.key }),
-      ]);
-    } else if (deleted.Logo) {
-      const [logo] = req.files;
-      await restaurant.createLogo({ url: logo.location, key: logo.key });
-    } else if (deleted.Bg) {
-      const [bg] = req.files;
-      await restaurant.createBg({ url: bg.location, key: bg.key });
+      if (logo) {
+        await restaurant.createLogo({
+          url: logo[0].location,
+          key: logo[0].key,
+        });
+      }
+      if (bg) {
+        await restaurant.createBg({ url: bg[0].location, key: bg[0].key });
+      }
+
+      res.json(await Restaurant.findByPk(restaurantId, restaurantIncluder));
+    } catch (err) {
+      next(err);
     }
-
-    res.json(await Restaurant.findByPk(restaurantId, restaurantIncluder));
-  } catch (err) {
-    next(err);
   }
-});
+);
 
 module.exports = router;
