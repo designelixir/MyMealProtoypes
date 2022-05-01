@@ -39,6 +39,7 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
         {...{ inactiveShow, setInactiveShow, timer }}
         primaryColor={restaurant.primaryColor}
       />
+
       <Row className="d-flex justify-content-start">
         <Image
           className="menu-back-button"

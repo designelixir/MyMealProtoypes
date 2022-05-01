@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { Container, Image, Button, Row } from "react-bootstrap";
 import { setSelectedAllergy } from "../../redux/reducers/frontend";
+import Disclaimer from "./modals/Disclaimer";
 
 const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
   const history = useHistory();
@@ -143,16 +144,13 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
             </div>
           ))}
         </Container>
-        <Button
-          className="see-menu-button"
-          style={{ backgroundColor: restaurant.primaryColor }}
-          onClick={() => {
-            setSelected(selectedAllergies);
-            history.push(`${location.pathname}/menu`);
-          }}
-        >
-          See Menu
-        </Button>
+        <Disclaimer
+          primaryColor={restaurant.primaryColor}
+          location={location}
+          history={history}
+          setSelected={setSelected}
+          selectedAllergies={selectedAllergies}
+        />
       </Container>
     </Container>
   );

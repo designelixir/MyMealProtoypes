@@ -72,8 +72,10 @@ const MenuItemDescription = ({
             <>
               <h4 style={{ fontSize: "1rem" }}>Meets Restrictions:</h4>
               <Container>
-                {data.meetsRestrictions.map(({ allergy }) => (
-                  <p style={{ color: safeColor }}>{allergy}</p>
+                {data.meetsRestrictions.map(({ allergy }, idx) => (
+                  <p key={`${allergy}-${idx}`} style={{ color: safeColor }}>
+                    {allergy}
+                  </p>
                 ))}
               </Container>
             </>
@@ -82,8 +84,9 @@ const MenuItemDescription = ({
             <>
               <h4 style={{ fontSize: "1rem" }}>Modifiable:</h4>
               <Container>
-                {data.modifiable.map(({ allergy, description }) => (
+                {data.modifiable.map(({ allergy, description }, idx) => (
                   <p
+                    key={`${allergy}-${idx}`}
                     style={{ color: modColor }}
                   >{`${allergy}: ${description}`}</p>
                 ))}
@@ -94,8 +97,11 @@ const MenuItemDescription = ({
             <>
               <h4 style={{ fontSize: "1rem" }}>*CROSS CONTACT WARNING*</h4>
               <Container>
-                {data.crossContact.map(({ allergy, description }) => (
-                  <p style={{ color: "red" }}>{`${allergy}: ${description}`}</p>
+                {data.crossContact.map(({ allergy, description }, idx) => (
+                  <p
+                    key={`${allergy}-${idx}`}
+                    style={{ color: "red" }}
+                  >{`${allergy}: ${description}`}</p>
                 ))}
               </Container>
             </>
