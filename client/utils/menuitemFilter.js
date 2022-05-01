@@ -56,7 +56,7 @@ export default (menuitems, selectedAllergies) => {
   );
   const modMenuitems = menuitems.filter(
     (menuitem) =>
-      cross.has(menuitem.id) ||
+      (cross.has(menuitem.id) && !unsafe.has(menuitem.id)) ||
       (mod.has(menuitem.id) && !unsafe.has(menuitem.id))
   );
   return { safeMenuitems, modMenuitems };

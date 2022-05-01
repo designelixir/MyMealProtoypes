@@ -60,7 +60,7 @@ const MenuItems = ({ primaryColor, category, selectedAllergies }) => {
               />
             ))
           ) : (
-            <p>No Items</p>
+            <p style={{ width: "100%", textAlign: "center" }}>No Items</p>
           )
         ) : modMenuitems.length ? (
           modMenuitems.map((menuitem) => (
@@ -72,7 +72,7 @@ const MenuItems = ({ primaryColor, category, selectedAllergies }) => {
             />
           ))
         ) : (
-          <p>No Items</p>
+          <p style={{ width: "100%", textAlign: "center" }}>No Items</p>
         )}
       </Container>
     </div>

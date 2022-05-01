@@ -10,7 +10,6 @@ export default (menuitem, selectedAllergies) => {
     crossContact: [],
   };
   for (const allergytype of filteredAllergytypes) {
-    console.log(allergytype);
     const [first, ...last] = allergytype.allergy.name;
     const allergyName = `${first.toUpperCase()}${last.join("")}`;
     if (allergytype.type === "Safe" && !allergytype.cross) {

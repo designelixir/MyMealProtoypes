@@ -22,6 +22,13 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
       className="d-flex flex-column justify-content-start align-items-center noscroll"
       style={{ height: "100%", overflow: "scroll" }}
     >
+      <Row className="d-flex justify-content-start">
+        <Image
+          className="menu-back-button above-overlay"
+          onClick={() => setHasRestrictions(false)}
+          src={"/img/back-arrow.png"}
+        />
+      </Row>
       <Container className="d-flex flex-column justify-content-center align-items-center">
         <Image
           className="above-overlay restriction-logo"
@@ -29,7 +36,10 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
             restaurant.logo ? restaurant.logo.url : "/img/demo-restauarant.png"
           }
         />
-        <p className="above-overlay">
+        <p
+          className="above-overlay"
+          style={{ fontSize: "2rem", fontWeight: 600, marginTop: "1rem" }}
+        >
           {restaurant.locations[0].menu.dedicatedFrom}
         </p>
       </Container>
@@ -38,7 +48,7 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
           className="d-flex justify-content-center align-items-center restriction-header above-overlay"
           style={{ backgroundColor: restaurant.primaryColor, color: "white" }}
         >
-          Select Your Dietary Resitrictions
+          Select Your Dietary Restrictions
         </Row>
         <Container className="d-flex flex-wrap justify-content-evenly">
           {restaurant.locations[0].menu.allergies.map((allergy) => (

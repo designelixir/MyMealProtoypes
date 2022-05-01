@@ -89,6 +89,16 @@ input.close {
   margin-bottom: 1rem;
 }
 
+.allergy-card-popup {
+  border-radius: 20px;
+  /* min-height: 40px; */
+  background: white;
+  /* padding: 0.5rem 1rem; */
+  width: 100%;
+  min-width: 150px;
+  margin-bottom: 1rem;
+}
+
 .allergy-info {
   border-radius: 20px;
   height: 100px;
@@ -140,6 +150,15 @@ input.close {
   margin-top: 1.5rem;
   position: absolute;
   left: 1rem;
+}
+
+.menu-back-button {
+  height: 30px;
+  width: auto;
+  cursor: pointer;
+  position: absolute;
+  left: 1rem;
+  top: 1.25rem;
 }
 
 .menu-title {
@@ -201,7 +220,7 @@ input.close {
 .menuitem-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .menuitem-card {

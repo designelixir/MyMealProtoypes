@@ -1,30 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
-import { Redirect, useLocation } from "react-router-dom";
+import { useIdleTimer } from "react-idle-timer";
+import { Redirect, useLocation, useHistory } from "react-router-dom";
 import { Container, Row, Col, Image, Button, Tabs, Tab } from "react-bootstrap";
 import CrossContact from "./modals/CrossContact";
 import MenuItems from "./MenuItems";
 import Filter from "./iconcomponents/Filter";
+import AllergyFilters from "./modals/AllergyFilters";
+import InactiveWarning from "./modals/InactiveWarning";
 
 const OrderMenu = ({ restaurant, selectedAllergies }) => {
   const location = useLocation();
+  const history = useHistory();
   if (!restaurant.id) {
     return <Redirect to={`${location.pathname.replace("/menu", "")}`} />;
   }
+  const timer = useRef(null);
+  const handleOnIdle = (event) => {
+    setInactiveShow(true);
+    timer.current = setTimeout(() => {
+      history.push(`${location.pathname.replace("/menu", "")}`);
+    }, 5000);
+  };
+
+  const { getRemainingTime, getLastActiveTime } = useIdleTimer({
+    timeout: 30000,
+    onIdle: handleOnIdle,
+    debounce: 500,
+  });
   const safeColor = "#007B2A";
   const categories = restaurant.locations[0].menu.categories;
   const [activeCategory, setActiveCategory] = useState(categories[0]);
+  const [modalShow, setModalShow] = useState(false);
+  const [inactiveShow, setInactiveShow] = useState(false);
   return (
     <Container>
+      <InactiveWarning
+        {...{ inactiveShow, setInactiveShow, timer }}
+        primaryColor={restaurant.primaryColor}
+      />
       <Row className="d-flex justify-content-start">
         <Image
-          className="menu-logo"
-          src={
-            restaurant.logo ? restaurant.logo.url : "/img/demo-restauarant.png"
+          className="menu-back-button"
+          onClick={() =>
+            history.push(`${location.pathname.replace("/menu", "")}`)
           }
+          src={"/img/back-arrow.png"}
         />
       </Row>
-      <Container style={{ marginTop: 125 }}>
+      <Container style={{ marginTop: "4rem" }}>
         <Row className="d-flex flex-column justify-content-start align-items-start">
           <h1 className="menu-title">{restaurant.name}</h1>
           <h2 className="menu-sub-title">{restaurant.locations[0].address}</h2>
@@ -99,7 +123,12 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
               ))}
           </Col>
           <Col className="col-auto">
-            <Filter />
+            <Filter setModalShow={setModalShow} />
+            <AllergyFilters
+              {...{ modalShow, setModalShow }}
+              restaurantAllergies={restaurant.locations[0].menu.allergies}
+              primaryColor={restaurant.primaryColor}
+            />
           </Col>
         </Row>
         <MenuItems

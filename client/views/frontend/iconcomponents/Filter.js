@@ -1,8 +1,10 @@
 import React from "react";
 
-export default function Filter() {
+export default function Filter({ setModalShow }) {
   return (
     <svg
+      onClick={() => setModalShow(true)}
+      style={{ width: 20, height: 22 }}
       width="28"
       height="30"
       viewBox="0 0 28 30"

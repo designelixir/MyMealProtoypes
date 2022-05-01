@@ -41,7 +41,7 @@ const MainScreen = ({ restaurant, setHasRestrictions }) => {
           }}
           onClick={() => setHasRestrictions(true)}
         >
-          I HAVE A FOOD RESTRICTION
+          Allergy Menu
         </Button>
       </Container>
     </Container>
