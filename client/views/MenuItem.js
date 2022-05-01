@@ -150,6 +150,9 @@ const MenuItem = ({
   const handleChangeMenuItem = ({ target: { name, value } }) => {
     if (name === "price") {
       value = value.replace(/[^\d]/g, "");
+      if (value === "") {
+        value = 0;
+      }
     }
     setMenuItem({ ...menuItem, [name]: value });
   };

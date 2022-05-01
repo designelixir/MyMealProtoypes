@@ -228,6 +228,16 @@ input.close {
   right: 0; */
   border-radius: 0.5rem;
 }
+
+.menu-description-card-img {
+  height: 200px;
+  width: 200px;
+  /* position: absolute;
+  top: 1rem;
+  right: 0; */
+  border-radius: 0.5rem;
+}
+
 .card {
   width: 20rem;
   border: none;

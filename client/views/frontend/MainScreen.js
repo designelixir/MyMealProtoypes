@@ -16,11 +16,13 @@ const MainScreen = ({ restaurant, setHasRestrictions }) => {
         </h1>
         <Image
           className="above-overlay welcome-logo"
-          src={restaurant.logo.url}
+          src={
+            restaurant.logo ? restaurant.logo.url : "/img/demo-restauarant.png"
+          }
         />
       </Container>
       <Container className="d-flex flex-column justify-content-between">
-        <Button
+        {/* <Button
           className="above-overlay welcome-button"
           style={{
             backgroundColor: "white",
@@ -29,7 +31,7 @@ const MainScreen = ({ restaurant, setHasRestrictions }) => {
           onClick={() => history.push(`${location.pathname}/menu`)}
         >
           I'M READY TO ORDER
-        </Button>
+        </Button> */}
         <Button
           className="above-overlay welcome-button"
           style={{

@@ -13,11 +13,19 @@ const Welcome = ({ match, getRestaurant, isLoading, restaurant }) => {
   }, []);
   const [hasRestrictions, setHasRestrictions] = useState(false);
   if (isLoading) return <></>;
+  if (!restaurant.id)
+    return (
+      <Container>
+        <p>Invalid</p>
+      </Container>
+    );
   return (
     <section
       className="d-flex flex-column justify-content-center"
       style={{
-        backgroundImage: `url(${restaurant.bg.url})`,
+        backgroundImage: `url(${
+          restaurant.bg ? restaurant.bg.url : "/img/demo-background.jpeg"
+        })`,
         height: "100vh",
         width: "auto",
         backgroundRepeat: "no-repeat",

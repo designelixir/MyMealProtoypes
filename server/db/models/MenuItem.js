@@ -30,7 +30,7 @@ const MenuItem = db.define("menuitem", {
   price: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
-    allowNull: false,
+    allowNull: true,
   },
   priceFormatted: {
     type: Sequelize.VIRTUAL,

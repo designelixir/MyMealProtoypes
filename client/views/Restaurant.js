@@ -128,6 +128,7 @@ const Restaurant = ({
           restaurant.locations.map((location) => (
             <ListGroupItem
               key={location.id}
+              // className="d-flex justify-content-start"
               style={{ cursor: "pointer" }}
               onClick={() =>
                 history.push(
@@ -135,7 +136,8 @@ const Restaurant = ({
                 )
               }
             >
-              {location.address}
+              <p>{location.address}</p>
+              <p>{`${window.location.origin}/order/restaurants/${restaurantId}/locations/${location.id}`}</p>
             </ListGroupItem>
           ))}
       </ListGroup>

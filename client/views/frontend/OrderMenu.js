@@ -17,7 +17,12 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
   return (
     <Container>
       <Row className="d-flex justify-content-start">
-        <Image className="menu-logo" src={restaurant.logo.url} />
+        <Image
+          className="menu-logo"
+          src={
+            restaurant.logo ? restaurant.logo.url : "/img/demo-restauarant.png"
+          }
+        />
       </Row>
       <Container style={{ marginTop: 125 }}>
         <Row className="d-flex flex-column justify-content-start align-items-start">

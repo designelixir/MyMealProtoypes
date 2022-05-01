@@ -25,7 +25,9 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
       <Container className="d-flex flex-column justify-content-center align-items-center">
         <Image
           className="above-overlay restriction-logo"
-          src={restaurant.logo.url}
+          src={
+            restaurant.logo ? restaurant.logo.url : "/img/demo-restauarant.png"
+          }
         />
         <p className="above-overlay">
           {restaurant.locations[0].menu.dedicatedFrom}
