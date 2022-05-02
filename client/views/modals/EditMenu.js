@@ -76,7 +76,7 @@ const EditMenu = ({ menu, editMenu, allergies }) => {
             placeholder="Procedure"
             onChange={handleChange}
           />
-          <Form.Label>Order now</Form.Label>
+          <Form.Label>Order now (Include https://)</Form.Label>
           <Form.Control
             className="mb-3"
             type="text"

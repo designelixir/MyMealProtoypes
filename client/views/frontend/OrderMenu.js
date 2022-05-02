@@ -54,17 +54,22 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
           <h1 className="menu-title">{restaurant.name}</h1>
           <h2 className="menu-sub-title">{restaurant.locations[0].address}</h2>
         </Row>
-        <Row>
-          <Button
-            className="rounded-button"
-            style={{
-              backgroundColor: restaurant.primaryColor,
-              width: "fit-content",
-            }}
-          >
-            Order Now
-          </Button>
-        </Row>
+        {restaurant.locations[0].menu.orderNow && (
+          <Row>
+            <Button
+              className="rounded-button"
+              style={{
+                backgroundColor: restaurant.primaryColor,
+                width: "fit-content",
+              }}
+              onClick={() =>
+                window.open(restaurant.locations[0].menu.orderNow, "_blank")
+              }
+            >
+              Order Now
+            </Button>
+          </Row>
+        )}
         <Row>
           <p style={{ fontWeight: 600, fontSize: "1.5rem", paddingLeft: 0 }}>
             {restaurant.locations[0].menu.dedicatedFrom}
