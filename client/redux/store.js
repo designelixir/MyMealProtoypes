@@ -4,9 +4,10 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "@redux-devtools/extension";
 import rootReducer from "./index";
 
-const middleware = composeWithDevTools(
-  applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
-);
+// const middleware = composeWithDevTools(
+//   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
+// );
+const middleware = applyMiddleware(thunkMiddleware);
 const store = createStore(rootReducer, middleware);
 
 export default store;
