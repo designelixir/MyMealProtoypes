@@ -73,14 +73,14 @@ const AuthForm = ({ name, displayName, authenticateUser, error }) => {
           </Form.Check>
         </Col>
 
-        <Col xs="auto">
+        {/* <Col xs="auto">
           <Link
             className="fs--1 mb-0"
             to={`/authentication/${layout}/forgot-password`}
           >
             Forget Password?
           </Link>
-        </Col>
+        </Col> */}
       </Row>
 
       <Form.Group>
@@ -94,7 +94,7 @@ const AuthForm = ({ name, displayName, authenticateUser, error }) => {
         </Button>
       </Form.Group>
 
-      <Divider className="mt-4">or log in with</Divider>
+      {/* <Divider className="mt-4">or log in with</Divider> */}
     </Form>
   );
 };

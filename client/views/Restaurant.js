@@ -129,14 +129,23 @@ const Restaurant = ({
             <ListGroupItem
               key={location.id}
               // className="d-flex justify-content-start"
-              style={{ cursor: "pointer" }}
-              onClick={() =>
-                history.push(
-                  `/corporations/${corporationId}/restaurants/${restaurantId}/locations/${location.id}`
-                )
-              }
+              // style={{ cursor: "pointer" }}
+              // onClick={() =>
+              //   history.push(
+              //     `/corporations/${corporationId}/restaurants/${restaurantId}/locations/${location.id}`
+              //   )
+              // }
             >
-              <p>{location.address}</p>
+              <p
+                style={{ cursor: "pointer" }}
+                onClick={() =>
+                  history.push(
+                    `/corporations/${corporationId}/restaurants/${restaurantId}/locations/${location.id}`
+                  )
+                }
+              >
+                {location.address}
+              </p>
               <p>{`${window.location.origin}/order/restaurants/${restaurantId}/locations/${location.id}`}</p>
             </ListGroupItem>
           ))}

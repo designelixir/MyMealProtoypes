@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Loading from "../views/Loading";
 import { receiveInvitation } from "../redux/reducers/auth";
+import Nav from "./Nav";
 
 export const Portal = ({ Component, props, auth, preCheck }) => {
   return (
@@ -11,8 +12,15 @@ export const Portal = ({ Component, props, auth, preCheck }) => {
         <Loading />
       ) : !auth.id ? (
         <Component auth={null} {...props} />
-      ) : (
+      ) : props.frontend ? (
         <Component auth={auth} {...props} />
+      ) : (
+        <>
+          <Nav />
+          <div style={{ marginTop: 56 }}>
+            <Component auth={auth} {...props} />
+          </div>
+        </>
       )}
     </main>
   );

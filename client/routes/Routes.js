@@ -20,6 +20,7 @@ import Location from "../views/Location";
 import Welcome from "../views/frontend/Welcome";
 import OrderMenu from "../views/frontend/OrderMenu";
 import UserRestaurants from "../views/UserRestaurants";
+import AuthSimpleLayout from "../views/AuthSimpleLayout";
 
 const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
   useEffect(() => {
@@ -82,12 +83,14 @@ const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
           <Route
             exact
             path="/order/restaurants/:restaurantId/locations/:locationId"
-            render={(props) => renderer(Welcome, props)}
+            render={(props) => renderer(Welcome, { ...props, frontend: true })}
           />
           <Route
             exact
             path="/order/restaurants/:restaurantId/locations/:locationId/menu"
-            render={(props) => renderer(OrderMenu, props)}
+            render={(props) =>
+              renderer(OrderMenu, { ...props, frontend: true })
+            }
           />
           <Route
             exact
@@ -97,26 +100,38 @@ const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
         </Switch>
       ) : (
         <Switch>
-          <Route exact path="/" render={(props) => renderer(Home, props)} />
+          {/* <Route exact path="/" render={(props) => renderer(Home, props)} /> */}
+          <Route
+            exact
+            path="/order/restaurants/:restaurantId/locations/:locationId"
+            render={(props) => renderer(Welcome, { ...props, frontend: true })}
+          />
+          <Route
+            exact
+            path="/order/restaurants/:restaurantId/locations/:locationId/menu"
+            render={(props) =>
+              renderer(OrderMenu, { ...props, frontend: true })
+            }
+          />
           <Route
             exact
             path="/invite/:accessToken"
             render={(props) => renderer(RegisterInvite, props)}
           />
-          <Route
+          {/* <Route
             exact
             path="/menus/:menuId"
             render={(props) => renderer(Menu, props)}
-          />
+          /> */}
           <Route
             exact
             path="/login"
-            render={(props) => renderer(AuthForm, props)}
+            render={(props) => renderer(AuthSimpleLayout, props)}
           />
           <Route
             exact
             path="/*"
-            render={(props) => renderer(AuthForm, props)}
+            render={(props) => renderer(AuthSimpleLayout, props)}
           />
         </Switch>
       )}

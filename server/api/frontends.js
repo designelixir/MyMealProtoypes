@@ -18,12 +18,8 @@ const {
   },
 } = require("../db");
 
-const { requireToken } = require("./utils/middleware");
 const { frontendIncluder } = require("./utils/includers");
-/**
- * GET /
- * All Allergies
- */
+
 router.get(
   "/restaurants/:restaurantId/locations/:locationId",
   async (req, res, next) => {
