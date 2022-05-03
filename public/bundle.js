@@ -10297,7 +10297,14 @@ const MainScreen = ({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
     className: "d-flex flex-column justify-content-between align-items-center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", {
-    className: "above-overlay welcome-header"
+    className: "above-overlay welcome-header",
+    style: {
+      background: "#ffffff6b",
+      padding: "1rem",
+      borderRadius: "1rem",
+      width: "100%",
+      textAlign: "center"
+    }
   }, "Welcome to ", restaurant.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
     className: "above-overlay welcome-logo",
     src: restaurant.logo ? restaurant.logo.url : "/img/demo-restauarant.png"
@@ -10338,7 +10345,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
 /* harmony import */ var _utils_priceFormat__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/priceFormat */ "./client/utils/priceFormat.js");
 /* harmony import */ var _iconcomponents_Icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./iconcomponents/Icon */ "./client/views/frontend/iconcomponents/Icon.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
@@ -10461,9 +10467,14 @@ const MenuItemCard = ({
       padding: 0
     },
     className: "d-flex justify-content-end "
-  }, menuitem.image && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, menuitem.image && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "menuitem-card-img",
-    src: menuitem.image.url
+    style: {
+      backgroundImage: `url(${menuitem.image.url})`,
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      backgroundSize: "cover"
+    }
   }))))));
 };
 

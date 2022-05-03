@@ -11,7 +11,16 @@ const MainScreen = ({ restaurant, setHasRestrictions }) => {
       style={{ height: "100%" }}
     >
       <Container className="d-flex flex-column justify-content-between align-items-center">
-        <h1 className="above-overlay welcome-header">
+        <h1
+          className="above-overlay welcome-header"
+          style={{
+            background: "#ffffff6b",
+            padding: "1rem",
+            borderRadius: "1rem",
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
           Welcome to {restaurant.name}
         </h1>
         <Image

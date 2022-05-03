@@ -159,7 +159,15 @@ const MenuItemCard = ({ menuitem, selectedAllergies, primaryColor }) => {
             </Col>
             <Col style={{ padding: 0 }} className="d-flex justify-content-end ">
               {menuitem.image && (
-                <Image className="menuitem-card-img" src={menuitem.image.url} />
+                <div
+                  className="menuitem-card-img"
+                  style={{
+                    backgroundImage: `url(${menuitem.image.url})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    backgroundSize: "cover",
+                  }}
+                />
               )}
             </Col>
           </Row>
