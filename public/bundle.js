@@ -10854,7 +10854,13 @@ const Restrictions = ({
     style: {
       fontSize: "2rem",
       fontWeight: 600,
-      marginTop: "1rem"
+      marginTop: "1rem",
+      whiteSpace: "pre-line",
+      background: "#ffffff6b",
+      padding: "1rem",
+      borderRadius: "1rem",
+      width: "100%",
+      textAlign: "center"
     }
   }, restaurant.locations[0].menu.dedicatedFrom)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
     className: "d-flex flex-column justify-content-start align-items-center restriction-container above-overlay"
@@ -11374,7 +11380,11 @@ const CrossContact = ({
     closeButton: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Title, {
     id: "contained-modal-title-vcenter"
-  }, "Cross Contact Procedure")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, CCP)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, "Cross Contact Procedure")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    style: {
+      whiteSpace: "pre-line"
+    }
+  }, CCP)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], {
     style: {
       color: "white",
       backgroundColor: primaryColor,

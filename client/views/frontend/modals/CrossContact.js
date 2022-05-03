@@ -36,7 +36,7 @@ const CrossContact = ({ CCP, primaryColor }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>{CCP}</p>
+          <p style={{ whiteSpace: "pre-line" }}>{CCP}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button

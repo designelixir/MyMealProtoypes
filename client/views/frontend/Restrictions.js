@@ -39,7 +39,17 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
         />
         <p
           className="above-overlay"
-          style={{ fontSize: "2rem", fontWeight: 600, marginTop: "1rem" }}
+          style={{
+            fontSize: "2rem",
+            fontWeight: 600,
+            marginTop: "1rem",
+            whiteSpace: "pre-line",
+            background: "#ffffff6b",
+            padding: "1rem",
+            borderRadius: "1rem",
+            width: "100%",
+            textAlign: "center",
+          }}
         >
           {restaurant.locations[0].menu.dedicatedFrom}
         </p>
