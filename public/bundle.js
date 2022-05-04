@@ -10554,17 +10554,31 @@ __webpack_require__.r(__webpack_exports__);
 
 const MenuItems = ({
   primaryColor,
-  category,
-  selectedAllergies
+  selectedAllergies,
+  categories
 }) => {
-  const {
-    safeMenuitems,
-    modMenuitems
-  } = (0,_utils_menuitemFilter__WEBPACK_IMPORTED_MODULE_2__["default"])(category.menuitems, selectedAllergies);
+  // const { safeMenuitems, modMenuitems } = menuitemFilter(
+  //   category.menuitems,
+  //   selectedAllergies
+  // );
+  const allItems = categories.map(({
+    name,
+    menuitems
+  }) => {
+    const {
+      safeMenuitems,
+      modMenuitems
+    } = (0,_utils_menuitemFilter__WEBPACK_IMPORTED_MODULE_2__["default"])(menuitems, selectedAllergies);
+    return {
+      categoryName: name,
+      safeMenuitems,
+      modMenuitems
+    };
+  });
   const [showSafe, setShowSafe] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    setShowSafe(safeMenuitems.length > 0);
-  }, [category]);
+    setShowSafe(allItems.some(item => item.safeMenuitems.length > 0));
+  }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
     style: {
       border: `1px solid ${primaryColor}`
@@ -10585,23 +10599,37 @@ const MenuItems = ({
     } : {},
     onClick: () => setShowSafe(false)
   }, "Needs Modification")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    className: "p-0"
+  }, showSafe ? allItems.some(item => item.safeMenuitems.length > 0) ? allItems.map(item => item.safeMenuitems.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    className: "d-flex flex-column p-0"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", {
+    className: "mt-3",
+    id: item.categoryName
+  }, item.categoryName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
     className: "menuitem-container"
-  }, showSafe ? safeMenuitems.length ? safeMenuitems.map(menuitem => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItemCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, item.safeMenuitems.map(menuitem => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItemCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
     key: menuitem.id,
     menuitem: menuitem,
     primaryColor: primaryColor,
     selectedAllergies: selectedAllergies
-  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+  }))))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     style: {
       width: "100%",
       textAlign: "center"
     }
-  }, "No Items") : modMenuitems.length ? modMenuitems.map(menuitem => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItemCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, "No Items") : allItems.some(item => item.modMenuitems.length > 0) ? allItems.map(item => item.modMenuitems.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    className: "d-flex flex-column p-0"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", {
+    className: "mt-3",
+    id: item.categoryName
+  }, item.categoryName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    className: "menuitem-container"
+  }, item.modMenuitems.map(menuitem => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItemCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
     key: menuitem.id,
-    primaryColor: primaryColor,
     menuitem: menuitem,
+    primaryColor: primaryColor,
     selectedAllergies: selectedAllergies
-  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+  }))))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     style: {
       width: "100%",
       textAlign: "center"
@@ -10694,6 +10722,17 @@ const OrderMenu = ({
   const [activeCategory, setActiveCategory] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(categories[0]);
   const [modalShow, setModalShow] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [inactiveShow, setInactiveShow] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+
+  const handleSelectCategory = category => {
+    setActiveCategory(category);
+    const scrollDiv = document.getElementById(`${category.name}`).offsetTop;
+    window.scrollTo({
+      top: scrollDiv,
+      behavior: "smooth"
+    }); // window.location.href = "#";
+    // window.location.href = `#${category.name}`;
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_InactiveWarning__WEBPACK_IMPORTED_MODULE_7__["default"], {
     inactiveShow,
     setInactiveShow,
@@ -10742,7 +10781,7 @@ const OrderMenu = ({
       backgroundColor: activeCategory.id === category.id ? restaurant.primaryColor : "white",
       color: activeCategory.id === category.id ? "white" : "black"
     },
-    onClick: () => setActiveCategory(category)
+    onClick: () => handleSelectCategory(category)
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, category.name)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
     className: "d-flex pt-3 filtered-by align-items-center justify-content-between"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -10780,7 +10819,7 @@ const OrderMenu = ({
     restaurantAllergies: restaurant.locations[0].menu.allergies,
     primaryColor: restaurant.primaryColor
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItems__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    category: activeCategory,
+    categories: categories,
     primaryColor: restaurant.primaryColor
   })));
 };
@@ -11602,8 +11641,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
 /* harmony import */ var _utils_menuitemData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/menuitemData */ "./client/utils/menuitemData.js");
 /* harmony import */ var _utils_priceFormat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/priceFormat */ "./client/utils/priceFormat.js");
 
@@ -11651,9 +11689,14 @@ const MenuItemDescription = ({
       padding: 0
     },
     className: "d-flex justify-content-center align-items-center mb-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "menu-description-card-img",
-    src: menuitem.image.url
+    style: {
+      backgroundImage: `url(${menuitem.image.url})`,
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      backgroundSize: "cover"
+    }
   })), data.meetsRestrictions.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", {
     style: {
       fontSize: "1rem"
@@ -11697,7 +11740,7 @@ const MenuItemDescription = ({
     style: {
       fontSize: "1rem"
     }
-  }, "Nutrition Facts"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, menuitem.nutritionFacts)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }, "Nutrition Facts"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, menuitem.nutritionFacts)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], {
     style: {
       color: "white",
       backgroundColor: primaryColor,

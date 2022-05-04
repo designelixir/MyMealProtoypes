@@ -33,6 +33,13 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
   const [activeCategory, setActiveCategory] = useState(categories[0]);
   const [modalShow, setModalShow] = useState(false);
   const [inactiveShow, setInactiveShow] = useState(false);
+  const handleSelectCategory = (category) => {
+    setActiveCategory(category);
+    const scrollDiv = document.getElementById(`${category.name}`).offsetTop;
+    window.scrollTo({ top: scrollDiv, behavior: "smooth" });
+    // window.location.href = "#";
+    // window.location.href = `#${category.name}`;
+  };
   return (
     <Container>
       <InactiveWarning
@@ -95,7 +102,7 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
                     : "white",
                 color: activeCategory.id === category.id ? "white" : "black",
               }}
-              onClick={() => setActiveCategory(category)}
+              onClick={() => handleSelectCategory(category)}
             >
               <p>{category.name}</p>
             </div>
@@ -138,7 +145,7 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
           </Col>
         </Row>
         <MenuItems
-          category={activeCategory}
+          categories={categories}
           primaryColor={restaurant.primaryColor}
         />
       </Container>

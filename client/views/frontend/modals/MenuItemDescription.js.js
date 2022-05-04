@@ -62,9 +62,14 @@ const MenuItemDescription = ({
               style={{ padding: 0 }}
               className="d-flex justify-content-center align-items-center mb-4"
             >
-              <Image
+              <div
                 className="menu-description-card-img"
-                src={menuitem.image.url}
+                style={{
+                  backgroundImage: `url(${menuitem.image.url})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                }}
               />
             </Container>
           )}

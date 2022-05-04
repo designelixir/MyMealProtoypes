@@ -4,15 +4,27 @@ import { Container, Row } from "react-bootstrap";
 import menuitemFilter from "../../utils/menuitemFilter";
 import MenuItemCard from "./MenuItemCard";
 
-const MenuItems = ({ primaryColor, category, selectedAllergies }) => {
-  const { safeMenuitems, modMenuitems } = menuitemFilter(
-    category.menuitems,
-    selectedAllergies
-  );
+const MenuItems = ({ primaryColor, selectedAllergies, categories }) => {
+  // const { safeMenuitems, modMenuitems } = menuitemFilter(
+  //   category.menuitems,
+  //   selectedAllergies
+  // );
+
+  const allItems = categories.map(({ name, menuitems }) => {
+    const { safeMenuitems, modMenuitems } = menuitemFilter(
+      menuitems,
+      selectedAllergies
+    );
+    return {
+      categoryName: name,
+      safeMenuitems,
+      modMenuitems,
+    };
+  });
   const [showSafe, setShowSafe] = useState(true);
   useEffect(() => {
-    setShowSafe(safeMenuitems.length > 0);
-  }, [category]);
+    setShowSafe(allItems.some((item) => item.safeMenuitems.length > 0));
+  }, []);
   return (
     <div>
       <Container
@@ -48,29 +60,53 @@ const MenuItems = ({ primaryColor, category, selectedAllergies }) => {
           Needs Modification
         </p>
       </Container>
-      <Container className="menuitem-container">
+      <Container className="p-0">
         {showSafe ? (
-          safeMenuitems.length ? (
-            safeMenuitems.map((menuitem) => (
-              <MenuItemCard
-                key={menuitem.id}
-                menuitem={menuitem}
-                primaryColor={primaryColor}
-                selectedAllergies={selectedAllergies}
-              />
-            ))
+          allItems.some((item) => item.safeMenuitems.length > 0) ? (
+            allItems.map(
+              (item) =>
+                item.safeMenuitems.length > 0 && (
+                  <Container className="d-flex flex-column p-0">
+                    <h3 className="mt-3" id={item.categoryName}>
+                      {item.categoryName}
+                    </h3>
+                    <Container className="menuitem-container">
+                      {item.safeMenuitems.map((menuitem) => (
+                        <MenuItemCard
+                          key={menuitem.id}
+                          menuitem={menuitem}
+                          primaryColor={primaryColor}
+                          selectedAllergies={selectedAllergies}
+                        />
+                      ))}
+                    </Container>
+                  </Container>
+                )
+            )
           ) : (
             <p style={{ width: "100%", textAlign: "center" }}>No Items</p>
           )
-        ) : modMenuitems.length ? (
-          modMenuitems.map((menuitem) => (
-            <MenuItemCard
-              key={menuitem.id}
-              primaryColor={primaryColor}
-              menuitem={menuitem}
-              selectedAllergies={selectedAllergies}
-            />
-          ))
+        ) : allItems.some((item) => item.modMenuitems.length > 0) ? (
+          allItems.map(
+            (item) =>
+              item.modMenuitems.length > 0 && (
+                <Container className="d-flex flex-column p-0">
+                  <h3 className="mt-3" id={item.categoryName}>
+                    {item.categoryName}
+                  </h3>
+                  <Container className="menuitem-container">
+                    {item.modMenuitems.map((menuitem) => (
+                      <MenuItemCard
+                        key={menuitem.id}
+                        menuitem={menuitem}
+                        primaryColor={primaryColor}
+                        selectedAllergies={selectedAllergies}
+                      />
+                    ))}
+                  </Container>
+                </Container>
+              )
+          )
         ) : (
           <p style={{ width: "100%", textAlign: "center" }}>No Items</p>
         )}
