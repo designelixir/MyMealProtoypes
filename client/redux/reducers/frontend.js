@@ -4,12 +4,21 @@ import axios from "axios";
 
 export const fetchFrontendRestaurant = createAsyncThunk(
   "frontend/fetchFrontendRestaurant",
-  async ({ restaurantId, locationId }) => {
-    const { data } = await axios.get(
-      `/api/frontends/restaurants/${restaurantId}/locations/${locationId}`
-    );
+  async ({ restaurantId, locationId }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(
+        `/api/frontends/restaurants/${restaurantId}/locations/${locationId}`
+      );
 
-    return data;
+      return data;
+    } catch (err) {
+      if (!err.response) {
+        throw err;
+      }
+      console.log(err, err.response, err.response.data);
+
+      return rejectWithValue(err.response.data);
+    }
   }
 );
 
