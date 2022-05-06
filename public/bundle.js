@@ -6609,11 +6609,22 @@ __webpack_require__.r(__webpack_exports__);
 const fetchFrontendRestaurant = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)("frontend/fetchFrontendRestaurant", async ({
   restaurantId,
   locationId
+}, {
+  rejectWithValue
 }) => {
-  const {
-    data
-  } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/frontends/restaurants/${restaurantId}/locations/${locationId}`);
-  return data;
+  try {
+    const {
+      data
+    } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/frontends/restaurants/${restaurantId}/locations/${locationId}`);
+    return data;
+  } catch (err) {
+    if (!err.response) {
+      throw err;
+    }
+
+    console.log(err, err.response, err.response.data);
+    return rejectWithValue(err.response.data);
+  }
 });
 const INIT_STATE = {
   restaurant: {},
