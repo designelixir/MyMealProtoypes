@@ -40,7 +40,7 @@ const InactiveWarning = ({
         </Modal.Header>
         <Modal.Body>
           <p style={{ textAlign: "center" }}>
-            You have been inactive for 30 seconds. Would you like to continue
+            You have been inactive for 60 seconds. Would you like to continue
             looking at the menu?
           </p>
         </Modal.Body>

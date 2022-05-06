@@ -10644,14 +10644,14 @@ const Category = ({
   }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
     className: "p-0"
-  }, filteredMenuitems.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
     className: "d-flex flex-column p-0"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", {
     className: "mt-3",
     id: category.name
   }, category.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
     className: "menuitem-container p-0"
-  }, filteredMenuitems.map(({
+  }, filteredMenuitems.length > 0 ? filteredMenuitems.map(({
     type,
     menuitem
   }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItemCard__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -10660,12 +10660,12 @@ const Category = ({
     menuitem: menuitem,
     primaryColor: primaryColor,
     selectedAllergies: selectedAllergies
-  })))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     style: {
       width: "100%",
       textAlign: "center"
     }
-  }, "No Items"));
+  }, "No Items"))));
 };
 
 const mapStateToProps = state => {
@@ -12091,7 +12091,7 @@ const InactiveWarning = ({
     style: {
       textAlign: "center"
     }
-  }, "You have been inactive for 30 seconds. Would you like to continue looking at the menu?")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, "You have been inactive for 60 seconds. Would you like to continue looking at the menu?")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
     style: {
       color: "white",
       backgroundColor: primaryColor,

@@ -49,7 +49,12 @@ router.get("/categories/:categoryId/menuitems", async (req, res, next) => {
     const menuitems = await Category.findByPk(
       categoryId,
       frontendCategoryIncluder
-    ).then(({ menuitems }) => menuitems);
+    ).then((category) => {
+      if (category && category.menuitems) {
+        return category.menuitems;
+      }
+      return [];
+    });
     res.json(menuitems);
   } catch (err) {
     next(err);
