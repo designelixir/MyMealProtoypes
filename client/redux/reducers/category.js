@@ -12,6 +12,14 @@ export const fetchCategory = createAsyncThunk(
   }
 );
 
+export const updateCategory = createAsyncThunk(
+  "category/updateCategory",
+  async ({ categoryId, body }) => {
+    const { data } = await axios.put(`/api/categories/${categoryId}`, body);
+    return data;
+  }
+);
+
 export const swapMenuitemOrder = createAsyncThunk(
   "menu/swapMenuitemOrder",
   async ({ categoryId, body }) => {
@@ -86,6 +94,11 @@ const categorySlice = createSlice({
       })
       .addCase(fetchCategory.rejected, (state, action) => {
         state = INIT_STATE;
+      })
+      .addCase(updateCategory.fulfilled, (state, action) => {
+        state.category = action.payload;
+        state.isLoading = false;
+        state.hasError = false;
       })
       .addCase(createMenuItem.fulfilled, (state, action) => {
         state.category = action.payload;

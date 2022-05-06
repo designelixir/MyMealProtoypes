@@ -20,6 +20,7 @@ import {
 import MenuItemForm from "./formComponents/MenuItemForm";
 import Divider from "./components/Divider";
 import MoveAndDuplicateMenuitem from "./modals/MoveAndDuplicateMenuitem";
+import EditCategory from "./modals/EditCategory";
 const Category = ({
   getCategory,
   match,
@@ -223,7 +224,10 @@ const Category = ({
 
         <Breadcrumb.Item active>{category.name}</Breadcrumb.Item>
       </Breadcrumb>
-      <h1>{category.name}</h1>
+      <Row className="d-flex justify-content-start align-items-center">
+        <h1 style={{ width: "fit-content" }}>{category.name}</h1>
+        <EditCategory category={category} />
+      </Row>
       <Divider />
       <Row>
         <Col>

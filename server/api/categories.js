@@ -30,6 +30,16 @@ router.get("/:categoryId", requireToken, async (req, res, next) => {
   }
 });
 
+router.put("/:categoryId", requireToken, async (req, res, next) => {
+  try {
+    const { categoryId } = req.params;
+    await Category.update(req.body, { where: { id: categoryId } });
+    res.json(await Category.findByPk(categoryId, categoryIncluder));
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.put("/:categoryId/menus/:menuId", async (req, res, next) => {
   try {
     const { categoryId, menuId } = req.params;
