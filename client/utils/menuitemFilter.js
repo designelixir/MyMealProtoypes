@@ -47,17 +47,34 @@ export default (menuitems, selectedAllergies) => {
     }
   });
 
-  const safeMenuitems = menuitems.filter(
-    (menuitem) =>
+  // const safeMenuitems = menuitems.filter(
+  //   (menuitem) =>
+  //     safe.has(menuitem.id) &&
+  //     !unsafe.has(menuitem.id) &&
+  //     !mod.has(menuitem.id) &&
+  //     !cross.has(menuitem.id)
+  // );
+  // const modMenuitems = menuitems.filter(
+  //   (menuitem) =>
+  //     (cross.has(menuitem.id) && !unsafe.has(menuitem.id)) ||
+  //     (mod.has(menuitem.id) && !unsafe.has(menuitem.id))
+  // );
+
+  const filteredMenuitems = [];
+  menuitems.forEach((menuitem) => {
+    if (
       safe.has(menuitem.id) &&
       !unsafe.has(menuitem.id) &&
       !mod.has(menuitem.id) &&
       !cross.has(menuitem.id)
-  );
-  const modMenuitems = menuitems.filter(
-    (menuitem) =>
+    ) {
+      filteredMenuitems.push({ type: "Safe", menuitem });
+    } else if (
       (cross.has(menuitem.id) && !unsafe.has(menuitem.id)) ||
       (mod.has(menuitem.id) && !unsafe.has(menuitem.id))
-  );
-  return { safeMenuitems, modMenuitems };
+    ) {
+      filteredMenuitems.push({ type: "Mod", menuitem });
+    }
+  });
+  return filteredMenuitems;
 };

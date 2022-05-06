@@ -7273,13 +7273,34 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     }
+  }); // const safeMenuitems = menuitems.filter(
+  //   (menuitem) =>
+  //     safe.has(menuitem.id) &&
+  //     !unsafe.has(menuitem.id) &&
+  //     !mod.has(menuitem.id) &&
+  //     !cross.has(menuitem.id)
+  // );
+  // const modMenuitems = menuitems.filter(
+  //   (menuitem) =>
+  //     (cross.has(menuitem.id) && !unsafe.has(menuitem.id)) ||
+  //     (mod.has(menuitem.id) && !unsafe.has(menuitem.id))
+  // );
+
+  const filteredMenuitems = [];
+  menuitems.forEach(menuitem => {
+    if (safe.has(menuitem.id) && !unsafe.has(menuitem.id) && !mod.has(menuitem.id) && !cross.has(menuitem.id)) {
+      filteredMenuitems.push({
+        type: "Safe",
+        menuitem
+      });
+    } else if (cross.has(menuitem.id) && !unsafe.has(menuitem.id) || mod.has(menuitem.id) && !unsafe.has(menuitem.id)) {
+      filteredMenuitems.push({
+        type: "Mod",
+        menuitem
+      });
+    }
   });
-  const safeMenuitems = menuitems.filter(menuitem => safe.has(menuitem.id) && !unsafe.has(menuitem.id) && !mod.has(menuitem.id) && !cross.has(menuitem.id));
-  const modMenuitems = menuitems.filter(menuitem => cross.has(menuitem.id) && !unsafe.has(menuitem.id) || mod.has(menuitem.id) && !unsafe.has(menuitem.id));
-  return {
-    safeMenuitems,
-    modMenuitems
-  };
+  return filteredMenuitems;
 });
 
 /***/ }),
@@ -10362,6 +10383,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const MenuItemCard = ({
   menuitem,
+  type,
   selectedAllergies,
   primaryColor
 }) => {
@@ -10376,16 +10398,18 @@ const MenuItemCard = ({
 
   const [modalShow, setModalShow] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    className: "me-3 mb-3",
     onClick: () => !modalShow && setModalShow(true),
     style: {
-      cursor: "pointer"
+      cursor: "pointer",
+      width: "18rem",
+      borderColor: type === "Safe" ? safeColor : modColor,
+      height: "fit-content"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    className: classnames__WEBPACK_IMPORTED_MODULE_4___default()({
-      "col-8": menuitem.image,
-      "col-auto": !menuitem.image
-    })
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Title, {
+  }, menuitem.image && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Img, {
+    variant: "top",
+    src: `${menuitem.image.url}`
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Title, {
     style: {
       fontSize: "1.5rem"
     }
@@ -10417,32 +10441,8 @@ const MenuItemCard = ({
       style: {
         width: "fit-content",
         color: "white",
-        backgroundColor: isSafe ? safeColor : isMod && modColor // border:
-        //   descriptions.id === allergytype.id
-        //     ? `2px solid ${
-        //         isSafe ? safeColor : isMod && modColor
-        //       }`
-        //     : "none",
-
-      } // onClick={() => {
-      //   if (descriptions.id === allergytype.id) {
-      //     setDescriptions(initDescriptions);
-      //   } else {
-      //     setDescriptions({
-      //       id: allergytype.id,
-      //       modDescription: isMod
-      //         ? allergytype.modDescription
-      //         : "",
-      //       crossDescription: isCross
-      //         ? allergytype.crossDescripti
-      //         : "",
-      //       crossModDescription: isCrossMod
-      //         ? allergytype.crossModDescri
-      //         : "",
-      //     });
-      //   }
-      // }}
-
+        backgroundColor: isSafe ? safeColor : isMod && modColor
+      }
     }, (() => {
       const [first, ...rest] = allergytype.allergy.name;
       const capitalAllergy = first.toUpperCase() + rest.join("");
@@ -10462,20 +10462,7 @@ const MenuItemCard = ({
     selectedAllergies,
     safeColor,
     modColor
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    style: {
-      padding: 0
-    },
-    className: "d-flex justify-content-end "
-  }, menuitem.image && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "menuitem-card-img",
-    style: {
-      backgroundImage: `url(${menuitem.image.url})`,
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "center",
-      backgroundSize: "cover"
-    }
-  }))))));
+  }))));
 };
 
 const mapStateToProps = state => ({});
@@ -10565,50 +10552,27 @@ const MenuItems = ({
     name,
     menuitems
   }) => {
-    const {
-      safeMenuitems,
-      modMenuitems
-    } = (0,_utils_menuitemFilter__WEBPACK_IMPORTED_MODULE_2__["default"])(menuitems, selectedAllergies);
+    const filteredMenuitems = (0,_utils_menuitemFilter__WEBPACK_IMPORTED_MODULE_2__["default"])(menuitems, selectedAllergies);
     return {
       categoryName: name,
-      safeMenuitems,
-      modMenuitems
+      filteredMenuitems
     };
   });
-  const [showSafe, setShowSafe] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    setShowSafe(allItems.some(item => item.safeMenuitems.length > 0));
-  }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    style: {
-      border: `1px solid ${primaryColor}`
-    },
-    className: "mod-toggle d-flex justify-content-center align-items-center"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    style: showSafe ? {
-      backgroundColor: primaryColor,
-      borderRadius: "2rem",
-      color: "white"
-    } : {},
-    onClick: () => setShowSafe(true)
-  }, "Meets Restrictions"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    style: !showSafe ? {
-      backgroundColor: primaryColor,
-      borderRadius: "2rem",
-      color: "white"
-    } : {},
-    onClick: () => setShowSafe(false)
-  }, "Needs Modification")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
     className: "p-0"
-  }, showSafe ? allItems.some(item => item.safeMenuitems.length > 0) ? allItems.map(item => item.safeMenuitems.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }, allItems.some(item => item.filteredMenuitems.length > 0) ? allItems.map(item => item.filteredMenuitems.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
     className: "d-flex flex-column p-0"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", {
     className: "mt-3",
     id: item.categoryName
   }, item.categoryName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    className: "menuitem-container"
-  }, item.safeMenuitems.map(menuitem => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItemCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    className: "menuitem-container p-0"
+  }, item.filteredMenuitems.map(({
+    type,
+    menuitem
+  }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItemCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
     key: menuitem.id,
+    type: type,
     menuitem: menuitem,
     primaryColor: primaryColor,
     selectedAllergies: selectedAllergies
@@ -10617,24 +10581,7 @@ const MenuItems = ({
       width: "100%",
       textAlign: "center"
     }
-  }, "No Items") : allItems.some(item => item.modMenuitems.length > 0) ? allItems.map(item => item.modMenuitems.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    className: "d-flex flex-column p-0"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", {
-    className: "mt-3",
-    id: item.categoryName
-  }, item.categoryName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    className: "menuitem-container"
-  }, item.modMenuitems.map(menuitem => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItemCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    key: menuitem.id,
-    menuitem: menuitem,
-    primaryColor: primaryColor,
-    selectedAllergies: selectedAllergies
-  }))))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    style: {
-      width: "100%",
-      textAlign: "center"
-    }
-  }, "No Items")));
+  }, "No Items"));
 };
 
 const mapStateToProps = state => {
@@ -10667,8 +10614,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_idle_timer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-idle-timer */ "./node_modules/react-idle-timer/dist/index.esm.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
 /* harmony import */ var _modals_CrossContact__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modals/CrossContact */ "./client/views/frontend/modals/CrossContact.js");
@@ -10702,11 +10649,10 @@ const OrderMenu = ({
 
   const timer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
-  const handleOnIdle = event => {
-    setInactiveShow(true);
-    timer.current = setTimeout(() => {
-      history.push(`${location.pathname.replace("/menu", "")}`);
-    }, 5000);
+  const handleOnIdle = event => {// setInactiveShow(true);
+    // timer.current = setTimeout(() => {
+    //   history.push(`${location.pathname.replace("/menu", "")}`);
+    // }, 5000);
   };
 
   const {
@@ -10727,63 +10673,60 @@ const OrderMenu = ({
     setActiveCategory(category);
     const scrollDiv = document.getElementById(`${category.name}`).offsetTop;
     window.scrollTo({
-      top: scrollDiv,
+      top: scrollDiv - 50,
       behavior: "smooth"
-    }); // window.location.href = "#";
-    // window.location.href = `#${category.name}`;
+    });
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_InactiveWarning__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    inactiveShow,
-    setInactiveShow,
-    timer,
-    primaryColor: restaurant.primaryColor
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    className: "d-flex justify-content-start"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    className: "mt-5"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "d-flex"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
     className: "menu-back-button",
     onClick: () => history.push(`${location.pathname.replace("/menu", "")}`),
     src: "/img/back-arrow.png"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], {
     style: {
-      marginTop: "4rem"
+      marginRight: "2rem"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    className: "d-flex flex-column justify-content-start align-items-start"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", {
     className: "menu-title"
   }, restaurant.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
     className: "menu-sub-title"
-  }, restaurant.locations[0].address)), restaurant.locations[0].menu.orderNow && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  }, restaurant.locations[0].address), restaurant.locations[0].menu.orderNow && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    style: {
+      paddingLeft: "0.82rem",
+      width: "100%"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], {
     className: "rounded-button",
     style: {
       backgroundColor: restaurant.primaryColor,
       width: "fit-content"
     },
     onClick: () => window.open(restaurant.locations[0].menu.orderNow, "_blank")
-  }, "Order Now")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+  }, "Order Now")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], {
     style: {
-      fontWeight: 600,
-      fontSize: "1.5rem",
-      paddingLeft: 0
+      paddingLeft: "0.82rem",
+      width: "100%"
     }
-  }, restaurant.locations[0].menu.dedicatedFrom)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_CrossContact__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    className: "dedicated-from"
+  }, restaurant.locations[0].menu.dedicatedFrom)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    style: {
+      paddingLeft: "0.82rem",
+      width: "100%"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_CrossContact__WEBPACK_IMPORTED_MODULE_3__["default"], {
     CCP: restaurant.locations[0].crossContactProcedure,
     primaryColor: restaurant.primaryColor
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    className: "d-flex category-nav noscroll"
-  }, categories.map(category => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    key: category.id,
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    className: "d-flex pt-3 filtered-by align-items-center justify-content-between",
     style: {
-      display: "flex",
-      alignItems: "center",
-      border: activeCategory.id === category.id ? "black" : "none",
-      backgroundColor: activeCategory.id === category.id ? restaurant.primaryColor : "white",
-      color: activeCategory.id === category.id ? "white" : "black"
-    },
-    onClick: () => handleSelectCategory(category)
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, category.name)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    className: "d-flex pt-3 filtered-by align-items-center justify-content-between"
+      paddingLeft: "0.82rem",
+      width: "100%"
+    }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
     className: "d-flex align-items-center flex-wrap"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
@@ -10791,7 +10734,7 @@ const OrderMenu = ({
       paddingLeft: "0.5rem",
       paddingRight: 0
     }
-  }, "Filtered By:"), Object.values(selectedAllergies).filter(({
+  }, "Filtered By:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], null, Object.values(selectedAllergies).filter(({
     selected
   }) => selected).map(({
     name
@@ -10809,7 +10752,7 @@ const OrderMenu = ({
     const [first, ...rest] = name;
     const capitalAllergy = first.toUpperCase() + rest.join("");
     return capitalAllergy;
-  })()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  })())))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
     className: "col-auto"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_iconcomponents_Filter__WEBPACK_IMPORTED_MODULE_5__["default"], {
     setModalShow: setModalShow
@@ -10818,10 +10761,27 @@ const OrderMenu = ({
     setModalShow,
     restaurantAllergies: restaurant.locations[0].menu.allergies,
     primaryColor: restaurant.primaryColor
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItems__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    className: "d-flex category-nav noscroll sticky-top mt-1",
+    style: {
+      background: "white",
+      paddingLeft: "0.82rem",
+      width: "100%"
+    }
+  }, categories.map(category => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    key: category.id,
+    style: {
+      display: "flex",
+      alignItems: "center",
+      border: activeCategory.id === category.id ? "black" : "none",
+      backgroundColor: activeCategory.id === category.id ? restaurant.primaryColor : "white",
+      color: activeCategory.id === category.id ? "white" : "black"
+    },
+    onClick: () => handleSelectCategory(category)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, category.name)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItems__WEBPACK_IMPORTED_MODULE_4__["default"], {
     categories: categories,
     primaryColor: restaurant.primaryColor
-  })));
+  }))));
 };
 
 const mapState = state => {
@@ -10837,6 +10797,122 @@ const mapState = state => {
 
 const mapDispatchToProps = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatchToProps)(OrderMenu));
+{
+  /* <Container>
+      <InactiveWarning
+        {...{ inactiveShow, setInactiveShow, timer }}
+        primaryColor={restaurant.primaryColor}
+      />
+         <Row className="d-flex justify-content-start">
+          <Image
+            className="menu-back-button"
+            onClick={() =>
+              history.push(`${location.pathname.replace("/menu", "")}`)
+            }
+            src={"/img/back-arrow.png"}
+          />
+        </Row>
+        <Container className="" style={{ marginTop: "4rem" }}>
+          <Row className="d-flex flex-column justify-content-start align-items-start">
+            <h1 className="menu-title">{restaurant.name}</h1>
+            <h2 className="menu-sub-title">
+              {restaurant.locations[0].address}
+            </h2>
+          </Row>
+          {restaurant.locations[0].menu.orderNow && (
+            <Row>
+              <Button
+                className="rounded-button"
+                style={{
+                  backgroundColor: restaurant.primaryColor,
+                  width: "fit-content",
+                }}
+                onClick={() =>
+                  window.open(restaurant.locations[0].menu.orderNow, "_blank")
+                }
+              >
+                Order Now
+              </Button>
+            </Row>
+          )}
+          <Row>
+            <p style={{ fontWeight: 600, fontSize: "1.5rem", paddingLeft: 0 }}>
+              {restaurant.locations[0].menu.dedicatedFrom}
+            </p>
+          </Row>
+          <Row>
+            <CrossContact
+              CCP={restaurant.locations[0].crossContactProcedure}
+              primaryColor={restaurant.primaryColor}
+            />
+          </Row>
+          <Row
+            className="d-flex category-nav noscroll sticky-top mt-1"
+            style={{ background: "white" }}
+          >
+            {categories.map((category) => (
+              <div
+                key={category.id}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  border: activeCategory.id === category.id ? "black" : "none",
+                  backgroundColor:
+                    activeCategory.id === category.id
+                      ? restaurant.primaryColor
+                      : "white",
+                  color: activeCategory.id === category.id ? "white" : "black",
+                }}
+                onClick={() => handleSelectCategory(category)}
+              >
+                <p>{category.name}</p>
+              </div>
+            ))}
+          </Row>
+          <Row className="d-flex pt-3 filtered-by align-items-center justify-content-between">
+            <Col className="d-flex align-items-center flex-wrap">
+              <p style={{ paddingLeft: "0.5rem", paddingRight: 0 }}>
+                Filtered By:
+              </p>
+              {Object.values(selectedAllergies)
+                .filter(({ selected }) => selected)
+                .map(({ name }) => (
+                  <p
+                    key={name}
+                    style={{
+                      borderRadius: "2rem",
+                      background: safeColor,
+                      color: "white",
+                      padding: "0.5rem 1rem",
+                      fontStyle: "italic",
+                      fontSize: 10,
+                    }}
+                  >
+                    {(() => {
+                      const [first, ...rest] = name;
+                      const capitalAllergy =
+                        first.toUpperCase() + rest.join("");
+                      return capitalAllergy;
+                    })()}
+                  </p>
+                ))}
+            </Col>
+            <Col className="col-auto">
+              <Filter setModalShow={setModalShow} />
+              <AllergyFilters
+                {...{ modalShow, setModalShow }}
+                restaurantAllergies={restaurant.locations[0].menu.allergies}
+                primaryColor={restaurant.primaryColor}
+              />
+            </Col>
+          </Row>
+          <MenuItems
+            categories={categories}
+            primaryColor={restaurant.primaryColor}
+          />
+        </Container>
+     </Container> */
+}
 
 /***/ }),
 
@@ -11410,13 +11486,7 @@ const CrossContact = ({
   const [modalShow, setModalShow] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], {
     variant: "link",
-    style: {
-      color: "black",
-      padding: 0,
-      marginBottom: "1.5rem",
-      fontSize: "1.25rem",
-      textAlign: "left"
-    },
+    className: "cross-contact-procedure",
     onClick: () => setModalShow(true)
   }, "Cross Contact Procedure"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
     className: "noscroll",

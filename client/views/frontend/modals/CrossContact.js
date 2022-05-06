@@ -9,13 +9,7 @@ const CrossContact = ({ CCP, primaryColor }) => {
     <>
       <Button
         variant="link"
-        style={{
-          color: "black",
-          padding: 0,
-          marginBottom: "1.5rem",
-          fontSize: "1.25rem",
-          textAlign: "left",
-        }}
+        className="cross-contact-procedure"
         onClick={() => setModalShow(true)}
       >
         Cross Contact Procedure

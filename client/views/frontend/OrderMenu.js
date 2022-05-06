@@ -17,10 +17,10 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
   }
   const timer = useRef(null);
   const handleOnIdle = (event) => {
-    setInactiveShow(true);
-    timer.current = setTimeout(() => {
-      history.push(`${location.pathname.replace("/menu", "")}`);
-    }, 5000);
+    // setInactiveShow(true);
+    // timer.current = setTimeout(() => {
+    //   history.push(`${location.pathname.replace("/menu", "")}`);
+    // }, 5000);
   };
 
   const { getRemainingTime, getLastActiveTime } = useIdleTimer({
@@ -36,18 +36,11 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
   const handleSelectCategory = (category) => {
     setActiveCategory(category);
     const scrollDiv = document.getElementById(`${category.name}`).offsetTop;
-    window.scrollTo({ top: scrollDiv, behavior: "smooth" });
-    // window.location.href = "#";
-    // window.location.href = `#${category.name}`;
+    window.scrollTo({ top: scrollDiv - 50, behavior: "smooth" });
   };
   return (
-    <Container>
-      <InactiveWarning
-        {...{ inactiveShow, setInactiveShow, timer }}
-        primaryColor={restaurant.primaryColor}
-      />
-
-      <Row className="d-flex justify-content-start">
+    <Container className="mt-5">
+      <div className="d-flex">
         <Image
           className="menu-back-button"
           onClick={() =>
@@ -55,100 +48,111 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
           }
           src={"/img/back-arrow.png"}
         />
-      </Row>
-      <Container style={{ marginTop: "4rem" }}>
-        <Row className="d-flex flex-column justify-content-start align-items-start">
+        <Container style={{ marginRight: "2rem" }}>
           <h1 className="menu-title">{restaurant.name}</h1>
           <h2 className="menu-sub-title">{restaurant.locations[0].address}</h2>
-        </Row>
-        {restaurant.locations[0].menu.orderNow && (
-          <Row>
-            <Button
-              className="rounded-button"
-              style={{
-                backgroundColor: restaurant.primaryColor,
-                width: "fit-content",
-              }}
-              onClick={() =>
-                window.open(restaurant.locations[0].menu.orderNow, "_blank")
-              }
-            >
-              Order Now
-            </Button>
-          </Row>
-        )}
-        <Row>
-          <p style={{ fontWeight: 600, fontSize: "1.5rem", paddingLeft: 0 }}>
-            {restaurant.locations[0].menu.dedicatedFrom}
-          </p>
-        </Row>
-        <Row>
-          <CrossContact
-            CCP={restaurant.locations[0].crossContactProcedure}
-            primaryColor={restaurant.primaryColor}
-          />
-        </Row>
-        <Row className="d-flex category-nav noscroll">
-          {categories.map((category) => (
-            <div
-              key={category.id}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                border: activeCategory.id === category.id ? "black" : "none",
-                backgroundColor:
-                  activeCategory.id === category.id
-                    ? restaurant.primaryColor
-                    : "white",
-                color: activeCategory.id === category.id ? "white" : "black",
-              }}
-              onClick={() => handleSelectCategory(category)}
-            >
-              <p>{category.name}</p>
-            </div>
-          ))}
-        </Row>
-        <Row className="d-flex pt-3 filtered-by align-items-center justify-content-between">
-          <Col className="d-flex align-items-center flex-wrap">
-            <p style={{ paddingLeft: "0.5rem", paddingRight: 0 }}>
-              Filtered By:
+          {restaurant.locations[0].menu.orderNow && (
+            <Row style={{ paddingLeft: "0.82rem", width: "100%" }}>
+              <Button
+                className="rounded-button"
+                style={{
+                  backgroundColor: restaurant.primaryColor,
+                  width: "fit-content",
+                }}
+                onClick={() =>
+                  window.open(restaurant.locations[0].menu.orderNow, "_blank")
+                }
+              >
+                Order Now
+              </Button>
+            </Row>
+          )}
+          <Row style={{ paddingLeft: "0.82rem", width: "100%" }}>
+            <p className="dedicated-from">
+              {restaurant.locations[0].menu.dedicatedFrom}
             </p>
-            {Object.values(selectedAllergies)
-              .filter(({ selected }) => selected)
-              .map(({ name }) => (
-                <p
-                  key={name}
-                  style={{
-                    borderRadius: "2rem",
-                    background: safeColor,
-                    color: "white",
-                    padding: "0.5rem 1rem",
-                    fontStyle: "italic",
-                    fontSize: 10,
-                  }}
-                >
-                  {(() => {
-                    const [first, ...rest] = name;
-                    const capitalAllergy = first.toUpperCase() + rest.join("");
-                    return capitalAllergy;
-                  })()}
-                </p>
-              ))}
-          </Col>
-          <Col className="col-auto">
-            <Filter setModalShow={setModalShow} />
-            <AllergyFilters
-              {...{ modalShow, setModalShow }}
-              restaurantAllergies={restaurant.locations[0].menu.allergies}
+          </Row>
+          <Row style={{ paddingLeft: "0.82rem", width: "100%" }}>
+            <CrossContact
+              CCP={restaurant.locations[0].crossContactProcedure}
               primaryColor={restaurant.primaryColor}
             />
-          </Col>
-        </Row>
-        <MenuItems
-          categories={categories}
-          primaryColor={restaurant.primaryColor}
-        />
-      </Container>
+          </Row>
+          <Row
+            className="d-flex pt-3 filtered-by align-items-center justify-content-between"
+            style={{ paddingLeft: "0.82rem", width: "100%" }}
+          >
+            <Col className="d-flex align-items-center flex-wrap">
+              <p style={{ paddingLeft: "0.5rem", paddingRight: 0 }}>
+                Filtered By:
+              </p>
+              <Row>
+                {Object.values(selectedAllergies)
+                  .filter(({ selected }) => selected)
+                  .map(({ name }) => (
+                    <p
+                      key={name}
+                      style={{
+                        borderRadius: "2rem",
+                        background: safeColor,
+                        color: "white",
+                        padding: "0.5rem 1rem",
+                        fontStyle: "italic",
+                        fontSize: 10,
+                      }}
+                    >
+                      {(() => {
+                        const [first, ...rest] = name;
+                        const capitalAllergy =
+                          first.toUpperCase() + rest.join("");
+                        return capitalAllergy;
+                      })()}
+                    </p>
+                  ))}
+              </Row>
+            </Col>
+            <Col className="col-auto">
+              <Filter setModalShow={setModalShow} />
+              <AllergyFilters
+                {...{ modalShow, setModalShow }}
+                restaurantAllergies={restaurant.locations[0].menu.allergies}
+                primaryColor={restaurant.primaryColor}
+              />
+            </Col>
+          </Row>
+          <Row
+            className="d-flex category-nav noscroll sticky-top mt-1"
+            style={{
+              background: "white",
+              paddingLeft: "0.82rem",
+              width: "100%",
+            }}
+          >
+            {categories.map((category) => (
+              <div
+                key={category.id}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  border: activeCategory.id === category.id ? "black" : "none",
+                  backgroundColor:
+                    activeCategory.id === category.id
+                      ? restaurant.primaryColor
+                      : "white",
+                  color: activeCategory.id === category.id ? "white" : "black",
+                }}
+                onClick={() => handleSelectCategory(category)}
+              >
+                <p>{category.name}</p>
+              </div>
+            ))}
+          </Row>
+          <MenuItems
+            categories={categories}
+            primaryColor={restaurant.primaryColor}
+          />
+        </Container>
+      </div>
     </Container>
   );
 };
@@ -164,3 +168,122 @@ const mapState = (state) => {
 const mapDispatchToProps = {};
 
 export default connect(mapState, mapDispatchToProps)(OrderMenu);
+
+{
+  /* <Container>
+      <InactiveWarning
+        {...{ inactiveShow, setInactiveShow, timer }}
+        primaryColor={restaurant.primaryColor}
+      />
+
+        <Row className="d-flex justify-content-start">
+          <Image
+            className="menu-back-button"
+            onClick={() =>
+              history.push(`${location.pathname.replace("/menu", "")}`)
+            }
+            src={"/img/back-arrow.png"}
+          />
+        </Row>
+        <Container className="" style={{ marginTop: "4rem" }}>
+          <Row className="d-flex flex-column justify-content-start align-items-start">
+            <h1 className="menu-title">{restaurant.name}</h1>
+            <h2 className="menu-sub-title">
+              {restaurant.locations[0].address}
+            </h2>
+          </Row>
+          {restaurant.locations[0].menu.orderNow && (
+            <Row>
+              <Button
+                className="rounded-button"
+                style={{
+                  backgroundColor: restaurant.primaryColor,
+                  width: "fit-content",
+                }}
+                onClick={() =>
+                  window.open(restaurant.locations[0].menu.orderNow, "_blank")
+                }
+              >
+                Order Now
+              </Button>
+            </Row>
+          )}
+          <Row>
+            <p style={{ fontWeight: 600, fontSize: "1.5rem", paddingLeft: 0 }}>
+              {restaurant.locations[0].menu.dedicatedFrom}
+            </p>
+          </Row>
+          <Row>
+            <CrossContact
+              CCP={restaurant.locations[0].crossContactProcedure}
+              primaryColor={restaurant.primaryColor}
+            />
+          </Row>
+          <Row
+            className="d-flex category-nav noscroll sticky-top mt-1"
+            style={{ background: "white" }}
+          >
+            {categories.map((category) => (
+              <div
+                key={category.id}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  border: activeCategory.id === category.id ? "black" : "none",
+                  backgroundColor:
+                    activeCategory.id === category.id
+                      ? restaurant.primaryColor
+                      : "white",
+                  color: activeCategory.id === category.id ? "white" : "black",
+                }}
+                onClick={() => handleSelectCategory(category)}
+              >
+                <p>{category.name}</p>
+              </div>
+            ))}
+          </Row>
+          <Row className="d-flex pt-3 filtered-by align-items-center justify-content-between">
+            <Col className="d-flex align-items-center flex-wrap">
+              <p style={{ paddingLeft: "0.5rem", paddingRight: 0 }}>
+                Filtered By:
+              </p>
+              {Object.values(selectedAllergies)
+                .filter(({ selected }) => selected)
+                .map(({ name }) => (
+                  <p
+                    key={name}
+                    style={{
+                      borderRadius: "2rem",
+                      background: safeColor,
+                      color: "white",
+                      padding: "0.5rem 1rem",
+                      fontStyle: "italic",
+                      fontSize: 10,
+                    }}
+                  >
+                    {(() => {
+                      const [first, ...rest] = name;
+                      const capitalAllergy =
+                        first.toUpperCase() + rest.join("");
+                      return capitalAllergy;
+                    })()}
+                  </p>
+                ))}
+            </Col>
+            <Col className="col-auto">
+              <Filter setModalShow={setModalShow} />
+              <AllergyFilters
+                {...{ modalShow, setModalShow }}
+                restaurantAllergies={restaurant.locations[0].menu.allergies}
+                primaryColor={restaurant.primaryColor}
+              />
+            </Col>
+          </Row>
+          <MenuItems
+            categories={categories}
+            primaryColor={restaurant.primaryColor}
+          />
+        </Container>
+
+    </Container> */
+}
