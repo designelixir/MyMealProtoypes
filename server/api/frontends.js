@@ -18,7 +18,11 @@ const {
   },
 } = require("../db");
 
-const { frontendIncluder } = require("./utils/includers");
+const {
+  frontendIncluder,
+  frontendRestaurantIncluder,
+  frontendCategoryIncluder,
+} = require("./utils/includers");
 
 router.get(
   "/restaurants/:restaurantId/locations/:locationId",
@@ -28,7 +32,7 @@ router.get(
 
       const restaurant = await Restaurant.findByPk(
         restaurantId,
-        frontendIncluder(locationId)
+        frontendRestaurantIncluder(locationId)
       );
       res.json(restaurant || {});
     } catch (err) {
@@ -37,5 +41,19 @@ router.get(
     }
   }
 );
+
+router.get("/categories/:categoryId/menuitems", async (req, res, next) => {
+  try {
+    const { categoryId } = req.params;
+
+    const menuitems = await Category.findByPk(
+      categoryId,
+      frontendCategoryIncluder
+    ).then(({ menuitems }) => menuitems);
+    res.json(menuitems);
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;

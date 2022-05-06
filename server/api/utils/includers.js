@@ -163,6 +163,85 @@ const frontendIncluder = (locationId) => ({
     },
   ],
 });
+
+const frontendRestaurantIncluder = (locationId) => ({
+  order: [[Location, Menu, Category, "position", "ASC"]],
+  attributes: ["id", "name", "crossContactProcedure", "primaryColor"],
+  include: [
+    { model: Image, as: "logo", attributes: ["url"] },
+    { model: Image, as: "bg", attributes: ["url"] },
+    {
+      model: Location,
+      attributes: [
+        "id",
+        "crossContactProcedure",
+        "streetOne",
+        "streetTwo",
+        "city",
+        "state",
+        "zip",
+        "country",
+        "address",
+      ],
+      where: { id: locationId },
+      include: [
+        {
+          model: Menu,
+          attributes: ["name", "dedicatedFrom", "orderNow"],
+          include: [
+            { model: Allergy, attributes: ["id", "name"] },
+            {
+              model: Category,
+              attributes: ["id", "name", "position", "archived"],
+              where: { archived: false },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+});
+
+const frontendCategoryIncluder = {
+  attributes: ["id", "name", "position", "archived"],
+  order: [
+    [MenuItem, "position", "ASC"],
+    [MenuItem, AllergyType, Allergy, "name", "ASC"],
+  ],
+  include: {
+    model: MenuItem,
+    attributes: [
+      "id",
+      "name",
+      "description",
+      "ingredients",
+      "nutritionFacts",
+      "position",
+      "type",
+      "price",
+      "archived",
+    ],
+    where: { archived: false },
+    include: [
+      { model: Image, attributes: ["url"] },
+      { model: PriceType, attributes: ["type", "price"] },
+      {
+        model: AllergyType,
+        attributes: [
+          "id",
+          "allergyId",
+          "type",
+          "cross",
+          "crossMod",
+          "modDescription",
+          "crossDescription",
+          "crossModDescription",
+        ],
+        include: [{ model: Allergy, attributes: ["id", "name"] }],
+      },
+    ],
+  },
+};
 module.exports = {
   corporationIncluder,
   restaurantIncluder,
@@ -171,4 +250,6 @@ module.exports = {
   categoryIncluder,
   menuitemIncluder,
   frontendIncluder,
+  frontendRestaurantIncluder,
+  frontendCategoryIncluder,
 };

@@ -8,8 +8,9 @@ import MenuItems from "./MenuItems";
 import Filter from "./iconcomponents/Filter";
 import AllergyFilters from "./modals/AllergyFilters";
 import InactiveWarning from "./modals/InactiveWarning";
+import { Categories } from "./Categories";
 
-const OrderMenu = ({ restaurant, selectedAllergies }) => {
+const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
   const location = useLocation();
   const history = useHistory();
   if (!restaurant.id) {
@@ -29,7 +30,7 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
     debounce: 500,
   });
   const safeColor = "#007B2A";
-  const categories = restaurant.locations[0].menu.categories;
+  // const categories = restaurant.locations[0].menu.categories;
   const [activeCategory, setActiveCategory] = useState(categories[0]);
   const [modalShow, setModalShow] = useState(false);
   const [inactiveShow, setInactiveShow] = useState(false);
@@ -152,7 +153,11 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
               </div>
             ))}
           </Row>
-          <MenuItems
+          {/* <MenuItems
+            categories={categories}
+            primaryColor={restaurant.primaryColor}
+          /> */}
+          <Categories
             categories={categories}
             primaryColor={restaurant.primaryColor}
           />
@@ -163,9 +168,10 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
 };
 
 const mapState = (state) => {
-  const { restaurant, selectedAllergies } = state.frontend;
+  const { restaurant, categories, selectedAllergies } = state.frontend;
   return {
     restaurant,
+    categories,
     selectedAllergies,
   };
 };
