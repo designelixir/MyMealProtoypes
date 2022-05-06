@@ -27,7 +27,7 @@ const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
         cursor: "pointer",
         width: "18rem",
 
-        height: "fit-content",
+        // height: "fit-content",
         border: `3px solid ${type === "Safe" ? safeColor : modColor}`,
       }}
     >

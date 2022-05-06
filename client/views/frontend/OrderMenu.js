@@ -17,14 +17,14 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
   }
   const timer = useRef(null);
   const handleOnIdle = (event) => {
-    // setInactiveShow(true);
-    // timer.current = setTimeout(() => {
-    //   history.push(`${location.pathname.replace("/menu", "")}`);
-    // }, 5000);
+    setInactiveShow(true);
+    timer.current = setTimeout(() => {
+      history.push(`${location.pathname.replace("/menu", "")}`);
+    }, 10000);
   };
 
   const { getRemainingTime, getLastActiveTime } = useIdleTimer({
-    timeout: 30000,
+    timeout: 60000,
     onIdle: handleOnIdle,
     debounce: 500,
   });
@@ -40,6 +40,11 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
   };
   return (
     <Container className="mt-5">
+      <InactiveWarning
+        {...{ inactiveShow, setInactiveShow, timer }}
+        primaryColor={restaurant.primaryColor}
+      />
+
       <div className="d-flex">
         <Image
           className="menu-back-button"
