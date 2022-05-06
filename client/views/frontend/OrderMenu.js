@@ -121,7 +121,7 @@ const OrderMenu = ({ restaurant, selectedAllergies }) => {
             </Col>
           </Row>
           <Row
-            className="d-flex category-nav noscroll sticky-top mt-1"
+            className="d-flex category-nav noscroll custom-sticky-top mt-1"
             style={{
               background: "white",
               paddingLeft: "0.82rem",

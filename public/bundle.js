@@ -10403,10 +10403,14 @@ const MenuItemCard = ({
     style: {
       cursor: "pointer",
       width: "18rem",
-      borderColor: type === "Safe" ? safeColor : modColor,
-      height: "fit-content"
+      height: "fit-content",
+      border: `3px solid ${type === "Safe" ? safeColor : modColor}`
     }
   }, menuitem.image && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Img, {
+    style: {
+      borderTopLeftRadius: 0,
+      borderTopRightRadius: 0
+    },
     variant: "top",
     src: `${menuitem.image.url}`
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Title, {
@@ -10762,7 +10766,7 @@ const OrderMenu = ({
     restaurantAllergies: restaurant.locations[0].menu.allergies,
     primaryColor: restaurant.primaryColor
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    className: "d-flex category-nav noscroll sticky-top mt-1",
+    className: "d-flex category-nav noscroll custom-sticky-top mt-1",
     style: {
       background: "white",
       paddingLeft: "0.82rem",

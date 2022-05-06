@@ -26,12 +26,17 @@ const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
       style={{
         cursor: "pointer",
         width: "18rem",
-        borderColor: type === "Safe" ? safeColor : modColor,
+
         height: "fit-content",
+        border: `3px solid ${type === "Safe" ? safeColor : modColor}`,
       }}
     >
       {menuitem.image && (
-        <Card.Img variant="top" src={`${menuitem.image.url}`} />
+        <Card.Img
+          style={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
+          variant="top"
+          src={`${menuitem.image.url}`}
+        />
       )}
       <Card.Body>
         <Container>

@@ -151,7 +151,13 @@ input.close {
   position: absolute;
   left: 1rem;
 }
-
+.custom-sticky-top {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  border: 2px solid lightgray;
+}
 .menu-back-button {
   height: calc(0.75rem + 1.5vw);
   width: calc(0.75rem + 1.5vw);
