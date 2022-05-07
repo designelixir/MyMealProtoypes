@@ -7483,10 +7483,10 @@ __webpack_require__.r(__webpack_exports__);
       data.meetsRestrictions.push({
         allergy: `${allergyName} (Cross Contact Warning)`
       });
-      let crossDescription = allergytype.crossDescripti;
+      let crossDescription = allergytype.crossDescription;
 
       if (allergytype.crossMod) {
-        crossDescription += allergytype.crossModDescri;
+        crossDescription += allergytype.crossModDescription;
       }
 
       data.crossContact.push({
@@ -7503,10 +7503,10 @@ __webpack_require__.r(__webpack_exports__);
         allergy: allergyName,
         description: `${allergytype.modDescription} (Cross Contact Warning)`
       });
-      let crossDescription = allergytype.crossDescripti;
+      let crossDescription = allergytype.crossDescription;
 
       if (allergytype.crossMod) {
-        crossDescription += allergytype.crossModDescri;
+        crossDescription += allergytype.crossModDescription;
       }
 
       data.crossContact.push({

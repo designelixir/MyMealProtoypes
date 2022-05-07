@@ -18,9 +18,9 @@ export default (menuitem, selectedAllergies) => {
       data.meetsRestrictions.push({
         allergy: `${allergyName} (Cross Contact Warning)`,
       });
-      let crossDescription = allergytype.crossDescripti;
+      let crossDescription = allergytype.crossDescription;
       if (allergytype.crossMod) {
-        crossDescription += allergytype.crossModDescri;
+        crossDescription += allergytype.crossModDescription;
       }
       data.crossContact.push({
         allergy: allergyName,
@@ -36,9 +36,9 @@ export default (menuitem, selectedAllergies) => {
         allergy: allergyName,
         description: `${allergytype.modDescription} (Cross Contact Warning)`,
       });
-      let crossDescription = allergytype.crossDescripti;
+      let crossDescription = allergytype.crossDescription;
       if (allergytype.crossMod) {
-        crossDescription += allergytype.crossModDescri;
+        crossDescription += allergytype.crossModDescription;
       }
       data.crossContact.push({
         allergy: allergyName,
