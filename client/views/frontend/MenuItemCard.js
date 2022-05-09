@@ -21,13 +21,9 @@ const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
   const [modalShow, setModalShow] = useState(false);
   return (
     <Card
-      className="me-3 mb-3"
+      className="mb-3 menuitem-card"
       onClick={() => !modalShow && setModalShow(true)}
       style={{
-        cursor: "pointer",
-        width: "18rem",
-
-        // height: "fit-content",
         border: `3px solid ${type === "Safe" ? safeColor : modColor}`,
       }}
     >

@@ -7434,6 +7434,21 @@ const mapDispatch = dispatch => {
 
 /***/ }),
 
+/***/ "./client/utils/common.js":
+/*!********************************!*\
+  !*** ./client/utils/common.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "capitalize": () => (/* binding */ capitalize)
+/* harmony export */ });
+const capitalize = ([first, ...rest]) => first.toUpperCase() + rest.join("");
+
+/***/ }),
+
 /***/ "./client/utils/history.js":
 /*!*********************************!*\
   !*** ./client/utils/history.js ***!
@@ -10829,12 +10844,9 @@ const MenuItemCard = ({
 
   const [modalShow, setModalShow] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    className: "me-3 mb-3",
+    className: "mb-3 menuitem-card",
     onClick: () => !modalShow && setModalShow(true),
     style: {
-      cursor: "pointer",
-      width: "18rem",
-      // height: "fit-content",
       border: `3px solid ${type === "Safe" ? safeColor : modColor}`
     }
   }, menuitem.image && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Img, {
@@ -11047,18 +11059,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_idle_timer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-idle-timer */ "./node_modules/react-idle-timer/dist/index.esm.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
 /* harmony import */ var _modals_CrossContact__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modals/CrossContact */ "./client/views/frontend/modals/CrossContact.js");
 /* harmony import */ var _MenuItems__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MenuItems */ "./client/views/frontend/MenuItems.js");
 /* harmony import */ var _iconcomponents_Filter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./iconcomponents/Filter */ "./client/views/frontend/iconcomponents/Filter.js");
 /* harmony import */ var _modals_AllergyFilters__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modals/AllergyFilters */ "./client/views/frontend/modals/AllergyFilters.js");
 /* harmony import */ var _modals_InactiveWarning__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modals/InactiveWarning */ "./client/views/frontend/modals/InactiveWarning.js");
 /* harmony import */ var _Categories__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Categories */ "./client/views/frontend/Categories.js");
+/* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../utils/common */ "./client/utils/common.js");
+
 
 
 
@@ -11076,11 +11090,11 @@ const OrderMenu = ({
   categories,
   selectedAllergies
 }) => {
-  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_9__.useLocation)();
-  const history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_9__.useHistory)();
+  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_10__.useLocation)();
+  const history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_10__.useHistory)();
 
   if (!restaurant.id) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Redirect, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Redirect, {
       to: `${location.pathname.replace("/menu", "")}`
     });
   }
@@ -11117,68 +11131,46 @@ const OrderMenu = ({
     });
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    className: "mt-5"
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    className: "mt-5",
+    style: {
+      minWidth: 390
+    }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_InactiveWarning__WEBPACK_IMPORTED_MODULE_7__["default"], {
     inactiveShow,
     setInactiveShow,
     timer,
     primaryColor: restaurant.primaryColor
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "d-flex"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    xs: 1,
+    className: "d-flex justify-content-start"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__["default"], {
     className: "menu-back-button",
     onClick: () => history.push(`${location.pathname.replace("/menu", "")}`),
     src: "/img/back-arrow.png"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    style: {
-      marginRight: "2rem"
-    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    xs: 10
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", {
     className: "menu-title"
   }, restaurant.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
     className: "menu-sub-title"
-  }, restaurant.locations[0].address), restaurant.locations[0].menu.orderNow && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    style: {
-      paddingLeft: "0.82rem",
-      width: "100%"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  }, restaurant.locations[0].address), restaurant.locations[0].menu.orderNow && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__["default"], {
     className: "rounded-button",
     style: {
       backgroundColor: restaurant.primaryColor,
       width: "fit-content"
     },
     onClick: () => window.open(restaurant.locations[0].menu.orderNow, "_blank")
-  }, "Order Now")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    style: {
-      paddingLeft: "0.82rem",
-      width: "100%"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+  }, "Order Now"), restaurant.locations[0].menu.dedicatedFrom && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     className: "dedicated-from"
-  }, restaurant.locations[0].menu.dedicatedFrom)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    style: {
-      paddingLeft: "0.82rem",
-      width: "100%"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_CrossContact__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, restaurant.locations[0].menu.dedicatedFrom), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_CrossContact__WEBPACK_IMPORTED_MODULE_3__["default"], {
     CCP: restaurant.locations[0].crossContactProcedure,
     primaryColor: restaurant.primaryColor
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    className: "d-flex pt-3 filtered-by align-items-center justify-content-between",
-    style: {
-      paddingLeft: "0.82rem",
-      width: "100%"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    className: "d-flex pt-3 filtered-by align-items-center justify-content-between"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
     className: "d-flex align-items-center flex-wrap"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    style: {
-      paddingLeft: "0.5rem",
-      paddingRight: 0
-    }
-  }, "Filtered By:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], null, Object.values(selectedAllergies).filter(({
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Filtered By:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], null, Object.values(selectedAllergies).filter(({
     selected
   }) => selected).map(({
     name
@@ -11192,11 +11184,7 @@ const OrderMenu = ({
       fontStyle: "italic",
       fontSize: 10
     }
-  }, (() => {
-    const [first, ...rest] = name;
-    const capitalAllergy = first.toUpperCase() + rest.join("");
-    return capitalAllergy;
-  })())))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__["default"], {
+  }, (0,_utils_common__WEBPACK_IMPORTED_MODULE_9__.capitalize)(name))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
     className: "col-auto"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_iconcomponents_Filter__WEBPACK_IMPORTED_MODULE_5__["default"], {
     setModalShow: setModalShow
@@ -11206,12 +11194,7 @@ const OrderMenu = ({
     restaurantAllergies: restaurant.locations[0].menu.allergies,
     primaryColor: restaurant.primaryColor
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    className: "d-flex category-nav noscroll custom-sticky-top mt-1",
-    style: {
-      background: "white",
-      paddingLeft: "0.82rem",
-      width: "100%"
-    }
+    className: "d-flex category-nav noscroll custom-sticky-top mt-1"
   }, categories.map(category => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     key: category.id,
     style: {
@@ -11225,7 +11208,9 @@ const OrderMenu = ({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, category.name)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Categories__WEBPACK_IMPORTED_MODULE_8__.Categories, {
     categories: categories,
     primaryColor: restaurant.primaryColor
-  }))));
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    xs: 1
+  })));
 };
 
 const mapState = state => {
@@ -11242,123 +11227,129 @@ const mapState = state => {
 };
 
 const mapDispatchToProps = {};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatchToProps)(OrderMenu));
-{
-  /* <Container>
-      <InactiveWarning
-        {...{ inactiveShow, setInactiveShow, timer }}
-        primaryColor={restaurant.primaryColor}
-      />
-         <Row className="d-flex justify-content-start">
-          <Image
-            className="menu-back-button"
-            onClick={() =>
-              history.push(`${location.pathname.replace("/menu", "")}`)
-            }
-            src={"/img/back-arrow.png"}
-          />
-        </Row>
-        <Container className="" style={{ marginTop: "4rem" }}>
-          <Row className="d-flex flex-column justify-content-start align-items-start">
-            <h1 className="menu-title">{restaurant.name}</h1>
-            <h2 className="menu-sub-title">
-              {restaurant.locations[0].address}
-            </h2>
-          </Row>
-          {restaurant.locations[0].menu.orderNow && (
-            <Row>
-              <Button
-                className="rounded-button"
-                style={{
-                  backgroundColor: restaurant.primaryColor,
-                  width: "fit-content",
-                }}
-                onClick={() =>
-                  window.open(restaurant.locations[0].menu.orderNow, "_blank")
-                }
-              >
-                Order Now
-              </Button>
-            </Row>
-          )}
-          <Row>
-            <p style={{ fontWeight: 600, fontSize: "1.5rem", paddingLeft: 0 }}>
-              {restaurant.locations[0].menu.dedicatedFrom}
-            </p>
-          </Row>
-          <Row>
-            <CrossContact
-              CCP={restaurant.locations[0].crossContactProcedure}
-              primaryColor={restaurant.primaryColor}
-            />
-          </Row>
-          <Row
-            className="d-flex category-nav noscroll sticky-top mt-1"
-            style={{ background: "white" }}
-          >
-            {categories.map((category) => (
-              <div
-                key={category.id}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  border: activeCategory.id === category.id ? "black" : "none",
-                  backgroundColor:
-                    activeCategory.id === category.id
-                      ? restaurant.primaryColor
-                      : "white",
-                  color: activeCategory.id === category.id ? "white" : "black",
-                }}
-                onClick={() => handleSelectCategory(category)}
-              >
-                <p>{category.name}</p>
-              </div>
-            ))}
-          </Row>
-          <Row className="d-flex pt-3 filtered-by align-items-center justify-content-between">
-            <Col className="d-flex align-items-center flex-wrap">
-              <p style={{ paddingLeft: "0.5rem", paddingRight: 0 }}>
-                Filtered By:
-              </p>
-              {Object.values(selectedAllergies)
-                .filter(({ selected }) => selected)
-                .map(({ name }) => (
-                  <p
-                    key={name}
-                    style={{
-                      borderRadius: "2rem",
-                      background: safeColor,
-                      color: "white",
-                      padding: "0.5rem 1rem",
-                      fontStyle: "italic",
-                      fontSize: 10,
-                    }}
-                  >
-                    {(() => {
-                      const [first, ...rest] = name;
-                      const capitalAllergy =
-                        first.toUpperCase() + rest.join("");
-                      return capitalAllergy;
-                    })()}
-                  </p>
-                ))}
-            </Col>
-            <Col className="col-auto">
-              <Filter setModalShow={setModalShow} />
-              <AllergyFilters
-                {...{ modalShow, setModalShow }}
-                restaurantAllergies={restaurant.locations[0].menu.allergies}
-                primaryColor={restaurant.primaryColor}
-              />
-            </Col>
-          </Row>
-          <MenuItems
-            categories={categories}
-            primaryColor={restaurant.primaryColor}
-          />
-        </Container>
-     </Container> */
-}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatchToProps)(OrderMenu)); // <Container className="mt-5">
+//       <InactiveWarning
+//         {...{ inactiveShow, setInactiveShow, timer }}
+//         primaryColor={restaurant.primaryColor}
+//       />
+//       <div className="d-flex">
+//         <Image
+//           className="menu-back-button"
+//           onClick={() =>
+//             history.push(`${location.pathname.replace("/menu", "")}`)
+//           }
+//           src={"/img/back-arrow.png"}
+//         />
+//         <Container style={{ marginRight: "2rem" }}>
+//           <h1 className="menu-title">{restaurant.name}</h1>
+//           <h2 className="menu-sub-title">{restaurant.locations[0].address}</h2>
+//           {restaurant.locations[0].menu.orderNow && (
+//             <Row style={{ paddingLeft: "0.82rem", width: "100%" }}>
+//               <Button
+//                 className="rounded-button"
+//                 style={{
+//                   backgroundColor: restaurant.primaryColor,
+//                   width: "fit-content",
+//                 }}
+//                 onClick={() =>
+//                   window.open(restaurant.locations[0].menu.orderNow, "_blank")
+//                 }
+//               >
+//                 Order Now
+//               </Button>
+//             </Row>
+//           )}
+//           <Row style={{ paddingLeft: "0.82rem", width: "100%" }}>
+//             <p className="dedicated-from">
+//               {restaurant.locations[0].menu.dedicatedFrom}
+//             </p>
+//           </Row>
+//           <Row style={{ paddingLeft: "0.82rem", width: "100%" }}>
+//             <CrossContact
+//               CCP={restaurant.locations[0].crossContactProcedure}
+//               primaryColor={restaurant.primaryColor}
+//             />
+//           </Row>
+//           <Row
+//             className="d-flex pt-3 filtered-by align-items-center justify-content-between"
+//             style={{ paddingLeft: "0.82rem", width: "100%" }}
+//           >
+//             <Col className="d-flex align-items-center flex-wrap">
+//               <p style={{ paddingLeft: "0.5rem", paddingRight: 0 }}>
+//                 Filtered By:
+//               </p>
+//               <Row>
+//                 {Object.values(selectedAllergies)
+//                   .filter(({ selected }) => selected)
+//                   .map(({ name }) => (
+//                     <p
+//                       key={name}
+//                       style={{
+//                         borderRadius: "2rem",
+//                         background: safeColor,
+//                         color: "white",
+//                         padding: "0.5rem 1rem",
+//                         fontStyle: "italic",
+//                         fontSize: 10,
+//                       }}
+//                     >
+//                       {(() => {
+//                         const [first, ...rest] = name;
+//                         const capitalAllergy =
+//                           first.toUpperCase() + rest.join("");
+//                         return capitalAllergy;
+//                       })()}
+//                     </p>
+//                   ))}
+//               </Row>
+//             </Col>
+//             <Col className="col-auto">
+//               <Filter setModalShow={setModalShow} />
+//               <AllergyFilters
+//                 {...{ modalShow, setModalShow }}
+//                 restaurantAllergies={restaurant.locations[0].menu.allergies}
+//                 primaryColor={restaurant.primaryColor}
+//               />
+//             </Col>
+//           </Row>
+//           <Row
+//             className="d-flex category-nav noscroll custom-sticky-top mt-1"
+//             style={{
+//               background: "white",
+//               paddingLeft: "0.82rem",
+//               width: "100%",
+//             }}
+//           >
+//             {categories.map((category) => (
+//               <div
+//                 key={category.id}
+//                 style={{
+//                   display: "flex",
+//                   alignItems: "center",
+//                   border: activeCategory.id === category.id ? "black" : "none",
+//                   backgroundColor:
+//                     activeCategory.id === category.id
+//                       ? restaurant.primaryColor
+//                       : "white",
+//                   color: activeCategory.id === category.id ? "white" : "black",
+//                 }}
+//                 onClick={() => handleSelectCategory(category)}
+//               >
+//                 <p>{category.name}</p>
+//               </div>
+//             ))}
+//           </Row>
+//           {/* <MenuItems
+//             categories={categories}
+//             primaryColor={restaurant.primaryColor}
+//           /> */}
+//           <Categories
+//             categories={categories}
+//             primaryColor={restaurant.primaryColor}
+//           />
+//         </Container>
+//       </div>
+//     </Container>
 
 /***/ }),
 

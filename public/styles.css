@@ -197,6 +197,7 @@ input.close {
 }
 
 .category-nav {
+  background: white;
   border: 1px solid lightgray;
   border-radius: 2rem;
   padding: 0.25rem;
@@ -249,18 +250,14 @@ input.close {
 .menuitem-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
+  justify-content: space-evenly;
 }
 
 .menuitem-card {
-  width: 50%;
-  margin: 0px;
-  margin-bottom: 2rem;
+  width: 18rem;
+  cursor: pointer;
 }
-.menuitem-card div {
-  width: 200px;
-  margin: 0;
-}
+
 .price-type {
   white-space: nowrap;
   font-size: 12px;
@@ -296,9 +293,7 @@ input.close {
   }
   .menuitem-card {
     width: 100%;
-    min-width: 350px;
-    margin: 0px;
-    margin-bottom: 2rem;
+    cursor: pointer;
   }
   /* .card {
     width: 100%;
