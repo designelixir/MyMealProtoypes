@@ -11500,14 +11500,12 @@ const OrderMenu = ({
     }
   };
 
-  const setScrollableActiveCategory = () => {
-    categoryRefs.forEach((ref, idx) => {
-      const diffFromTop = ref.current.getBoundingClientRect().top;
-
-      if (diffFromTop <= 50 && activeCategory.name !== ref.current.id) {
-        setActiveCategory(categories[idx]);
-      }
-    });
+  const setScrollableActiveCategory = () => {// categoryRefs.forEach((ref, idx) => {
+    //   const diffFromTop = ref.current.getBoundingClientRect().top;
+    //   if (diffFromTop <= 50 && activeCategory.name !== ref.current.id) {
+    //     setActiveCategory(categories[idx]);
+    //   }
+    // });
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -11598,19 +11596,11 @@ const OrderMenu = ({
       color: activeCategory.id === category.id ? "white" : "black"
     },
     onClick: () => handleSelectCategory(category)
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, category.name)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_scrollspy__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    items: categories.map(({
-      name
-    }) => name),
-    currentClassName: "is-current",
-    onUpdate: e => {// console.log("Spy", e, e.getBoundingClientRect().top);
-    },
-    offset: 100
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Categories__WEBPACK_IMPORTED_MODULE_9__.Categories, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, category.name)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Categories__WEBPACK_IMPORTED_MODULE_9__.Categories, {
     categoryRefs: categoryRefs,
     categories: categories,
     primaryColor: restaurant.primaryColor
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__["default"], {
     xs: 1
   })));
 };

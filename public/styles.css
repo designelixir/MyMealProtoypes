@@ -251,12 +251,13 @@ input.close {
 .menuitem-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: start;
 }
 
 .menuitem-card {
   width: 18rem;
   cursor: pointer;
+  margin-right: 1rem;
 }
 
 .price-type {

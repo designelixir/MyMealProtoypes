@@ -57,12 +57,12 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
     }
   };
   const setScrollableActiveCategory = () => {
-    categoryRefs.forEach((ref, idx) => {
-      const diffFromTop = ref.current.getBoundingClientRect().top;
-      if (diffFromTop <= 50 && activeCategory.name !== ref.current.id) {
-        setActiveCategory(categories[idx]);
-      }
-    });
+    // categoryRefs.forEach((ref, idx) => {
+    //   const diffFromTop = ref.current.getBoundingClientRect().top;
+    //   if (diffFromTop <= 50 && activeCategory.name !== ref.current.id) {
+    //     setActiveCategory(categories[idx]);
+    //   }
+    // });
   };
   useEffect(() => {
     window.addEventListener("scroll", setDropShadow);
@@ -174,7 +174,12 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
               </div>
             ))}
           </Row>
-          <Scrollspy
+          <Categories
+            categoryRefs={categoryRefs}
+            categories={categories}
+            primaryColor={restaurant.primaryColor}
+          />
+          {/* <Scrollspy
             items={categories.map(({ name }) => name)}
             currentClassName="is-current"
             onUpdate={(e) => {
@@ -187,7 +192,7 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
               categories={categories}
               primaryColor={restaurant.primaryColor}
             />
-          </Scrollspy>
+          </Scrollspy> */}
         </Col>
         <Col xs={1}></Col>
       </Row>
