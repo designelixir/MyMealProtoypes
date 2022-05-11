@@ -78,8 +78,28 @@ const Disclaimer = ({
               SERVER ABOUT YOUR FOOD RESTRICTIONS.**
             </p>
           </Container>
-
-          <Form.Check
+          <Container>
+            <div class="mt-3 form-check form-check-inline">
+              <input
+                style={{
+                  backgroundColor: agreement && primaryColor,
+                  borderColor: primaryColor,
+                  boxShadow: "none",
+                }}
+                type="checkbox"
+                class="form-check-input"
+                value="true"
+                type="checkbox"
+                value={agreement}
+                checked={agreement}
+                onChange={({ target: { checked } }) => setAgreement(checked)}
+              />
+              <label title="" class="form-check-label">
+                I agree to the Disclaimer of this allergen tool.
+              </label>
+            </div>
+          </Container>
+          {/* <Form.Check
             className="mt-3"
             inline
             label="I agree to the Disclaimer of this allergen tool."
@@ -87,7 +107,7 @@ const Disclaimer = ({
             value={agreement}
             checked={agreement}
             onChange={({ target: { checked } }) => setAgreement(checked)}
-          />
+          /> */}
         </Modal.Body>
         <Modal.Footer>
           <Button

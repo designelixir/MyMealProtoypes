@@ -30,7 +30,7 @@ const MainScreen = ({ restaurant, setHasRestrictions }) => {
           }
         />
       </Container>
-      <Container className="d-flex flex-column justify-content-between">
+      <Container className="d-flex  justify-content-center">
         {/* <Button
           className="above-overlay welcome-button"
           style={{

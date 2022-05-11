@@ -11123,7 +11123,7 @@ const MainScreen = ({
     className: "above-overlay welcome-logo",
     src: restaurant.logo ? restaurant.logo.url : "/img/demo-restauarant.png"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    className: "d-flex flex-column justify-content-between"
+    className: "d-flex  justify-content-center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
     className: "above-overlay welcome-button",
     style: {
@@ -12377,7 +12377,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Modal.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Form.js");
 
 
 
@@ -12424,10 +12423,17 @@ const Disclaimer = ({
     style: {
       color: "red"
     }
-  }, "**MAKE SURE TO CLICK ON THE MENU ITEMS. THEY MAY CONTAIN PERSONALIZED ORDERING INSTRUCTIONS. ALWAYS COMMUNICATE WITH YOUR SERVER ABOUT YOUR FOOD RESTRICTIONS.**")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Check, {
-    className: "mt-3",
-    inline: true,
-    label: "I agree to the Disclaimer of this allergen tool.",
+  }, "**MAKE SURE TO CLICK ON THE MENU ITEMS. THEY MAY CONTAIN PERSONALIZED ORDERING INSTRUCTIONS. ALWAYS COMMUNICATE WITH YOUR SERVER ABOUT YOUR FOOD RESTRICTIONS.**")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    class: "mt-3 form-check form-check-inline"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+    style: {
+      backgroundColor: agreement && primaryColor,
+      borderColor: primaryColor,
+      boxShadow: "none"
+    },
+    type: "checkbox",
+    class: "form-check-input",
+    value: "true",
     type: "checkbox",
     value: agreement,
     checked: agreement,
@@ -12436,7 +12442,10 @@ const Disclaimer = ({
         checked
       }
     }) => setAgreement(checked)
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    title: "",
+    class: "form-check-label"
+  }, "I agree to the Disclaimer of this allergen tool.")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], {
     disabled: !agreement,
     style: {
       color: "white",
