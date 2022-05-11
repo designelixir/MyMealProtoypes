@@ -5,11 +5,10 @@ export default (menuitems, selectedAllergies) => {
   const unsafe = new Set();
   menuitems.forEach((menuitem) => {
     for (const allergytype of menuitem.allergytypes) {
-      if (
+      const isApplicable =
         allergytype.allergyId in selectedAllergies &&
-        selectedAllergies[allergytype.allergyId].selected &&
-        allergytype.type === "Unsafe"
-      ) {
+        selectedAllergies[allergytype.allergyId].selected;
+      if (isApplicable && allergytype.type === "Unsafe") {
         unsafe.add(menuitem.id);
         break;
       }
@@ -20,20 +19,14 @@ export default (menuitems, selectedAllergies) => {
         safe.add(menuitem.id);
       }
       if (allergytype.type === "Modifiable") {
-        if (
-          allergytype.allergyId in selectedAllergies &&
-          selectedAllergies[allergytype.allergyId].selected
-        ) {
+        if (isApplicable) {
           mod.add(menuitem.id);
         } else {
           safe.add(menuitem.id);
         }
       }
       if (allergytype.cross) {
-        if (
-          allergytype.allergyId in selectedAllergies &&
-          selectedAllergies[allergytype.allergyId].selected
-        ) {
+        if (isApplicable) {
           cross.add(menuitem.id);
           if (selectedAllergies[allergytype.allergyId].cross) {
             if (allergytype.crossMod) {
@@ -46,19 +39,6 @@ export default (menuitems, selectedAllergies) => {
       }
     }
   });
-
-  // const safeMenuitems = menuitems.filter(
-  //   (menuitem) =>
-  //     safe.has(menuitem.id) &&
-  //     !unsafe.has(menuitem.id) &&
-  //     !mod.has(menuitem.id) &&
-  //     !cross.has(menuitem.id)
-  // );
-  // const modMenuitems = menuitems.filter(
-  //   (menuitem) =>
-  //     (cross.has(menuitem.id) && !unsafe.has(menuitem.id)) ||
-  //     (mod.has(menuitem.id) && !unsafe.has(menuitem.id))
-  // );
 
   const filteredMenuitems = [];
   menuitems.forEach((menuitem) => {

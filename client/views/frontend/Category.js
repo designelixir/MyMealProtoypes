@@ -13,14 +13,22 @@ export const Category = ({
   categoryRef,
 }) => {
   const [filteredMenuitems, setFilteredMenuitems] = useState([]);
+  const [unfilteredMenuitems, setUnfilteredMenuitems] = useState([]);
   useEffect(() => {
     getMenuitems({
       categoryId: category.id,
       cb(menuitems) {
+        setUnfilteredMenuitems(menuitems);
         setFilteredMenuitems(menuitemFilter(menuitems, selectedAllergies));
       },
     });
   }, []);
+  useEffect(() => {
+    if (!unfilteredMenuitems.length) return;
+    setFilteredMenuitems(
+      menuitemFilter(unfilteredMenuitems, selectedAllergies)
+    );
+  }, [selectedAllergies]);
   return (
     <Container className="p-0">
       {

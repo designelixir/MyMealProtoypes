@@ -7901,7 +7901,9 @@ __webpack_require__.r(__webpack_exports__);
   const unsafe = new Set();
   menuitems.forEach(menuitem => {
     for (const allergytype of menuitem.allergytypes) {
-      if (allergytype.allergyId in selectedAllergies && selectedAllergies[allergytype.allergyId].selected && allergytype.type === "Unsafe") {
+      const isApplicable = allergytype.allergyId in selectedAllergies && selectedAllergies[allergytype.allergyId].selected;
+
+      if (isApplicable && allergytype.type === "Unsafe") {
         unsafe.add(menuitem.id);
         break;
       }
@@ -7911,7 +7913,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (allergytype.type === "Modifiable") {
-        if (allergytype.allergyId in selectedAllergies && selectedAllergies[allergytype.allergyId].selected) {
+        if (isApplicable) {
           mod.add(menuitem.id);
         } else {
           safe.add(menuitem.id);
@@ -7919,7 +7921,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (allergytype.cross) {
-        if (allergytype.allergyId in selectedAllergies && selectedAllergies[allergytype.allergyId].selected) {
+        if (isApplicable) {
           cross.add(menuitem.id);
 
           if (selectedAllergies[allergytype.allergyId].cross) {
@@ -7932,19 +7934,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     }
-  }); // const safeMenuitems = menuitems.filter(
-  //   (menuitem) =>
-  //     safe.has(menuitem.id) &&
-  //     !unsafe.has(menuitem.id) &&
-  //     !mod.has(menuitem.id) &&
-  //     !cross.has(menuitem.id)
-  // );
-  // const modMenuitems = menuitems.filter(
-  //   (menuitem) =>
-  //     (cross.has(menuitem.id) && !unsafe.has(menuitem.id)) ||
-  //     (mod.has(menuitem.id) && !unsafe.has(menuitem.id))
-  // );
-
+  });
   const filteredMenuitems = [];
   menuitems.forEach(menuitem => {
     if (safe.has(menuitem.id) && !unsafe.has(menuitem.id) && !mod.has(menuitem.id) && !cross.has(menuitem.id)) {
@@ -11021,16 +11011,22 @@ const Category = ({
   categoryRef
 }) => {
   const [filteredMenuitems, setFilteredMenuitems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [unfilteredMenuitems, setUnfilteredMenuitems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     getMenuitems({
       categoryId: category.id,
 
       cb(menuitems) {
+        setUnfilteredMenuitems(menuitems);
         setFilteredMenuitems((0,_utils_menuitemFilter__WEBPACK_IMPORTED_MODULE_3__["default"])(menuitems, selectedAllergies));
       }
 
     });
   }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!unfilteredMenuitems.length) return;
+    setFilteredMenuitems((0,_utils_menuitemFilter__WEBPACK_IMPORTED_MODULE_3__["default"])(unfilteredMenuitems, selectedAllergies));
+  }, [selectedAllergies]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
     className: "p-0"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
