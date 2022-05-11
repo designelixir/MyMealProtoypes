@@ -10,6 +10,7 @@ export const Category = ({
   getMenuitems,
   selectedAllergies,
   primaryColor,
+  categoryRef,
 }) => {
   const [filteredMenuitems, setFilteredMenuitems] = useState([]);
   useEffect(() => {
@@ -24,7 +25,7 @@ export const Category = ({
     <Container className="p-0">
       {
         <Container className="d-flex flex-column p-0">
-          <h3 className="mt-3" id={category.name}>
+          <h3 className="mt-3" id={category.name} ref={categoryRef}>
             {category.name}
           </h3>
           <Container className="menuitem-container p-0">

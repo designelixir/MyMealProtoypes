@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { connect } from "react-redux";
 import { useIdleTimer } from "react-idle-timer";
+import Scrollspy from "react-scrollspy";
 import { Redirect, useLocation, useHistory } from "react-router-dom";
 import { Container, Row, Col, Image, Button, Tabs, Tab } from "react-bootstrap";
 import CrossContact from "./modals/CrossContact";
@@ -40,6 +41,37 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
     const scrollDiv = document.getElementById(`${category.name}`).offsetTop;
     window.scrollTo({ top: scrollDiv - 50, behavior: "smooth" });
   };
+
+  const categoryRefs = categories.map(({ name }) => useRef(name));
+  const catNav = useRef(null);
+
+  const [showDropShadow, setShowDropShadow] = useState(false);
+
+  const setDropShadow = () => {
+    const el = document.documentElement;
+
+    if (Math.ceil(el.scrollTop) === catNav.current.offsetTop) {
+      setShowDropShadow(true);
+    } else {
+      setShowDropShadow(false);
+    }
+  };
+  const setScrollableActiveCategory = () => {
+    categoryRefs.forEach((ref, idx) => {
+      const diffFromTop = ref.current.getBoundingClientRect().top;
+      if (diffFromTop <= 50 && activeCategory.name !== ref.current.id) {
+        setActiveCategory(categories[idx]);
+      }
+    });
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", setDropShadow);
+    window.addEventListener("scroll", setScrollableActiveCategory);
+    return () => {
+      window.removeEventListener("scroll", setDropShadow);
+      window.removeEventListener("scroll", setScrollableActiveCategory);
+    };
+  }, []);
   return (
     <Container className="mt-5" style={{ minWidth: 390 }}>
       <InactiveWarning
@@ -114,7 +146,15 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
               />
             </Col>
           </Row>
-          <Row className="d-flex category-nav noscroll custom-sticky-top mt-1">
+          <Row
+            className="d-flex category-nav noscroll custom-sticky-top mt-1"
+            id="category-nav"
+            ref={catNav}
+            style={{
+              borderBottom: showDropShadow && "2px solid lightgray",
+              // boxShadow: showDropShadow && "0 2px 4px 0 rgb(0 0 0 / 12%)",
+            }}
+          >
             {categories.map((category) => (
               <div
                 key={category.id}
@@ -134,10 +174,20 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
               </div>
             ))}
           </Row>
-          <Categories
-            categories={categories}
-            primaryColor={restaurant.primaryColor}
-          />
+          <Scrollspy
+            items={categories.map(({ name }) => name)}
+            currentClassName="is-current"
+            onUpdate={(e) => {
+              // console.log("Spy", e, e.getBoundingClientRect().top);
+            }}
+            offset={100}
+          >
+            <Categories
+              categoryRefs={categoryRefs}
+              categories={categories}
+              primaryColor={restaurant.primaryColor}
+            />
+          </Scrollspy>
         </Col>
         <Col xs={1}></Col>
       </Row>

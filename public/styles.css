@@ -41,14 +41,14 @@ input.close {
 }
 .welcome-logo {
   height: 150px;
-  width: fit-content;
+  width: auto;
   margin-top: 1.5rem;
 }
 
 .restriction-logo {
   height: 100px;
   width: fit-content;
-  margin-top: 1.5rem;
+  /* margin-top: 1.5rem; */
 }
 
 .restriction-container {
@@ -151,13 +151,6 @@ input.close {
   position: absolute;
   left: 1rem;
 }
-.custom-sticky-top {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 1020;
-  border: 2px solid lightgray;
-}
 .menu-back-button {
   height: calc(0.75rem + 1.5vw);
   width: calc(0.75rem + 1.5vw);
@@ -198,11 +191,19 @@ input.close {
 
 .category-nav {
   background: white;
-  border: 1px solid lightgray;
-  border-radius: 2rem;
+  /* border-bottom: 1px solid lightgray;
+  border-radius: 2rem; */
   padding: 0.25rem;
   overflow: scroll;
   flex-wrap: nowrap;
+}
+
+.custom-sticky-top {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  /* border: 2px solid lightgray; */
 }
 
 .category-nav > div {

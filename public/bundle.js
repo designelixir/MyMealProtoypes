@@ -1,6 +1,353 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************/
+/***/ ((module) => {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
+  \******************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+}
+
+module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/assertThisInitialized.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/assertThisInitialized.js ***!
+  \**********************************************************************/
+/***/ ((module) => {
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+module.exports = _assertThisInitialized, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/classCallCheck.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/classCallCheck.js ***!
+  \***************************************************************/
+/***/ ((module) => {
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+module.exports = _classCallCheck, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/createClass.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/createClass.js ***!
+  \************************************************************/
+/***/ ((module) => {
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  Object.defineProperty(Constructor, "prototype", {
+    writable: false
+  });
+  return Constructor;
+}
+
+module.exports = _createClass, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \***************************************************************/
+/***/ ((module) => {
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/extends.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/extends.js ***!
+  \********************************************************/
+/***/ ((module) => {
+
+function _extends() {
+  module.exports = _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports;
+  return _extends.apply(this, arguments);
+}
+
+module.exports = _extends, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/getPrototypeOf.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/getPrototypeOf.js ***!
+  \***************************************************************/
+/***/ ((module) => {
+
+function _getPrototypeOf(o) {
+  module.exports = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports;
+  return _getPrototypeOf(o);
+}
+
+module.exports = _getPrototypeOf, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/inherits.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/inherits.js ***!
+  \*********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var setPrototypeOf = __webpack_require__(/*! ./setPrototypeOf.js */ "./node_modules/@babel/runtime/helpers/setPrototypeOf.js");
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  Object.defineProperty(subClass, "prototype", {
+    writable: false
+  });
+  if (superClass) setPrototypeOf(subClass, superClass);
+}
+
+module.exports = _inherits, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
+  \**********************************************************************/
+/***/ ((module) => {
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+module.exports = _interopRequireDefault, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/iterableToArray.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArray.js ***!
+  \****************************************************************/
+/***/ ((module) => {
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
+  \******************************************************************/
+/***/ ((module) => {
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js ***!
+  \**************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var _typeof = (__webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"]);
+
+var assertThisInitialized = __webpack_require__(/*! ./assertThisInitialized.js */ "./node_modules/@babel/runtime/helpers/assertThisInitialized.js");
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+
+  return assertThisInitialized(self);
+}
+
+module.exports = _possibleConstructorReturn, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/setPrototypeOf.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/setPrototypeOf.js ***!
+  \***************************************************************/
+/***/ ((module) => {
+
+function _setPrototypeOf(o, p) {
+  module.exports = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports;
+  return _setPrototypeOf(o, p);
+}
+
+module.exports = _setPrototypeOf, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/toConsumableArray.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
+  \******************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
+
+var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
+
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+
+var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
+
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
+  \*******************************************************/
+/***/ ((module) => {
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
+}
+
+module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
 /***/ "./node_modules/@icons/material/CheckIcon.js":
 /*!***************************************************!*\
   !*** ./node_modules/@icons/material/CheckIcon.js ***!
@@ -10625,11 +10972,13 @@ __webpack_require__.r(__webpack_exports__);
 
 const Categories = ({
   categories,
-  primaryColor
+  primaryColor,
+  categoryRefs
 }) => {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, categories.map(category => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Category__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, categories.map((category, idx) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Category__WEBPACK_IMPORTED_MODULE_2__["default"], {
     category: category,
-    primaryColor: primaryColor
+    primaryColor: primaryColor,
+    categoryRef: categoryRefs[idx]
   })));
 };
 
@@ -10668,7 +11017,8 @@ const Category = ({
   category,
   getMenuitems,
   selectedAllergies,
-  primaryColor
+  primaryColor,
+  categoryRef
 }) => {
   const [filteredMenuitems, setFilteredMenuitems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -10687,7 +11037,8 @@ const Category = ({
     className: "d-flex flex-column p-0"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", {
     className: "mt-3",
-    id: category.name
+    id: category.name,
+    ref: categoryRef
   }, category.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
     className: "menuitem-container p-0"
   }, filteredMenuitems.length > 0 ? filteredMenuitems.map(({
@@ -11059,19 +11410,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_idle_timer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-idle-timer */ "./node_modules/react-idle-timer/dist/index.esm.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
-/* harmony import */ var _modals_CrossContact__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modals/CrossContact */ "./client/views/frontend/modals/CrossContact.js");
-/* harmony import */ var _MenuItems__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MenuItems */ "./client/views/frontend/MenuItems.js");
-/* harmony import */ var _iconcomponents_Filter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./iconcomponents/Filter */ "./client/views/frontend/iconcomponents/Filter.js");
-/* harmony import */ var _modals_AllergyFilters__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modals/AllergyFilters */ "./client/views/frontend/modals/AllergyFilters.js");
-/* harmony import */ var _modals_InactiveWarning__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modals/InactiveWarning */ "./client/views/frontend/modals/InactiveWarning.js");
-/* harmony import */ var _Categories__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Categories */ "./client/views/frontend/Categories.js");
-/* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../utils/common */ "./client/utils/common.js");
+/* harmony import */ var react_scrollspy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-scrollspy */ "./node_modules/react-scrollspy/lib/scrollspy.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var _modals_CrossContact__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modals/CrossContact */ "./client/views/frontend/modals/CrossContact.js");
+/* harmony import */ var _MenuItems__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./MenuItems */ "./client/views/frontend/MenuItems.js");
+/* harmony import */ var _iconcomponents_Filter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./iconcomponents/Filter */ "./client/views/frontend/iconcomponents/Filter.js");
+/* harmony import */ var _modals_AllergyFilters__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modals/AllergyFilters */ "./client/views/frontend/modals/AllergyFilters.js");
+/* harmony import */ var _modals_InactiveWarning__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modals/InactiveWarning */ "./client/views/frontend/modals/InactiveWarning.js");
+/* harmony import */ var _Categories__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Categories */ "./client/views/frontend/Categories.js");
+/* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../utils/common */ "./client/utils/common.js");
+
 
 
 
@@ -11090,11 +11443,11 @@ const OrderMenu = ({
   categories,
   selectedAllergies
 }) => {
-  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_10__.useLocation)();
-  const history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_10__.useHistory)();
+  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useLocation)();
+  const history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useHistory)();
 
   if (!restaurant.id) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Redirect, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Redirect, {
       to: `${location.pathname.replace("/menu", "")}`
     });
   }
@@ -11131,30 +11484,64 @@ const OrderMenu = ({
     });
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  const categoryRefs = categories.map(({
+    name
+  }) => (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(name));
+  const catNav = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const [showDropShadow, setShowDropShadow] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+
+  const setDropShadow = () => {
+    const el = document.documentElement;
+
+    if (Math.ceil(el.scrollTop) === catNav.current.offsetTop) {
+      setShowDropShadow(true);
+    } else {
+      setShowDropShadow(false);
+    }
+  };
+
+  const setScrollableActiveCategory = () => {
+    categoryRefs.forEach((ref, idx) => {
+      const diffFromTop = ref.current.getBoundingClientRect().top;
+
+      if (diffFromTop <= 50 && activeCategory.name !== ref.current.id) {
+        setActiveCategory(categories[idx]);
+      }
+    });
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    window.addEventListener("scroll", setDropShadow);
+    window.addEventListener("scroll", setScrollableActiveCategory);
+    return () => {
+      window.removeEventListener("scroll", setDropShadow);
+      window.removeEventListener("scroll", setScrollableActiveCategory);
+    };
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], {
     className: "mt-5",
     style: {
       minWidth: 390
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_InactiveWarning__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_InactiveWarning__WEBPACK_IMPORTED_MODULE_8__["default"], {
     inactiveShow,
     setInactiveShow,
     timer,
     primaryColor: restaurant.primaryColor
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__["default"], {
     xs: 1,
     className: "d-flex justify-content-start"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__["default"], {
     className: "menu-back-button",
     onClick: () => history.push(`${location.pathname.replace("/menu", "")}`),
     src: "/img/back-arrow.png"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__["default"], {
     xs: 10
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", {
     className: "menu-title"
   }, restaurant.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
     className: "menu-sub-title"
-  }, restaurant.locations[0].address), restaurant.locations[0].menu.orderNow && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  }, restaurant.locations[0].address), restaurant.locations[0].menu.orderNow && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__["default"], {
     className: "rounded-button",
     style: {
       backgroundColor: restaurant.primaryColor,
@@ -11163,14 +11550,14 @@ const OrderMenu = ({
     onClick: () => window.open(restaurant.locations[0].menu.orderNow, "_blank")
   }, "Order Now"), restaurant.locations[0].menu.dedicatedFrom && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     className: "dedicated-from"
-  }, restaurant.locations[0].menu.dedicatedFrom), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_CrossContact__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, restaurant.locations[0].menu.dedicatedFrom), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_CrossContact__WEBPACK_IMPORTED_MODULE_4__["default"], {
     CCP: restaurant.locations[0].crossContactProcedure,
     primaryColor: restaurant.primaryColor
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
     className: "d-flex pt-3 filtered-by align-items-center justify-content-between"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__["default"], {
     className: "d-flex align-items-center flex-wrap"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Filtered By:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], null, Object.values(selectedAllergies).filter(({
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Filtered By:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], null, Object.values(selectedAllergies).filter(({
     selected
   }) => selected).map(({
     name
@@ -11184,17 +11571,23 @@ const OrderMenu = ({
       fontStyle: "italic",
       fontSize: 10
     }
-  }, (0,_utils_common__WEBPACK_IMPORTED_MODULE_9__.capitalize)(name))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  }, (0,_utils_common__WEBPACK_IMPORTED_MODULE_10__.capitalize)(name))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__["default"], {
     className: "col-auto"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_iconcomponents_Filter__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_iconcomponents_Filter__WEBPACK_IMPORTED_MODULE_6__["default"], {
     setModalShow: setModalShow
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_AllergyFilters__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_AllergyFilters__WEBPACK_IMPORTED_MODULE_7__["default"], {
     modalShow,
     setModalShow,
     restaurantAllergies: restaurant.locations[0].menu.allergies,
     primaryColor: restaurant.primaryColor
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    className: "d-flex category-nav noscroll custom-sticky-top mt-1"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    className: "d-flex category-nav noscroll custom-sticky-top mt-1",
+    id: "category-nav",
+    ref: catNav,
+    style: {
+      borderBottom: showDropShadow && "2px solid lightgray" // boxShadow: showDropShadow && "0 2px 4px 0 rgb(0 0 0 / 12%)",
+
+    }
   }, categories.map(category => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     key: category.id,
     style: {
@@ -11205,10 +11598,19 @@ const OrderMenu = ({
       color: activeCategory.id === category.id ? "white" : "black"
     },
     onClick: () => handleSelectCategory(category)
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, category.name)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Categories__WEBPACK_IMPORTED_MODULE_8__.Categories, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, category.name)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_scrollspy__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    items: categories.map(({
+      name
+    }) => name),
+    currentClassName: "is-current",
+    onUpdate: e => {// console.log("Spy", e, e.getBoundingClientRect().top);
+    },
+    offset: 100
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Categories__WEBPACK_IMPORTED_MODULE_9__.Categories, {
+    categoryRefs: categoryRefs,
     categories: categories,
     primaryColor: restaurant.primaryColor
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__["default"], {
     xs: 1
   })));
 };
@@ -11369,8 +11771,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
 /* harmony import */ var _redux_reducers_frontend__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../redux/reducers/frontend */ "./client/redux/reducers/frontend.js");
 /* harmony import */ var _modals_Disclaimer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modals/Disclaimer */ "./client/views/frontend/modals/Disclaimer.js");
 
@@ -11401,18 +11804,27 @@ const Restrictions = ({
       height: "100%",
       overflow: "scroll"
     }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    className: "d-flex flex-column justify-content-center align-items-center mt-5"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    className: "d-flex justify-content-start"
+    className: "d-flex justify-content-center align-items-center w-100"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    className: "menu-back-button above-overlay",
+    xs: 4,
+    className: "above-overlay"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    className: "menu-back-button above-overlay p-0",
     onClick: () => setHasRestrictions(false),
     src: "/img/back-arrow.png"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    className: "d-flex flex-column justify-content-center align-items-center"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    xs: 4,
+    className: "d-flex justify-content-center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], {
     className: "above-overlay restriction-logo",
     src: restaurant.logo ? restaurant.logo.url : "/img/demo-restauarant.png"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    xs: 4,
+    className: "above-overlay"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     className: "above-overlay",
     style: {
       fontSize: "2rem",
@@ -11426,7 +11838,7 @@ const Restrictions = ({
       textAlign: "center"
     }
   }, restaurant.locations[0].menu.dedicatedFrom)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    className: "d-flex flex-column justify-content-start align-items-center restriction-container above-overlay"
+    className: "d-flex flex-column justify-content-start align-items-center restriction-container above-overlay mb-5"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {
     className: "d-flex justify-content-center align-items-center restriction-header above-overlay",
     style: {
@@ -11460,7 +11872,7 @@ const Restrictions = ({
     }
   }, "Are you sensitive to cross contact?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {
     className: "d-flex justify-content-center align-items-center"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], {
     onClick: () => setSelectedAllergies({ ...selectedAllergies,
       [allergy.id]: { ...selectedAllergies[allergy.id],
         cross: true
@@ -11472,7 +11884,7 @@ const Restrictions = ({
       backgroundColor: !selectedAllergies[allergy.id].cross ? "white" : restaurant.primaryColor,
       border: !selectedAllergies[allergy.id].cross ? "1px solid black" : "none"
     }
-  }, "Yes"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, "Yes"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], {
     onClick: () => setSelectedAllergies({ ...selectedAllergies,
       [allergy.id]: { ...selectedAllergies[allergy.id],
         cross: false
@@ -62590,6 +63002,396 @@ function pathToRegexp (path, keys, options) {
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/react-scrollspy/lib/scrollspy.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/react-scrollspy/lib/scrollspy.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js"));
+
+var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js"));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js"));
+
+var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/getPrototypeOf.js"));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "./node_modules/@babel/runtime/helpers/assertThisInitialized.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/inherits.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "./node_modules/classnames/index.js"));
+
+var _throttle = _interopRequireDefault(__webpack_require__(/*! ./throttle */ "./node_modules/react-scrollspy/lib/throttle.js"));
+
+function isEqualArray(a, b) {
+  return a.length === b.length && a.every(function (item, index) {
+    return item === b[index];
+  });
+}
+
+var Scrollspy =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(Scrollspy, _React$Component);
+  (0, _createClass2.default)(Scrollspy, null, [{
+    key: "propTypes",
+    get: function get() {
+      return {
+        items: _propTypes.default.arrayOf(_propTypes.default.string).isRequired,
+        currentClassName: _propTypes.default.string.isRequired,
+        scrolledPastClassName: _propTypes.default.string,
+        style: _propTypes.default.object,
+        componentTag: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.elementType]),
+        offset: _propTypes.default.number,
+        rootEl: _propTypes.default.string,
+        onUpdate: _propTypes.default.func
+      };
+    }
+  }, {
+    key: "defaultProps",
+    get: function get() {
+      return {
+        items: [],
+        currentClassName: '',
+        style: {},
+        componentTag: 'ul',
+        offset: 0,
+        onUpdate: function onUpdate() {}
+      };
+    }
+  }]);
+
+  function Scrollspy(props) {
+    var _this;
+
+    (0, _classCallCheck2.default)(this, Scrollspy);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Scrollspy).call(this, props));
+    _this.state = {
+      targetItems: [],
+      inViewState: [],
+      isScrolledPast: [] // manually bind as ES6 does not apply this
+      // auto binding as React.createClass does
+
+    };
+    _this._handleSpy = _this._handleSpy.bind((0, _assertThisInitialized2.default)(_this));
+    return _this;
+  }
+
+  (0, _createClass2.default)(Scrollspy, [{
+    key: "_initSpyTarget",
+    value: function _initSpyTarget(items) {
+      var targetItems = items.map(function (item) {
+        return document.getElementById(item);
+      });
+      return targetItems;
+    } // https://github.com/makotot/react-scrollspy/pull/45
+
+  }, {
+    key: "_fillArray",
+    value: function _fillArray(array, val) {
+      var newArray = [];
+
+      for (var i = 0, max = array.length; i < max; i++) {
+        newArray[i] = val;
+      }
+
+      return newArray;
+    }
+  }, {
+    key: "_isScrolled",
+    value: function _isScrolled() {
+      return this._getScrollDimension().scrollTop > 0;
+    }
+  }, {
+    key: "_getScrollDimension",
+    value: function _getScrollDimension() {
+      var doc = document;
+      var rootEl = this.props.rootEl;
+      var scrollTop = rootEl ? doc.querySelector(rootEl).scrollTop : doc.documentElement.scrollTop || doc.body.parentNode.scrollTop || doc.body.scrollTop;
+      var scrollHeight = rootEl ? doc.querySelector(rootEl).scrollHeight : doc.documentElement.scrollHeight || doc.body.parentNode.scrollHeight || doc.body.scrollHeight;
+      return {
+        scrollTop: scrollTop,
+        scrollHeight: scrollHeight
+      };
+    }
+  }, {
+    key: "_getElemsViewState",
+    value: function _getElemsViewState(targets) {
+      var elemsInView = [];
+      var elemsOutView = [];
+      var viewStatusList = [];
+      var targetItems = targets ? targets : this.state.targetItems;
+      var hasInViewAlready = false;
+
+      for (var i = 0, max = targetItems.length; i < max; i++) {
+        var currentContent = targetItems[i];
+        var isInView = hasInViewAlready ? false : this._isInView(currentContent);
+
+        if (isInView) {
+          hasInViewAlready = true;
+          elemsInView.push(currentContent);
+        } else {
+          elemsOutView.push(currentContent);
+        }
+
+        var isLastItem = i === max - 1;
+
+        var isScrolled = this._isScrolled(); // https://github.com/makotot/react-scrollspy/pull/26#issue-167413769
+
+
+        var isLastShortItemAtBottom = this._isAtBottom() && this._isInView(currentContent) && !isInView && isLastItem && isScrolled;
+
+        if (isLastShortItemAtBottom) {
+          elemsOutView.pop();
+          elemsOutView.push.apply(elemsOutView, (0, _toConsumableArray2.default)(elemsInView));
+          elemsInView = [currentContent];
+          viewStatusList = this._fillArray(viewStatusList, false);
+          isInView = true;
+        }
+
+        viewStatusList.push(isInView);
+      }
+
+      return {
+        inView: elemsInView,
+        outView: elemsOutView,
+        viewStatusList: viewStatusList,
+        scrolledPast: this.props.scrolledPastClassName && this._getScrolledPast(viewStatusList)
+      };
+    }
+  }, {
+    key: "_isInView",
+    value: function _isInView(el) {
+      if (!el) {
+        return false;
+      }
+
+      var _this$props = this.props,
+          rootEl = _this$props.rootEl,
+          offset = _this$props.offset;
+      var rootRect;
+
+      if (rootEl) {
+        rootRect = document.querySelector(rootEl).getBoundingClientRect();
+      }
+
+      var rect = el.getBoundingClientRect();
+      var winH = rootEl ? rootRect.height : window.innerHeight;
+
+      var _this$_getScrollDimen = this._getScrollDimension(),
+          scrollTop = _this$_getScrollDimen.scrollTop;
+
+      var scrollBottom = scrollTop + winH;
+      var elTop = rootEl ? rect.top + scrollTop - rootRect.top + offset : rect.top + scrollTop + offset;
+      var elBottom = elTop + el.offsetHeight;
+      return elTop < scrollBottom && elBottom > scrollTop;
+    }
+  }, {
+    key: "_isAtBottom",
+    value: function _isAtBottom() {
+      var rootEl = this.props.rootEl;
+
+      var _this$_getScrollDimen2 = this._getScrollDimension(),
+          scrollTop = _this$_getScrollDimen2.scrollTop,
+          scrollHeight = _this$_getScrollDimen2.scrollHeight;
+
+      var winH = rootEl ? document.querySelector(rootEl).getBoundingClientRect().height : window.innerHeight;
+      var scrolledToBottom = scrollTop + winH >= scrollHeight;
+      return scrolledToBottom;
+    }
+  }, {
+    key: "_getScrolledPast",
+    value: function _getScrolledPast(viewStatusList) {
+      if (!viewStatusList.some(function (item) {
+        return item;
+      })) {
+        return viewStatusList;
+      }
+
+      var hasFoundInView = false;
+      var scrolledPastItems = viewStatusList.map(function (item) {
+        if (item && !hasFoundInView) {
+          hasFoundInView = true;
+          return false;
+        }
+
+        return !hasFoundInView;
+      });
+      return scrolledPastItems;
+    }
+  }, {
+    key: "_spy",
+    value: function _spy(targets) {
+      var _this2 = this;
+
+      var elemensViewState = this._getElemsViewState(targets);
+
+      var currentStatuses = this.state.inViewState;
+      this.setState({
+        inViewState: elemensViewState.viewStatusList,
+        isScrolledPast: elemensViewState.scrolledPast
+      }, function () {
+        _this2._update(currentStatuses);
+      });
+    }
+  }, {
+    key: "_update",
+    value: function _update(prevStatuses) {
+      if (isEqualArray(this.state.inViewState, prevStatuses)) {
+        return;
+      }
+
+      this.props.onUpdate(this.state.targetItems[this.state.inViewState.indexOf(true)]);
+    }
+  }, {
+    key: "_handleSpy",
+    value: function _handleSpy() {
+      (0, _throttle.default)(this._spy(), 100);
+    }
+  }, {
+    key: "_initFromProps",
+    value: function _initFromProps() {
+      var targetItems = this._initSpyTarget(this.props.items);
+
+      this.setState({
+        targetItems: targetItems
+      });
+
+      this._spy(targetItems);
+    }
+  }, {
+    key: "offEvent",
+    value: function offEvent() {
+      var el = this.props.rootEl ? document.querySelector(this.props.rootEl) : window;
+      el.removeEventListener('scroll', this._handleSpy);
+    }
+  }, {
+    key: "onEvent",
+    value: function onEvent() {
+      var el = this.props.rootEl ? document.querySelector(this.props.rootEl) : window;
+      el.addEventListener('scroll', this._handleSpy);
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this._initFromProps();
+
+      this.onEvent();
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.offEvent();
+    }
+  }, {
+    key: "UNSAFE_componentWillReceiveProps",
+    value: function UNSAFE_componentWillReceiveProps() {
+      this._initFromProps();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
+      var Tag = this.props.componentTag;
+      var _this$props2 = this.props,
+          children = _this$props2.children,
+          className = _this$props2.className,
+          scrolledPastClassName = _this$props2.scrolledPastClassName,
+          style = _this$props2.style;
+      var counter = 0;
+
+      var items = _react.default.Children.map(children, function (child, idx) {
+        var _classNames;
+
+        if (!child) {
+          return null;
+        }
+
+        var ChildTag = child.type;
+        var isScrolledPast = scrolledPastClassName && _this3.state.isScrolledPast[idx];
+        var childClass = (0, _classnames.default)((_classNames = {}, (0, _defineProperty2.default)(_classNames, "".concat(child.props.className), child.props.className), (0, _defineProperty2.default)(_classNames, "".concat(_this3.props.currentClassName), _this3.state.inViewState[idx]), (0, _defineProperty2.default)(_classNames, "".concat(_this3.props.scrolledPastClassName), isScrolledPast), _classNames));
+        return _react.default.createElement(ChildTag, (0, _extends2.default)({}, child.props, {
+          className: childClass,
+          key: counter++
+        }), child.props.children);
+      });
+
+      var itemClass = (0, _classnames.default)((0, _defineProperty2.default)({}, "".concat(className), className));
+      return _react.default.createElement(Tag, {
+        className: itemClass,
+        style: style
+      }, items);
+    }
+  }]);
+  return Scrollspy;
+}(_react.default.Component);
+
+exports["default"] = Scrollspy;
+
+/***/ }),
+
+/***/ "./node_modules/react-scrollspy/lib/throttle.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-scrollspy/lib/throttle.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var throttle = function throttle(fn) {
+  var threshold = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 100;
+  var last;
+  var timer;
+  return function () {
+    var now = +new Date();
+    var timePassed = !!last && now < last + threshold;
+
+    if (timePassed) {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        last = now;
+        fn();
+      }, threshold);
+    } else {
+      last = now;
+      fn();
+    }
+  };
+};
+
+var _default = throttle;
+exports["default"] = _default;
 
 /***/ }),
 

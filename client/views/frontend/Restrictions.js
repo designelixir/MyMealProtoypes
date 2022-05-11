@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
-import { Container, Image, Button, Row } from "react-bootstrap";
+import { Container, Image, Button, Row, Col } from "react-bootstrap";
 import { setSelectedAllergy } from "../../redux/reducers/frontend";
 import Disclaimer from "./modals/Disclaimer";
 
@@ -23,20 +23,27 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
       className="d-flex flex-column justify-content-start align-items-center noscroll"
       style={{ height: "100%", overflow: "scroll" }}
     >
-      <Row className="d-flex justify-content-start">
-        <Image
-          className="menu-back-button above-overlay"
-          onClick={() => setHasRestrictions(false)}
-          src={"/img/back-arrow.png"}
-        />
-      </Row>
-      <Container className="d-flex flex-column justify-content-center align-items-center">
-        <Image
-          className="above-overlay restriction-logo"
-          src={
-            restaurant.logo ? restaurant.logo.url : "/img/demo-restauarant.png"
-          }
-        />
+      <Container className="d-flex flex-column justify-content-center align-items-center mt-5">
+        <Row className="d-flex justify-content-center align-items-center w-100">
+          <Col xs={4} className="above-overlay">
+            <Image
+              className="menu-back-button above-overlay p-0"
+              onClick={() => setHasRestrictions(false)}
+              src={"/img/back-arrow.png"}
+            />
+          </Col>
+          <Col xs={4} className="d-flex justify-content-center">
+            <Image
+              className="above-overlay restriction-logo"
+              src={
+                restaurant.logo
+                  ? restaurant.logo.url
+                  : "/img/demo-restauarant.png"
+              }
+            />
+          </Col>
+          <Col xs={4} className="above-overlay"></Col>
+        </Row>
         <p
           className="above-overlay"
           style={{
@@ -54,7 +61,7 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
           {restaurant.locations[0].menu.dedicatedFrom}
         </p>
       </Container>
-      <Container className="d-flex flex-column justify-content-start align-items-center restriction-container above-overlay">
+      <Container className="d-flex flex-column justify-content-start align-items-center restriction-container above-overlay mb-5">
         <Row
           className="d-flex justify-content-center align-items-center restriction-header above-overlay"
           style={{ backgroundColor: restaurant.primaryColor, color: "white" }}
