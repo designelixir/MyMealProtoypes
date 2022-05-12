@@ -175,6 +175,11 @@ const authSlice = createSlice({
         alert("Email has been reset");
         state.isLoading = false;
         state.hasError = false;
+      })
+      .addCase(sendNewInvitation.rejected, (state, action) => {
+        alert("User already exists");
+        state.isLoading = false;
+        state.hasError = true;
       });
   },
 });

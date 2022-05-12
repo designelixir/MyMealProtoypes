@@ -20,7 +20,11 @@ import Location from "../views/Location";
 import Welcome from "../views/frontend/Welcome";
 import OrderMenu from "../views/frontend/OrderMenu";
 import UserRestaurants from "../views/UserRestaurants";
+import UserMenu from "../views/UserMenu";
 import AuthSimpleLayout from "../views/AuthSimpleLayout";
+import UserCategory from "../views/UserCategory";
+import UserMenuItem from "../views/UserMenuItem";
+import UserLocation from "../views/UserLocation";
 
 const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
   useEffect(() => {
@@ -49,6 +53,26 @@ const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
             exact
             path="/restaurants/:restaurantId"
             render={(props) => renderer(UserRestaurants, props)}
+          />
+          <Route
+            exact
+            path="/restaurants/:restaurantId/locations/:locationId"
+            render={(props) => renderer(UserLocation, props)}
+          />
+          <Route
+            exact
+            path="/restaurants/:restaurantId/menus/:menuId"
+            render={(props) => renderer(UserMenu, props)}
+          />
+          <Route
+            exact
+            path="/restaurants/:restaurantId/menus/:menuId/categories/:categoryId"
+            render={(props) => renderer(UserCategory, props)}
+          />
+          <Route
+            exact
+            path="/restaurants/:restaurantId/menus/:menuId/categories/:categoryId/menuitems/:menuitemId"
+            render={(props) => renderer(UserMenuItem, props)}
           />
           <Route
             exact

@@ -11,6 +11,7 @@ import AllergyFilters from "./modals/AllergyFilters";
 import InactiveWarning from "./modals/InactiveWarning";
 import { Categories } from "./Categories";
 import { capitalize } from "../../utils/common";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
   const location = useLocation();

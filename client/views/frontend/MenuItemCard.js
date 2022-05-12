@@ -6,6 +6,7 @@ import Icon from "./iconcomponents/Icon";
 import classNames from "classnames";
 import Exclamation from "./iconcomponents/Exclamation";
 import MenuItemDescription from "./modals/MenuItemDescription.js";
+import MenuItemCardImg from "./MenuItemCardImg";
 
 //Green #189622 Red FF0000
 const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
@@ -19,6 +20,7 @@ const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
   // };
   // const [descriptions, setDescriptions] = useState(initDescriptions);
   const [modalShow, setModalShow] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   return (
     <Card
       className="mb-3 menuitem-card"
@@ -27,13 +29,7 @@ const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
         border: `3px solid ${type === "Safe" ? safeColor : modColor}`,
       }}
     >
-      {menuitem.image && (
-        <Card.Img
-          style={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
-          variant="top"
-          src={`${menuitem.image.url}`}
-        />
-      )}
+      {menuitem.image && <MenuItemCardImg url={menuitem.image.url} />}
       <Card.Body>
         <Container>
           <Card.Title style={{ fontSize: "1.5rem" }}>
