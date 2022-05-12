@@ -12942,18 +12942,7 @@ const Restrictions = ({
     xs: 4,
     className: "above-overlay"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    className: "above-overlay",
-    style: {
-      fontSize: "2rem",
-      fontWeight: 600,
-      marginTop: "1rem",
-      whiteSpace: "pre-line",
-      background: "#ffffff6b",
-      padding: "1rem",
-      borderRadius: "1rem",
-      width: "100%",
-      textAlign: "center"
-    }
+    className: "above-overlay dedicated-from-restrictions"
   }, restaurant.locations[0].menu.dedicatedFrom)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
     className: "d-flex flex-column justify-content-start align-items-center restriction-container above-overlay mb-5"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {

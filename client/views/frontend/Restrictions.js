@@ -44,20 +44,7 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
           </Col>
           <Col xs={4} className="above-overlay"></Col>
         </Row>
-        <p
-          className="above-overlay"
-          style={{
-            fontSize: "2rem",
-            fontWeight: 600,
-            marginTop: "1rem",
-            whiteSpace: "pre-line",
-            background: "#ffffff6b",
-            padding: "1rem",
-            borderRadius: "1rem",
-            width: "100%",
-            textAlign: "center",
-          }}
-        >
+        <p className="above-overlay dedicated-from-restrictions">
           {restaurant.locations[0].menu.dedicatedFrom}
         </p>
       </Container>

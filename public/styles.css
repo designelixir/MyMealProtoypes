@@ -80,6 +80,18 @@ input.close {
   text-align: center;
 }
 
+.dedicated-from-restrictions {
+  font-size: calc(0.55rem + 1.5vw);
+  font-weight: 600;
+  margin-top: 1rem;
+  white-space: pre-line;
+  background: #ffffff6b;
+  padding: 1rem;
+  border-radius: 1rem;
+  width: 100%;
+  text-align: center;
+}
+
 .allergy-header {
   height: 40px;
   width: 100%;
@@ -166,14 +178,14 @@ input.close {
 }
 
 .cross-contact-procedure {
-  font-size: calc(0.75rem + 1.5vw);
+  font-size: calc(0.55rem + 1.5vw);
   color: black;
   padding: 0px;
   margin-bottom: 1.5rem;
   text-align: left;
 }
 .dedicated-from {
-  font-size: calc(0.75rem + 1.5vw);
+  font-size: calc(0.55rem + 1.5vw);
   font-weight: 600;
   padding-left: 0px;
   margin-top: 1rem;
