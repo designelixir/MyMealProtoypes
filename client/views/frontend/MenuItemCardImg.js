@@ -12,7 +12,8 @@ const MenuItemCardImg = ({ url }) => {
         style={{
           borderTopLeftRadius: 0,
           borderTopRightRadius: 0,
-          height: imageLoaded ? "auto" : 0,
+          height: imageLoaded ? 200 : 0,
+          objectFit: "cover",
         }}
         variant="top"
         src={url}
