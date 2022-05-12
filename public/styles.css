@@ -60,7 +60,7 @@ input.close {
 }
 .restriction-logo {
   height: 100px;
-  width: fit-content;
+  width: auto;
   /* margin-top: 1.5rem; */
 }
 

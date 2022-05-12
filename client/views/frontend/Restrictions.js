@@ -88,7 +88,7 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
               </Row>
               {selectedAllergies[allergy.id].selected && (
                 <div className="allergy-info d-flex flex-column">
-                  <p style={{ paddingTop: "1rem" }}>
+                  <p className="pt-3 ps-4 pe-4">
                     Are you sensitive to cross contact?
                   </p>
                   <Row className="d-flex justify-content-center align-items-center">
