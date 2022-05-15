@@ -6,12 +6,14 @@ import { Redirect, useLocation, useHistory } from "react-router-dom";
 import { Container, Row, Col, Image, Button, Tabs, Tab } from "react-bootstrap";
 import CrossContact from "./modals/CrossContact";
 import MenuItems from "./MenuItems";
+import Category from "./Category";
 import Filter from "./iconcomponents/Filter";
 import AllergyFilters from "./modals/AllergyFilters";
 import InactiveWarning from "./modals/InactiveWarning";
 import { Categories } from "./Categories";
 import { capitalize } from "../../utils/common";
 import "react-loading-skeleton/dist/skeleton.css";
+import ScrollSpyTabs from "./ScrollSpyTabs";
 
 const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
   const location = useLocation();
@@ -147,7 +149,7 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
               />
             </Col>
           </Row>
-          <Row
+          {/* <Row
             className="d-flex category-nav noscroll custom-sticky-top mt-1"
             id="category-nav"
             ref={catNav}
@@ -174,12 +176,28 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
                 <p>{category.name}</p>
               </div>
             ))}
-          </Row>
-          <Categories
+          </Row> */}
+
+          <ScrollSpyTabs
+            primaryColor={restaurant.primaryColor}
+            catNav={catNav}
+            showDropShadow={showDropShadow}
+            tabsInScroll={categories.map((category, idx) => ({
+              text: category.name,
+              component: (
+                <Category
+                  category={category}
+                  primaryColor={restaurant.primaryColor}
+                  categoryRef={categoryRefs[idx]}
+                />
+              ),
+            }))}
+          />
+          {/* <Categories
             categoryRefs={categoryRefs}
             categories={categories}
             primaryColor={restaurant.primaryColor}
-          />
+          /> */}
           {/* <Scrollspy
             items={categories.map(({ name }) => name)}
             currentClassName="is-current"

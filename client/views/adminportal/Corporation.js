@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { fetchCorporation } from "../../redux/reducers/corporation";
 import {
   Container,
   Row,
@@ -10,16 +11,22 @@ import {
   ListGroup,
   ListGroupItem,
 } from "react-bootstrap";
-import { fetchMyCorporation } from "../redux/reducers/corporation";
 import { Link, useHistory } from "react-router-dom";
-import CreateNewRestaurant from "./modals/CreateNewRestaurant";
-import Divider from "./components/Divider";
-import EditCorporation from "./modals/EditCorporation";
-const UserDashboard = ({ getMyCorporation, corporation, isLoading }) => {
+import CreateNewRestaurant from "../modals/CreateNewRestaurant";
+import Divider from "../components/Divider";
+import EditCorporation from "../modals/EditCorporation";
+export const Corporation = ({
+  getCorporation,
+  match,
+  isLoading,
+  corporation,
+}) => {
   const history = useHistory();
+  const { corporationId } = match.params;
   useEffect(() => {
-    getMyCorporation();
+    getCorporation(corporationId);
   }, []);
+
   if (isLoading) {
     return <></>;
   }
@@ -30,8 +37,10 @@ const UserDashboard = ({ getMyCorporation, corporation, isLoading }) => {
           onClick={() => history.push("/")}
           style={{ color: "#4e66f8" }}
         >
-          Home
+          Corporations
         </Breadcrumb.Item>
+
+        <Breadcrumb.Item active>{corporation.name}</Breadcrumb.Item>
       </Breadcrumb>
       <Row className="d-flex justify-content-start align-items-center">
         <h1 style={{ width: "fit-content" }}>{corporation.name}</h1>
@@ -41,7 +50,7 @@ const UserDashboard = ({ getMyCorporation, corporation, isLoading }) => {
       <Row className="d-flex justify-content-start align-items-center">
         <h3 style={{ width: "fit-content" }}>Restaurants</h3>
         <CreateNewRestaurant
-          corporationId={corporation.id}
+          corporationId={corporationId}
           corporationCCP={corporation.crossContactProcedure}
         />
       </Row>
@@ -50,7 +59,11 @@ const UserDashboard = ({ getMyCorporation, corporation, isLoading }) => {
           corporation.restaurants.map((restaurant) => (
             <ListGroupItem>
               <Container
-                onClick={() => history.push(`/restaurants/${restaurant.id}`)}
+                onClick={() =>
+                  history.push(
+                    `/corporations/${corporationId}/restaurants/${restaurant.id}`
+                  )
+                }
                 style={{ cursor: "pointer" }}
               >
                 <Row className="d-flex align-items-center">
@@ -77,16 +90,23 @@ const UserDashboard = ({ getMyCorporation, corporation, isLoading }) => {
 const mapState = (state) => {
   const { corporation, isLoading } = state.corporation;
   return {
+    isLoading,
     corporation,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    getMyCorporation() {
-      dispatch(fetchMyCorporation());
+    getCorporation(corporationId) {
+      dispatch(fetchCorporation(corporationId));
+    },
+    uploadImages(body) {
+      dispatch(uploadFiles(body));
+    },
+    addRestaurant(data) {
+      dispatch(createRestaurant(data));
     },
   };
 };
 
-export default connect(mapState, mapDispatch)(UserDashboard);
+export default connect(mapState, mapDispatch)(Corporation);

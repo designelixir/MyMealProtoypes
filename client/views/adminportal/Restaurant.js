@@ -18,13 +18,13 @@ import {
   createMenu,
   duplicateMenu,
   fetchRestaurant,
-} from "../redux/reducers/restaurant";
-import { fetchAllergies } from "../redux/reducers/allergy";
-import { fetchCorporation } from "../redux/reducers/corporation";
-import CreateNewMenu from "./modals/CreateNewMenu";
-import Divider from "./components/Divider";
-import EditRestaurant from "./modals/EditRestaurant";
-import CreateNewLocation from "./modals/CreateNewLocation";
+} from "../../redux/reducers/restaurant";
+import { fetchAllergies } from "../../redux/reducers/allergy";
+import { fetchCorporation } from "../../redux/reducers/corporation";
+import CreateNewMenu from "../modals/CreateNewMenu";
+import Divider from "../components/Divider";
+import EditRestaurant from "../modals/EditRestaurant";
+import CreateNewLocation from "../modals/CreateNewLocation";
 
 const Restaurant = ({
   getData,
@@ -72,7 +72,7 @@ const Restaurant = ({
           onClick={() => history.push(`/corporations/${corporationId}`)}
           style={{ color: "#4e66f8" }}
         >
-          {restaurant.corporation && restaurant.corporation.name}
+          {restaurant.corporation?.name}
         </Breadcrumb.Item>
 
         <Breadcrumb.Item active>{restaurant.name}</Breadcrumb.Item>
@@ -126,16 +126,7 @@ const Restaurant = ({
       <ListGroup>
         {restaurant.locations &&
           restaurant.locations.map((location) => (
-            <ListGroupItem
-              key={location.id}
-              // className="d-flex justify-content-start"
-              // style={{ cursor: "pointer" }}
-              // onClick={() =>
-              //   history.push(
-              //     `/corporations/${corporationId}/restaurants/${restaurantId}/locations/${location.id}`
-              //   )
-              // }
-            >
+            <ListGroupItem key={location.id}>
               <p
                 style={{ cursor: "pointer" }}
                 onClick={() =>

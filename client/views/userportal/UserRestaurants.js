@@ -13,18 +13,18 @@ import {
   ListGroupItem,
 } from "react-bootstrap";
 
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   createMenu,
   duplicateMenu,
   fetchRestaurant,
-} from "../redux/reducers/restaurant";
-import { fetchAllergies } from "../redux/reducers/allergy";
-import { fetchCorporation } from "../redux/reducers/corporation";
-import CreateNewMenu from "./modals/CreateNewMenu";
-import Divider from "./components/Divider";
-import EditRestaurant from "./modals/EditRestaurant";
-import CreateNewLocation from "./modals/CreateNewLocation";
+} from "../../redux/reducers/restaurant";
+import { fetchAllergies } from "../../redux/reducers/allergy";
+
+import CreateNewMenu from "../modals/CreateNewMenu";
+import Divider from "../components/Divider";
+import EditRestaurant from "../modals/EditRestaurant";
+import CreateNewLocation from "../modals/CreateNewLocation";
 
 const UserRestaurants = ({
   getData,

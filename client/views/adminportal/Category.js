@@ -16,11 +16,11 @@ import {
   fetchCategory,
   swapMenuitemOrder,
   updateMenuitemArchived,
-} from "../redux/reducers/category";
-import MenuItemForm from "./formComponents/MenuItemForm";
-import Divider from "./components/Divider";
-import MoveAndDuplicateMenuitem from "./modals/MoveAndDuplicateMenuitem";
-import EditCategory from "./modals/EditCategory";
+} from "../../redux/reducers/category";
+import MenuItemForm from "../formComponents/MenuItemForm";
+import Divider from "../components/Divider";
+import MoveAndDuplicateMenuitem from "../modals/MoveAndDuplicateMenuitem";
+import EditCategory from "../modals/EditCategory";
 const Category = ({
   getCategory,
   match,
@@ -199,7 +199,7 @@ const Category = ({
           onClick={() => history.push(`/corporations/${corporationId}`)}
           style={{ color: "#4e66f8" }}
         >
-          {category.menu && category.menu.restaurant.corporation.name}
+          {category.menu?.restaurant.corporation.name}
         </Breadcrumb.Item>
         <Breadcrumb.Item
           onClick={() =>
@@ -209,7 +209,7 @@ const Category = ({
           }
           style={{ color: "#4e66f8" }}
         >
-          {category.menu && category.menu.restaurant.name}
+          {category.menu?.restaurant.name}
         </Breadcrumb.Item>
         <Breadcrumb.Item
           onClick={() =>
@@ -219,7 +219,7 @@ const Category = ({
           }
           style={{ color: "#4e66f8" }}
         >
-          {category.menu && category.menu.name}
+          {category.menu?.name}
         </Breadcrumb.Item>
 
         <Breadcrumb.Item active>{category.name}</Breadcrumb.Item>

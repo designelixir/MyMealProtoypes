@@ -16,11 +16,11 @@ import {
   fetchCategory,
   swapMenuitemOrder,
   updateMenuitemArchived,
-} from "../redux/reducers/category";
-import MenuItemForm from "./formComponents/MenuItemForm";
-import Divider from "./components/Divider";
-import MoveAndDuplicateMenuitem from "./modals/MoveAndDuplicateMenuitem";
-import EditCategory from "./modals/EditCategory";
+} from "../../redux/reducers/category";
+import MenuItemForm from "../formComponents/MenuItemForm";
+import Divider from "../components/Divider";
+import MoveAndDuplicateMenuitem from "../modals/MoveAndDuplicateMenuitem";
+import EditCategory from "../modals/EditCategory";
 const UserCategory = ({
   getCategory,
   match,

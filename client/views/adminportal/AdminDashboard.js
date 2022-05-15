@@ -13,13 +13,13 @@ import {
 import {
   createCorporation,
   fetchCorporations,
-} from "../redux/reducers/corporation";
+} from "../../redux/reducers/corporation";
 import { Link } from "react-router-dom";
-import InviteUser from "./modals/InviteUser";
+import InviteUser from "../modals/InviteUser";
 import { useHistory } from "react-router-dom";
-import CreateNewCorporation from "./modals/CreateNewCorporation";
-import Divider from "./components/Divider";
-import { createAllergy, fetchAllergies } from "../redux/reducers/allergy";
+import CreateNewCorporation from "../modals/CreateNewCorporation";
+import Divider from "../components/Divider";
+import { createAllergy, fetchAllergies } from "../../redux/reducers/allergy";
 
 const AdminDashboard = ({
   getCorporations,

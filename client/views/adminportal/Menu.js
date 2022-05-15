@@ -18,14 +18,14 @@ import {
   swapCategoryOrder,
   updateCategoryArchived,
   uploadCSVFile,
-} from "../redux/reducers/menu";
-import { fetchCorporation } from "../redux/reducers/corporation";
-import { fetchRestaurant } from "../redux/reducers/restaurant";
-import Divider from "./components/Divider";
-import EditMenu from "./modals/EditMenu";
-import { fetchAllergies } from "../redux/reducers/allergy";
-import CreateNewLocation from "./modals/CreateNewLocation";
-import CreateNewCategory from "./modals/CreateNewCategory";
+} from "../../redux/reducers/menu";
+import { fetchCorporation } from "../../redux/reducers/corporation";
+import { fetchRestaurant } from "../../redux/reducers/restaurant";
+import Divider from "../components/Divider";
+import EditMenu from "../modals/EditMenu";
+import { fetchAllergies } from "../../redux/reducers/allergy";
+import CreateNewLocation from "../modals/CreateNewLocation";
+import CreateNewCategory from "../modals/CreateNewCategory";
 
 const Menu = ({
   getMenu,
@@ -93,7 +93,7 @@ const Menu = ({
           onClick={() => history.push(`/corporations/${corporationId}`)}
           style={{ color: "#4e66f8" }}
         >
-          {menu.restaurant && menu.restaurant.corporation.name}
+          {menu.restaurant?.corporation.name}
         </Breadcrumb.Item>
         <Breadcrumb.Item
           onClick={() =>
@@ -103,7 +103,7 @@ const Menu = ({
           }
           style={{ color: "#4e66f8" }}
         >
-          {menu.restaurant && menu.restaurant.name}
+          {menu.restaurant?.name}
         </Breadcrumb.Item>
 
         <Breadcrumb.Item active>{menu.name}</Breadcrumb.Item>

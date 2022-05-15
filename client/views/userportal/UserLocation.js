@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import { Container, Row, Breadcrumb } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
-import Divider from "./components/Divider";
+import Divider from "../components/Divider";
 
-import { fetchLocation } from "../redux/reducers/location";
-import EditLocation from "./modals/EditLocation";
+import { fetchLocation } from "../../redux/reducers/location";
+import EditLocation from "../modals/EditLocation";
 
 const UserLocation = ({
   getLocation,

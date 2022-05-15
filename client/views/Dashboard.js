@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import AdminDashboard from "./AdminDashboard";
-import UserDashboard from "./UserDashboard";
+import AdminDashboard from "./adminportal/AdminDashboard";
+import UserDashboard from "./userportal/UserDashboard";
 
 const Dashboard = ({ auth }) => {
   return auth.role === "Admin" ? <AdminDashboard /> : <UserDashboard />;

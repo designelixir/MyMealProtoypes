@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchCorporation } from "../redux/reducers/corporation";
 import {
   Container,
   Row,
@@ -11,22 +10,16 @@ import {
   ListGroup,
   ListGroupItem,
 } from "react-bootstrap";
+import { fetchMyCorporation } from "../../redux/reducers/corporation";
 import { Link, useHistory } from "react-router-dom";
-import CreateNewRestaurant from "./modals/CreateNewRestaurant";
-import Divider from "./components/Divider";
-import EditCorporation from "./modals/EditCorporation";
-export const Corporation = ({
-  getCorporation,
-  match,
-  isLoading,
-  corporation,
-}) => {
+import CreateNewRestaurant from "../modals/CreateNewRestaurant";
+import Divider from "../components/Divider";
+import EditCorporation from "../modals/EditCorporation";
+const UserDashboard = ({ getMyCorporation, corporation, isLoading }) => {
   const history = useHistory();
-  const { corporationId } = match.params;
   useEffect(() => {
-    getCorporation(corporationId);
+    getMyCorporation();
   }, []);
-
   if (isLoading) {
     return <></>;
   }
@@ -37,10 +30,8 @@ export const Corporation = ({
           onClick={() => history.push("/")}
           style={{ color: "#4e66f8" }}
         >
-          Corporations
+          Home
         </Breadcrumb.Item>
-
-        <Breadcrumb.Item active>{corporation.name}</Breadcrumb.Item>
       </Breadcrumb>
       <Row className="d-flex justify-content-start align-items-center">
         <h1 style={{ width: "fit-content" }}>{corporation.name}</h1>
@@ -50,7 +41,7 @@ export const Corporation = ({
       <Row className="d-flex justify-content-start align-items-center">
         <h3 style={{ width: "fit-content" }}>Restaurants</h3>
         <CreateNewRestaurant
-          corporationId={corporationId}
+          corporationId={corporation.id}
           corporationCCP={corporation.crossContactProcedure}
         />
       </Row>
@@ -59,11 +50,7 @@ export const Corporation = ({
           corporation.restaurants.map((restaurant) => (
             <ListGroupItem>
               <Container
-                onClick={() =>
-                  history.push(
-                    `/corporations/${corporationId}/restaurants/${restaurant.id}`
-                  )
-                }
+                onClick={() => history.push(`/restaurants/${restaurant.id}`)}
                 style={{ cursor: "pointer" }}
               >
                 <Row className="d-flex align-items-center">
@@ -90,23 +77,16 @@ export const Corporation = ({
 const mapState = (state) => {
   const { corporation, isLoading } = state.corporation;
   return {
-    isLoading,
     corporation,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    getCorporation(corporationId) {
-      dispatch(fetchCorporation(corporationId));
-    },
-    uploadImages(body) {
-      dispatch(uploadFiles(body));
-    },
-    addRestaurant(data) {
-      dispatch(createRestaurant(data));
+    getMyCorporation() {
+      dispatch(fetchMyCorporation());
     },
   };
 };
 
-export default connect(mapState, mapDispatch)(Corporation);
+export default connect(mapState, mapDispatch)(UserDashboard);

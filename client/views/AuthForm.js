@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { authenticate } from "../redux/reducers/auth";
 
 import { Button, Form, Row, Col } from "react-bootstrap";
-import Divider from "./Divider";
 
 const AuthForm = ({ name, displayName, authenticateUser, error }) => {
   const hasLabel = true;

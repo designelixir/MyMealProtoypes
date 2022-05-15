@@ -11,21 +11,18 @@ import {
   ListGroup,
   ListGroupItem,
 } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
-  createCategory,
   fetchMenu,
   swapCategoryOrder,
   updateCategoryArchived,
-  uploadCSVFile,
-} from "../redux/reducers/menu";
-import { fetchCorporation } from "../redux/reducers/corporation";
-import { fetchRestaurant } from "../redux/reducers/restaurant";
-import Divider from "./components/Divider";
-import EditMenu from "./modals/EditMenu";
-import { fetchAllergies } from "../redux/reducers/allergy";
-import CreateNewLocation from "./modals/CreateNewLocation";
-import CreateNewCategory from "./modals/CreateNewCategory";
+} from "../../redux/reducers/menu";
+
+import Divider from "../components/Divider";
+import EditMenu from "../modals/EditMenu";
+import { fetchAllergies } from "../../redux/reducers/allergy";
+
+import CreateNewCategory from "../modals/CreateNewCategory";
 
 const UserMenu = ({
   getMenu,

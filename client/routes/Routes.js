@@ -8,23 +8,24 @@ import Portal from "../interface/Portal";
 import AuthForm from "../views/AuthForm";
 import FourOhFour from "../views/FourOhFour";
 import Home from "../views/Home";
-import Menu from "../views/Menu";
+import Menu from "../views/adminportal/Menu";
 import Authenticate from "../views/Authenticate";
 import Dashboard from "../views/Dashboard";
-import Corporation from "../views/Corporation";
+import Corporation from "../views/adminportal/Corporation";
 import RegisterInvite from "../views/RegisterInvite";
-import Restaurant from "../views/Restaurant";
-import Category from "../views/Category";
-import MenuItem from "../views/MenuItem";
-import Location from "../views/Location";
+import Restaurant from "../views/adminportal/Restaurant";
+import Category from "../views/adminportal/Category";
+import MenuItem from "../views/adminportal/MenuItem";
+import Location from "../views/adminportal/Location";
 import Welcome from "../views/frontend/Welcome";
 import OrderMenu from "../views/frontend/OrderMenu";
-import UserRestaurants from "../views/UserRestaurants";
-import UserMenu from "../views/UserMenu";
+import UserRestaurants from "../views/userportal/UserRestaurants";
+import UserMenu from "../views/userportal/UserMenu";
 import AuthSimpleLayout from "../views/AuthSimpleLayout";
-import UserCategory from "../views/UserCategory";
-import UserMenuItem from "../views/UserMenuItem";
-import UserLocation from "../views/UserLocation";
+import UserCategory from "../views/userportal/UserCategory";
+import UserMenuItem from "../views/userportal/UserMenuItem";
+import UserLocation from "../views/userportal/UserLocation";
+import ScrollSpyTest from "../views/frontend/ScrollSpyTest";
 
 const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
   useEffect(() => {
@@ -114,6 +115,13 @@ const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
             path="/order/restaurants/:restaurantId/locations/:locationId/menu"
             render={(props) =>
               renderer(OrderMenu, { ...props, frontend: true })
+            }
+          />
+          <Route
+            exact
+            path="/scrollspy"
+            render={(props) =>
+              renderer(ScrollSpyTest, { ...props, frontend: true })
             }
           />
           <Route

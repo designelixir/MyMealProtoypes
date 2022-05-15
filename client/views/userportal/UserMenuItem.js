@@ -15,10 +15,10 @@ import {
   fetchMenuItem,
   removeMenuitemImage,
   updateMenuItem,
-} from "../redux/reducers/menuitem";
-import Divider from "./components/Divider";
-import MenuItemForm from "./formComponents/MenuItemForm";
-const MenuItem = ({
+} from "../../redux/reducers/menuitem";
+import Divider from "../components/Divider";
+import MenuItemForm from "../formComponents/MenuItemForm";
+const UserMenuItem = ({
   getMenuItem,
   match,
   isLoading,
@@ -199,30 +199,17 @@ const MenuItem = ({
           onClick={() => history.push("/")}
           style={{ color: "#4e66f8" }}
         >
-          Corporations
+          Home
         </Breadcrumb.Item>
         <Breadcrumb.Item
-          onClick={() => history.push(`/corporations/${corporationId}`)}
-          style={{ color: "#4e66f8" }}
-        >
-          {menuitem.category &&
-            menuitem.category.menu.restaurant.corporation.name}
-        </Breadcrumb.Item>
-        <Breadcrumb.Item
-          onClick={() =>
-            history.push(
-              `/corporations/${corporationId}/restaurants/${restaurantId}`
-            )
-          }
+          onClick={() => history.push(`/restaurants/${restaurantId}`)}
           style={{ color: "#4e66f8" }}
         >
           {menuitem.category && menuitem.category.menu.restaurant.name}
         </Breadcrumb.Item>
         <Breadcrumb.Item
           onClick={() =>
-            history.push(
-              `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}`
-            )
+            history.push(`/restaurants/${restaurantId}/menus/${menuId}`)
           }
           style={{ color: "#4e66f8" }}
         >
@@ -231,7 +218,7 @@ const MenuItem = ({
         <Breadcrumb.Item
           onClick={() =>
             history.push(
-              `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}`
+              `/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}`
             )
           }
           style={{ color: "#4e66f8" }}
@@ -306,4 +293,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(MenuItem);
+export default connect(mapState, mapDispatch)(UserMenuItem);

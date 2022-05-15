@@ -17,16 +17,16 @@ import {
   fetchMenu,
   swapCategoryOrder,
   uploadCSVFile,
-} from "../redux/reducers/menu";
-import { fetchCorporation } from "../redux/reducers/corporation";
-import { fetchRestaurant } from "../redux/reducers/restaurant";
-import Divider from "./components/Divider";
-import EditMenu from "./modals/EditMenu";
-import { fetchAllergies } from "../redux/reducers/allergy";
-import CreateNewLocation from "./modals/CreateNewLocation";
-import CreateNewCategory from "./modals/CreateNewCategory";
-import { fetchLocation } from "../redux/reducers/location";
-import EditLocation from "./modals/EditLocation";
+} from "../../redux/reducers/menu";
+import { fetchCorporation } from "../../redux/reducers/corporation";
+import { fetchRestaurant } from "../../redux/reducers/restaurant";
+import Divider from "../components/Divider";
+import EditMenu from "../modals/EditMenu";
+import { fetchAllergies } from "../../redux/reducers/allergy";
+import CreateNewLocation from "../modals/CreateNewLocation";
+import CreateNewCategory from "../modals/CreateNewCategory";
+import { fetchLocation } from "../../redux/reducers/location";
+import EditLocation from "../modals/EditLocation";
 
 const Location = ({ getLocation, restaurantLocation, match, isLoading }) => {
   const history = useHistory();
@@ -52,8 +52,7 @@ const Location = ({ getLocation, restaurantLocation, match, isLoading }) => {
           onClick={() => history.push(`/corporations/${corporationId}`)}
           style={{ color: "#4e66f8" }}
         >
-          {restaurantLocation.menu &&
-            restaurantLocation.menu.restaurant.corporation.name}
+          {restaurantLocation.menu?.restaurant.corporation.name}
         </Breadcrumb.Item>
         <Breadcrumb.Item
           onClick={() =>
@@ -63,7 +62,7 @@ const Location = ({ getLocation, restaurantLocation, match, isLoading }) => {
           }
           style={{ color: "#4e66f8" }}
         >
-          {restaurantLocation.menu && restaurantLocation.menu.restaurant.name}
+          {restaurantLocation.menu?.restaurant.name}
         </Breadcrumb.Item>
 
         <Breadcrumb.Item active>{restaurantLocation.address}</Breadcrumb.Item>

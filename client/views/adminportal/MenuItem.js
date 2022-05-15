@@ -15,10 +15,10 @@ import {
   fetchMenuItem,
   removeMenuitemImage,
   updateMenuItem,
-} from "../redux/reducers/menuitem";
-import Divider from "./components/Divider";
-import MenuItemForm from "./formComponents/MenuItemForm";
-const UserMenuItem = ({
+} from "../../redux/reducers/menuitem";
+import Divider from "../components/Divider";
+import MenuItemForm from "../formComponents/MenuItemForm";
+const MenuItem = ({
   getMenuItem,
   match,
   isLoading,
@@ -171,7 +171,6 @@ const UserMenuItem = ({
   };
   const handleUpdateMenuItem = () => {
     const formData = new FormData();
-
     if (menuitemImage) {
       formData.append("file", menuitemImage);
     }
@@ -179,11 +178,6 @@ const UserMenuItem = ({
       "data",
       JSON.stringify({ menuItem, priceType, priceTypes, allergyTypes })
     );
-
-    // addMenuItem({
-    //   categoryId,
-    //   body: formData,
-    // });
     changeMenuItem({
       menuitemId,
       body: formData,
@@ -199,31 +193,43 @@ const UserMenuItem = ({
           onClick={() => history.push("/")}
           style={{ color: "#4e66f8" }}
         >
-          Home
+          Corporations
         </Breadcrumb.Item>
         <Breadcrumb.Item
-          onClick={() => history.push(`/restaurants/${restaurantId}`)}
+          onClick={() => history.push(`/corporations/${corporationId}`)}
           style={{ color: "#4e66f8" }}
         >
-          {menuitem.category && menuitem.category.menu.restaurant.name}
-        </Breadcrumb.Item>
-        <Breadcrumb.Item
-          onClick={() =>
-            history.push(`/restaurants/${restaurantId}/menus/${menuId}`)
-          }
-          style={{ color: "#4e66f8" }}
-        >
-          {menuitem.category && menuitem.category.menu.name}
+          {menuitem.category?.menu.restaurant.corporation.name}
         </Breadcrumb.Item>
         <Breadcrumb.Item
           onClick={() =>
             history.push(
-              `/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}`
+              `/corporations/${corporationId}/restaurants/${restaurantId}`
             )
           }
           style={{ color: "#4e66f8" }}
         >
-          {menuitem.category && menuitem.category.name}
+          {menuitem.category?.menu.restaurant.name}
+        </Breadcrumb.Item>
+        <Breadcrumb.Item
+          onClick={() =>
+            history.push(
+              `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}`
+            )
+          }
+          style={{ color: "#4e66f8" }}
+        >
+          {menuitem.category?.menu.name}
+        </Breadcrumb.Item>
+        <Breadcrumb.Item
+          onClick={() =>
+            history.push(
+              `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}`
+            )
+          }
+          style={{ color: "#4e66f8" }}
+        >
+          {menuitem.category?.name}
         </Breadcrumb.Item>
 
         <Breadcrumb.Item active>{menuitem.name}</Breadcrumb.Item>
@@ -293,4 +299,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(UserMenuItem);
+export default connect(mapState, mapDispatch)(MenuItem);
