@@ -184,12 +184,14 @@ input.close {
   margin-bottom: 1.5rem;
   text-align: left;
   width: 100%;
+  margin-top: 1rem;
 }
 .dedicated-from {
   font-size: calc(0.55rem + 1.5vw);
   font-weight: 600;
   padding-left: 0px;
   margin-top: 1rem;
+  margin-bottom: 0px;
   /* margin-bottom: 0.1rem; */
 }
 .menu-title {
