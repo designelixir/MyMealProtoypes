@@ -1,6 +1,7 @@
 import React from "react";
 import { Tabs, Tab } from "react-bootstrap";
 import throttle from "lodash/throttle";
+import classnames from "classnames";
 // import { makeStyles, withStyles } from "@material-ui/core/styles";
 // import Tabs from "@material-ui/core/Tabs";
 // import Tab from "@material-ui/core/Tab";
@@ -152,12 +153,19 @@ function ScrollSpyTabs(props) {
 
     if (active && activeState !== active.hash) {
       setActiveState(active.hash);
+      snapCategoryNav(active.hash);
     }
   }, [activeState, itemsServer]);
 
   // Corresponds to 10 frames at 60 Hz
   useThrottledOnScroll(itemsServer.length > 0 ? findActiveIndex : null, 166);
-
+  const snapCategoryNav = (hash) => {
+    const offset = document.getElementById(`category-nav-${hash}`).offsetLeft;
+    document.getElementById(`category-nav-bar`).scrollTo({
+      left: offset,
+      behavior: "auto",
+    });
+  };
   const handleClick = (hash) => () => {
     // Used to disable findActiveIndex if the page scrolls due to a click
     clickedRef.current = true;
@@ -169,11 +177,6 @@ function ScrollSpyTabs(props) {
       setActiveState(hash);
 
       if (window) {
-        console.log(
-          "should scroll",
-          document.getElementById(hash).getBoundingClientRect().top +
-            window.pageYOffset
-        );
         const scrollDiff =
           document.getElementById(hash).getBoundingClientRect().top +
           window.pageYOffset;
@@ -181,6 +184,8 @@ function ScrollSpyTabs(props) {
           top: scrollDiff - 50,
           behavior: "smooth",
         });
+
+        snapCategoryNav(hash);
       }
     }
   };
@@ -198,6 +203,7 @@ function ScrollSpyTabs(props) {
     <div>
       <nav
         className="d-flex category-nav noscroll custom-sticky-top mt-1"
+        id="category-nav-bar"
         ref={catNav}
         style={{
           borderBottom: showDropShadow && "2px solid lightgray",
@@ -217,6 +223,7 @@ function ScrollSpyTabs(props) {
           value={activeState ? activeState : itemsServer[0].hash}
           className="d-flex align-items-center"
           style={{ height: 50 }}
+
           // style={{
           //   display: "flex",
           //   justifyContent: "center",
@@ -231,6 +238,8 @@ function ScrollSpyTabs(props) {
           {itemsServer.map((item2) => (
             <div
               key={item2.hash}
+              id={`category-nav-${item2.hash}`}
+              className="half-sized-border"
               style={{
                 textTransform: "none",
                 borderBottom:
@@ -267,7 +276,7 @@ function ScrollSpyTabs(props) {
         /> */}
       </nav>
 
-      <div className="container">
+      <div className="container p-0">
         {itemsServer.map((item1) => (
           <article id={item1.hash} key={item1.text}>
             {item1.component}

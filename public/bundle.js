@@ -11646,6 +11646,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/throttle */ "./node_modules/lodash/throttle.js");
 /* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_throttle__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
  // import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -11781,10 +11784,19 @@ function ScrollSpyTabs(props) {
 
     if (active && activeState !== active.hash) {
       setActiveState(active.hash);
+      snapCategoryNav(active.hash);
     }
   }, [activeState, itemsServer]); // Corresponds to 10 frames at 60 Hz
 
   useThrottledOnScroll(itemsServer.length > 0 ? findActiveIndex : null, 166);
+
+  const snapCategoryNav = hash => {
+    const offset = document.getElementById(`category-nav-${hash}`).offsetLeft;
+    document.getElementById(`category-nav-bar`).scrollTo({
+      left: offset,
+      behavior: "auto"
+    });
+  };
 
   const handleClick = hash => () => {
     // Used to disable findActiveIndex if the page scrolls due to a click
@@ -11797,12 +11809,12 @@ function ScrollSpyTabs(props) {
       setActiveState(hash);
 
       if (window) {
-        console.log("should scroll", document.getElementById(hash).getBoundingClientRect().top + window.pageYOffset);
         const scrollDiff = document.getElementById(hash).getBoundingClientRect().top + window.pageYOffset;
         window.scrollTo({
           top: scrollDiff - 50,
           behavior: "smooth"
         });
+        snapCategoryNav(hash);
       }
     }
   };
@@ -11813,6 +11825,7 @@ function ScrollSpyTabs(props) {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", {
     className: "d-flex category-nav noscroll custom-sticky-top mt-1",
+    id: "category-nav-bar",
     ref: catNav,
     style: {
       borderBottom: showDropShadow && "2px solid lightgray" // boxShadow: showDropShadow && "0 2px 4px 0 rgb(0 0 0 / 12%)",
@@ -11845,6 +11858,8 @@ function ScrollSpyTabs(props) {
 
   }, itemsServer.map(item2 => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     key: item2.hash,
+    id: `category-nav-${item2.hash}`,
+    className: "half-sized-border",
     style: {
       textTransform: "none",
       borderBottom: activeState === item2.hash && `2px solid ${primaryColor}`,
@@ -11861,7 +11876,7 @@ function ScrollSpyTabs(props) {
     onClick: handleClick(item2.hash),
     value: item2.hash
   }, item2.text)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "container"
+    className: "container p-0"
   }, itemsServer.map(item1 => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("article", {
     id: item1.hash,
     key: item1.text

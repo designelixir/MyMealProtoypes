@@ -183,6 +183,7 @@ input.close {
   padding: 0px;
   margin-bottom: 1.5rem;
   text-align: left;
+  width: 100%;
 }
 .dedicated-from {
   font-size: calc(0.55rem + 1.5vw);
@@ -364,4 +365,11 @@ input.close {
 
 .description-text > p {
   font-size: 12px;
+}
+
+.half-sized-border::before {
+  top: 0;
+  width: 50%;
+  left: 25%;
+  border-top: 1px solid red;
 }
