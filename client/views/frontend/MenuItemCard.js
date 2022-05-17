@@ -7,6 +7,7 @@ import classNames from "classnames";
 import Exclamation from "./iconcomponents/Exclamation";
 import MenuItemDescription from "./modals/MenuItemDescription.js";
 import MenuItemCardImg from "./MenuItemCardImg";
+import { capitalize } from "../../utils/common";
 
 //Green #189622 Red FF0000
 const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
@@ -73,19 +74,19 @@ const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
                       "allergy-padding-cross": isCross || isMod,
                     })}
                     style={{
-                      width: "fit-content",
+                      // width: "fit-content",
                       color: "white",
                       backgroundColor: isSafe ? safeColor : isMod && modColor,
+                      display: "flex",
+                      flexShrink: 0,
                     }}
                   >
                     {(() => {
-                      const [first, ...rest] = allergytype.allergy.name;
-
-                      const capitalAllergy =
-                        first.toUpperCase() + rest.join("");
                       const details = isMod ? "Free Option" : "Free";
                       const carrot = isMod || isCross ? " >" : "";
-                      return `${capitalAllergy} ${details}${carrot}`;
+                      return `${capitalize(
+                        allergytype.allergy.name
+                      )} ${details}${carrot}`;
                     })()}
 
                     {isCross ? (

@@ -239,6 +239,7 @@ function ScrollSpyTabs(props) {
                 flexGrow: 1,
                 fontWeight: activeState === item2.hash && 500,
                 marginRight: "1rem",
+                whiteSpace: "nowrap",
                 "&:focus": {
                   opacity: 1,
                 },

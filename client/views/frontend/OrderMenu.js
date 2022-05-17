@@ -117,15 +117,16 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
             CCP={restaurant.locations[0].crossContactProcedure}
             primaryColor={restaurant.primaryColor}
           />
-          <Row className="d-flex pt-3 filtered-by align-items-center justify-content-between">
+          <Row className="d-flex pt-3 pb-2 filtered-by align-items-center justify-content-between">
             <Col className="d-flex align-items-center flex-wrap">
-              <p>Filtered By:</p>
+              <p className="mb-2">Filtered By:</p>
               <Row>
                 {Object.values(selectedAllergies)
                   .filter(({ selected }) => selected)
                   .map(({ name }) => (
                     <p
                       key={name}
+                      className="mb-2"
                       style={{
                         borderRadius: "2rem",
                         background: safeColor,

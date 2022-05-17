@@ -4,6 +4,7 @@ export default function Filter({ setModalShow }) {
   return (
     <svg
       onClick={() => setModalShow(true)}
+      className="mb-2"
       style={{ width: 20, height: 22, cursor: "pointer" }}
       width="28"
       height="30"
