@@ -176,6 +176,23 @@ input.close {
   left: 1rem;
   top: 1.25rem; */
 }
+.category-back-button {
+  height: calc(0.2rem + 1.5vw);
+  width: calc(0.2rem + 1.5vw);
+  cursor: pointer;
+  margin: 0.5rem;
+  /* position: absolute;
+  left: 1rem;
+  top: 1.25rem; */
+}
+
+.rotateimg180 {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
 
 .cross-contact-procedure {
   font-size: calc(0.55rem + 1.5vw);

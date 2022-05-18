@@ -1,5 +1,5 @@
 import React from "react";
-import { Tabs, Tab } from "react-bootstrap";
+import { Tabs, Tab, Row, Col, Image } from "react-bootstrap";
 import throttle from "lodash/throttle";
 import classnames from "classnames";
 // import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -161,8 +161,17 @@ function ScrollSpyTabs(props) {
   useThrottledOnScroll(itemsServer.length > 0 ? findActiveIndex : null, 166);
   const snapCategoryNav = (hash) => {
     const offset = document.getElementById(`category-nav-${hash}`).offsetLeft;
+    const gutterLeftWidth = document.getElementById(
+      "category-nav-gutter-left"
+    ).offsetWidth;
+    const colEl = document.getElementById("category-nav-bar-col");
+
+    const paddingLeftWidth = parseFloat(
+      window.getComputedStyle(colEl, null).getPropertyValue("padding-left")
+    );
+
     document.getElementById(`category-nav-bar`).scrollTo({
-      left: offset,
+      left: offset - gutterLeftWidth - paddingLeftWidth,
       behavior: "auto",
     });
   };
@@ -201,67 +210,84 @@ function ScrollSpyTabs(props) {
 
   return (
     <div>
-      <nav
-        className="d-flex category-nav noscroll custom-sticky-top mt-1"
-        id="category-nav-bar"
+      <Row
         ref={catNav}
+        className="custom-sticky-top"
         style={{
           borderBottom: showDropShadow && "2px solid lightgray",
           // boxShadow: showDropShadow && "0 2px 4px 0 rgb(0 0 0 / 12%)",
         }}
-        // style={{
-        //   backgroundColor: "#fff",
-        //   position: "sticky",
-        //   top: 0,
-        //   left: 0,
-        //   right: 0,
-        //   zIndex: 1024,
-        //   width: "100%",
-        // }}
       >
-        <div
-          value={activeState ? activeState : itemsServer[0].hash}
-          className="d-flex align-items-center"
-          style={{ height: 50 }}
-
-          // style={{
-          //   display: "flex",
-          //   justifyContent: "center",
-          //   backgroundColor: "transparent",
-          //   "& > div": {
-          //     maxWidth: 30,
-          //     width: "100%",
-          //     backgroundColor: "#635ee7",
-          //   },
-          // }}
+        <Col
+          xs={1}
+          className="custom-sticky-top d-flex justify-content-start align-items-center "
+          id="category-nav-gutter-left"
         >
-          {itemsServer.map((item2) => (
+          <Image
+            className="category-back-button"
+            onClick={() => {}}
+            src={"/img/back-arrow.png"}
+          />
+        </Col>
+        <Col xs={10} id="category-nav-bar-col">
+          <nav
+            className="d-flex category-nav noscroll"
+            id="category-nav-bar"
+
+            // style={{
+            //   backgroundColor: "#fff",
+            //   position: "sticky",
+            //   top: 0,
+            //   left: 0,
+            //   right: 0,
+            //   zIndex: 1024,
+            //   width: "100%",
+            // }}
+          >
             <div
-              key={item2.hash}
-              id={`category-nav-${item2.hash}`}
-              className="half-sized-border"
-              style={{
-                textTransform: "none",
-                borderBottom:
-                  activeState === item2.hash && `2px solid ${primaryColor}`,
-                height: "fit-content",
-                flexGrow: 1,
-                fontWeight: activeState === item2.hash && 500,
-                marginRight: "1rem",
-                whiteSpace: "nowrap",
-                "&:focus": {
-                  opacity: 1,
-                },
-              }}
-              label={item2.text}
-              onClick={handleClick(item2.hash)}
-              value={item2.hash}
+              value={activeState ? activeState : itemsServer[0].hash}
+              className="d-flex align-items-center"
+              style={{ height: 50 }}
+
+              // style={{
+              //   display: "flex",
+              //   justifyContent: "center",
+              //   backgroundColor: "transparent",
+              //   "& > div": {
+              //     maxWidth: 30,
+              //     width: "100%",
+              //     backgroundColor: "#635ee7",
+              //   },
+              // }}
             >
-              {item2.text}
+              {itemsServer.map((item2) => (
+                <div
+                  key={item2.hash}
+                  id={`category-nav-${item2.hash}`}
+                  className="half-sized-border"
+                  style={{
+                    textTransform: "none",
+                    cursor: "pointer",
+                    borderBottom:
+                      activeState === item2.hash && `2px solid ${primaryColor}`,
+                    height: "fit-content",
+                    flexGrow: 1,
+                    fontWeight: activeState === item2.hash && 500,
+                    marginRight: "1rem",
+                    whiteSpace: "nowrap",
+                    "&:focus": {
+                      opacity: 1,
+                    },
+                  }}
+                  label={item2.text}
+                  onClick={handleClick(item2.hash)}
+                  value={item2.hash}
+                >
+                  {item2.text}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        {/* <div
+            {/* <div
           style={{
             display: "flex",
             justifyContent: "center",
@@ -274,15 +300,32 @@ function ScrollSpyTabs(props) {
             padding: "1rem",
           }}
         /> */}
-      </nav>
-
-      <div className="container p-0">
-        {itemsServer.map((item1) => (
-          <article id={item1.hash} key={item1.text}>
-            {item1.component}
-          </article>
-        ))}
-      </div>
+          </nav>
+        </Col>
+        <Col
+          xs={1}
+          className="custom-sticky-top d-flex justify-content-end align-items-center "
+        >
+          <Image
+            className="category-back-button rotateimg180 "
+            onClick={() => {}}
+            src={"/img/back-arrow.png"}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={1} />
+        <Col xs={10}>
+          <div className="container p-0">
+            {itemsServer.map((item1) => (
+              <article id={item1.hash} key={item1.text}>
+                {item1.component}
+              </article>
+            ))}
+          </div>
+        </Col>
+        <Col xs={1} />
+      </Row>
     </div>
   );
 }

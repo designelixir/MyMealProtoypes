@@ -11211,21 +11211,10 @@ const OrderMenu = ({
     onIdle: handleOnIdle,
     debounce: 500
   });
-  const safeColor = "#007B2A"; // const categories = restaurant.locations[0].menu.categories;
-
+  const safeColor = "#007B2A";
   const [activeCategory, setActiveCategory] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(categories[0]);
   const [modalShow, setModalShow] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [inactiveShow, setInactiveShow] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
-  const handleSelectCategory = category => {
-    setActiveCategory(category);
-    const scrollDiv = document.getElementById(`${category.name}`).offsetTop;
-    window.scrollTo({
-      top: scrollDiv - 50,
-      behavior: "smooth"
-    });
-  };
-
   const categoryRefs = categories.map(({
     name
   }) => (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(name));
@@ -11242,20 +11231,10 @@ const OrderMenu = ({
     }
   };
 
-  const setScrollableActiveCategory = () => {// categoryRefs.forEach((ref, idx) => {
-    //   const diffFromTop = ref.current.getBoundingClientRect().top;
-    //   if (diffFromTop <= 50 && activeCategory.name !== ref.current.id) {
-    //     setActiveCategory(categories[idx]);
-    //   }
-    // });
-  };
-
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     window.addEventListener("scroll", setDropShadow);
-    window.addEventListener("scroll", setScrollableActiveCategory);
     return () => {
       window.removeEventListener("scroll", setDropShadow);
-      window.removeEventListener("scroll", setScrollableActiveCategory);
     };
   }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__["default"], {
@@ -11323,7 +11302,9 @@ const OrderMenu = ({
     setModalShow,
     restaurantAllergies: restaurant.locations[0].menu.allergies,
     primaryColor: restaurant.primaryColor
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ScrollSpyTabs__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__["default"], {
+    xs: 1
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ScrollSpyTabs__WEBPACK_IMPORTED_MODULE_13__["default"], {
     primaryColor: restaurant.primaryColor,
     catNav: catNav,
     showDropShadow: showDropShadow,
@@ -11335,9 +11316,7 @@ const OrderMenu = ({
         categoryRef: categoryRefs[idx]
       })
     }))
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__["default"], {
-    xs: 1
-  })));
+  }));
 };
 
 const mapState = state => {
@@ -11354,129 +11333,7 @@ const mapState = state => {
 };
 
 const mapDispatchToProps = {};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatchToProps)(OrderMenu)); // <Container className="mt-5">
-//       <InactiveWarning
-//         {...{ inactiveShow, setInactiveShow, timer }}
-//         primaryColor={restaurant.primaryColor}
-//       />
-//       <div className="d-flex">
-//         <Image
-//           className="menu-back-button"
-//           onClick={() =>
-//             history.push(`${location.pathname.replace("/menu", "")}`)
-//           }
-//           src={"/img/back-arrow.png"}
-//         />
-//         <Container style={{ marginRight: "2rem" }}>
-//           <h1 className="menu-title">{restaurant.name}</h1>
-//           <h2 className="menu-sub-title">{restaurant.locations[0].address}</h2>
-//           {restaurant.locations[0].menu.orderNow && (
-//             <Row style={{ paddingLeft: "0.82rem", width: "100%" }}>
-//               <Button
-//                 className="rounded-button"
-//                 style={{
-//                   backgroundColor: restaurant.primaryColor,
-//                   width: "fit-content",
-//                 }}
-//                 onClick={() =>
-//                   window.open(restaurant.locations[0].menu.orderNow, "_blank")
-//                 }
-//               >
-//                 Order Now
-//               </Button>
-//             </Row>
-//           )}
-//           <Row style={{ paddingLeft: "0.82rem", width: "100%" }}>
-//             <p className="dedicated-from">
-//               {restaurant.locations[0].menu.dedicatedFrom}
-//             </p>
-//           </Row>
-//           <Row style={{ paddingLeft: "0.82rem", width: "100%" }}>
-//             <CrossContact
-//               CCP={restaurant.locations[0].crossContactProcedure}
-//               primaryColor={restaurant.primaryColor}
-//             />
-//           </Row>
-//           <Row
-//             className="d-flex pt-3 filtered-by align-items-center justify-content-between"
-//             style={{ paddingLeft: "0.82rem", width: "100%" }}
-//           >
-//             <Col className="d-flex align-items-center flex-wrap">
-//               <p style={{ paddingLeft: "0.5rem", paddingRight: 0 }}>
-//                 Filtered By:
-//               </p>
-//               <Row>
-//                 {Object.values(selectedAllergies)
-//                   .filter(({ selected }) => selected)
-//                   .map(({ name }) => (
-//                     <p
-//                       key={name}
-//                       style={{
-//                         borderRadius: "2rem",
-//                         background: safeColor,
-//                         color: "white",
-//                         padding: "0.5rem 1rem",
-//                         fontStyle: "italic",
-//                         fontSize: 10,
-//                       }}
-//                     >
-//                       {(() => {
-//                         const [first, ...rest] = name;
-//                         const capitalAllergy =
-//                           first.toUpperCase() + rest.join("");
-//                         return capitalAllergy;
-//                       })()}
-//                     </p>
-//                   ))}
-//               </Row>
-//             </Col>
-//             <Col className="col-auto">
-//               <Filter setModalShow={setModalShow} />
-//               <AllergyFilters
-//                 {...{ modalShow, setModalShow }}
-//                 restaurantAllergies={restaurant.locations[0].menu.allergies}
-//                 primaryColor={restaurant.primaryColor}
-//               />
-//             </Col>
-//           </Row>
-//           <Row
-//             className="d-flex category-nav noscroll custom-sticky-top mt-1"
-//             style={{
-//               background: "white",
-//               paddingLeft: "0.82rem",
-//               width: "100%",
-//             }}
-//           >
-//             {categories.map((category) => (
-//               <div
-//                 key={category.id}
-//                 style={{
-//                   display: "flex",
-//                   alignItems: "center",
-//                   border: activeCategory.id === category.id ? "black" : "none",
-//                   backgroundColor:
-//                     activeCategory.id === category.id
-//                       ? restaurant.primaryColor
-//                       : "white",
-//                   color: activeCategory.id === category.id ? "white" : "black",
-//                 }}
-//                 onClick={() => handleSelectCategory(category)}
-//               >
-//                 <p>{category.name}</p>
-//               </div>
-//             ))}
-//           </Row>
-//           {/* <MenuItems
-//             categories={categories}
-//             primaryColor={restaurant.primaryColor}
-//           /> */}
-//           <Categories
-//             categories={categories}
-//             primaryColor={restaurant.primaryColor}
-//           />
-//         </Container>
-//       </div>
-//     </Container>
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatchToProps)(OrderMenu));
 
 /***/ }),
 
@@ -11644,6 +11501,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
 /* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/throttle */ "./node_modules/lodash/throttle.js");
 /* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_throttle__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
@@ -11792,8 +11652,11 @@ function ScrollSpyTabs(props) {
 
   const snapCategoryNav = hash => {
     const offset = document.getElementById(`category-nav-${hash}`).offsetLeft;
+    const gutterLeftWidth = document.getElementById("category-nav-gutter-left").offsetWidth;
+    const colEl = document.getElementById("category-nav-bar-col");
+    const paddingLeftWidth = parseFloat(window.getComputedStyle(colEl, null).getPropertyValue("padding-left"));
     document.getElementById(`category-nav-bar`).scrollTo({
-      left: offset,
+      left: offset - gutterLeftWidth - paddingLeftWidth,
       behavior: "auto"
     });
   };
@@ -11823,14 +11686,27 @@ function ScrollSpyTabs(props) {
     clearTimeout(unsetClickedRef.current);
   }, []); // const classes = useStyles();
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", {
-    className: "d-flex category-nav noscroll custom-sticky-top mt-1",
-    id: "category-nav-bar",
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
     ref: catNav,
+    className: "custom-sticky-top",
     style: {
       borderBottom: showDropShadow && "2px solid lightgray" // boxShadow: showDropShadow && "0 2px 4px 0 rgb(0 0 0 / 12%)",
 
-    } // style={{
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    xs: 1,
+    className: "custom-sticky-top d-flex justify-content-start align-items-center ",
+    id: "category-nav-gutter-left"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    className: "category-back-button",
+    onClick: () => {},
+    src: "/img/back-arrow.png"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    xs: 10,
+    id: "category-nav-bar-col"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", {
+    className: "d-flex category-nav noscroll",
+    id: "category-nav-bar" // style={{
     //   backgroundColor: "#fff",
     //   position: "sticky",
     //   top: 0,
@@ -11862,6 +11738,7 @@ function ScrollSpyTabs(props) {
     className: "half-sized-border",
     style: {
       textTransform: "none",
+      cursor: "pointer",
       borderBottom: activeState === item2.hash && `2px solid ${primaryColor}`,
       height: "fit-content",
       flexGrow: 1,
@@ -11875,12 +11752,25 @@ function ScrollSpyTabs(props) {
     label: item2.text,
     onClick: handleClick(item2.hash),
     value: item2.hash
-  }, item2.text)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, item2.text))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    xs: 1,
+    className: "custom-sticky-top d-flex justify-content-end align-items-center "
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    className: "category-back-button rotateimg180 ",
+    onClick: () => {},
+    src: "/img/back-arrow.png"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    xs: 1
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    xs: 10
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "container p-0"
   }, itemsServer.map(item1 => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("article", {
     id: item1.hash,
     key: item1.text
-  }, item1.component))));
+  }, item1.component)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    xs: 1
+  })));
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ScrollSpyTabs);
