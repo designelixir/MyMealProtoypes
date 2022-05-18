@@ -177,10 +177,11 @@ input.close {
   top: 1.25rem; */
 }
 .category-back-button {
-  height: calc(0.2rem + 1.5vw);
-  width: calc(0.2rem + 1.5vw);
+  height: calc(0.2rem + 1vw);
+  width: calc(0.2rem + 1vw);
   cursor: pointer;
   margin: 0.5rem;
+
   /* position: absolute;
   left: 1rem;
   top: 1.25rem; */

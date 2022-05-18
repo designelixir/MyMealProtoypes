@@ -122,6 +122,25 @@ function ScrollSpyTabs(props) {
 
   const clickedRef = React.useRef(false);
   const unsetClickedRef = React.useRef(null);
+  const setNextActiveIndex = (forward) => {
+    const currentActiveStateIndex = itemsServer.findIndex(
+      (item) => item.hash === activeState
+    );
+    if (forward) {
+      if (
+        currentActiveStateIndex !== -1 &&
+        currentActiveStateIndex < itemsServer.length - 1
+      ) {
+        disableAutoDetect();
+        setActiveStateAndScroll(itemsServer[currentActiveStateIndex + 1].hash);
+      }
+    } else {
+      if (currentActiveStateIndex !== -1 && currentActiveStateIndex > 0) {
+        disableAutoDetect();
+        setActiveStateAndScroll(itemsServer[currentActiveStateIndex - 1].hash);
+      }
+    }
+  };
   const findActiveIndex = React.useCallback(() => {
     // set default if activeState is null
     if (activeState === null) setActiveState(itemsServer[0].hash);
@@ -175,27 +194,33 @@ function ScrollSpyTabs(props) {
       behavior: "auto",
     });
   };
-  const handleClick = (hash) => () => {
-    // Used to disable findActiveIndex if the page scrolls due to a click
+  const disableAutoDetect = () => {
     clickedRef.current = true;
     unsetClickedRef.current = setTimeout(() => {
       clickedRef.current = false;
     }, 1000);
+  };
+  const setActiveStateAndScroll = (hash) => {
+    setActiveState(hash);
+
+    if (window) {
+      const scrollDiff =
+        document.getElementById(hash).getBoundingClientRect().top +
+        window.pageYOffset;
+      window.scrollTo({
+        top: scrollDiff - 50,
+        behavior: "smooth",
+      });
+
+      snapCategoryNav(hash);
+    }
+  };
+  const handleClick = (hash) => () => {
+    // Used to disable findActiveIndex if the page scrolls due to a click
+    disableAutoDetect();
 
     if (activeState !== hash) {
-      setActiveState(hash);
-
-      if (window) {
-        const scrollDiff =
-          document.getElementById(hash).getBoundingClientRect().top +
-          window.pageYOffset;
-        window.scrollTo({
-          top: scrollDiff - 50,
-          behavior: "smooth",
-        });
-
-        snapCategoryNav(hash);
-      }
+      setActiveStateAndScroll(hash);
     }
   };
 
@@ -205,6 +230,14 @@ function ScrollSpyTabs(props) {
     },
     []
   );
+  const shouldShowNavButton = (forward) => {
+    const idx = itemsServer.findIndex((item) => item.hash === activeState);
+    if (forward) {
+      return idx !== -1 && idx !== itemsServer.length - 1;
+    } else {
+      return idx !== -1 && idx !== 0;
+    }
+  };
 
   // const classes = useStyles();
 
@@ -220,14 +253,17 @@ function ScrollSpyTabs(props) {
       >
         <Col
           xs={1}
-          className="custom-sticky-top d-flex justify-content-start align-items-center "
+          className="custom-sticky-top d-flex justify-content-end align-items-center "
           id="category-nav-gutter-left"
         >
-          <Image
-            className="category-back-button"
-            onClick={() => {}}
-            src={"/img/back-arrow.png"}
-          />
+          {shouldShowNavButton(false) && (
+            <Image
+              className="category-back-button"
+              onClick={() => setNextActiveIndex(false)}
+              src={"/img/back-arrow.png"}
+              style={{ position: "relative", left: "calc(1rem - 1vw)" }}
+            />
+          )}
         </Col>
         <Col xs={10} id="category-nav-bar-col">
           <nav
@@ -304,13 +340,16 @@ function ScrollSpyTabs(props) {
         </Col>
         <Col
           xs={1}
-          className="custom-sticky-top d-flex justify-content-end align-items-center "
+          className="custom-sticky-top d-flex justify-content-start align-items-center "
         >
-          <Image
-            className="category-back-button rotateimg180 "
-            onClick={() => {}}
-            src={"/img/back-arrow.png"}
-          />
+          {shouldShowNavButton(true) && (
+            <Image
+              className="category-back-button rotateimg180 "
+              onClick={() => setNextActiveIndex(true)}
+              src={"/img/back-arrow.png"}
+              style={{ position: "relative", right: "calc(1rem - 1vw)" }}
+            />
+          )}
         </Col>
       </Row>
       <Row>

@@ -11618,6 +11618,23 @@ function ScrollSpyTabs(props) {
   }, [itemsServer]);
   const clickedRef = react__WEBPACK_IMPORTED_MODULE_0__.useRef(false);
   const unsetClickedRef = react__WEBPACK_IMPORTED_MODULE_0__.useRef(null);
+
+  const setNextActiveIndex = forward => {
+    const currentActiveStateIndex = itemsServer.findIndex(item => item.hash === activeState);
+
+    if (forward) {
+      if (currentActiveStateIndex !== -1 && currentActiveStateIndex < itemsServer.length - 1) {
+        disableAutoDetect();
+        setActiveStateAndScroll(itemsServer[currentActiveStateIndex + 1].hash);
+      }
+    } else {
+      if (currentActiveStateIndex !== -1 && currentActiveStateIndex > 0) {
+        disableAutoDetect();
+        setActiveStateAndScroll(itemsServer[currentActiveStateIndex - 1].hash);
+      }
+    }
+  };
+
   const findActiveIndex = react__WEBPACK_IMPORTED_MODULE_0__.useCallback(() => {
     // set default if activeState is null
     if (activeState === null) setActiveState(itemsServer[0].hash); // Don't set the active index based on scroll if a link was just clicked
@@ -11661,30 +11678,49 @@ function ScrollSpyTabs(props) {
     });
   };
 
-  const handleClick = hash => () => {
-    // Used to disable findActiveIndex if the page scrolls due to a click
+  const disableAutoDetect = () => {
     clickedRef.current = true;
     unsetClickedRef.current = setTimeout(() => {
       clickedRef.current = false;
     }, 1000);
+  };
+
+  const setActiveStateAndScroll = hash => {
+    setActiveState(hash);
+
+    if (window) {
+      const scrollDiff = document.getElementById(hash).getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: scrollDiff - 50,
+        behavior: "smooth"
+      });
+      snapCategoryNav(hash);
+    }
+  };
+
+  const handleClick = hash => () => {
+    // Used to disable findActiveIndex if the page scrolls due to a click
+    disableAutoDetect();
 
     if (activeState !== hash) {
-      setActiveState(hash);
-
-      if (window) {
-        const scrollDiff = document.getElementById(hash).getBoundingClientRect().top + window.pageYOffset;
-        window.scrollTo({
-          top: scrollDiff - 50,
-          behavior: "smooth"
-        });
-        snapCategoryNav(hash);
-      }
+      setActiveStateAndScroll(hash);
     }
   };
 
   react__WEBPACK_IMPORTED_MODULE_0__.useEffect(() => () => {
     clearTimeout(unsetClickedRef.current);
-  }, []); // const classes = useStyles();
+  }, []);
+
+  const shouldShowNavButton = forward => {
+    const idx = itemsServer.findIndex(item => item.hash === activeState);
+
+    if (forward) {
+      return idx !== -1 && idx !== itemsServer.length - 1;
+    } else {
+      return idx !== -1 && idx !== 0;
+    }
+  }; // const classes = useStyles();
+
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
     ref: catNav,
@@ -11695,12 +11731,16 @@ function ScrollSpyTabs(props) {
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
     xs: 1,
-    className: "custom-sticky-top d-flex justify-content-start align-items-center ",
+    className: "custom-sticky-top d-flex justify-content-end align-items-center ",
     id: "category-nav-gutter-left"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, shouldShowNavButton(false) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
     className: "category-back-button",
-    onClick: () => {},
-    src: "/img/back-arrow.png"
+    onClick: () => setNextActiveIndex(false),
+    src: "/img/back-arrow.png",
+    style: {
+      position: "relative",
+      left: "calc(1rem - 1vw)"
+    }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
     xs: 10,
     id: "category-nav-bar-col"
@@ -11754,11 +11794,15 @@ function ScrollSpyTabs(props) {
     value: item2.hash
   }, item2.text))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
     xs: 1,
-    className: "custom-sticky-top d-flex justify-content-end align-items-center "
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    className: "custom-sticky-top d-flex justify-content-start align-items-center "
+  }, shouldShowNavButton(true) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
     className: "category-back-button rotateimg180 ",
-    onClick: () => {},
-    src: "/img/back-arrow.png"
+    onClick: () => setNextActiveIndex(true),
+    src: "/img/back-arrow.png",
+    style: {
+      position: "relative",
+      right: "calc(1rem - 1vw)"
+    }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
     xs: 1
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
