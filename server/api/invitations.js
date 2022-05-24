@@ -29,6 +29,7 @@ router.post("/", isAdmin, async (req, res, next) => {
     const [user, created] = await User.findOrCreate({
       where: { email },
       defaults: { email, role: "Corporation" },
+      include: [Token],
     });
     // const user = await User.create({ email, role: "Corporation" });
     if (created) {
@@ -46,7 +47,21 @@ router.post("/", isAdmin, async (req, res, next) => {
       });
       res.sendStatus(204);
     } else {
-      res.sendStatus(403);
+      if (user.token) {
+        await user.token.destory();
+      }
+      const token = await Token.create({ userId: user.id });
+      const baseUrl =
+        process.env.NODE_ENV === "production"
+          ? process.env.PROD_BASE_URL
+          : process.env.DEV_BASE_URL;
+
+      mailer({
+        to: email,
+        subject: "Invite",
+        text: `Click on link to register account: ${baseUrl}/invite/${token.accessToken}`,
+      });
+      res.sendStatus(204);
     }
   } catch (err) {
     next(err);
