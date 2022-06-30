@@ -19,6 +19,7 @@
   "author": "Andrew Bloodworth",
   "license": "MIT",
   "dependencies": {
+    "analytics": "^0.8.1",
     "aws-sdk": "^2.1106.0",
     "axios": "^0.21.4",
     "bcrypt": "^5.0.0",
@@ -50,7 +51,8 @@
     "react-scrollspy": "^3.4.3",
     "redux": "^4.0.1",
     "rgb-hex": "^4.0.0",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "use-analytics": "^0.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
