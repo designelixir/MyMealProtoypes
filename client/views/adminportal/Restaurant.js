@@ -137,7 +137,7 @@ const Restaurant = ({
               >
                 {location.address}
               </p>
-              <p>{`${window.location.origin}/order/restaurants/${restaurantId}/locations/${location.id}`}</p>
+              <p> <a target="_blank" href={`${window.location.origin}/order/restaurants/${restaurantId}/locations/${location.id}`}>{`${window.location.origin}/order/restaurants/${restaurantId}/locations/${location.id}`}</a></p>
             </ListGroupItem>
           ))}
       </ListGroup>
