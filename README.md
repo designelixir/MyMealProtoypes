@@ -4,7 +4,6 @@ This is the Meal Creator application for MyMeal.
 
 Users, such as restuarants and Kayla can build dynamc menus here and then view them from a dedicated public link.
 
-
 # Development setup
 
 * Install dependencies
@@ -18,7 +17,6 @@ Create a postgres DB named `mymeal` locally
 Seed the database with `npm run seed`
 
 Create a `.env` file and add a `JWT=randomstringoftext` to enable JWT authentication locally
-
 
 ### Database Migrations
 
