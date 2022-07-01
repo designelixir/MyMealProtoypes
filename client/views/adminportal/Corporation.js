@@ -56,8 +56,8 @@ export const Corporation = ({
       </Row>
       <ListGroup>
         {corporation.restaurants &&
-          corporation.restaurants.map((restaurant) => (
-            <ListGroupItem>
+          corporation.restaurants.map((restaurant, index) => (
+            <ListGroupItem key={index}>
               <Container
                 onClick={() =>
                   history.push(
