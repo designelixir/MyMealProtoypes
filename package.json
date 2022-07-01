@@ -19,7 +19,6 @@
   "author": "Andrew Bloodworth",
   "license": "MIT",
   "dependencies": {
-    "analytics": "^0.8.1",
     "aws-sdk": "^2.1106.0",
     "axios": "^0.21.4",
     "bcrypt": "^5.0.0",
@@ -44,6 +43,7 @@
     "react-color": "^2.19.3",
     "react-dom": "^16.8.6",
     "react-dropzone": "^12.0.4",
+    "react-ga": "^3.3.1",
     "react-idle-timer": "^5.1.0",
     "react-loading-skeleton": "^3.1.0",
     "react-redux": "^7.0.1",
@@ -51,8 +51,7 @@
     "react-scrollspy": "^3.4.3",
     "redux": "^4.0.1",
     "rgb-hex": "^4.0.0",
-    "sequelize": "^6.3.5",
-    "use-analytics": "^0.0.5"
+    "sequelize": "^6.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
