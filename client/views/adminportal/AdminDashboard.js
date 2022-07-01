@@ -99,8 +99,8 @@ const AdminDashboard = ({
       </Row>
       <Divider />
       <ListGroup>
-        {allergies.map((allergy) => (
-          <ListGroupItem>{allergy.name}</ListGroupItem>
+        {allergies.map((allergy, index) => (
+          <ListGroupItem key={index}>{allergy.name}</ListGroupItem>
         ))}
       </ListGroup>
     </Container>
