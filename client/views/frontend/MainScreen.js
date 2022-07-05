@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Container, Image, Button } from "react-bootstrap";
+import mixpanel from 'mixpanel-browser';
 
 const MainScreen = ({ restaurant, setHasRestrictions }) => {
   const history = useHistory();
@@ -24,7 +25,10 @@ const MainScreen = ({ restaurant, setHasRestrictions }) => {
         style={{
           backgroundColor: restaurant.primaryColor,
         }}
-        onClick={() => setHasRestrictions(true)}
+        onClick={function() {
+          mixpanel.track('Clicked Allegy Menu button')
+          setHasRestrictions(true)
+        }}
       >
         Allergy Menu
       </Button>
