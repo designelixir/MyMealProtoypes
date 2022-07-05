@@ -32,11 +32,13 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
     }, 10000);
   };
 
-  const { getRemainingTime, getLastActiveTime } = useIdleTimer({
-    timeout: 60000,
-    onIdle: handleOnIdle,
-    debounce: 500,
-  });
+// remove user idle timer because we're not using this in the kiosk anymore.
+//const { getRemainingTime, getLastActiveTime } = useIdleTimer({
+//  timeout: 60000,
+//  onIdle: handleOnIdle,
+//  debounce: 500,
+//});
+
   const safeColor = "#007B2A";
 
   const [activeCategory, setActiveCategory] = useState(categories[0]);
@@ -67,11 +69,14 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
 
   return (
     <Container className="mt-5" style={{ minWidth: 390 }}>
+
       <InactiveWarning
         {...{ inactiveShow, setInactiveShow, timer }}
         primaryColor={restaurant.primaryColor}
       />
+
       <Row>
+
         <Col xs={1} className="d-flex justify-content-start">
           <Image
             className="menu-back-button"
@@ -81,9 +86,13 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
             src={"/img/back-arrow.png"}
           />
         </Col>
+
         <Col xs={10}>
+
           <h1 className="menu-title">{restaurant.name}</h1>
+
           <h2 className="menu-sub-title">{restaurant.locations[0].address}</h2>
+
           {restaurant.locations[0].menu.orderNow && (
             <Button
               className="rounded-button"
@@ -98,15 +107,18 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
               Order Now
             </Button>
           )}
+
           {restaurant.locations[0].menu.dedicatedFrom && (
             <p className="dedicated-from">
               {restaurant.locations[0].menu.dedicatedFrom}
             </p>
           )}
+
           <CrossContact
             CCP={restaurant.locations[0].crossContactProcedure}
             primaryColor={restaurant.primaryColor}
           />
+
           <Row className="d-flex pt-3 pb-2 filtered-by align-items-center justify-content-between">
             <Col className="d-flex align-items-center flex-wrap">
               <p className="mb-2">Filtered By:</p>
@@ -131,6 +143,7 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
                   ))}
               </Row>
             </Col>
+
             <Col className="col-auto">
               <Filter setModalShow={setModalShow} />
               <AllergyFilters
@@ -139,10 +152,15 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
                 primaryColor={restaurant.primaryColor}
               />
             </Col>
+
           </Row>
+
         </Col>
+
         <Col xs={1} />
+
       </Row>
+
       <ScrollSpyTabs
         primaryColor={restaurant.primaryColor}
         catNav={catNav}
@@ -158,6 +176,7 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
           ),
         }))}
       />
+
     </Container>
   );
 };
