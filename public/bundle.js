@@ -11016,10 +11016,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
 /* harmony import */ var _utils_priceFormat__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/priceFormat */ "./client/utils/priceFormat.js");
 /* harmony import */ var _iconcomponents_Icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./iconcomponents/Icon */ "./client/views/frontend/iconcomponents/Icon.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
@@ -11028,6 +11028,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modals_MenuItemDescription_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modals/MenuItemDescription.js */ "./client/views/frontend/modals/MenuItemDescription.js.js");
 /* harmony import */ var _MenuItemCardImg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./MenuItemCardImg */ "./client/views/frontend/MenuItemCardImg.js");
 /* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../utils/common */ "./client/utils/common.js");
+/* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/dist/mixpanel.cjs.js");
+/* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(mixpanel_browser__WEBPACK_IMPORTED_MODULE_9__);
+
 
 
 
@@ -11056,31 +11059,36 @@ const MenuItemCard = ({
 
   const [modalShow, setModalShow] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [imageLoaded, setImageLoaded] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
     className: "mb-3 menuitem-card",
-    onClick: () => !modalShow && setModalShow(true),
+    onClick: function () {
+      !modalShow && setModalShow(true);
+      mixpanel_browser__WEBPACK_IMPORTED_MODULE_9___default().track('Clicked Menu Item', {
+        'Menu Item Name': menuitem.name
+      });
+    },
     style: {
       border: `3px solid ${type === "Safe" ? safeColor : modColor}`
     }
   }, menuitem.image && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItemCardImg__WEBPACK_IMPORTED_MODULE_7__["default"], {
     url: menuitem.image.url
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"].Title, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"].Title, {
     style: {
       fontSize: "1.5rem"
     }
-  }, menuitem.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"].Text, {
+  }, menuitem.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"].Text, {
     style: {
       fontSize: "0.8rem",
       marginBottom: "0.5rem"
     }
-  }, menuitem.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  }, menuitem.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], {
     className: "price-type p-0"
-  }, menuitem.pricetypes.length === 0 ? (0,_utils_priceFormat__WEBPACK_IMPORTED_MODULE_2__["default"])(menuitem.price) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, menuitem.pricetypes.length === 0 ? (0,_utils_priceFormat__WEBPACK_IMPORTED_MODULE_2__["default"])(menuitem.price) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], {
     className: "d-flex justify-content-start align-items-start"
-  }, menuitem.pricetypes.map(pt => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  }, menuitem.pricetypes.map(pt => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
     key: pt.id,
     className: "price-type"
-  }, pt.type, " - ", (0,_utils_priceFormat__WEBPACK_IMPORTED_MODULE_2__["default"])(pt.price))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  }, pt.type, " - ", (0,_utils_priceFormat__WEBPACK_IMPORTED_MODULE_2__["default"])(pt.price))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__["default"], {
     className: "d-flex p-0 align-items-center flex-wrap"
   }, menuitem.allergytypes.filter(allergytype => allergytype.allergyId in selectedAllergies && selectedAllergies[allergytype.allergyId].selected).map(allergytype => {
     const isSafe = allergytype.type === "Safe";
@@ -11371,16 +11379,14 @@ const OrderMenu = ({
     timer.current = setTimeout(() => {
       history.push(`${location.pathname.replace("/menu", "")}`);
     }, 10000);
-  };
+  }; // remove user idle timer because we're not using this in the kiosk anymore.
+  //const { getRemainingTime, getLastActiveTime } = useIdleTimer({
+  //  timeout: 60000,
+  //  onIdle: handleOnIdle,
+  //  debounce: 500,
+  //});
 
-  const {
-    getRemainingTime,
-    getLastActiveTime
-  } = (0,react_idle_timer__WEBPACK_IMPORTED_MODULE_2__.useIdleTimer)({
-    timeout: 60000,
-    onIdle: handleOnIdle,
-    debounce: 500
-  });
+
   const safeColor = "#007B2A";
   const [activeCategory, setActiveCategory] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(categories[0]);
   const [modalShow, setModalShow] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);

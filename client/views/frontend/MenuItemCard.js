@@ -8,6 +8,7 @@ import Exclamation from "./iconcomponents/Exclamation";
 import MenuItemDescription from "./modals/MenuItemDescription.js";
 import MenuItemCardImg from "./MenuItemCardImg";
 import { capitalize } from "../../utils/common";
+import mixpanel from 'mixpanel-browser';
 
 //Green #189622 Red FF0000
 const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
@@ -25,14 +26,22 @@ const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
   return (
     <Card
       className="mb-3 menuitem-card"
-      onClick={() => !modalShow && setModalShow(true)}
+      onClick={function() {
+        !modalShow && setModalShow(true)
+        mixpanel.track('Clicked Menu Item', {
+          'Menu Item Name': menuitem.name
+        })
+      }}
       style={{
         border: `3px solid ${type === "Safe" ? safeColor : modColor}`,
       }}
     >
       {menuitem.image && <MenuItemCardImg url={menuitem.image.url} />}
+
       <Card.Body>
+
         <Container>
+
           <Card.Title style={{ fontSize: "1.5rem" }}>
             {menuitem.name}
           </Card.Title>
@@ -40,6 +49,7 @@ const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
           <Card.Text style={{ fontSize: "0.8rem", marginBottom: "0.5rem" }}>
             {menuitem.description}
           </Card.Text>
+
           <Container className="price-type p-0">
             {menuitem.pricetypes.length === 0 ? (
               priceFormat(menuitem.price)
@@ -53,6 +63,7 @@ const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
               </Row>
             )}
           </Container>
+
           <Container className="d-flex p-0 align-items-center flex-wrap">
             {menuitem.allergytypes
               .filter(
@@ -98,6 +109,7 @@ const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
                 );
               })}
           </Container>
+
           <MenuItemDescription
             {...{
               modalShow,
@@ -109,6 +121,7 @@ const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
               modColor,
             }}
           />
+
           {/* <Row>
             <Col
               className={classNames({
