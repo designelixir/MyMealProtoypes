@@ -5,13 +5,12 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import Main from "./interface/Main";
-import GoogleAnalyticsTracker from './hoc/google_analytics_tracker.js';
+import mixpanel from './utils/mixpanel-tracking'
 
 render(
   <Provider store={store}>
     <Router>
       <Main />
-      <GoogleAnalyticsTracker />
     </Router>
   </Provider>,
   document.getElementById("main")

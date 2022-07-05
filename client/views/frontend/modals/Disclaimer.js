@@ -79,7 +79,7 @@ const Disclaimer = ({
             </p>
           </Container>
           <Container>
-            <div class="mt-3 form-check form-check-inline">
+            <div className="mt-3 form-check form-check-inline">
               <input
                 style={{
                   backgroundColor: agreement && primaryColor,
@@ -87,14 +87,14 @@ const Disclaimer = ({
                   boxShadow: "none",
                 }}
                 type="checkbox"
-                class="form-check-input"
+                className="form-check-input"
                 value="true"
                 type="checkbox"
                 value={agreement}
                 checked={agreement}
                 onChange={({ target: { checked } }) => setAgreement(checked)}
               />
-              <label title="" class="form-check-label">
+              <label title="" className="form-check-label">
                 I agree to the Disclaimer of this allergen tool.
               </label>
             </div>

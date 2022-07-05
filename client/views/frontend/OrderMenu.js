@@ -16,11 +16,14 @@ import "react-loading-skeleton/dist/skeleton.css";
 import ScrollSpyTabs from "./ScrollSpyTabs";
 
 const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
+
   const location = useLocation();
   const history = useHistory();
+
   if (!restaurant.id) {
     return <Redirect to={`${location.pathname.replace("/menu", "")}`} />;
   }
+
   const timer = useRef(null);
   const handleOnIdle = (event) => {
     setInactiveShow(true);
@@ -61,6 +64,7 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
       window.removeEventListener("scroll", setDropShadow);
     };
   }, []);
+
   return (
     <Container className="mt-5" style={{ minWidth: 390 }}>
       <InactiveWarning
