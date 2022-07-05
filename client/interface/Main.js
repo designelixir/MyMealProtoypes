@@ -15,7 +15,7 @@ function usePageViews() {
 }
 
 function trackMenuPageViews(location) {
-  if (location.match(/order/g)[0]) {
+  if (location.match(/order/g) && location.match(/order/g)[0]) {
     mixpanel.track('Menu Page View', {
       'Location': location
     })
