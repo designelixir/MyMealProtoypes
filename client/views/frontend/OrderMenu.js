@@ -14,6 +14,7 @@ import { Categories } from "./Categories";
 import { capitalize } from "../../utils/common";
 import "react-loading-skeleton/dist/skeleton.css";
 import ScrollSpyTabs from "./ScrollSpyTabs";
+import mixpanel from 'mixpanel-browser';
 
 const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
 
@@ -93,20 +94,39 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
 
           <h2 className="menu-sub-title">{restaurant.locations[0].address}</h2>
 
-          {restaurant.locations[0].menu.orderNow && (
             <Button
               className="rounded-button"
               style={{
                 backgroundColor: restaurant.primaryColor,
                 width: "fit-content",
               }}
-              onClick={() =>
-                window.open(restaurant.locations[0].menu.orderNow, "_blank")
-              }
+              onClick={function() {
+                mixpanel.track('Clicked Menu Order Now button')
+                // this line will send users to restaurant website to order.
+                // Replacing line with a phone number to call instead.
+                // window.open(restaurant.locations[0].menu.orderNow, "_blank")
+                window.open('tel:8475449721');
+              }}
             >
               Order Now
-            </Button>
-          )}
+           </Button>
+
+          {//restaurant.locations[0].menu.orderNow && (
+        //  <Button
+        //    className="rounded-button"
+        //    style={{
+        //      backgroundColor: restaurant.primaryColor,
+        //      width: "fit-content",
+        //    }}
+        //    onClick={function() {
+        //      mixpanel.track('Clicked Menu Order Now button')
+        //      window.open(restaurant.locations[0].menu.orderNow, "_blank")
+        //    }}
+        //  >
+        //    Call +1 847-544-9721 to Order Now
+        //  </Button>
+            //)
+            }
 
           {restaurant.locations[0].menu.dedicatedFrom && (
             <p className="dedicated-from">

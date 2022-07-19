@@ -11325,12 +11325,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_idle_timer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-idle-timer */ "./node_modules/react-idle-timer/dist/index.esm.js");
 /* harmony import */ var react_scrollspy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-scrollspy */ "./node_modules/react-scrollspy/lib/scrollspy.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
 /* harmony import */ var _modals_CrossContact__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modals/CrossContact */ "./client/views/frontend/modals/CrossContact.js");
 /* harmony import */ var _MenuItems__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./MenuItems */ "./client/views/frontend/MenuItems.js");
 /* harmony import */ var _Category__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Category */ "./client/views/frontend/Category.js");
@@ -11341,6 +11341,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../utils/common */ "./client/utils/common.js");
 /* harmony import */ var react_loading_skeleton_dist_skeleton_css__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-loading-skeleton/dist/skeleton.css */ "./node_modules/react-loading-skeleton/dist/skeleton.css");
 /* harmony import */ var _ScrollSpyTabs__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ScrollSpyTabs */ "./client/views/frontend/ScrollSpyTabs.js");
+/* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/dist/mixpanel.cjs.js");
+/* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(mixpanel_browser__WEBPACK_IMPORTED_MODULE_14__);
+
 
 
 
@@ -11363,11 +11366,11 @@ const OrderMenu = ({
   categories,
   selectedAllergies
 }) => {
-  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_14__.useLocation)();
-  const history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_14__.useHistory)();
+  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_15__.useLocation)();
+  const history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_15__.useHistory)();
 
   if (!restaurant.id) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Redirect, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Redirect, {
       to: `${location.pathname.replace("/menu", "")}`
     });
   }
@@ -11413,7 +11416,7 @@ const OrderMenu = ({
       window.removeEventListener("scroll", setDropShadow);
     };
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__["default"], {
     className: "mt-5",
     style: {
       minWidth: 390
@@ -11423,38 +11426,44 @@ const OrderMenu = ({
     setInactiveShow,
     timer,
     primaryColor: restaurant.primaryColor
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__["default"], {
     xs: 1,
     className: "d-flex justify-content-start"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_19__["default"], {
     className: "menu-back-button",
     onClick: () => history.push(`${location.pathname.replace("/menu", "")}`),
     src: "/img/back-arrow.png"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__["default"], {
     xs: 10
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", {
     className: "menu-title"
   }, restaurant.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
     className: "menu-sub-title"
-  }, restaurant.locations[0].address), restaurant.locations[0].menu.orderNow && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_19__["default"], {
+  }, restaurant.locations[0].address), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_20__["default"], {
     className: "rounded-button",
     style: {
       backgroundColor: restaurant.primaryColor,
       width: "fit-content"
     },
-    onClick: () => window.open(restaurant.locations[0].menu.orderNow, "_blank")
+    onClick: function () {
+      mixpanel_browser__WEBPACK_IMPORTED_MODULE_14___default().track('Clicked Menu Order Now button'); // this line will send users to restaurant website to order.
+      // Replacing line with a phone number to call instead.
+      // window.open(restaurant.locations[0].menu.orderNow, "_blank")
+
+      window.open('tel:8475449721');
+    }
   }, "Order Now"), restaurant.locations[0].menu.dedicatedFrom && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     className: "dedicated-from"
   }, restaurant.locations[0].menu.dedicatedFrom), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_CrossContact__WEBPACK_IMPORTED_MODULE_4__["default"], {
     CCP: restaurant.locations[0].crossContactProcedure,
     primaryColor: restaurant.primaryColor
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__["default"], {
     className: "d-flex pt-3 pb-2 filtered-by align-items-center justify-content-between"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__["default"], {
     className: "d-flex align-items-center flex-wrap"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     className: "mb-2"
-  }, "Filtered By:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__["default"], null, Object.values(selectedAllergies).filter(({
+  }, "Filtered By:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__["default"], null, Object.values(selectedAllergies).filter(({
     selected
   }) => selected).map(({
     name
@@ -11469,7 +11478,7 @@ const OrderMenu = ({
       fontStyle: "italic",
       fontSize: 10
     }
-  }, (0,_utils_common__WEBPACK_IMPORTED_MODULE_11__.capitalize)(name))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__["default"], {
+  }, (0,_utils_common__WEBPACK_IMPORTED_MODULE_11__.capitalize)(name))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__["default"], {
     className: "col-auto"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_iconcomponents_Filter__WEBPACK_IMPORTED_MODULE_7__["default"], {
     setModalShow: setModalShow
@@ -11478,7 +11487,7 @@ const OrderMenu = ({
     setModalShow,
     restaurantAllergies: restaurant.locations[0].menu.allergies,
     primaryColor: restaurant.primaryColor
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__["default"], {
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__["default"], {
     xs: 1
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ScrollSpyTabs__WEBPACK_IMPORTED_MODULE_13__["default"], {
     primaryColor: restaurant.primaryColor,
