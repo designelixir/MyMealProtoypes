@@ -103,10 +103,7 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
              }}
              onClick={function() {
                mixpanel.track('Clicked Menu Order Now button')
-               // this line will send users to restaurant website to order.
-               // Replacing line with a phone number to call instead.
-               // window.open(restaurant.locations[0].menu.orderNow, "_blank")
-               window.open('tel:8475449721');
+               window.open(restaurant.locations[0].menu.orderNow, "_blank")
              }}
            >
              Order Now

@@ -11446,11 +11446,8 @@ const OrderMenu = ({
       width: "fit-content"
     },
     onClick: function () {
-      mixpanel_browser__WEBPACK_IMPORTED_MODULE_14___default().track('Clicked Menu Order Now button'); // this line will send users to restaurant website to order.
-      // Replacing line with a phone number to call instead.
-      // window.open(restaurant.locations[0].menu.orderNow, "_blank")
-
-      window.open('tel:8475449721');
+      mixpanel_browser__WEBPACK_IMPORTED_MODULE_14___default().track('Clicked Menu Order Now button');
+      window.open(restaurant.locations[0].menu.orderNow, "_blank");
     }
   }, "Order Now"), restaurant.locations[0].menu.dedicatedFrom && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     className: "dedicated-from"
