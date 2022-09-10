@@ -76,6 +76,28 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
         primaryColor={restaurant.primaryColor}
       />
 
+      <Row style={{ marginBottom: 30 }}>
+        <Col>
+          <h1>Hey!</h1>
+          <h2>Get access to over 30 menus like this one in Colorado!</h2>
+          <p>MyMeal is releasing a mobile app that gives you access to over 30 menus like this one. Join the waitlist and never run out of safe tasty options again!</p>
+           <Button
+             className="rounded-button"
+             style={{
+               marginTop: 0,
+               backgroundColor: restaurant.primaryColor,
+               width: "fit-content",
+             }}
+             onClick={function() {
+               mixpanel.track('Clicked mobile app waitlist button from menu screen')
+               window.open('https://docs.google.com/forms/d/e/1FAIpQLSc--ZgWri8IA42G8Vi06uNm-wkTk7HMuwZE3unstRF6-Avyog/viewform', '_blank')
+             }}
+            >
+             Join the Mobile App Waitlist!
+           </Button>
+        </Col>
+      </Row>
+
       <Row>
 
         <Col xs={1} className="d-flex justify-content-start">

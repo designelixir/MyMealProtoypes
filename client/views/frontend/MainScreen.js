@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Container, Image, Button } from "react-bootstrap";
+import { Container, Image, Button, Modal, Form } from "react-bootstrap";
 import mixpanel from 'mixpanel-browser';
 
 const MainScreen = ({ restaurant, setHasRestrictions }) => {
