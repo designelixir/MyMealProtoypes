@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, rgba } from "react";
 import { connect } from "react-redux";
 import { useIdleTimer } from "react-idle-timer";
 import Scrollspy from "react-scrollspy";
@@ -75,11 +75,9 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
         {...{ inactiveShow, setInactiveShow, timer }}
         primaryColor={restaurant.primaryColor}
       />
-
-      <Row style={{ marginBottom: 30 }}>
+      <Row style={{ marginBottom: 30, padding: 40, backgroundColor: 'rgba(0, 57, 186, .15)' }}>
         <Col>
-          <h1>Hey!</h1>
-          <h2>Get access to over 30 menus like this one in Colorado!</h2>
+          <h2>Want More Menus Like This One?</h2>
           <p>MyMeal is releasing a mobile app that gives you access to over 30 menus like this one. Join the waitlist and never run out of safe tasty options again!</p>
            <Button
              className="rounded-button"
