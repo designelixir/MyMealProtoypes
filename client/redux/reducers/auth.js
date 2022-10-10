@@ -5,7 +5,8 @@ import history from "../../utils/history";
 export const sendNewInvitation = createAsyncThunk(
   "auth/sendNewInvitation",
   async (body) => {
-    await axios.post(`/api/invitations`, body);
+    const { data } = await axios.post(`/api/invitations`, body);
+    return data;
   }
 );
 
@@ -175,6 +176,11 @@ const authSlice = createSlice({
         alert("Email has been reset");
         state.isLoading = false;
         state.hasError = false;
+      })
+      .addCase(sendNewInvitation.fulfilled, (state, action) => {
+        alert(`Invite Link: ${action.payload.inviteLink}`);
+        state.isLoading = false;
+        state.hasError = true;
       })
       .addCase(sendNewInvitation.rejected, (state, action) => {
         alert("User already exists");

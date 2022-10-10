@@ -40,28 +40,32 @@ router.post("/", isAdmin, async (req, res, next) => {
           ? process.env.PROD_BASE_URL
           : process.env.DEV_BASE_URL;
 
+      const inviteLink = `${baseUrl}/invite/${token.accessToken}`;
       mailer({
         to: email,
         subject: "Invite",
-        text: `Click on link to register account: ${baseUrl}/invite/${token.accessToken}`,
+        text: `Click on link to register account: ${inviteLink}`,
       });
-      res.sendStatus(204);
+      res.json({ inviteLink });
     } else {
       if (user.token) {
-        await user.token.destory();
+        await user.token.destroy();
+      }
+      if (user.password !== null) {
+        //console.log("User has registered");
       }
       const token = await Token.create({ userId: user.id });
       const baseUrl =
         process.env.NODE_ENV === "production"
           ? process.env.PROD_BASE_URL
           : process.env.DEV_BASE_URL;
-
+      const inviteLink = `${baseUrl}/invite/${token.accessToken}`;
       mailer({
         to: email,
         subject: "Invite",
-        text: `Click on link to register account: ${baseUrl}/invite/${token.accessToken}`,
+        text: `Click on link to register account: ${inviteLink}`,
       });
-      res.sendStatus(204);
+      res.json({ inviteLink });
     }
   } catch (err) {
     next(err);

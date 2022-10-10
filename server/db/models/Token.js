@@ -25,8 +25,8 @@ module.exports = Token;
  */
 const hashToken = (token) => {
   token.accessToken = crypto.randomBytes(48).toString("hex");
-  //Expires in 10 minutes
-  token.expires = Date.now() + 600000;
+  //Expires in 5 days
+  token.expires = Date.now() + 432000000;
 };
 
 Token.beforeCreate(hashToken);
