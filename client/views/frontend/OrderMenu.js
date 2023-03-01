@@ -1,22 +1,15 @@
 import React, { useState, useRef, useEffect, rgba } from "react";
 import { connect } from "react-redux";
-import { useIdleTimer } from "react-idle-timer";
-import Scrollspy from "react-scrollspy";
 import { Redirect, useLocation, useHistory } from "react-router-dom";
 import { Container, Row, Col, Image, Button, Tabs, Tab } from "react-bootstrap";
-import CrossContact from "./modals/CrossContact";
-import MenuItems from "./MenuItems";
-import Category from "./Category";
-import Filter from "./iconcomponents/Filter";
-import AllergyFilters from "./modals/AllergyFilters";
-import InactiveWarning from "./modals/InactiveWarning";
-import { Categories } from "./Categories";
-import { capitalize } from "../../utils/common";
+import MenuWindow from "./MenuWindow";
 import "react-loading-skeleton/dist/skeleton.css";
-import ScrollSpyTabs from "./ScrollSpyTabs";
 import mixpanel from 'mixpanel-browser';
+import { setSelectedAllergy } from "../../redux/reducers/frontend";
+import WaitlistBanner from "./WaitlistBanner";
+import KitchenProceduresWindow from "./KitchenProceduresWindow";
 
-const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
+const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAllergies }) => {
 
   const location = useLocation();
   const history = useHistory();
@@ -33,13 +26,6 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
     }, 10000);
   };
 
-// remove user idle timer because we're not using this in the kiosk anymore.
-//const { getRemainingTime, getLastActiveTime } = useIdleTimer({
-//  timeout: 60000,
-//  onIdle: handleOnIdle,
-//  debounce: 500,
-//});
-
   const safeColor = "#007B2A";
 
   const [activeCategory, setActiveCategory] = useState(categories[0]);
@@ -47,161 +33,107 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies }) => {
   const [inactiveShow, setInactiveShow] = useState(false);
 
   const categoryRefs = categories.map(({ name }) => useRef(name));
-  const catNav = useRef(null);
+  
+  const [show, setShow] = useState(false);
 
-  const [showDropShadow, setShowDropShadow] = useState(false);
+  
 
-  const setDropShadow = () => {
-    const el = document.documentElement;
-
-    if (Math.ceil(el.scrollTop) === catNav.current.offsetTop) {
-      setShowDropShadow(true);
-    } else {
-      setShowDropShadow(false);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", setDropShadow);
-    return () => {
-      window.removeEventListener("scroll", setDropShadow);
-    };
-  }, []);
 
   return (
-    <Container className="mt-5" style={{ minWidth: 390 }}>
-
-      <InactiveWarning
-        {...{ inactiveShow, setInactiveShow, timer }}
-        primaryColor={restaurant.primaryColor}
-      />
-      <Row style={{ marginBottom: 30, padding: 40, backgroundColor: 'rgba(0, 57, 186, .15)' }}>
-        <Col>
-          <h2>Want More Menus Like This One?</h2>
-          <p>MyMeal is releasing a mobile app that gives you access to over 30 menus like this one. Join the waitlist and never run out of safe tasty options again!</p>
-           <Button
-             className="rounded-button"
-             style={{
-               marginTop: 0,
-               backgroundColor: restaurant.primaryColor,
-               width: "fit-content",
-             }}
-             onClick={function() {
-               mixpanel.track('Clicked mobile app waitlist button from menu screen')
-               window.open('https://docs.google.com/forms/d/e/1FAIpQLSc--ZgWri8IA42G8Vi06uNm-wkTk7HMuwZE3unstRF6-Avyog/viewform', '_blank')
-             }}
-            >
-             Join the Mobile App Waitlist!
-           </Button>
-        </Col>
-      </Row>
-
-      <Row>
-
-        <Col xs={1} className="d-flex justify-content-start">
-          <Image
+    <section id="orderMenuComponent">
+    {/* MAIN HEADER */}
+    <div className="blur-overlay" style= {{backgroundImage: `url(${restaurant.bg ? restaurant.bg.url : "/img/generic-bg.jpg"})`}}>
+      <div className="menu-header blur-overlay" >
+      <div className="menu-header-contents  center-flex">
+        <div className="menu-header-logo-container center-flex">
+        <Image
             className="menu-back-button"
             onClick={() =>
               history.push(`${location.pathname.replace("/menu", "")}`)
             }
             src={"/img/back-arrow.png"}
           />
-        </Col>
-
-        <Col xs={10}>
-
-          <h1 className="menu-title">{restaurant.name}</h1>
-
-          <h2 className="menu-sub-title">{restaurant.locations[0].address}</h2>
-
-          {restaurant.locations[0].menu.orderNow && (
-           <Button
-             className="rounded-button"
-             style={{
-               backgroundColor: restaurant.primaryColor,
-               width: "fit-content",
-             }}
-             onClick={function() {
-               mixpanel.track('Clicked Menu Order Now button')
-               window.open(restaurant.locations[0].menu.orderNow, "_blank")
-             }}
-           >
-             Order Now
-           </Button>
-           )}
-
-          {restaurant.locations[0].menu.dedicatedFrom && (
-            <p className="dedicated-from">
-              {restaurant.locations[0].menu.dedicatedFrom}
-            </p>
-          )}
-
-          <CrossContact
-            CCP={restaurant.locations[0].crossContactProcedure}
-            primaryColor={restaurant.primaryColor}
+          <Image
+            className="menu-header-logo"
+            src={
+              restaurant.logo
+                ? restaurant.logo.url
+                : "/img/demo-restauarant.png"
+            }
           />
+        </div>
+        <div className="menu-header-title-container">
+            <h1>{restaurant.name} Menu</h1>
+            <p>{restaurant.locations[0].address}</p>
+        </div>
+        <div className="menu-header-order-button-container center-flex">
+        {restaurant.locations[0].menu.orderNow && (
+          <button
+            className="bottom-box-shadow styled-button"
+            style={{
+              backgroundColor: restaurant.primaryColor,
+            }}
+            onClick={function() {
+              mixpanel.track('Clicked Menu Order Now button')
+              window.open(restaurant.locations[0].menu.orderNow, "_blank")
+            }}
+          >
+            Order Online
+          </button>
+          )}
+        </div>
+        
+      </div>
+      {restaurant.locations[0].menu.dedicatedFrom && (
+        <div className="dedicated-free">
+          <div className="dedicated-free-title center-flex">
+            <p className="tab" style={{backgroundImage: "url(/img/tab.png)"}}>This kitchen is dedicated free from: </p>
+          </div>
+        </div>
+      )}
+      <div className="dedicated-allergen-card-container center-flex">
+        <div className="dedicated-allergen-card">
+          <p>{restaurant.locations[0].menu.dedicatedFrom}</p>
+        </div>    
+      </div>
+      </div>
+    </div>
 
-          <Row className="d-flex pt-3 pb-2 filtered-by align-items-center justify-content-between">
-            <Col className="d-flex align-items-center flex-wrap">
-              <p className="mb-2">Filtered By:</p>
-              <Row>
-                {Object.values(selectedAllergies)
-                  .filter(({ selected }) => selected)
-                  .map(({ name }) => (
-                    <p
-                      key={name}
-                      className="mb-2"
-                      style={{
-                        borderRadius: "2rem",
-                        background: safeColor,
-                        color: "white",
-                        padding: "0.5rem 1rem",
-                        fontStyle: "italic",
-                        fontSize: 10,
-                      }}
-                    >
-                      {capitalize(name)}
-                    </p>
-                  ))}
-              </Row>
-            </Col>
+    
+{/* MENU NAVIGATION STICKY */}
+<div className="menu-nav-container">
+      <div className="menu-nav-tabs">
+      <div className="last-updated"><strong>Last Updated:</strong> </div>
+        <div className="menu-tab-container">
+          <div className={`menu-tab ${show ? "" : "active"}`}
+          onClick={function() {
+            setShow(currentShow => !currentShow)
+          }}
+          style={{backgroundColor: show? '#e2e2e2' : restaurant.primaryColor}}
+          
+          >Menu</div>
 
-            <Col className="col-auto">
-              <Filter setModalShow={setModalShow} />
-              <AllergyFilters
-                {...{ modalShow, setModalShow }}
-                restaurantAllergies={restaurant.locations[0].menu.allergies}
-                primaryColor={restaurant.primaryColor}
-              />
-            </Col>
-
-          </Row>
-
-        </Col>
-
-        <Col xs={1} />
-
-      </Row>
-
-      <ScrollSpyTabs
-        primaryColor={restaurant.primaryColor}
-        catNav={catNav}
-        showDropShadow={showDropShadow}
-        tabsInScroll={categories.map((category, idx) => ({
-          text: category.name,
-          component: (
-            <Category
-              category={category}
-              primaryColor={restaurant.primaryColor}
-              categoryRef={categoryRefs[idx]}
-            />
-          ),
-        }))}
-      />
-
-    </Container>
+          <div className={`menu-tab ${show ? "active" : ""}`}
+          onClick={() => setShow(currentShow => !currentShow)}
+          style={{backgroundColor: !show? '#e2e2e2' : restaurant.primaryColor}}
+          >Kitchen Procedures</div>
+        </div>
+        
+      </div>
+    </div>
+    {/* SELECTED WINDOW */}
+    <Container className="tab-section-window ">
+        { show ? <KitchenProceduresWindow/> : <MenuWindow></MenuWindow> }
+      </Container>
+    </section>
   );
 };
+
+const changeStyles = () => {
+  let element = document.getElementById('menu-tab-button')
+  console.log("clicked")
+  ReactDOM.findDOMNode(element).style.backgroundColor = this.state.isClicked?'black' : 'white'
+}
 
 const mapState = (state) => {
   const { restaurant, categories, selectedAllergies } = state.frontend;
@@ -211,6 +143,8 @@ const mapState = (state) => {
     selectedAllergies,
   };
 };
+
+
 
 const mapDispatchToProps = {};
 

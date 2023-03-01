@@ -1,69 +1,14 @@
 import React from "react";
-import { Tabs, Tab, Row, Col, Image } from "react-bootstrap";
 import throttle from "lodash/throttle";
-import classnames from "classnames";
-// import { makeStyles, withStyles } from "@material-ui/core/styles";
-// import Tabs from "@material-ui/core/Tabs";
-// import Tab from "@material-ui/core/Tab";
-
+import FilterBar from "./FilterBar"
 const tabHeight = 50;
-// const StyledTabs = withStyles({
-//   indicator: {
-//     display: "flex",
-//     justifyContent: "center",
-//     backgroundColor: "transparent",
-//     "& > div": {
-//       maxWidth: 30,
-//       width: "100%",
-//       backgroundColor: "#635ee7"
-//     }
-//   }
-// })(props => <Tabs {...props} TabIndicatorProps={{ children: <div /> }} />);
 
-// const StyledTab = withStyles(theme => ({
-//   root: {
-//     textTransform: "none",
-//     height: tabHeight,
-//     fontWeight: theme.typography.fontWeightRegular,
-//     fontSize: theme.typography.pxToRem(15),
-//     marginRight: theme.spacing(1),
-//     "&:focus": {
-//       opacity: 1
-//     }
-//   }
-// }))(props => <Tab disableRipple {...props} />);
-
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     flexGrow: 1
-//   },
-//   indicator: {
-//     padding: theme.spacing(1)
-//   },
-//   demo2: {
-//     backgroundColor: "#fff",
-//     position: "sticky",
-//     top: 0,
-//     left: 0,
-//     right: 0,
-//     width: "100%"
-//   }
-// }));
-
-/******* This is the scroll spy magic */
-/*
-Credits: Material UI
-Source:
-https://github.com/mui-org/material-ui/blob/404c2ba16816f5c7ab7d8b2caf6bbc3d2218b820/docs/src/modules/utils/textToHash.js
-*/
 const makeUnique = (hash, unique, i = 1) => {
   const uniqueHash = i === 1 ? hash : `${hash}-${i}`;
-
   if (!unique[uniqueHash]) {
     unique[uniqueHash] = true;
     return uniqueHash;
   }
-
   return makeUnique(hash, unique, i + 1);
 };
 
@@ -111,7 +56,7 @@ function ScrollSpyTabs(props) {
       text: tab.text,
       component: tab.component,
       hash: hash,
-      node: document.getElementById(hash),
+      
     };
   });
 
@@ -239,132 +184,37 @@ function ScrollSpyTabs(props) {
     }
   };
 
-  // const classes = useStyles();
 
   return (
     <div>
-      <Row
-        ref={catNav}
-        className="custom-sticky-top"
-        style={{
-          borderBottom: showDropShadow && "2px solid lightgray",
-          // boxShadow: showDropShadow && "0 2px 4px 0 rgb(0 0 0 / 12%)",
-        }}
-      >
-        <Col
-          xs={1}
-          className="custom-sticky-top d-flex justify-content-end align-items-center "
-          id="category-nav-gutter-left"
-        >
-          {shouldShowNavButton(false) && (
-            <Image
-              className="category-back-button"
-              onClick={() => setNextActiveIndex(false)}
-              src={"/img/back-arrow.png"}
-              style={{ position: "relative", left: "calc(1rem - 1vw)" }}
-            />
-          )}
-        </Col>
-        <Col xs={10} id="category-nav-bar-col">
-          <nav
-            className="d-flex category-nav noscroll"
-            id="category-nav-bar"
-
-            // style={{
-            //   backgroundColor: "#fff",
-            //   position: "sticky",
-            //   top: 0,
-            //   left: 0,
-            //   right: 0,
-            //   zIndex: 1024,
-            //   width: "100%",
-            // }}
-          >
-            <div
-              value={activeState ? activeState : itemsServer[0].hash}
-              className="d-flex align-items-center"
-              style={{ height: 50 }}
-
-              // style={{
-              //   display: "flex",
-              //   justifyContent: "center",
-              //   backgroundColor: "transparent",
-              //   "& > div": {
-              //     maxWidth: 30,
-              //     width: "100%",
-              //     backgroundColor: "#635ee7",
-              //   },
-              // }}
-            >
+      <div ref={catNav} className="custom-sticky-top category-container bottom-box-shadow" style={{backgroundColor: primaryColor}}>
+        <p>Categories:</p>
+        <nav className="categories-scroller"  value={activeState ? activeState : itemsServer[0].hash}>
               {itemsServer.map((item2) => (
-                <div
-                  key={item2.hash}
-                  id={`category-nav-${item2.hash}`}
-                  className="half-sized-border"
+                <div className="category-item" key={item2.hash} id={`category-nav-${item2.hash}`}
                   style={{
-                    textTransform: "none",
-                    cursor: "pointer",
-                    borderBottom:
-                      activeState === item2.hash && `2px solid ${primaryColor}`,
-                    height: "fit-content",
-                    flexGrow: 1,
-                    fontWeight: activeState === item2.hash && 500,
-                    marginRight: "1rem",
-                    whiteSpace: "nowrap",
-                    "&:focus": {
-                      opacity: 1,
-                    },
+                    background:
+                      activeState === item2.hash && "rgba(97, 133,71, 0.31)",
+                    fontWeight: activeState === item2.hash && 500, fontSize: "14px"
+                    // color: activeState === item2.hash && "white"
                   }}
                   label={item2.text}
                   onClick={handleClick(item2.hash)}
                   value={item2.hash}
-                >
-                  {item2.text}
-                </div>
+                >{item2.text}</div>
               ))}
-            </div>
-            {/* <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            backgroundColor: "transparent",
-
-            maxWidth: 30,
-            width: "100%",
-            backgroundColor: "#635ee7",
-
-            padding: "1rem",
-          }}
-        /> */}
+            
           </nav>
-        </Col>
-        <Col
-          xs={1}
-          className="custom-sticky-top d-flex justify-content-start align-items-center "
-        >
-          {shouldShowNavButton(true) && (
-            <Image
-              className="category-back-button rotateimg180 "
-              onClick={() => setNextActiveIndex(true)}
-              src={"/img/back-arrow.png"}
-              style={{ position: "relative", right: "calc(1rem - 1vw)" }}
-            />
-          )}
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={1} />
-        <Col xs={10}>
-          <div className="container p-0">
-            {itemsServer.map((item1) => (
-              <article id={item1.hash} key={item1.text}>
-                {item1.component}
-              </article>
-            ))}
-          </div>
-        </Col>
-        <Col xs={1} />
-      </Row>
+      </div>
+      <FilterBar></FilterBar>
+      {/* where the categories are built */}
+      
+        {itemsServer.map((item1) => (
+          <section id={item1.hash} key={item1.text} >
+              {item1.component}
+          </section>
+        ))}
+      
     </div>
   );
 }

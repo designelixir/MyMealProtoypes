@@ -60,62 +60,59 @@ const Restaurant = ({
     return <></>;
   }
   return (
-    <Container>
-      <Breadcrumb listProps={{ className: "ps-0 justify-content-start" }}>
-        <Breadcrumb.Item
-          onClick={() => history.push("/")}
-          style={{ color: "#4e66f8" }}
-        >
-          Corporations
-        </Breadcrumb.Item>
-        <Breadcrumb.Item
-          onClick={() => history.push(`/corporations/${corporationId}`)}
-          style={{ color: "#4e66f8" }}
-        >
-          {restaurant.corporation?.name}
-        </Breadcrumb.Item>
-
-        <Breadcrumb.Item active>{restaurant.name}</Breadcrumb.Item>
-      </Breadcrumb>
-
-      <Row className="d-flex justify-content-start align-items-center">
-        <h1 style={{ width: "fit-content" }}>{restaurant.name}</h1>
-        <EditRestaurant restaurant={restaurant} />
+    <Container id="restaurantComponent">
+      <Row className="space-between-flex">
+        <div>
+          <div className="center-flex-start page-path-container">
+          <div onClick={() => history.push("/")}>Dashboard</div> <p>&nbsp;/&nbsp;</p>
+          <div onClick={() => history.push(`/corporations/${corporationId}`)}>{restaurant.corporation?.name}</div> <p>&nbsp;/&nbsp;</p>
+          <div className="active-breadcrumb" >{restaurant.name}</div>
+        </div>
+        <h1>Menus</h1>
+        </div>
+        
+        <div>
+          <EditRestaurant restaurant={restaurant} />
+          <CreateNewMenu restaurantId={restaurantId} allergies={allergies} />
+          
+        </div>
+        
       </Row>
-      <Divider />
-      <Row className="d-flex justify-content-start align-items-center">
-        <h3 style={{ width: "fit-content" }}>Menus</h3>
-        <CreateNewMenu restaurantId={restaurantId} allergies={allergies} />
-      </Row>
+      
 
       <ListGroup className="mb-3">
         {restaurant.menus &&
           restaurant.menus.map((menu) => (
             <ListGroupItem
               key={menu.id}
-              className="d-flex justify-content-between"
+              className="corporations"
             >
               <Container
-                style={{ cursor: "pointer" }}
-                onClick={() =>
-                  history.push(
-                    `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menu.id}`
-                  )
-                }
+              className="space-between-flex hover-text"
+                style={{ cursor: "pointer" }} onClick={() =>history.push(`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menu.id}`)}
               >
                 {menu.name}
-              </Container>
-              <Button
+                <div>
+                  
+                  <Button
+              className="backend-styled-edit-button"
                 onClick={() => newMenu({ restaurantId, menuId: menu.id })}
               >
-                Duplicate
+                &#x274F; Duplicate
               </Button>
+              <Button className="backend-styled-edit-button" onClick={() =>history.push(`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menu.id}`)}>
+                  &#9998;  Edit
+                  </Button>
+                </div>
+                
+              </Container>
+              
             </ListGroupItem>
           ))}
       </ListGroup>
 
-      <Row className="d-flex justify-content-start align-items-center">
-        <h3 style={{ width: "fit-content" }}>Locations</h3>
+      <Row className="space-between-flex">
+        <h1>Locations</h1>
         <CreateNewLocation
           restaurantId={restaurantId}
           restaurantCCP={restaurant.crossContactProcedure}
@@ -123,24 +120,35 @@ const Restaurant = ({
         />
       </Row>
 
-      <ListGroup>
+      <div>
         {restaurant.locations &&
           restaurant.locations.map((location) => (
             <ListGroupItem key={location.id}>
-              <p
-                style={{ cursor: "pointer" }}
-                onClick={() =>
+              <div className="space-between-flex corporations">
+                <div>
+                <p style={{fontSize: "16px" }}>
+                &#128204; {location.address}
+              </p>
+              <p> <a target="_blank" className="hover" href={`${window.location.origin}/order/restaurants/${restaurantId}/locations/${location.id}`}>{`${window.location.origin}/order/restaurants/${restaurantId}/locations/${location.id}`}</a></p>
+              </div>
+              
+              <div className="backend-styled-edit-button" onClick={() =>
                   history.push(
                     `/corporations/${corporationId}/restaurants/${restaurantId}/locations/${location.id}`
                   )
-                }
-              >
-                {location.address}
-              </p>
-              <p> <a target="_blank" href={`${window.location.origin}/order/restaurants/${restaurantId}/locations/${location.id}`}>{`${window.location.origin}/order/restaurants/${restaurantId}/locations/${location.id}`}</a></p>
+                }>
+          &#9998;  Edit 
+          
+              </div>
+              </div>
+              
+              
             </ListGroupItem>
+            
           ))}
-      </ListGroup>
+          
+      </div>
+      
     </Container>
   );
 };

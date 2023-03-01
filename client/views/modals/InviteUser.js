@@ -11,12 +11,12 @@ const InviteUserModal = ({ corporation, sendInvitation }) => {
   };
   return (
     <>
-      <Button variant="link" onClick={() => setModalShow(true)}>
-        Invite User
+      <Button className="backend-styled-edit-button" variant="link" onClick={() => setModalShow(true)}>
+       Invite User
       </Button>
 
       <Modal
-        className="noscroll"
+        className="noscroll modal-window"
         show={modalShow}
         onHide={() => setModalShow(false)}
         size="xl"
@@ -24,13 +24,16 @@ const InviteUserModal = ({ corporation, sendInvitation }) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+        <Container className="modal-container">
+          <Modal.Header className="space-between-flex">
+          <h3 id="contained-modal-title-vcenter">
             Invite User to {corporation.name}
-          </Modal.Title>
+          </h3>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>X</Button>
         </Modal.Header>
         <Modal.Body>
           <Form.Control
+            className="text-input"
             type="text"
             value={email}
             placeholder="Email"
@@ -38,9 +41,11 @@ const InviteUserModal = ({ corporation, sendInvitation }) => {
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={handleSendNewInvite}>Send</Button>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
+          <Button className="backend-styled-button" onClick={handleSendNewInvite}>Send</Button>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>Close</Button>
         </Modal.Footer>
+        </Container>
+        
       </Modal>
     </>
   );

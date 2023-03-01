@@ -81,42 +81,23 @@ const Menu = ({
     return <></>;
   }
   return (
-    <Container>
-      <Breadcrumb listProps={{ className: "ps-0 justify-content-start" }}>
-        <Breadcrumb.Item
-          onClick={() => history.push("/")}
-          style={{ color: "#4e66f8" }}
-        >
-          Corporations
-        </Breadcrumb.Item>
-        <Breadcrumb.Item
-          onClick={() => history.push(`/corporations/${corporationId}`)}
-          style={{ color: "#4e66f8" }}
-        >
-          {menu.restaurant?.corporation.name}
-        </Breadcrumb.Item>
-        <Breadcrumb.Item
-          onClick={() =>
-            history.push(
-              `/corporations/${corporationId}/restaurants/${restaurantId}`
-            )
-          }
-          style={{ color: "#4e66f8" }}
-        >
-          {menu.restaurant?.name}
-        </Breadcrumb.Item>
+    <Container id="menuComponent">
+     
+      
 
-        <Breadcrumb.Item active>{menu.name}</Breadcrumb.Item>
-      </Breadcrumb>
-
-      <Row className="d-flex justify-content-start align-items-center">
-        <h1 style={{ width: "fit-content" }}>{menu.name}</h1>
+      <Row className="space-between-flex">
+        <div>
+        <div className="center-flex-start page-path-container">
+        <div onClick={() => history.push("/")}>Dashboard</div> <p>&nbsp;/&nbsp;</p>
+        <div onClick={() => history.push(`/corporations/${corporationId}`)}>{menu.restaurant?.corporation.name}</div> <p>&nbsp;/&nbsp;</p>
+        <div onClick={() =>history.push(`/corporations/${corporationId}/restaurants/${restaurantId}`)}>{menu.restaurant?.name}</div><p>&nbsp;/&nbsp;</p>
+        <div className="active-breadcrumb" >{menu.name}</div>
+      </div>
+        <h1>Categories</h1>
+        </div>
+        
+        <div>
         <EditMenu menu={menu} allergies={allergies} />
-      </Row>
-
-      <Divider />
-      <Row className="d-flex justify-content-start align-items-center">
-        <h2 style={{ width: "fit-content" }}>Categories</h2>
         <CreateNewCategory
           {...{
             menuId,
@@ -124,63 +105,75 @@ const Menu = ({
             setCategories,
           }}
         />
+        </div>
+         
       </Row>
 
-      <ListGroup>
+      <ListGroup >
         {categories.map((category, idx) => (
-          <ListGroupItem
+          <Container
+            className="backend-category"
+            
             key={category.id}
             action
-            className="d-flex justify-content-between align-items-center"
+            style={{opacity: `${category.archived ? "0.25" : "1" }`, boxShadow: `${category.archived ? "4px 4px gray" : "4px 4px green" }`}}
           >
-            <Container
-              style={{ cursor: "pointer" }}
-              onClick={() =>
-                history.push(
-                  `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${category.id}`
-                )
-              }
-            >
-              {category.name}
-            </Container>
-            <div className="d-flex">
+            <div style={{display: "flex", maxWidth: "25px", flexWrap: "wrap", marginRight: "10px"}}>
               {idx !== 0 && (
-                <Button
+                <button
                   variant="link"
-                  className="mr-3"
+                  className="reposition-arrow"
                   onClick={() => {
                     handleReposition(idx, -1);
                   }}
                 >
-                  up
-                </Button>
+                  &#9650; 
+                </button>
               )}
               {idx !== categories.length - 1 && (
-                <Button
+                <button
+                className="reposition-arrow"
                   variant="link"
                   onClick={() => {
                     handleReposition(idx, 1);
                   }}
                 >
-                  down
-                </Button>
+                  &#9660; 
+                </button>
               )}
             </div>
-            <div className="d-flex">
-              <Form.Check
-                inline
+            <Container
+              className="backend-category-contents space-between-flex"
+              
+              >
+              <h4 className="backend-category-name hover-text" onClick={() => history.push(`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${category.id}`)}>
+                &nbsp; {category.name}
+              </h4>
+              <div >
+                <div className="center-flex">
+                  <Form.Check
+                className="backend-styled-edit-button"
+
                 label={category.archived ? "Archived" : "Active"}
                 type="switch"
                 checked={!category.archived}
                 onChange={({ target: { checked } }) =>
+                
                   handleChangeArchived({
                     checked: !checked,
                     categoryId: category.id,
                   })
-                }
+                } 
               />
+              <Button className="backend-styled-edit-button" onClick={() => history.push(`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${category.id}`)}>
+              &#9998;  Edit
+              </Button>
+                </div>
+              
+              
             </div>
-          </ListGroupItem>
+            </Container>            
+          </Container>
         ))}
       </ListGroup>
     </Container>
@@ -201,8 +194,6 @@ const mapDispatch = (dispatch) => {
   return {
     getMenu({ menuId, cb }) {
       dispatch(fetchMenu({ menuId, cb }));
-      // dispatch(fetchRestaurant(restaurantId));
-      // dispatch(fetchCorporation(corporationId));
     },
     getAllergies() {
       dispatch(fetchAllergies());

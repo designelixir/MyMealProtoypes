@@ -65,132 +65,139 @@ const EditRestaurant = ({ restaurant, updateRestaurant, deleteImage }) => {
   return (
     <>
       <Button
+      className="backend-styled-edit-button"
         variant="primary"
-        style={{ width: "fit-content" }}
         onClick={() => setModalShow(true)}
       >
-        Edit
+        &#9998; Edit Restaurant
       </Button>
 
       <Modal
-        className="noscroll"
+        className="noscroll modal-window"
         show={modalShow}
         onHide={() => setModalShow(false)}
-        size="xl"
-        // fullscreen
         aria-labelledby="contained-modal-title-vcenter"
         centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Edit Restaurant
-          </Modal.Title>
+      ><Container className="modal-container">
+        <Modal.Header className="space-between-flex">
+          <h3 id="contained-modal-title-vcenter">
+            Edit Restaurant - {restaurant.name}
+          </h3>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>X</Button>
         </Modal.Header>
         <Modal.Body>
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Name</Form.Label><br></br>
           <Form.Control
-            className="mb-3"
+            className="text-input"
             type="text"
             value={restaurantName}
             placeholder="Name"
             onChange={({ target: { value } }) => setRestaurantName(value)}
-          />
+          /><br></br>
           <Form.Label>Cross Contact Procedure</Form.Label>
           <Form.Control
-            className="mb-3"
+            className="text-area"
             type="textarea"
             as="textarea"
             rows={3}
             value={restaurantCCP}
             placeholder="Name"
             onChange={({ target: { value } }) => setRestaurantCCP(value)}
-          />
-          <Form.Label>Logo</Form.Label>
-          {!deleted.Logo ? (
-            <Row className="mt-4 mb-3">
-              <Button onClick={() => handleDeleteImage("Logo")}>Delete</Button>
-              <div className="col-lg-4">
-                <div>
+          /><br></br>
+          <Container style={{display: "flex", alignItems: "flex-start", justifyContent: "flex-start"}}>
+            <Container className="backend-upload-container">
+            <Form.Label>Logo</Form.Label><br></br>
+            {!deleted.Logo ? (
+            <Row>
+              <Button className="backend-styled-button" onClick={() => handleDeleteImage("Logo")}>Delete</Button>
+              
+                <div className="backend-image-preview">
                   <img
                     src={restaurant.logo.url}
-                    className="img-fluid rounded shadow mb-4"
+                    className="backend-photo-preview"
                   />
                 </div>
-              </div>
+              
             </Row>
           ) : (
             <>
               <Form.Control
-                className="mb-3"
                 type="file"
                 accept="image/*"
                 name="restaurantLogo"
                 placeholder="Logo"
                 onChange={handleChangeLogo}
               />
-              <Row className="mt-4 mb-3">
+              
                 {restaurantLogo && (
-                  <div className="col-lg-4">
-                    <div>
+                  
+                    <div className="backend-image-preview">
                       <img
                         src={restaurantLogo.preview}
-                        className="img-fluid rounded shadow mb-4"
+                        className="backend-photo-preview"
                       />
                     </div>
-                  </div>
+                  
                 )}
-              </Row>
             </>
           )}
-          <Form.Label>Background Image</Form.Label>
+            </Container>
+            <Container>
+
+            <Form.Label>Background Image</Form.Label><br></br>
           {!deleted.Bg ? (
-            <Row className="mt-4 mb-3">
+            <Row >
               <Button onClick={() => handleDeleteImage("Bg")}>Delete</Button>
-              <div className="col-lg-4">
-                <div>
+              
+                <div className="backend-image-preview">
                   <img
                     src={restaurant.bg.url}
-                    className="img-fluid rounded shadow mb-4"
+                    className="backend-photo-preview"
                   />
                 </div>
-              </div>
+              
             </Row>
           ) : (
             <>
               <Form.Control
-                className="mb-3"
                 type="file"
                 accept="image/*"
                 name="restaurantBG"
                 placeholder="Logo"
                 onChange={handleChangeBG}
               />
-              <Row className="mt-4 mb-3">
+              <Row >
                 {restaurantBG && (
-                  <div className="col-lg-4">
-                    <div>
+                  
+                    <div className="backend-image-preview">
                       <img
                         src={restaurantBG.preview}
-                        className="img-fluid rounded shadow mb-4"
+                        className="backend-photo-preview"
                       />
                     </div>
-                  </div>
+                  
                 )}
               </Row>
             </>
           )}
-          <Form.Label>Primary Color</Form.Label>
+            </Container>
+          </Container>
+          
+          <br></br>
+          <Form.Label>Primary Color</Form.Label><br></br>
           <SketchPicker
             color={colorHex}
             onChange={(c) =>
               setColorHex("#" + rgbHex(c.rgb.r, c.rgb.g, c.rgb.b, c.rgb.a))
             }
           />
-        </Modal.Body>
+        </Modal.Body><br></br>
         <Modal.Footer>
-          <Button onClick={handleEditRestaurant}>Update</Button>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
+          <Button className="backend-styled-button" onClick={handleEditRestaurant}>Update</Button>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>Close</Button>
         </Modal.Footer>
+      </Container>
+        
       </Modal>
     </>
   );

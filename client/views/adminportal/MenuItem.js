@@ -187,55 +187,34 @@ const MenuItem = ({
     return <></>;
   }
   return (
-    <Container>
-      <Breadcrumb listProps={{ className: "ps-0 justify-content-start" }}>
-        <Breadcrumb.Item
-          onClick={() => history.push("/")}
-          style={{ color: "#4e66f8" }}
-        >
-          Corporations
-        </Breadcrumb.Item>
-        <Breadcrumb.Item
-          onClick={() => history.push(`/corporations/${corporationId}`)}
-          style={{ color: "#4e66f8" }}
-        >
-          {menuitem.category?.menu.restaurant.corporation.name}
-        </Breadcrumb.Item>
-        <Breadcrumb.Item
-          onClick={() =>
-            history.push(
-              `/corporations/${corporationId}/restaurants/${restaurantId}`
-            )
-          }
-          style={{ color: "#4e66f8" }}
-        >
-          {menuitem.category?.menu.restaurant.name}
-        </Breadcrumb.Item>
-        <Breadcrumb.Item
-          onClick={() =>
-            history.push(
-              `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}`
-            )
-          }
-          style={{ color: "#4e66f8" }}
-        >
-          {menuitem.category?.menu.name}
-        </Breadcrumb.Item>
-        <Breadcrumb.Item
-          onClick={() =>
-            history.push(
-              `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}`
-            )
-          }
-          style={{ color: "#4e66f8" }}
-        >
-          {menuitem.category?.name}
-        </Breadcrumb.Item>
+    <Container id="menuItemComponent">
+            
 
-        <Breadcrumb.Item active>{menuitem.name}</Breadcrumb.Item>
-      </Breadcrumb>
-      <h1>{menuitem.name}</h1>
-      <Divider />
+      <div className="space-between-flex">
+        <div>
+        <div className="center-flex-start page-path-container">
+        <div onClick={() => history.push("/")}>Dashboard</div> <p>&nbsp;/&nbsp;</p>
+        <div onClick={() => history.push(`/corporations/${corporationId}`)}> {menuitem.category?.menu.restaurant.corporation.name}</div> <p>&nbsp;/&nbsp;</p>
+        <div onClick={() =>history.push(`/corporations/${corporationId}/restaurants/${restaurantId}`)}>{menuitem.category?.menu.restaurant.name}</div><p>&nbsp;/&nbsp;</p>
+        <div onClick={() =>history.push(`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}`)}>{menuitem.category?.name}</div> <p>&nbsp;/&nbsp;</p>
+        <div className="active-breadcrumb">{menuitem.name}</div>
+      </div>
+          <h1>{menuitem.name}</h1>
+        </div>
+        
+        <Button
+          className="backend-styled-button"
+            disabled={
+              menuItem.description === "" ||
+              menuItem.image === "" ||
+              menuItem.name === ""
+            }
+            onClick={handleUpdateMenuItem}
+          >
+            Update
+          </Button>
+      </div>
+      
       <MenuItemForm
         {...{
           menuItem,
@@ -258,21 +237,20 @@ const MenuItem = ({
             ? menuitem.category.menu.allergies
             : []
         }
-      />
-      <Row>
-        <Col className="d-flex justify-content-end">
+      /><br></br>
+
           <Button
+          className="backend-styled-button"
             disabled={
               menuItem.description === "" ||
               menuItem.image === "" ||
               menuItem.name === ""
             }
-            onClick={handleUpdateMenuItem}
+            onClick={{ handleUpdateMenuItem}}
           >
             Update
           </Button>
-        </Col>
-      </Row>
+       
     </Container>
   );
 };

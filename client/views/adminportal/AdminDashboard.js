@@ -46,61 +46,75 @@ const AdminDashboard = ({
     addCorporation(corporationData);
   };
   return (
-    <Container>
-      <Breadcrumb listProps={{ className: "ps-0 justify-content-start" }}>
-        <Breadcrumb.Item active>Corporations</Breadcrumb.Item>
-      </Breadcrumb>
+    <Container id="adminDashboardComponent">
+       <div className="center-flex-start page-path-container">
+        <div onClick={() => history.push("/")}>Dashboard</div>
+      </div>
 
-      <Row className="d-flex justify-content-start align-items-center">
+
+      <Row className="space-between-flex">
         <h1 style={{ width: "fit-content" }}>Corporations</h1>
-        <CreateNewCorporation />
+        <CreateNewCorporation className="styled-button" />
       </Row>
-      <Divider />
+      
       <ListGroup>
         {corporations.map((corporation) => (
-          <ListGroupItem key={corporation.id} className="mb-3">
-            <Row>
+          <ListGroupItem key={corporation.id} >
+            <Row className="space-between-flex corporations">
               <Col
+              className="hover-text"
                 onClick={() => history.push(`/corporations/${corporation.id}`)}
                 style={{ cursor: "pointer" }}
               >
                 {corporation.name}
               </Col>
-              <Col>
+              <Col className="center-flex-start">
                 <InviteUser corporation={corporation} />
+                <Button className="backend-styled-edit-button" onClick={() => history.push(`/corporations/${corporation.id}`)}>
+                &#9998;  Edit
+                </Button>
               </Col>
             </Row>
           </ListGroupItem>
         ))}
       </ListGroup>
+      <div className="backend-spacer"></div>
       <Row className="d-flex justify-content-start align-items-center">
         <h1 style={{ width: "fit-content" }}>Allergies</h1>
 
-        <Row>
-          <Col>
+        <Row style={{display: "flex", alignItems:"center", justifyContent: "flex-start"}}>
             <Form.Control
+              className="text-input"
+              style={{maxWidth: "500px!important"}}
               type="text"
               value={allergyName}
-              placeholder="Name"
+              placeholder="New Allergen Name"
               onChange={({ target: { value } }) => setAllergyName(value)}
             />
-          </Col>
-          <Col>
             <Button
+            className="backend-styled-button" style={{minWidth: "200px"}}
               onClick={() => {
                 setAllergyName("");
                 addAllergy({ name: allergyName });
               }}
             >
-              Add New
+              + Create New Allergen
             </Button>
-          </Col>
+          
         </Row>
       </Row>
-      <Divider />
-      <ListGroup>
+      
+      <ListGroup className="backend-allergy-grid">
         {allergies.map((allergy, index) => (
-          <ListGroupItem key={index}>{allergy.name}</ListGroupItem>
+          <Container className="backend-allergy-card center-flex">
+            <div style={{textAlign: "center"}}>
+            <div className="backend-allergy-image" style={{
+                      backgroundImage: `url('../../icons/allergens/${allergy.name}.png')`}}></div>
+          <p style={{lineHeight: "18px"}} key={index}>{allergy.name}</p>
+            </div>
+           
+          </Container>
+          
         ))}
       </ListGroup>
     </Container>

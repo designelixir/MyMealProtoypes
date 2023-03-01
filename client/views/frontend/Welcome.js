@@ -31,7 +31,7 @@ const Welcome = ({ match, getRestaurant, isLoading, restaurant }) => {
         className="d-flex flex-column justify-content-center"
         style={{
           backgroundImage: `url(${
-            restaurant.bg ? restaurant.bg.url : "/img/demo-background.jpeg"
+            restaurant.bg ? restaurant.bg.url : "/img/generic-bg.jpg"
           })`,
           height: "100vh",
           width: "auto",
@@ -40,7 +40,7 @@ const Welcome = ({ match, getRestaurant, isLoading, restaurant }) => {
           backgroundSize: "cover",
         }}>
 
-          <div className="gray-overlay" />
+          
 
           {hasRestrictions ? (
             <Restrictions {...{ restaurant, setHasRestrictions }} />

@@ -19,15 +19,16 @@ const EditCorporation = ({ corporation, editCorporation }) => {
   return (
     <>
       <Button
+      className="backend-styled-edit-button"
         variant="primary"
         style={{ width: "fit-content" }}
         onClick={() => setModalShow(true)}
       >
-        Edit
+        &#9998; Edit Corporation
       </Button>
 
       <Modal
-        className="noscroll"
+        className="noscroll modal-window"
         show={modalShow}
         onHide={() => setModalShow(false)}
         size="xl"
@@ -35,35 +36,40 @@ const EditCorporation = ({ corporation, editCorporation }) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Edit Corporation
-          </Modal.Title>
+        <Container className="modal-container">
+          <Modal.Header className="space-between-flex">
+          <h3 id="contained-modal-title-vcenter">
+           Edit Corporation
+          </h3>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>X</Button>
         </Modal.Header>
         <Modal.Body>
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Name</Form.Label><br></br>
           <Form.Control
-            className="mb-3"
+            className="text-input"
             type="text"
             name="name"
             value={corporationData.name}
             placeholder="Name"
             onChange={handleChange}
-          />
-          <Form.Label>Cross Contact Procedure</Form.Label>
+          /><br></br>
+          <Form.Label>Cross Contact Procedure</Form.Label><br></br>
           <Form.Control
+          className="text-area"
             type="textarea"
             as="textarea"
             name="crossContactProcedure"
             value={corporationData.crossContactProcedure}
             placeholder="Procedure"
             onChange={handleChange}
-          />
+          /><br></br>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={handleEditCorporation}>Update</Button>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
+          <Button className="backend-styled-button" onClick={handleEditCorporation}>Update</Button>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>Close</Button>
         </Modal.Footer>
+        </Container>
+        
       </Modal>
     </>
   );

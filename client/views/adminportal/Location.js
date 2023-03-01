@@ -40,44 +40,28 @@ const Location = ({ getLocation, restaurantLocation, match, isLoading }) => {
     return <></>;
   }
   return (
-    <Container>
-      <Breadcrumb listProps={{ className: "ps-0 justify-content-start" }}>
-        <Breadcrumb.Item
-          onClick={() => history.push("/")}
-          style={{ color: "#4e66f8" }}
-        >
-          Corporations
-        </Breadcrumb.Item>
-        <Breadcrumb.Item
-          onClick={() => history.push(`/corporations/${corporationId}`)}
-          style={{ color: "#4e66f8" }}
-        >
-          {restaurantLocation.menu?.restaurant.corporation.name}
-        </Breadcrumb.Item>
-        <Breadcrumb.Item
-          onClick={() =>
-            history.push(
-              `/corporations/${corporationId}/restaurants/${restaurantId}`
-            )
-          }
-          style={{ color: "#4e66f8" }}
-        >
-          {restaurantLocation.menu?.restaurant.name}
-        </Breadcrumb.Item>
-
-        <Breadcrumb.Item active>{restaurantLocation.address}</Breadcrumb.Item>
-      </Breadcrumb>
-
-      <Row className="d-flex justify-content-start align-items-center">
-        <h1 style={{ width: "fit-content" }}>{restaurantLocation.address}</h1>
+    <Container id="locationComponent">
+      
+      <div>
+      <div className="center-flex-start page-path-container">
+        <div onClick={() => history.push("/")}>Dashboard</div> <p>&nbsp;/&nbsp;</p>
+        <div onClick={() => history.push(`/corporations/${corporationId}`)}>{restaurantLocation.menu?.restaurant.corporation.name}</div> <p>&nbsp;/&nbsp;</p>
+        <div onClick={() =>history.push(`/corporations/${corporationId}/restaurants/${restaurantId}`)}>{restaurantLocation.menu?.restaurant.name}</div><p>&nbsp;/&nbsp;</p>
+        <div className="active-breadcrumb" >{restaurantLocation.address}</div>
+      </div>
+          <h1>Edit Location</h1>
+        </div>
+      <Row className="space-between-flex corporations">
+        
+        <h3>{restaurantLocation.address}</h3>
         <EditLocation
+       
           restaurantLocation={restaurantLocation}
           restaurantMenus={
             restaurantLocation.menu && restaurantLocation.menu.restaurant.menus
           }
         />
       </Row>
-      <Divider />
     </Container>
   );
 };

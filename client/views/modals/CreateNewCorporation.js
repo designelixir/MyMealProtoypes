@@ -20,14 +20,15 @@ const CreateNewCorporation = ({ addCorporation }) => {
     <>
       <Button
         variant="primary"
+        className="backend-styled-button"
         style={{ width: "fit-content" }}
         onClick={() => setModalShow(true)}
       >
-        Create
+        + Create New Corporation
       </Button>
 
       <Modal
-        className="noscroll"
+        className="noscroll modal-window"
         show={modalShow}
         onHide={() => setModalShow(false)}
         size="xl"
@@ -35,23 +36,26 @@ const CreateNewCorporation = ({ addCorporation }) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+        <Container className="modal-container">
+        <Modal.Header className="space-between-flex" >
+          <h3 id="contained-modal-title-vcenter">
             Create New Corporation
-          </Modal.Title>
+          </h3>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>X</Button>
         </Modal.Header>
         <Modal.Body>
-          <Form.Label>Corporation Name</Form.Label>
+          <Form.Label>Corporation Name</Form.Label> <br></br>
           <Form.Control
-            className="mb-3"
+            className="text-input"
             type="text"
             name="name"
             value={corporationData.name}
             placeholder="Name"
             onChange={handleChange}
-          />
-          <Form.Label>Cross Contact Procedure</Form.Label>
+          /><br></br>
+          <Form.Label>Cross Contact Procedure</Form.Label><br></br>
           <Form.Control
+            className="text-area"
             type="textarea"
             as="textarea"
             name="crossContactProcedure"
@@ -61,9 +65,11 @@ const CreateNewCorporation = ({ addCorporation }) => {
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={handleNewCorporation}>Create</Button>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
+          <Button className="backend-styled-button" onClick={handleNewCorporation}>Create</Button>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>Close</Button>
         </Modal.Footer>
+        </Container>
+        
       </Modal>
     </>
   );

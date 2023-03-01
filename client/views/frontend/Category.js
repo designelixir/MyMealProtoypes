@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Container, Row } from "react-bootstrap";
 import { fetchFrontendCategoryMenuitems } from "../../redux/reducers/frontend";
 import menuitemFilter from "../../utils/menuitemFilter";
 import MenuItemCard from "./MenuItemCard";
@@ -14,6 +13,8 @@ export const Category = ({
 }) => {
   const [filteredMenuitems, setFilteredMenuitems] = useState([]);
   const [unfilteredMenuitems, setUnfilteredMenuitems] = useState([]);
+
+  
   useEffect(() => {
     getMenuitems({
       categoryId: category.id,
@@ -30,30 +31,41 @@ export const Category = ({
     );
   }, [selectedAllergies]);
   return (
-    <Container className="p-0">
+    <div key={category.name}>
       {
-        <Container className="d-flex flex-column p-0">
-          <h3 className="mt-3" id={category.name} ref={categoryRef}>
-            {category.name}
-          </h3>
-          <Container className="menuitem-container p-0">
+        <div>
+          <div className="category-title-container">
+            <h3 id={category.name} ref={categoryRef}>
+              {category.name} - {filteredMenuitems.length}
+            </h3>
+          </div>
+          
+          <div className="category-menu-item-container">
             {filteredMenuitems.length > 0 ? (
               filteredMenuitems.map(({ type, menuitem }) => (
-                <MenuItemCard
-                  key={menuitem.id}
-                  type={type}
-                  menuitem={menuitem}
-                  primaryColor={primaryColor}
-                  selectedAllergies={selectedAllergies}
-                />
+                <div className="menu-card-wrapper">
+                  {type === "Safe" ? <>
+                  <p>No Modifications Necessary</p>
+                  </> : <></>}
+                  <MenuItemCard
+                    key={menuitem.id}
+                    type={type}
+                    menuitem={menuitem}
+                    primaryColor={primaryColor}
+                    selectedAllergies={selectedAllergies}
+                  />
+                </div>
+                
               ))
             ) : (
               <p style={{ width: "100%", textAlign: "center" }}>No Items</p>
             )}
-          </Container>
-        </Container>
+          </div>
+          
+        </div>
+        
       }
-    </Container>
+    </div>
   );
 };
 
@@ -68,6 +80,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getMenuitems(data) {
       dispatch(fetchFrontendCategoryMenuitems(data));
+      
     },
   };
 };

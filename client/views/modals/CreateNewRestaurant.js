@@ -55,89 +55,91 @@ const CreateNewRestaurant = ({
   return (
     <>
       <Button
+        className="backend-styled-button"
         variant="primary"
         style={{ width: "fit-content" }}
         onClick={() => setModalShow(true)}
       >
-        Create
+        + Create New Restaurant
       </Button>
 
       <Modal
-        className="noscroll"
+        className="noscroll modal-window"
         show={modalShow}
         onHide={() => setModalShow(false)}
-        size="xl"
         // fullscreen
         aria-labelledby="contained-modal-title-vcenter"
         centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+      ><Container className="modal-container">
+        <Modal.Header className="space-between-flex">
+          <h3 id="contained-modal-title-vcenter">
             Create New Restaurant
-          </Modal.Title>
+          </h3>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>X</Button>
         </Modal.Header>
         <Modal.Body>
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Name</Form.Label><br></br>
           <Form.Control
-            className="mb-3"
+            className="text-input"
             type="text"
             value={restaurantName}
             placeholder="Name"
             onChange={({ target: { value } }) => setRestaurantName(value)}
-          />
-          <Form.Label>Cross Contact Procedure</Form.Label>
+          /><br></br>
+          <Form.Label>Cross Contact Procedure</Form.Label><br></br>
           <Form.Control
-            className="mb-3"
+            className="text-area"
             type="textarea"
             as="textarea"
             rows={3}
             value={restaurantCCP}
-            placeholder="Name"
+            placeholder="Cross Contact Procedure"
             onChange={({ target: { value } }) => setRestaurantCCP(value)}
-          />
-          <Form.Label>Logo</Form.Label>
+          /><br></br>
+          <Container style={{display: "flex", alignItems: "flex-start", justifyContent: "flex-start"}}>
+            <Container className="backend-upload-container">
+            <Form.Label>Logo</Form.Label><br></br>
           <Form.Control
-            className="mb-3"
             type="file"
             accept="image/*"
             name="restaurantLogo"
             placeholder="Logo"
             onChange={handleChangeLogo}
           />
-          <Row className="mt-4 mb-3">
             {restaurantLogo && (
-              <div className="col-lg-4">
-                <div>
+                <div className="backend-image-preview">
                   <img
                     src={restaurantLogo.preview}
-                    className="img-fluid rounded shadow mb-4"
+                    className="backend-photo-preview"
                   />
                 </div>
-              </div>
             )}
-          </Row>
-          <Form.Label>Background Image</Form.Label>
+          
+            </Container>
+
+            <Container className="backend-upload-container">
+              <Form.Label>Background Image</Form.Label><br></br>
           <Form.Control
-            className="mb-3"
             type="file"
             accept="image/*"
             name="restaurantBG"
             placeholder="Logo"
             onChange={handleChangeBG}
           />
-          <Row className="mt-4 mb-3">
+          
             {restaurantBG && (
-              <div className="col-lg-4">
-                <div>
+                <div className="backend-image-preview">
                   <img
                     src={restaurantBG.preview}
-                    className="img-fluid rounded shadow mb-4"
+                    className="backend-photo-preview"
                   />
                 </div>
-              </div>
             )}
-          </Row>
-          <Form.Label>Primary Color</Form.Label>
+          </Container>
+          </Container><br></br>
+          
+          
+          <Form.Label>Primary Color</Form.Label><br></br>
           <SketchPicker
             color={colorHex}
             onChange={(c) =>
@@ -145,10 +147,13 @@ const CreateNewRestaurant = ({
             }
           />
         </Modal.Body>
+        <br></br>
         <Modal.Footer>
-          <Button onClick={handleNewRestaurant}>Create</Button>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
+          <Button className="backend-styled-button" onClick={handleNewRestaurant}>Create</Button>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>Close</Button>
         </Modal.Footer>
+      </Container>
+        
       </Modal>
     </>
   );

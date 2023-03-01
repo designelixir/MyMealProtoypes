@@ -42,119 +42,133 @@ const EditLocation = ({
   return (
     <>
       <Button
+        className = "backend-styled-edit-button"
         variant="primary"
-        style={{ width: "fit-content" }}
         onClick={() => setModalShow(true)}
       >
-        Edit
+      &#9998;  Edit Location
       </Button>
 
       <Modal
-        className="noscroll"
+        className="noscroll modal-window"
         show={modalShow}
         onHide={() => setModalShow(false)}
         size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+        <Container className="modal-container">
+<Modal.Header className="space-between-flex">
+          <h3 id="contained-modal-title-vcenter">
             Edit Location
-          </Modal.Title>
+          </h3>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>X</Button>
         </Modal.Header>
         <Modal.Body>
-          <Form.Label>Cross Contact Procedure</Form.Label>
+          <Form.Label>Cross Contact Procedure</Form.Label><br></br>
           <Form.Control
-            className="mb-3"
+            className="text-area"
             type="textarea"
             as="textarea"
             name="crossContactProcedure"
             value={locationData.crossContactProcedure}
             placeholder="Procedure"
             onChange={handleChange}
-          />
-
-          <Form.Label>Street One</Form.Label>
-          <Form.Control
-            className="mb-3"
-            type="text"
-            name="streetOne"
-            value={locationData.streetOne}
-            placeholder="Street One"
-            onChange={handleChange}
-          />
-          <Form.Label>Street Two</Form.Label>
-          <Form.Control
-            className="mb-3"
-            type="text"
-            name="streetTwo"
-            value={locationData.streetTwo}
-            placeholder="Street Two"
-            onChange={handleChange}
-          />
-          <Row>
-            <Col>
-              <Form.Label>City</Form.Label>
+          /><br></br><br></br>
+          
+            <div>
+              <Form.Label>Street One</Form.Label><br></br>
               <Form.Control
-                className="mb-3"
+                className="text-input"
+                type="text"
+                name="streetOne"
+                value={locationData.streetOne}
+                placeholder="Street One"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Form.Label>Street Two</Form.Label><br></br>
+              <Form.Control
+                className="text-input"
+                type="text"
+                name="streetTwo"
+                value={locationData.streetTwo}
+                placeholder="Street Two"
+                onChange={handleChange}
+              />
+            </div>
+          
+
+          <div className="center-flex-start" style={{flexWrap: "wrap"}}>
+              <div>
+            <Form.Label>City</Form.Label><br></br>
+              <Form.Control
+                className="small-text-input"
+                style={{width: "200px!important"}}
                 type="text"
                 name="city"
                 value={locationData.city}
                 placeholder="City"
                 onChange={handleChange}
-              />
-            </Col>
-            <Col>
-              <Form.Label>State</Form.Label>
+              /></div>
+              <div>
+                <Form.Label>State</Form.Label><br></br>
               <Form.Control
-                className="mb-3"
+                className="small-text-input"
+                style={{width: "100px"}}
                 type="text"
                 name="state"
                 value={locationData.state}
                 placeholder="State"
                 onChange={handleChange}
-              />
-            </Col>
-            <Col>
-              <Form.Label>Zip</Form.Label>
+              /></div>
+              <div>
+                <Form.Label>Zip Code</Form.Label><br></br>
               <Form.Control
-                className="mb-3"
+                className="small-text-input"
                 type="text"
                 name="zip"
                 value={locationData.zip}
                 placeholder="Zip"
                 onChange={handleChange}
               />
-            </Col>
-          </Row>
-          <Form.Label>Country</Form.Label>
+              </div>
+              <div>
+              <Form.Label>Country</Form.Label><br></br>
           <Form.Control
-            className="mb-3"
+            className="small-text-input"
             type="text"
             name="country"
             value={locationData.country}
-            placeholder="Country"
+            placeholder="United States of America"
             onChange={handleChange}
           />
-          <Form.Label>Menu</Form.Label>
+              </div>
+          </div>
+          <br></br>
+          <Form.Label>Select Menu</Form.Label><br></br>
           <Form.Select
             aria-label="Select Menu"
             onChange={handleSelect}
             style={{ width: "50%" }}
             value={locationMenuId}
-          >
-            <option>Select menu</option>
+          ><br></br>
+            <option className="backend-drop-down">Select Menu</option>
             {restaurantMenus.map((menu) => (
-              <option key={menu.id} value={menu.id}>
+              <option className="backend-drop-down" key={menu.id} value={menu.id}>
                 {menu.name}
               </option>
             ))}
           </Form.Select>
+          <div className="backend-spacer"></div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={handleEditLocation}>Update</Button>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
+          <Button className="backend-styled-button" onClick={handleEditLocation}>Update</Button>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>Close</Button>
         </Modal.Footer>
+        </Container>
+        
       </Modal>
     </>
   );

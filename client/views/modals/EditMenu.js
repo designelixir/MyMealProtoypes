@@ -36,61 +36,61 @@ const EditMenu = ({ menu, editMenu, allergies }) => {
   return (
     <>
       <Button
+      className="backend-styled-edit-button"
         variant="primary"
-        style={{ width: "fit-content" }}
         onClick={() => setModalShow(true)}
-      >
-        Edit
-      </Button>
+      >&#9998; Edit Menu</Button>
 
       <Modal
-        className="noscroll"
+        className="noscroll modal-window"
         show={modalShow}
         onHide={() => setModalShow(false)}
-        size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Edit Menu
-          </Modal.Title>
+        <Container className="modal-container">
+          <Modal.Header className="space-between-flex">
+          <h3 id="contained-modal-title-vcenter">
+            Edit Menu - {menu.name}
+          </h3>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>X</Button>
         </Modal.Header>
         <Modal.Body>
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Name</Form.Label><br></br>
           <Form.Control
-            className="mb-3"
+            className="text-input"
             type="text"
             name="name"
             value={menuData.name}
             placeholder="Name"
             onChange={handleChange}
-          />
-          <Form.Label>Dedicated from</Form.Label>
+          /><br></br>
+          <Form.Label>Dedicated Free from</Form.Label><br></br>
           <Form.Control
-            className="mb-3"
+            className="text-area"
             type="textarea"
             as="textarea"
             name="dedicatedFrom"
             value={menuData.dedicatedFrom}
             placeholder="Procedure"
             onChange={handleChange}
-          />
-          <Form.Label>Order now (Include https://)</Form.Label>
+          /><br></br>
+          <Form.Label>Order now (Include https://)</Form.Label><br></br>
           <Form.Control
-            className="mb-3"
+            className="text-input"
             type="text"
             name="orderNow"
             value={menuData.orderNow}
             placeholder="Order now"
             onChange={handleChange}
-          />
-          <Form.Label>Allergies</Form.Label>
-          <Container>
+          /><br></br>
+          <Form.Label>Allergies</Form.Label><br></br>
+          <Container className="backend-allergy-grid">
             {allergies.map((allergy) => (
               <Form.Check
                 key={allergy.id}
                 inline
+                className="backend-checkbox"
                 type="checkbox"
                 label={allergy.name}
                 name={allergy.name}
@@ -107,12 +107,14 @@ const EditMenu = ({ menu, editMenu, allergies }) => {
                 }
               />
             ))}
-          </Container>
+          </Container><br></br>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={handleEditMenu}>Update</Button>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
+          <Button className="backend-styled-button" onClick={handleEditMenu}>Update</Button>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>Close</Button>
         </Modal.Footer>
+        </Container>
+        
       </Modal>
     </>
   );

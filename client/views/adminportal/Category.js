@@ -187,152 +187,119 @@ const Category = ({
     return <></>;
   }
   return (
-    <Container>
-      <Breadcrumb listProps={{ className: "ps-0 justify-content-start" }}>
-        <Breadcrumb.Item
-          onClick={() => history.push("/")}
-          style={{ color: "#4e66f8" }}
-        >
-          Corporations
-        </Breadcrumb.Item>
-        <Breadcrumb.Item
-          onClick={() => history.push(`/corporations/${corporationId}`)}
-          style={{ color: "#4e66f8" }}
-        >
-          {category.menu?.restaurant.corporation.name}
-        </Breadcrumb.Item>
-        <Breadcrumb.Item
-          onClick={() =>
-            history.push(
-              `/corporations/${corporationId}/restaurants/${restaurantId}`
-            )
-          }
-          style={{ color: "#4e66f8" }}
-        >
-          {category.menu?.restaurant.name}
-        </Breadcrumb.Item>
-        <Breadcrumb.Item
-          onClick={() =>
-            history.push(
-              `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}`
-            )
-          }
-          style={{ color: "#4e66f8" }}
-        >
-          {category.menu?.name}
-        </Breadcrumb.Item>
+    <Container id="categoryComponent">
+      
+    
+      <Row className="space-between-flex">
+        <div>
+        <div className="center-flex-start page-path-container">
+        <div onClick={() => history.push("/")}>Dashboard</div> <p>&nbsp;/&nbsp;</p>
+        <div onClick={() => history.push(`/corporations/${corporationId}`)}>{category.menu?.restaurant.corporation.name}</div> <p>&nbsp;/&nbsp;</p>
+        <div onClick={() => history.push(`/corporations/${corporationId}/restaurants/${restaurantId}`)}>{category.menu?.restaurant.name}</div><p>&nbsp;/&nbsp;</p>
+        <div onClick={() => history.push(`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}`)}>{category.menu?.name}</div> <p>&nbsp;/&nbsp;</p>
+        <div className="active-breadcrumb">{category.name}</div>
+      </div>
+          <h1>Menu Items</h1>
+        </div>
 
-        <Breadcrumb.Item active>{category.name}</Breadcrumb.Item>
-      </Breadcrumb>
-      <Row className="d-flex justify-content-start align-items-center">
-        <h1 style={{ width: "fit-content" }}>{category.name}</h1>
-        <EditCategory category={category} />
-      </Row>
-      <Divider />
-      <Row>
-        <Col>
-          <h2>Menu Items</h2>
-        </Col>
-        <Col>
+        <div>
+          <EditCategory category={category} />
           <Button
+            className="backend-styled-button"
             onClick={() => handleAddMenuItem(category.menu.allergies)}
             disabled={!!!category.menu}
           >
-            Add Menu Item
+            + Add Menu Item
           </Button>
-        </Col>
+        </div>
       </Row>
       {creating && (
         <>
-          <MenuItemForm
-            {...{
-              menuItem,
-              handleChangeMenuItem,
-              priceType,
-              setPriceType,
-              priceTypes,
-              handleChangePriceTypes,
-              handleAddPriceTypes,
-              handleRemovePriceTypes,
-              allergyTypes,
-              handleChangeAllergyTypes,
-              handleChangeImage,
-              menuitemImage,
-            }}
-            menuitemAllergies={category.menu ? category.menu.allergies : []}
-            deleted={true}
-          />
-          <Row>
-            <Col>
+          <Container className="new-menu-item" key={menuItem.id}>
+          <div className="space-between-flex">
+            <h3>Create New Menu Item</h3>
+            <Button  className="backend-styled-button" onClick={resetMenuItem}>Cancel - X</Button>
+          </div>
+            <MenuItemForm
+              {...{
+                menuItem,
+                handleChangeMenuItem,
+                priceType,
+                setPriceType,
+                priceTypes,
+                handleChangePriceTypes,
+                handleAddPriceTypes,
+                handleRemovePriceTypes,
+                allergyTypes,
+                handleChangeAllergyTypes,
+                handleChangeImage,
+                menuitemImage,
+              }}
+              menuitemAllergies={category.menu ? category.menu.allergies : []}
+              deleted={true}
+            />
+          <div className="center-flex-start">
               <Button
+              className="backend-styled-button"
                 disabled={menuItem.description === "" || menuItem.name === ""}
                 onClick={handleNewMenuItem}
               >
                 Create
               </Button>
-            </Col>
-            <Col>
-              <Button onClick={resetMenuItem}>Cancel</Button>
-            </Col>
-          </Row>
+            
+              <Button  className="backend-styled-button" onClick={resetMenuItem}>Cancel</Button>
+            </div>
+          </Container>
+
+          
         </>
       )}
 
       <ListGroup>
         {menuitems.map((menuitem, idx) => (
-          <ListGroupItem
-            key={menuitem.id}
-            className="d-flex justify-content-between align-items-center"
-            action
-            style={{ cursor: "pointer" }}
-          >
-            <Container
-              onClick={() =>
-                history.push(
-                  `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}/menuitems/${menuitem.id}`
-                )
-              }
-              style={{ cursor: "pointer" }}
-            >
-              <Row className="d-flex align-items-center">
-                <Col
-                  lg={3}
-                  // style={{ width: 100 }}
-                  className="d-flex justify-content-center align-items-center"
-                >
+          <div key={menuitem.id} action className="backend-menu-item space-between-flex" style={{opacity: `${menuitem.archived ? "0.25" : "1" }`, boxShadow: `${menuitem.archived ? "4px 4px gray" : "4px 4px green" }`}}>
+              <div className="center-flex">
+                <div style={{maxWidth: "20px", marginRight: "10px"}}>
+                  {idx !== 0 && (
+                    <Button
+                      variant="link"
+                      className="reposition-arrow"
+                      onClick={() => {
+                        handleReposition(idx, -1);
+                      }}
+                    >
+                      &#9206;
+                    </Button>
+                  )}
+                  {idx !== menuitems.length - 1 && (
+                    <Button
+                      className="reposition-arrow"
+                      variant="link"
+                      onClick={() => {
+                        handleReposition(idx, 1);
+                      }}
+                    >
+                      &#9207;
+                    </Button>
+                  )}
+                </div>
+                <div className="center-flex " style={{padding: "10px", textAlign: "left"}}>
                   <img
-                    style={{ width: "auto", height: 50 }}
-                    src={menuitem.image ? menuitem.image.url : ""}
+                    style={{ width: "auto", height: 100}}
+                    src={
+                      menuitem.image ? menuitem.image.url : "/icons/gallery.png"
+                    }
                     className="img-fluid rounded shadow"
                   />
-                </Col>
-                <Col>{menuitem.name}</Col>
-              </Row>
-            </Container>
-            <div className="d-flex">
-              {idx !== 0 && (
-                <Button
-                  variant="link"
-                  className="mr-3"
-                  onClick={() => {
-                    handleReposition(idx, -1);
-                  }}
-                >
-                  up
-                </Button>
-              )}
-              {idx !== menuitems.length - 1 && (
-                <Button
-                  variant="link"
-                  onClick={() => {
-                    handleReposition(idx, 1);
-                  }}
-                >
-                  down
-                </Button>
-              )}
-            </div>
-            <div className="d-flex">
+                  <p className="backend-item-title hover-text" onClick={() =>
+            history.push(
+              `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}/menuitems/${menuitem.id}`
+            )
+          }>{menuitem.name}</p>
+                </div>
+              </div>
+              <div className="center-flex" >
+            <div className="backend-styled-edit-button">
               <Form.Check
                 inline
                 label={menuitem.archived ? "Archived" : "Active"}
@@ -350,7 +317,16 @@ const Category = ({
               menuitemId={menuitem.id}
               menuCategories={category.menu.categories}
             />
-          </ListGroupItem>
+            <Button className="backend-styled-edit-button" onClick={() =>
+            history.push(
+              `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}/menuitems/${menuitem.id}`
+            )
+          }> &#9998; Edit
+
+            </Button>
+          </div>
+          
+          </div>
         ))}
       </ListGroup>
     </Container>

@@ -1,0 +1,88 @@
+/* AdminDashboard.js */
+#adminDashboardComponent {margin: 50px;}
+.corporations {padding: 15px 10px; margin: 15px 0px; border: 1px solid rgba(174, 154, 154, 0.5); border-radius: 6px; font-size: 18px!important;}
+.backend-styled-button {background-color: #4F9BD6; color: white; padding: 10px 15px; margin:5px 10px 5px 0px; border-radius: 6px; border: none; font-family: "poppins"; font-size: 14px; }
+.backend-styled-button:hover {cursor: pointer; transform: scale(1.1)}
+
+.backend-styled-edit-button {background-color: #eeeeee; color: black; padding: 10px 15px; margin:5px 10px 5px 0px; border-radius: 6px; border: none; font-family: "poppins"; font-size: 14px; }
+.backend-styled-edit-button:hover {cursor: pointer; transform: scale(1.1); background-color: #e2e2e2}
+
+.backend-upload-container {width: 50%;}
+.modal-window {width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; background-color: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; overflow-y: scroll;}
+.modal-container {padding: 25px!important; background: white; border-radius: 6px; margin: 50px; border: 1px solid black; overflow-y: scroll; object-fit: contain;}
+
+.text-input {padding: 10px 5px; width: 95%; margin: 10px 10px 10px 0px!important; font-family: "poppins"; font-size: 14px; line-height: 20px; }
+.text-area {padding: 10px 5px; width: calc(100% - 20px); margin: 10px 10px 10px 0px!important ; font-family: "poppins"; font-size: 14px; line-height: 20px; }
+.small-text-input {padding: 10px 5px; width: calc(100% - 20px); margin: 10px 25px 10px 0px; font-family: "poppins"; font-size: 14px; line-height: 20px; }
+
+
+.backend-spacer {width: 100%; padding: 25px 0px;}
+
+.breadcrumb-container {display: flex!important; align-items: center; justify-content: flex-start; list-style: none;}
+.breadcrumb {color: black!important; font-size: 16px; }
+
+.backend-allergy-grid {display: flex; align-items: flex-start; justify-content: flex-start; flex-wrap: wrap;}
+.backend-allergy-card {padding: 10px 5px!important; border: 1px solid black; border-radius: 6px; text-align: center; width: 100px!important; height: 125px; margin: 8px 8px 8px 0px;}
+.backend-allergy-image {height: 80px; width: 80px; background-size: contain; background-position: center center; background-repeat: no-repeat;}
+
+/* Corporation.js */
+#corporationComponent {margin: 50px;}
+
+.backend-image-preview {width: 40%; height: 200px; object-fit: contain; }
+.backend-photo-preview {width: auto; height: 100%;}
+
+/* Nav.js */
+.backend-nav {padding: 15px; background-color: #eeeeee;}
+
+/* Restaurant.js */
+#restaurantComponent {margin: 50px;}
+.backend-checkbox {padding-right: 10px;}
+
+/* Category.js */
+#categoryComponent {margin: 50px;}
+.new-menu-item {padding: 25px!important; border: 1px solid black; border-radius: 6px;}
+
+/* Menu.js */
+#menuComponent {margin: 50px;}
+.backend-category {border: 1px solid gray; border-radius: 6px; margin-bottom: 25px; padding: 10px 15px!important; display: flex; align-items: center; justify-content: flex-start;}
+.backend-category-contents {padding: 10px; cursor: pointer; width: 100%;}
+.reposition-arrow {padding: 5px 10px; margin: 2px; border-radius: 6px; }
+.reposition-arrow:hover {border: 1px solid black; cursor: pointer;}
+.active-category-switch { width: 100px;}
+.backend-category-name {font-size: 18px; line-height: 24px; font-weight: 400; width: calc(80% - 80px)}
+
+@media screen and (max-width: 800px) {
+    #categoryComponent, #menuComponent, #corporationComponent, #adminDashboardComponent, #menuItemComponent, #locationComponent, #restaurantComponent {margin: 25px}
+    .modal-container {margin:25px;}
+    .half-col {min-width: 100%}
+    .safety-container:first-child {border-right: 1px solid rgba(0,0,0,0) ; border-bottom: 1px solid black;}
+}
+
+#locationComponent {margin: 50px;}
+/* EditLocation.js */
+.form-select {padding: 10px 5px; font-family: "poppins"; background: white; border: 1px solid black; border-radius: 6px;}
+
+.backend-switcher {background: white; border-radius: 25px; border: 1px solid black;  padding: 1px}
+.switcher-circle {border-radius: 25px; background: green; height: 25px; width: 25px;}
+
+.switcher[switch] {background-color: green!important;}
+
+.safety-container { padding: 15px 25px; flex-grow: 1; height: 100%;  }
+.allergen-type-container { display: flex; align-items: flex-start; background: #eeeeee; border-radius: 6px; margin: 10px 0px;}
+
+.backend-allergen-card {background: white; width: 100px;  padding: 15px; border-radius: 6px 0px 0px 6px; height: 100%!important;}
+.safety-container-wrapper {display: inline-flex; align-items: flex-start; justify-content: flex-start; flex-wrap: wrap;}
+
+.half-col {min-width: 50%;}
+.safety-container:first-child {border-right: 1px solid black;}
+
+#menuItemComponent {margin: 50px}
+
+.backend-item-title {text-align: left; margin-left: 15px; font-family: "poppins"; font-size: "22px!important";}
+.backend-menu-item {border: 1px solid black; border-radius: 6px; padding: 0px 10px; margin: 10px 0px;}
+
+.active-breadcrumb {font-weight: 600;}
+.page-path-container {  color: gray;  flex-wrap: wrap!important;  margin-bottom: -25px;}
+.page-path-container div {white-space: nowrap;  }
+.page-path-container p {line-height: 0px;}
+.page-path-container div:hover {cursor: pointer; font-weight: 600; }

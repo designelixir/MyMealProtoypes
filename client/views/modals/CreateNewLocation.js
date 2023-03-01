@@ -53,25 +53,28 @@ const CreateNewLocation = ({
   return (
     <>
       <Button
+      className="backend-styled-button"
         variant="primary"
-        style={{ width: "fit-content" }}
+        
         onClick={() => setModalShow(true)}
       >
-        Create
+        + Create New Location
       </Button>
 
       <Modal
-        className="noscroll"
+        className="noscroll modal-window"
         show={modalShow}
         onHide={() => setModalShow(false)}
         size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+        <Container className="modal-container">
+<Modal.Header className="space-between-flex">
+          <h3 id="contained-modal-title-vcenter">
             Create New Location
-          </Modal.Title>
+          </h3>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>X</Button>
         </Modal.Header>
         <Modal.Body>
           <Row>
@@ -85,9 +88,9 @@ const CreateNewLocation = ({
           </Row>
           {createSingle ? (
             <>
-              <Form.Label>Cross Contact Procedure</Form.Label>
+              <Form.Label>Cross Contact Procedure</Form.Label><br></br>
               <Form.Control
-                className="mb-3"
+                className="text-area"
                 type="textarea"
                 as="textarea"
                 name="crossContactProcedure"
@@ -95,77 +98,74 @@ const CreateNewLocation = ({
                 placeholder="Procedure"
                 onChange={handleChange}
               />
-
-              <Form.Label>Street One</Form.Label>
+              <div className="backend-spacer"></div>
+              <Form.Label>Street One</Form.Label><br></br>
               <Form.Control
-                className="mb-3"
+                className="text-input"
                 type="text"
                 name="streetOne"
                 value={locationData.streetOne}
                 placeholder="Street One"
                 onChange={handleChange}
-              />
-              <Form.Label>Street Two</Form.Label>
+              /><br></br>
+              <Form.Label>Street Two</Form.Label><br></br>
               <Form.Control
-                className="mb-3"
+                className="text-input"
                 type="text"
                 name="streetTwo"
                 value={locationData.streetTwo}
                 placeholder="Street Two"
                 onChange={handleChange}
-              />
-              <Row>
-                <Col>
-                  <Form.Label>City</Form.Label>
+              /><br></br>
+
+              <div className="center-flex-start" style={{flexWrap: "wrap"}}>
+                <div><Form.Label>City</Form.Label><br></br>
                   <Form.Control
-                    className="mb-3"
+                    className="small-text-input"
                     type="text"
                     name="city"
                     value={locationData.city}
                     placeholder="City"
                     onChange={handleChange}
-                  />
-                </Col>
-                <Col>
-                  <Form.Label>State</Form.Label>
+                  /></div>
+                <div><Form.Label>State</Form.Label> <br></br>
                   <Form.Control
-                    className="mb-3"
+                    className="small-text-input"
                     type="text"
                     name="state"
                     value={locationData.state}
                     placeholder="State"
                     onChange={handleChange}
-                  />
-                </Col>
-                <Col>
-                  <Form.Label>Zip</Form.Label>
+                  /></div>
+                <div><Form.Label>Zip</Form.Label><br></br>
                   <Form.Control
-                    className="mb-3"
+                    className="small-text-input"
                     type="text"
                     name="zip"
                     value={locationData.zip}
                     placeholder="Zip"
                     onChange={handleChange}
-                  />
-                </Col>
-              </Row>
-              <Form.Label>Country</Form.Label>
+                  /></div>
+              </div>
+              
+              <Form.Label>Country</Form.Label><br></br>
               <Form.Control
-                className="mb-3"
+                className="text-input"
                 type="text"
                 name="country"
                 value={locationData.country}
                 placeholder="Country"
                 onChange={handleChange}
               />
-              <Form.Label>Menu</Form.Label>
+              <div className="backend-spacer"></div>
+              <Form.Label>Menu</Form.Label><br></br>
               <Form.Select
                 aria-label="Select Menu"
                 onChange={handleSelect}
                 style={{ width: "50%" }}
                 value={locationMenuId}
               >
-                <option>Select menu</option>
+                <option>Select Menu</option>
                 {restaurantMenus.map((menu) => (
                   <option key={menu.id} value={menu.id}>
                     {menu.name}
@@ -175,7 +175,7 @@ const CreateNewLocation = ({
             </>
           ) : (
             <>
-              <Form.Label>CSV</Form.Label>
+              <Form.Label>CSV</Form.Label><br></br>
               <Form.Control
                 className="mb-3"
                 type="file"
@@ -184,14 +184,15 @@ const CreateNewLocation = ({
                 placeholder="CSV"
                 onChange={({ target: { files } }) => setCsvFile(files[0])}
               />
-              <Form.Label>Menu</Form.Label>
+              <div className="backend-spacer"></div>
+              <Form.Label>Menu</Form.Label><br></br>
               <Form.Select
                 aria-label="Select Menu"
                 onChange={handleSelect}
                 style={{ width: "50%" }}
                 value={locationMenuId}
               >
-                <option>Select menu</option>
+                <option>Select Menu</option>
                 {restaurantMenus.map((menu) => (
                   <option key={menu.id} value={menu.id}>
                     {menu.name}
@@ -200,7 +201,7 @@ const CreateNewLocation = ({
               </Form.Select>
             </>
           )}
-        </Modal.Body>
+        </Modal.Body><br></br>
         <Modal.Footer>
           <Button
             // disabled={
@@ -215,11 +216,14 @@ const CreateNewLocation = ({
             //   locationMenuId === ""
             // }
             onClick={handleCreateLocation}
+            className="backend-styled-button"
           >
-            Create
+            Create Location
           </Button>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>Close</Button>
         </Modal.Footer>
+        </Container>
+        
       </Modal>
     </>
   );

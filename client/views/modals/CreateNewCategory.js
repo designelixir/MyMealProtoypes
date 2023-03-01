@@ -46,30 +46,29 @@ const CreateNewCategory = ({
     <>
       <Button
         variant="primary"
-        style={{ width: "fit-content" }}
+        className="backend-styled-button"
         onClick={() => setModalShow(true)}
       >
-        Create
+        &#65291; Create New Category
       </Button>
 
       <Modal
-        className="noscroll"
+        className="noscroll modal-window"
         show={modalShow}
         onHide={() => setModalShow(false)}
-        size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Create New Category
-          </Modal.Title>
+        <Container className="modal-container">
+          <Modal.Header className="space-between-flex">
+          <h3 id="contained-modal-title-vcenter">Create New Category</h3>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>X</Button>
         </Modal.Header>
         <Modal.Body>
           <Row>
             <Form.Check
               inline
-              label={createSingle ? "Single" : "Multiple"}
+              label={createSingle ? "Create Multiple (CSV)" : "Single"}
               type="switch"
               checked={!createSingle}
               onChange={({ target: { checked } }) => setCreateSingle(!checked)}
@@ -77,17 +76,18 @@ const CreateNewCategory = ({
           </Row>
           {createSingle ? (
             <>
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Name</Form.Label><br></br>
               <Form.Control
                 type="text"
+                className="text-input"
                 value={categoryName}
                 placeholder="Name"
                 onChange={({ target: { value } }) => setCategoryName(value)}
-              />
+              /><br></br>
             </>
           ) : (
             <>
-              <Form.Label>CSV</Form.Label>
+              <Form.Label>CSV</Form.Label><br></br>
               <Form.Control
                 className="mb-3"
                 type="file"
@@ -98,11 +98,13 @@ const CreateNewCategory = ({
               />
             </>
           )}
-        </Modal.Body>
+        </Modal.Body><br></br>
         <Modal.Footer>
-          <Button onClick={handleNewCategory}>Create</Button>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
+          <Button className="backend-styled-button" onClick={handleNewCategory}>Create</Button>
+          <Button className="backend-styled-button" onClick={() => setModalShow(false)}>Close</Button>
         </Modal.Footer>
+        </Container>
+        
       </Modal>
     </>
   );

@@ -15,42 +15,45 @@ const EditCategory = ({ category, editCategory }) => {
   return (
     <>
       <Button
+      className="backend-styled-edit-button"
         variant="primary"
         style={{ width: "fit-content" }}
         onClick={() => setModalShow(true)}
       >
-        Edit
+       &#9998; Edit Category
       </Button>
 
       <Modal
-        className="noscroll"
+        className="noscroll modal-window"
         show={modalShow}
         onHide={() => setModalShow(false)}
-        size="xl"
-        // fullscreen
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Edit Category
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            className="mb-3"
-            type="text"
-            name="name"
-            value={categoryName}
-            placeholder="Name"
-            onChange={({ target: { value } }) => setCategoryName(value)}
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={handleEditCategory}>Update</Button>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
-        </Modal.Footer>
+        <Container className="modal-container">
+          <Modal.Header className="space-between-flex">
+            <h3 id="contained-modal-title-vcenter">
+              Edit Category
+            </h3>
+            <Button className="backend-styled-button" onClick={() => setModalShow(false)}>X</Button>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Label>Name</Form.Label><br></br>
+            <Form.Control
+              className="text-input"
+              type="text"
+              name="name"
+              value={categoryName}
+              placeholder="Name"
+              onChange={({ target: { value } }) => setCategoryName(value)}
+            /><br></br>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button className="backend-styled-button" onClick={handleEditCategory}>Update</Button>
+            <Button className="backend-styled-button" onClick={() => setModalShow(false)}>Close</Button>
+          </Modal.Footer>
+        </Container>
+        
       </Modal>
     </>
   );

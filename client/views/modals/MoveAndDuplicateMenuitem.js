@@ -19,11 +19,11 @@ const MoveAndDuplicateMenuitem = ({
   return (
     <>
       <Button
+      className="backend-styled-edit-button"
         variant="primary"
-        style={{ width: "fit-content" }}
         onClick={() => setModalShow(true)}
       >
-        Duplicate to
+        Duplicate To...
       </Button>
 
       <Modal
