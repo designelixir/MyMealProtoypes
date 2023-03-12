@@ -23,7 +23,12 @@ Confirm the database exists.
 `cd server`
 `sequelize init --force`
 
+Create an .env file with the following:
+`JWT = bigbigtrucks
+FAST_REFRESH = true`
+
 `npm run build:dev & npm run start-server`
 
 Problems? 
 `killall -9 node` and restart.
+
