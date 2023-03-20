@@ -73,7 +73,8 @@ button {border: none!important;}
 .select-allergens-grid { width: 100%; flex-wrap: wrap; align-items: flex-start!important;}
 
 .allergy-card-wrapper { padding: 0px 0px 10px 5px;}
-.allergen-card { cursor: pointer; width: 100px; padding: 5px;  background-color: white; text-align: center;  border: 1px solid black; border-radius: 6px; }
+.allergen-title {line-height: 14px; height: 40px; margin: 0!important; padding-top: 5px;}
+.allergen-card { cursor: pointer; width: 100px; padding: 5px; min-height: 140px;  background-color: white; text-align: center;  border: 1px solid black; border-radius: 6px; }
 .selected-allergen {background: #eeeeee; border: 4px solid black; font-weight: 600;}
 
 .dedicated-banner-container {height: 25px; width: 128px; pointer-events: none; transform: translateY(100px) translateX(-8px);}
@@ -84,7 +85,7 @@ button {border: none!important;}
 .checkbox-container { width: 120px; height: 30px; display: flex; align-items: flex-end; justify-content: flex-end; transform: translateY(40px)}
 .checkbox {display: none; height: 20px; width: 20px; border: 2px solid black; background: white; border-radius: 6px;}
 .checkmark {height: 25px; margin-left: -20px; transform: translateY(-8px)}
-.allergen-image-container {height: 80px; width: 70px; margin-bottom: 25px; background-size: contain; background-position: center center; background-repeat: no-repeat; }
+.allergen-image-container {height: 100%; min-height: 80px; width: 90px; background-size: contain; background-position: center center; background-repeat: no-repeat; }
 .cross-contamination-container { background-color: #eeeeee; width: 100px; height: 65px; padding: 2.5px; margin: 0px 5px 5px; border-radius: 0 0px 6px 6px; }
 .cross-contamination-text {line-height: 12px; font-size: 12px; text-align: center; margin: 0; padding: 5px 0px;}
 .selected-allergen {background: #eeeeee; border: 2px solid black; font-weight: 600;}
@@ -100,6 +101,10 @@ button {border: none!important;}
 #show-menu-button{opacity: 0.25; pointer-events: none; width: 50%;}
 
 /* OrderMenu.js */
+.restaurant-message-banner {
+  padding: 15px;  background-color: #2D9CDB; color: white; text-align: center; font-size: 18px;
+}
+
 #orderMenuComponent {margin-bottom: 200px;}
 .menu-nav-container {margin: 25px 25px 0px;  }
 .menu-nav-tabs {display: flex; align-items: center; justify-content: space-between;}
@@ -109,7 +114,8 @@ button {border: none!important;}
 .last-updated {font-style: italic; font-size: 12px; order: 2;}
 .menu-tab {background: #eeeeee; padding: 15px 25px; border-top-left-radius: 6px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 6px; margin-right: 10px; color: black; cursor: pointer;}
 
-.dedicated-allergen-card-container {background-color: white; width: 100%; margin-top: -40px; box-shadow: inset 0px 3px 4px rgba(0,0,0,0.25); border-top: 0.1px solid black; pointer-events: none}
+.dedicated-allergen-card-container {background-color: white; margin-top: -40px; padding: 0px 50px; box-shadow: inset 0px 3px 4px rgba(0,0,0,0.25); border-top: 0.1px solid black; pointer-events: none}
+.dedicated-allergen-card-container p {font-size: 18px; text-align: center;}
 .tab {background-size: 100% 100%; background-repeat: no-repeat; background-position: center center; padding: 25px 80px 30px; font-weight: 500; margin-top: 20px;}
 .dedicated-free {width: 100%;}
 .dedicated-free-title {padding: 10px; font-size: 14px; text-align: center; margin-top: -35px;}

@@ -41,6 +41,9 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAller
 
   return (
     <section id="orderMenuComponent">
+      <div className="restaurant-message-banner bottom-box-shadow">
+      <p>{restaurant.locations[0].menu.dedicatedFrom}</p>
+      </div>
     {/* MAIN HEADER */}
     <div className="blur-overlay" style= {{backgroundImage: `url(${restaurant.bg ? restaurant.bg.url : "/img/generic-bg.jpg"})`}}>
       <div className="menu-header blur-overlay" >
@@ -87,7 +90,7 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAller
       {restaurant.locations[0].menu.dedicatedFrom && (
         <div className="dedicated-free">
           <div className="dedicated-free-title center-flex">
-            <p className="tab" style={{backgroundImage: "url(/img/tab.png)"}}>This kitchen is dedicated free from: </p>
+            <p className="tab" style={{backgroundImage: "url(/img/tab.png)"}}>Dedicated-Free </p>
           </div>
         </div>
       )}

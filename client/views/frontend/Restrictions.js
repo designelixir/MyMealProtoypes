@@ -125,8 +125,10 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
                     style={{
                       backgroundImage: `url('/icons/allergens/${allergy.name}.png')`,
                     }}
-                  ></div>
-                  {allergy.name}
+                  >
+
+                  </div>
+                  <p className="allergen-title">{allergy.name}</p>
                 </div>
               </div>
               {selectedAllergies[allergy.id].selected && (
