@@ -15,7 +15,8 @@ import { capitalize } from "../../utils/common";
 import "react-loading-skeleton/dist/skeleton.css";
 import ScrollSpyTabs from "./ScrollSpyTabs";
 import mixpanel from 'mixpanel-browser';
-
+import FilterBar from "./FilterBar";
+  
 
 const MenuWindow = ({ restaurant, categories, selectedAllergies }) => {
 
@@ -57,7 +58,7 @@ const MenuWindow = ({ restaurant, categories, selectedAllergies }) => {
   return (
     <div className="custom-sticky-top">
       <section className="menu-section">
-        
+       
       <ScrollSpyTabs
       
         primaryColor={restaurant.primaryColor}

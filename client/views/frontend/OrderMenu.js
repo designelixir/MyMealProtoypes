@@ -35,14 +35,15 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAller
   const categoryRefs = categories.map(({ name }) => useRef(name));
   
   const [show, setShow] = useState(false);
+  const addressSearchUrl = "https://www.google.com/maps/search/" + restaurant.locations[0].address;
 
   
 
 
   return (
     <section id="orderMenuComponent">
-      <div className="restaurant-message-banner bottom-box-shadow">
-      <p>{restaurant.locations[0].menu.dedicatedFrom}</p>
+      <div className="restaurant-message-banner bottom-box-shadow" style={{backgroundColor: restaurant.primaryColor}}>
+      <p className="restaurant-message">{restaurant.locations[0].menu.dedicatedFrom}</p>
       </div>
     {/* MAIN HEADER */}
     <div className="blur-overlay" style= {{backgroundImage: `url(${restaurant.bg ? restaurant.bg.url : "/img/generic-bg.jpg"})`}}>
@@ -67,7 +68,7 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAller
         </div>
         <div className="menu-header-title-container">
             <h1>{restaurant.name} Menu</h1>
-            <p>{restaurant.locations[0].address}</p>
+            <a style={{color: 'black', textDecoration: 'none', cursor: "pointer"}} href={addressSearchUrl} target='_blank'><p>{restaurant.locations[0].address}</p></a>
         </div>
         <div className="menu-header-order-button-container center-flex">
         {restaurant.locations[0].menu.orderNow && (
@@ -87,26 +88,35 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAller
         </div>
         
       </div>
-      {restaurant.locations[0].menu.dedicatedFrom && (
+
+      {/* The TAB for dedicated free from options */}
+      {/* {restaurant.locations[0].menu.dedicatedFrom && (
         <div className="dedicated-free">
           <div className="dedicated-free-title center-flex">
-            <p className="tab" style={{backgroundImage: "url(/img/tab.png)"}}>Dedicated-Free </p>
+            <p className="tab" style={{backgroundImage: "url(/img/tab.png)"}}>Dedicated-Free From:</p>
           </div>
-        </div>
-      )}
-      <div className="dedicated-allergen-card-container center-flex">
+          <div className="dedicated-allergen-card-container center-flex">
         <div className="dedicated-allergen-card">
-          <p>{restaurant.locations[0].menu.dedicatedFrom}</p>
+          <p>{restaurant.locations[0].country}</p>
         </div>    
       </div>
+        </div>
+        
+      )} */}
+      
       </div>
     </div>
 
+           
+            
+
+            
+   
     
 {/* MENU NAVIGATION STICKY */}
 <div className="menu-nav-container">
       <div className="menu-nav-tabs">
-      <div className="last-updated"><strong>Last Updated:</strong> </div>
+      <div className="last-updated"><strong>Last Updated:</strong> {restaurant.locations[0].country} </div>
         <div className="menu-tab-container">
           <div className={`menu-tab ${show ? "" : "active"}`}
           onClick={function() {
@@ -128,6 +138,8 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAller
     <Container className="tab-section-window ">
         { show ? <KitchenProceduresWindow/> : <MenuWindow></MenuWindow> }
       </Container>
+
+      
     </section>
   );
 };

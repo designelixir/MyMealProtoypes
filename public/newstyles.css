@@ -48,22 +48,23 @@ button {border: none!important;}
 .restaurant-logo {width: 70vw; max-width: 600px; height: auto;}
 
 /* Page Header Styling */
-.menu-header {  background-size: cover; background-position: center center; background-repeat: no-repeat;}
+.menu-header {  background-size: cover; background-position: center center; background-repeat: no-repeat; }
 .menu-header-contents {padding: 10px 15px; }
 .menu-header-logo-container { width: 250px; }
-.menu-header-logo {height: 100px; width: auto; padding: 12.5px;}
-.menu-header-title-container {text-align: center; line-height: 18px;  width: 100%;}
+.menu-header-logo {height: 100px; width: auto; padding: 12.5px; }
+.menu-header-title-container {text-align: center; line-height: 18px; width: 100%;}
 .menu-header-order-button-container {min-width: 180px;}
-.menu-back-button {height: 40px;}
+.menu-back-button {width: 20px; height: auto;}
 .menu-back-button:hover {transform: scale(1.1); cursor: pointer;}
 .menu-header-title-no-order-button {padding-right: 180px;}
 @media screen and (max-width: 800px) {
 .menu-header-title-no-order-button {padding-right: 0px;}
-
+  .last-updated {order: 0!important; width: 100%; text-align: left; padding: 10px 20px; font-size: 14px;}
   .menu-header-contents {flex-wrap: wrap;}
   .menu-header-logo-container {order: 1; width: 50%; margin-left: -25px;}
   .menu-header-order-button-container {order: 2; width: 50%;}
   .menu-header-title-container {order: 3;}
+  .menu-nav-tabs {flex-wrap: wrap;}
 }
 
 
@@ -102,12 +103,15 @@ button {border: none!important;}
 
 /* OrderMenu.js */
 .restaurant-message-banner {
-  padding: 15px;  background-color: #2D9CDB; color: white; text-align: center; font-size: 18px;
+  padding: 5px; color: white; text-align: center; font-size: 18px; position: sticky;
+}
+.restaurant-message {
+  font-size: 18px; font-weight: 300;
 }
 
 #orderMenuComponent {margin-bottom: 200px;}
 .menu-nav-container {margin: 25px 25px 0px;  }
-.menu-nav-tabs {display: flex; align-items: center; justify-content: space-between;}
+.menu-nav-tabs {display: flex; align-items: center; justify-content: space-between; }
 
 .active { font-weight: 600; color: white!important;}
 .menu-tab-container { display: flex; align-items: center; justify-content: flex-start;}
@@ -116,7 +120,7 @@ button {border: none!important;}
 
 .dedicated-allergen-card-container {background-color: white; margin-top: -40px; padding: 0px 50px; box-shadow: inset 0px 3px 4px rgba(0,0,0,0.25); border-top: 0.1px solid black; pointer-events: none}
 .dedicated-allergen-card-container p {font-size: 18px; text-align: center;}
-.tab {background-size: 100% 100%; background-repeat: no-repeat; background-position: center center; padding: 25px 80px 30px; font-weight: 500; margin-top: 20px;}
+.tab {background-size: 100% 100%; background-repeat: no-repeat; background-position: center center; padding: 25px 80px 30px; font-weight: 500; margin-top: 20px; font-size: 18px;}
 .dedicated-free {width: 100%;}
 .dedicated-free-title {padding: 10px; font-size: 14px; text-align: center; margin-top: -35px;}
 
@@ -128,9 +132,10 @@ button {border: none!important;}
 .custom-sticky-top {position: -webkit-sticky; position: sticky; top: 0; z-index: 1020;}
 
 /* FilterBar.js */
-.filtered-by-container {display: flex; align-items: flex-start; justify-content: space-between;  margin: 15px 0px 15px 25px;   }
+.filtered-by-container {display: flex; align-items: center; justify-content: space-between;  margin: 10px 0px 10px 25px;   }
 .filtered-allergens-row {display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; }
 .filtered-allergen {width: auto; margin: 0px 3px; border-radius: 2px; padding: 0px 5px; font-size: 14px; }
+.filter-text-container {display: flex;}
 
 .modify-filters-window-container {margin: 10vw; background: white; border-radius: 6px; border: 1px solid black;}
 
@@ -159,16 +164,20 @@ button {border: none!important;}
 
 
 /* MenuItemDescription.js */
-.menu-item-pop-up-container {border: 1px solid black; background: white; margin: 150px 10vw 0; padding: 25px; border-radius: 6px;}
-.menu-item-image-wrapper {width: 100%; height: 200px; margin-top: -150px;}
+.menu-item-pop-up-container {background: white; margin: 275px 10vw 0; padding: 25px; border-radius: 6px; width: 80vw;}
+.menu-item-image-wrapper {width: 100%; height: 100px; margin-top: -125px;}
 .menu-item-image-container { width: 100%; display: flex; align-items: center; justify-content: center;}
-.menu-item-image {background-repeat: no-repeat; background-position: center; background-size: cover; border-radius: 200px; width: 200px; height: 200xpx; }
-.menu-item-popup-header {display: flex; align-items: flex-start; justify-content: space-between; }
+.menu-item-image {background-repeat: no-repeat; background-position: center; background-size: cover; border-radius: 175px; width: 175px; height: 175px; }
+.menu-item-popup-header {display: flex; align-items: center; justify-content: space-between; }
 
-.modifications-container, .cross-contact-container {
+.menu-price {font-size: 16px; font-weight: 400;}
+.menu-title-close-container {display: flex; align-items: center; justify-content: space-between; width: 100%;}
+.modifications-container, .cross-contact-container, .no-mods-container {
     border-radius: 6px; background-color: white; margin-bottom: 25px;
 }
 
+.bolded-allergy {font-weight: 600;}
+.no-mods-container-title {background-color: #68834E; color: white; text-align: center; height: 40px; text-transform: uppercase; font-weight: 700; border-radius: 6px 6px 0px 0px;}
 .modifications-container-title {background-color: #EF8031; color: white; text-align: center; height: 40px; text-transform: uppercase; font-weight: 700; border-radius: 6px 6px 0px 0px;}
 .cross-contact-container-title {background-color: #DE0000; color: white; text-align: center; height: 40px; text-transform: uppercase; font-weight: 700; border-radius: 6px 6px 0px 0px;}
 .instructions {background-color: white; border-top: 0.25px solid black; padding: 15px; border-radius: 0px 0px 6px 6px}

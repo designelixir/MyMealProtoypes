@@ -15,6 +15,7 @@ const MenuItems = ({ primaryColor, selectedAllergies, categories }) => {
     };
   });
 
+  
   return (
     <Container>
       {allItems.some((item) => item.filteredMenuitems.length > 0) ? (

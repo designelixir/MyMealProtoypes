@@ -38,7 +38,7 @@ const MenuItemDescription = ({
         </div>
 
         <div className="overlay-window full-width-center-flex" style={{height: "100%"}}>
-          <div className="menu-item-pop-up-container bottom-box-shadow">
+          <div className="menu-item-pop-up-container bottom-box-shadow" style={{border: '3px solid orange'}} >
         
         {menuitem.image ? (
           
@@ -47,28 +47,47 @@ const MenuItemDescription = ({
             className="menu-item-image"
             style={{
               backgroundImage: "url(/img/generic-bg.jpg)", 
-              border: `4px solid ${modColor}` 
-              // need to fix color
+              border: '3px solid #68834E' 
             }}
           />
         </div>
           ) : (
-            <div></div>
+            <div className="menu-item-image-wrapper full-width-center-flex">
+            <img
+              className="menu-item-image"
+              style={{
+                backgroundImage: "url(/img/generic-bg.jpg)", 
+                border: '3px solid #68834E',
+                
+                // need to fix color
+              }}
+            />
+            </div>
 
           )} 
   
 
 
           <div className="menu-item-popup-contents">
-            <div className="menu-item-popup-header">
-            <div style={{marginBottom: "25px"}}>
-              <h3 style={{lineHeight: "22px"}}>{menuitem.name}</h3>
-              <p >{menuitem.description}</p>
-            </div>
-            
+            <div className="menu-item-popup-header" style={{marginTop: "25px"}}>
+            <h3 style={{lineHeight: "22px", width: "100%"}}>{menuitem.name}</h3>
               <div className="hover" style={{fontWeight: "600"}} onClick={function() {modalShow && setModalShow(false)}}>X</div>
             </div>
-          {data.modifiable.length === 0 && (
+
+            
+            
+            {/* {menuitem.price && (
+              <p className="menu-price">$ {menuitem.price}</p>
+            )} */}
+            <p >{menuitem.description}</p>
+              
+              
+              
+            
+            
+              
+            
+          {data.modifiable.length > 0 ? (
             <>
               <div className="modifications-container bottom-box-shadow">
                 <div className="modifications-container-title center-flex">
@@ -77,14 +96,26 @@ const MenuItemDescription = ({
                 <div className="instructions">
                   {data.modifiable.map(({ allergy, description }, idx) => (
                       <p
-                        key={`${allergy}-${idx}`}
-                      >{`${allergy}: ${description}`}</p>
+                      key={`${allergy}-${idx}`}
+                    >
+                      <span className="bolded-allergy">{`${allergy}`}: &nbsp;</span>
+                       {`${description}`}
+                      </p>
                     ))}
                 </div>
               </div>
             </>
-          )}
-          {data.modifiable.length === 0 && (
+          ) : (<div className="no-mods-container bottom-box-shadow">
+            <div className="center-flex no-mods-container-title">
+                  <p>No Mods Necessary</p>
+                </div>
+                <div className="instructions">
+                  <p>Make sure to always notify the restaurant of your allergens!</p>
+                  </div>
+
+          </div>)}
+
+          {data.crossContact.length > 0 ? (
             <>
               <div className="cross-contact-container bottom-box-shadow">
                 <div className="center-flex cross-contact-container-title">
@@ -94,12 +125,18 @@ const MenuItemDescription = ({
                   {data.crossContact.map(({ allergy, description }, idx) => (
                     <p
                       key={`${allergy}-${idx}`}
-                    >{`${allergy}: ${description}`}</p>
+                    >
+                      <span className="bolded-allergy">{`${allergy}`}: &nbsp;</span>
+                       {`${description}`}
+                      </p>
                   ))}
                 </div>
               </div>
             </>
-          )}
+          ) : (<div>
+
+
+          </div>)}
           
           {menuitem.ingredients && (
             <>
