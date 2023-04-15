@@ -1,14 +1,22 @@
 import React from "react";
+import { Tabs, Tab, Row, Col, Image } from "react-bootstrap";
 import throttle from "lodash/throttle";
-import FilterBar from "./FilterBar"
+import classnames from "classnames";
+import CallToActionBanner from "./CallToActionBanner";
+// import { makeStyles, withStyles } from "@material-ui/core/styles";
+// import Tabs from "@material-ui/core/Tabs";
+// import Tab from "@material-ui/core/Tab";
+import FilterBar from "./FilterBar";
 const tabHeight = 50;
 
 const makeUnique = (hash, unique, i = 1) => {
   const uniqueHash = i === 1 ? hash : `${hash}-${i}`;
+
   if (!unique[uniqueHash]) {
     unique[uniqueHash] = true;
     return uniqueHash;
   }
+
   return makeUnique(hash, unique, i + 1);
 };
 
@@ -56,7 +64,7 @@ function ScrollSpyTabs(props) {
       text: tab.text,
       component: tab.component,
       hash: hash,
-      
+      node: document.getElementById(hash),
     };
   });
 
@@ -125,19 +133,15 @@ function ScrollSpyTabs(props) {
   useThrottledOnScroll(itemsServer.length > 0 ? findActiveIndex : null, 166);
   const snapCategoryNav = (hash) => {
     const offset = document.getElementById(`category-nav-${hash}`).offsetLeft;
-    const gutterLeftWidth = document.getElementById(
-      "category-nav-gutter-left"
-    ).offsetWidth;
+    const gutterLeftWidth = 50;
     const colEl = document.getElementById("category-nav-bar-col");
 
-    const paddingLeftWidth = parseFloat(
-      window.getComputedStyle(colEl, null).getPropertyValue("padding-left")
-    );
+    const paddingLeftWidth = 50;
 
-    document.getElementById(`category-nav-bar`).scrollTo({
-      left: offset - gutterLeftWidth - paddingLeftWidth,
-      behavior: "auto",
-    });
+    // document.getElementById(`category-nav-bar`).scrollTo({
+    //   left: offset - gutterLeftWidth - paddingLeftWidth,
+    //   behavior: "auto",
+    // });
   };
   const disableAutoDetect = () => {
     clickedRef.current = true;
@@ -153,7 +157,7 @@ function ScrollSpyTabs(props) {
         document.getElementById(hash).getBoundingClientRect().top +
         window.pageYOffset;
       window.scrollTo({
-        top: scrollDiff - 50,
+        top: scrollDiff - 115,
         behavior: "smooth",
       });
 
@@ -184,6 +188,7 @@ function ScrollSpyTabs(props) {
     }
   };
 
+  // const classes = useStyles();
 
   return (
     <div>

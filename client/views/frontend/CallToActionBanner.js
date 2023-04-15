@@ -3,8 +3,11 @@ import { connect } from "react-redux";
 import { Redirect, useLocation, useHistory } from "react-router-dom";
 import { Container, Row, Col, Image, Button, Tabs, Tab } from "react-bootstrap";
 
+
+import "react-loading-skeleton/dist/skeleton.css";
+
 const downloadButton = {borderRadius: "6px", color: "black", backgroundColor: "white", border: "none", padding: "10px 25px", cursor: "pointer", fontWeight: "600", boxShadow: "0px 2px 4px rgba(0,0,0,0.35"}
-const bannerComponent = {width: "100vw", background: "#2d9cdb", position: "fixed", padding: "10px", bottom: 0, left: 0, display: "flex", alignItems: "center", justifyContent: "space-between", zIndex: 3000}
+const bannerComponent = {width: "100%", background: "#2d9cdb", position: "fixed", bottom: 0, left: 0, display: "flex", alignItems: "center", justifyContent: "space-between", zIndex: 3000}
 
 
 const CallToActionBanner = () => {
@@ -19,9 +22,9 @@ const CallToActionBanner = () => {
                 <Button onClick={hidePop} style={downloadButton}>X - Close</Button>        
                 <h3 style={{paddingTop: "15px"}}>Are you located in Denver, Colorado?</h3>
                 <p>MyMeal is currently only available for restaurants in the Denver Metro Area.</p>
-                <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                    <button style={downloadButton}><a href="https://previewer.adalo.com/0dca8933-3d50-45a8-9f27-8048ac8dfbf4" target="_blank" style={{textDecoration: "none", color: "black"}}>Download App</a></button>
-                    <span>&nbsp; &nbsp;</span>
+                <div style={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
+                    <a href="https://play.google.com/store/apps/details?id=com.MyMeal.android" target="_blank"><img src="https://findmymeal.io/wp-content/uploads/2023/03/googleplay.png" style={{height: "45px", margin: "10px"}}/></a>
+                    <a href="https://apps.apple.com/us/app/mymeal-find-safe-restaurants/id6444025752" target="_blank"><img src="https://findmymeal.io/wp-content/uploads/2023/03/appstore.png" style={{height: "45px", margin: "10px"}}/></a>
                     <button style={downloadButton}><a href="https://forms.gle/i5WxFC5Lj5Etshsu5" target="_blank" style={{textDecoration: "none", color: "black"}}>Request My City</a></button>
                 </div>
             </div>
@@ -31,35 +34,39 @@ const CallToActionBanner = () => {
     )
 
   return (
-    <div className="banner-component" style={bannerComponent}>
+    <div className="bannerComponent" style={bannerComponent}>
         {/* BANNER */}
-        <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", flexWrap: "wrap"}}>
-            <div style={{display: "flex", alignItems: "center", justifyContent: "flex-start"}}> 
-            <div style={{width: "calc(100% - 400px)", minWidth: "400px", margin: "0px 0px 10px 25px"}}>
-                <p style={{color: "white", fontWeight: 600, fontSize: "18px", lineHeight: "0px"}}>Want more menus like this?</p>
-                    <div style={{display: "flex", alignItems: "center", justifyContent: "flex-start", height: "20px", lineHeight: "14px", color: "white", textAlign: "center" }}>
-                        <p>Download the <a href="https://findmymeal.io" target="_blank">
+        
+            <div style={{display: "flex", alignItems: "center", justifyContent: "center", width: "100%"}}> 
+            <div id="bannerButtonContainer" style={{ textAlign: "center", display: "inline-flex", justifyContent: "space-between", cursor: "pointer", alignItems: "center", width: "100%", padding: "10px"}} onClick={togglePop}>
+                <p style={{color: "white", fontWeight: 600, fontSize: "18px",  margin: "10px"}}>Want more menus like this?</p>
+                    
+                    <div style={{display: "flex", alignItems: "center", textDecoration: "none", justifyContent: "center",  color: "white", textAlign: "center" , padding: "0px 10px", borderRadius: "5px", border: "2px solid white" }} onClick={togglePop}>
+                        <p style={{marginTop: "12px"}}>Download the</p>
+                       
                             <Image
                             className="banner-logo-small"
                             src={"/img/mymeal-lettermark-white.png"}
-                            style={{height: "20px", transform: "translateY(5px)"}}
+                            style={{maxHeight: "20px", margin: "0px 7px"}}
                             alt="MY MEAL"
                             />
-                        </a> App!</p>
-                    </div>
+                      
+                        <p style={{marginTop: "14px"}}> App!</p>
+                          </div>
+                    
             </div>
                 
             </div>
-            <div style={{minWidth: "400px", textAlign: "center"}}>
-                <button onClick={togglePop} style={downloadButton} className="styled-button">Download the MyMeal App</button>        
-            </div>
-            
+            {/* <div style={{minWidth: "400px", textAlign: "center"}}>
+                <Button onClick={togglePop} style={downloadButton}>Download the MyMeal App</Button>        
+            </div> */}
+            { showPopUp ? <CallToActionPopUp />  : null}
+        
         </div>
 
-        { showPopUp ? <CallToActionPopUp />  : null}
         
         
-    </div>
+    
     
     
   );

@@ -3,9 +3,14 @@ import { connect } from "react-redux";
 import { Container, Row } from "react-bootstrap";
 import menuitemFilter from "../../utils/menuitemFilter";
 import MenuItemCard from "./MenuItemCard";
-
+import Category from "./Category";
+import Categories from "./Categories";
 
 const MenuItems = ({ primaryColor, selectedAllergies, categories }) => {
+  // const { safeMenuitems, modMenuitems } = menuitemFilter(
+  //   category.menuitems,
+  //   selectedAllergies
+  // );
 
   const allItems = categories.map(({ name, menuitems }) => {
     const filteredMenuitems = menuitemFilter(menuitems, selectedAllergies);
@@ -15,18 +20,17 @@ const MenuItems = ({ primaryColor, selectedAllergies, categories }) => {
     };
   });
 
-  
   return (
-    <Container>
+    <Container className="p-0">
       {allItems.some((item) => item.filteredMenuitems.length > 0) ? (
         allItems.map(
           (item) =>
             item.filteredMenuitems.length > 0 && (
-              <Container className="menu-category-container">
-                <h3 id={item.categoryName}>
+              <Container className="d-flex flex-column p-0">
+                <h3 className="mt-3" id={item.categoryName}>
                   {item.categoryName}
                 </h3>
-                <Container className="menu-item-container">
+                <Container className="menuitem-container p-0">
                   {item.filteredMenuitems.map(({ type, menuitem }) => (
                     <MenuItemCard
                       key={menuitem.id}
@@ -41,10 +45,8 @@ const MenuItems = ({ primaryColor, selectedAllergies, categories }) => {
             )
         )
       ) : (
-        <p className="no-items" style={{ width: "100%", color: "green", textAlign: "center" }}>No Items</p>
+        <p style={{ width: "100%", textAlign: "center" }}>No Items</p>
       )}
-
-      
     </Container>
   );
 };

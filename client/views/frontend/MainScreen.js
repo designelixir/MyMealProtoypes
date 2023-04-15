@@ -30,7 +30,8 @@ const MainScreen = ({ restaurant, setHasRestrictions }) => {
           </button>
         </div>
       </div>
-      {/* <CallToActionBanner></CallToActionBanner> */}
+      
+      <CallToActionBanner></CallToActionBanner>
     </section>
   );
 };

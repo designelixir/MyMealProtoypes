@@ -6284,9 +6284,10 @@ const Nav = ({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "center-flex-start"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-    src: "https://findmymeal.io/wp-content/uploads/2022/11/cropped-logo_black-1-1.png",
+    src: "/mymeal-logolettermark-blueblack.png",
     style: {
-      height: "30px"
+      height: "25px",
+      paddingRight: "5px"
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     style: {
@@ -10686,8 +10687,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
+/* harmony import */ var react_loading_skeleton_dist_skeleton_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-loading-skeleton/dist/skeleton.css */ "./node_modules/react-loading-skeleton/dist/skeleton.css");
+
 
 
 
@@ -10703,10 +10706,9 @@ const downloadButton = {
   boxShadow: "0px 2px 4px rgba(0,0,0,0.35"
 };
 const bannerComponent = {
-  width: "100vw",
+  width: "100%",
   background: "#2d9cdb",
   position: "fixed",
-  padding: "10px",
   bottom: 0,
   left: 0,
   display: "flex",
@@ -10749,7 +10751,7 @@ const CallToActionBanner = () => {
       border: "2px solid white",
       margin: "15px"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
     onClick: hidePop,
     style: downloadButton
   }, "X - Close"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", {
@@ -10760,18 +10762,28 @@ const CallToActionBanner = () => {
     style: {
       display: "flex",
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
+      flexDirection: "column"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    style: downloadButton
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "https://previewer.adalo.com/0dca8933-3d50-45a8-9f27-8048ac8dfbf4",
-    target: "_blank",
+    href: "https://play.google.com/store/apps/details?id=com.MyMeal.android",
+    target: "_blank"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: "https://findmymeal.io/wp-content/uploads/2023/03/googleplay.png",
     style: {
-      textDecoration: "none",
-      color: "black"
+      height: "45px",
+      margin: "10px"
     }
-  }, "Download App")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "\xA0 \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    href: "https://apps.apple.com/us/app/mymeal-find-safe-restaurants/id6444025752",
+    target: "_blank"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: "https://findmymeal.io/wp-content/uploads/2023/03/appstore.png",
+    style: {
+      height: "45px",
+      margin: "10px"
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     style: downloadButton
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
     href: "https://forms.gle/i5WxFC5Lj5Etshsu5",
@@ -10782,66 +10794,64 @@ const CallToActionBanner = () => {
     }
   }, "Request My City"))))));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "banner-component",
+    className: "bannerComponent",
     style: bannerComponent
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     style: {
       display: "flex",
       alignItems: "center",
+      justifyContent: "center",
+      width: "100%"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    id: "bannerButtonContainer",
+    style: {
+      textAlign: "center",
+      display: "inline-flex",
       justifyContent: "space-between",
-      width: "100%",
-      flexWrap: "wrap"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    style: {
-      display: "flex",
+      cursor: "pointer",
       alignItems: "center",
-      justifyContent: "flex-start"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    style: {
-      width: "calc(100% - 400px)",
-      minWidth: "400px",
-      margin: "0px 0px 10px 25px"
-    }
+      width: "100%",
+      padding: "10px"
+    },
+    onClick: togglePop
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     style: {
       color: "white",
       fontWeight: 600,
       fontSize: "18px",
-      lineHeight: "0px"
+      margin: "10px"
     }
   }, "Want more menus like this?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     style: {
       display: "flex",
       alignItems: "center",
-      justifyContent: "flex-start",
-      height: "20px",
-      lineHeight: "14px",
+      textDecoration: "none",
+      justifyContent: "center",
       color: "white",
-      textAlign: "center"
+      textAlign: "center",
+      padding: "0px 10px",
+      borderRadius: "5px",
+      border: "2px solid white"
+    },
+    onClick: togglePop
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    style: {
+      marginTop: "12px"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Download the ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "https://findmymeal.io",
-    target: "_blank"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, "Download the"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
     className: "banner-logo-small",
     src: "/img/mymeal-lettermark-white.png",
     style: {
-      height: "20px",
-      transform: "translateY(5px)"
+      maxHeight: "20px",
+      margin: "0px 7px"
     },
     alt: "MY MEAL"
-  })), " App!")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     style: {
-      minWidth: "400px",
-      textAlign: "center"
+      marginTop: "14px"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    onClick: togglePop,
-    style: downloadButton,
-    className: "styled-button"
-  }, "Download the MyMeal App"))), showPopUp ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(CallToActionPopUp, null) : null);
+  }, " App!")))), showPopUp ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(CallToActionPopUp, null) : null);
 };
 console.log("loaded changes 3:37pm");
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CallToActionBanner);
@@ -10927,33 +10937,51 @@ const Category = ({
     if (!unfilteredMenuitems.length) return;
     setFilteredMenuitems((0,_utils_menuitemFilter__WEBPACK_IMPORTED_MODULE_3__["default"])(unfilteredMenuitems, selectedAllergies));
   }, [selectedAllergies]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    key: category.name
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "category-title-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
     id: category.name,
+    className: "category-section",
     ref: categoryRef
-  }, category.name, " - ", filteredMenuitems.length)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, category.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "category-type-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "category-no-mods-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "No Modifications Necessary"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "category-menu-item-container"
-  }, filteredMenuitems.length > 0 ? filteredMenuitems.map(({
+  }, filteredMenuitems.map(({
     type,
     menuitem
   }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "menu-card-wrapper"
-  }, type === "Safe" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "No Modifications Necessary")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItemCard__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }, type === "Safe" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItemCard__WEBPACK_IMPORTED_MODULE_4__["default"], {
     key: menuitem.id,
     type: type,
     menuitem: menuitem,
     primaryColor: primaryColor,
     selectedAllergies: selectedAllergies
-  }))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    style: {
-      width: "100%",
-      textAlign: "center"
-    }
-  }, "No Items"))));
+  })) : null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "category-mods-container "
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Modifications Necessary"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "category-menu-item-container"
+  }, filteredMenuitems.map(({
+    type,
+    menuitem
+  }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "menu-card-wrapper"
+  }, type !== "Safe" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuItemCard__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    key: menuitem.id,
+    type: type,
+    menuitem: menuitem,
+    primaryColor: primaryColor,
+    selectedAllergies: selectedAllergies
+  })) : null))))));
 };
+function hideEmptyCategories(categoryCount) {
+  if (categoryCount === 0) {
+    console.log("empty" + categoryCount);
+  } else {
+    console.log("full" + categoryCount);
+  }
+}
 const mapStateToProps = state => {
   const {
     selectedAllergies
@@ -10986,10 +11014,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _FilterButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FilterButton */ "./client/views/frontend/FilterButton.js");
 /* harmony import */ var _RestrictedAllergiesGrid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./RestrictedAllergiesGrid */ "./client/views/frontend/RestrictedAllergiesGrid.js");
-/* harmony import */ var _modals_AllergyFilters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modals/AllergyFilters */ "./client/views/frontend/modals/AllergyFilters.js");
+/* harmony import */ var _iconcomponents_Filter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./iconcomponents/Filter */ "./client/views/frontend/iconcomponents/Filter.js");
+/* harmony import */ var _modals_AllergyFilters__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modals/AllergyFilters */ "./client/views/frontend/modals/AllergyFilters.js");
+
 
 
 
@@ -11010,13 +11040,12 @@ const FilterBar = ({
   restaurant,
   categories,
   selectedAllergies,
-  totalMenuItems,
   setSelectedAllergies
 }) => {
-  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useLocation)();
-  const history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useHistory)();
+  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useLocation)();
+  const history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useHistory)();
   if (!restaurant.id) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Redirect, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Redirect, {
       to: `${location.pathname.replace("/menu", "")}`
     });
   }
@@ -11029,121 +11058,11 @@ const FilterBar = ({
   const [showWindow, setShowWindow] = react__WEBPACK_IMPORTED_MODULE_0__.useState(false);
   const toggleWindow = () => setShowWindow(true);
   const hidePop = () => setShowWindow(false);
-  const PopUpFilterWindow = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "overlay-window full-width-center-flex noscroll"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "modify-filters-window-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "filter-window-header space-between-flex"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Modify the Filters for this Menu"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    className: "styled-button",
-    onClick: hidePop,
-    style: {
-      backgroundColor: restaurant.primaryColor
-    }
-  }, "X")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "filter-window-filters"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
-    className: "restrictedAllergensGridComponent"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "select-allergens-wrapper"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "select-allergens-grid center-flex"
-  }, restaurant.locations[0].menu.allergies.map(allergy => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    key: allergy.id,
-    className: "allergy-card-wrapper"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "checkbox-container",
-    style: {
-      display: `${selectedAllergies[allergy.id].selected} ? "block" : "none"`
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "checkbox",
-    id: "allergen-check-" + `${allergy.name}`
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(CheckmarkSVG, {
-    fill: restaurant.primaryColor
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "dedicated-banner-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "dedicated-banner-wrapper",
-    style: {
-      backgroundImage: "url(/img/banner2.png)",
-      display: "none"
-    },
-    id: "dedications-" + `${allergy.name}`
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "DEDICATED FREE"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "allergen-card center-flex bottom-box-shadow",
-    id: "allergen-card-" + `${allergy.name}`,
-    onClick: () => {
-      setSelectedAllergies({
-        ...selectedAllergies,
-        [allergy.id]: {
-          ...selectedAllergies[allergy.id],
-          selected: !selectedAllergies[allergy.id].selected
-        }
-      });
-      selectCard(selectedAllergies[allergy.id].name, selectedAllergies[allergy.id].selected);
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "allergen-card-contents"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "allergen-image-container",
-    style: {
-      backgroundImage: `url('/icons/allergens/${allergy.name}.png')`
-    }
-  }), allergy.name)), selectedAllergies[allergy.id].selected && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "cross-contamination-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    className: "cross-contamination-text"
-  }, "Sensitive to cross contact?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "cross-contamination-button-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    onClick: () => setSelectedAllergies({
-      ...selectedAllergies,
-      [allergy.id]: {
-        ...selectedAllergies[allergy.id],
-        cross: true
-      }
-    }),
-    className: "cross-contact-button",
-    style: {
-      color: !selectedAllergies[allergy.id].cross ? "black" : "white",
-      backgroundColor: !selectedAllergies[allergy.id].cross ? "white" : restaurant.primaryColor,
-      border: !selectedAllergies[allergy.id].cross ? "1px solid black" : "none"
-    }
-  }, "Yes"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    onClick: () => setSelectedAllergies({
-      ...selectedAllergies,
-      [allergy.id]: {
-        ...selectedAllergies[allergy.id],
-        cross: false
-      }
-    }),
-    className: "cross-contact-button ms-3",
-    style: {
-      color: selectedAllergies[allergy.id].cross ? "black" : "white",
-      backgroundColor: selectedAllergies[allergy.id].cross ? "white" : restaurant.primaryColor,
-      border: selectedAllergies[allergy.id].cross ? "1px solid black" : "none"
-    }
-  }, "No"))))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    style: {
-      padding: "15px"
-    },
-    className: "full-width-center-flex"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    className: "styled-button",
-    onClick: hidePop,
-    style: {
-      backgroundColor: restaurant.primaryColor
-    }
-  }, "Update Menu"))));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "filtered-by-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "filter-text-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("script", null, "console.log(selectedAllergies)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Showing  Menu Items \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, " filtered by"), selectedAllergies && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "filtered-allergens-row"
-  }, Object.values(selectedAllergies).filter(({
+    className: "filtered-allergens-row center-flex-start"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Showing  Menu Items "), " ", selectedAllergies && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, " \xA0 filtered by \xA0"), Object.values(selectedAllergies).filter(({
     selected
   }) => selected).map(({
     name
@@ -11154,29 +11073,16 @@ const FilterBar = ({
       background: restaurant.primaryColor,
       color: "white"
     }
-  }, name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "\xA0 \u2022", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("strong", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", null, "15 items removed"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "\xA0 \u2022", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("strong", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", null, "15 items removed")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "filter-icon"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", {
-    onClick: toggleWindow,
-    style: {
-      width: 20,
-      height: 22,
-      cursor: "pointer"
-    },
-    width: "28",
-    height: "30",
-    viewBox: "0 0 28 30",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
-    d: "M10 15C10 14.31 10.5612 13.75 11.25 13.75C11.9388 13.75 12.5 14.31 12.5 15C12.5 15.69 11.9388 16.25 11.25 16.25C10.5612 16.25 10 15.69 10 15ZM7.5 15C7.5 17.0712 9.17875 18.75 11.25 18.75C13.3212 18.75 15 17.0712 15 15C15 12.9288 13.3212 11.25 11.25 11.25C9.17875 11.25 7.5 12.9288 7.5 15ZM12.5 26.25C12.5 28.3212 14.1788 30 16.25 30C18.3212 30 20 28.3212 20 26.25C20 24.1788 18.3212 22.5 16.25 22.5C14.1788 22.5 12.5 24.1788 12.5 26.25ZM12.5 3.75C12.5 5.82125 14.1788 7.5 16.25 7.5C18.3212 7.5 20 5.82125 20 3.75C20 1.67875 18.3212 0 16.25 0C14.1788 0 12.5 1.67875 12.5 3.75ZM5 15C5 14.5712 5.04375 14.1538 5.12625 13.75H1.25C0.56 13.75 0 14.3088 0 15C0 15.6912 0.56 16.25 1.25 16.25H5.12625C5.04375 15.8462 5 15.4288 5 15ZM10 3.75C10 3.32125 10.0437 2.90375 10.1262 2.5H1.25C0.56 2.5 0 3.05875 0 3.75C0 4.44125 0.56 5 1.25 5H10.1262C10.0437 4.59625 10 4.17875 10 3.75ZM22.5 3.75C22.5 4.17875 22.4563 4.59625 22.3738 5H26.25C26.94 5 27.5 4.44125 27.5 3.75C27.5 3.05875 26.94 2.5 26.25 2.5H22.3738C22.4563 2.90375 22.5 3.32125 22.5 3.75ZM10 26.25C10 25.8212 10.0437 25.4037 10.1262 25H1.25C0.56 25 0 25.5588 0 26.25C0 26.9412 0.56 27.5 1.25 27.5H10.1262C10.0437 27.0963 10 26.6788 10 26.25ZM17.5 15C17.5 15.4288 17.4563 15.8462 17.3738 16.25H26.25C26.94 16.25 27.5 15.6912 27.5 15C27.5 14.3088 26.94 13.75 26.25 13.75H17.3738C17.4563 14.1538 17.5 14.5712 17.5 15ZM22.5 26.25C22.5 26.6788 22.4563 27.0963 22.3738 27.5H26.25C26.94 27.5 27.5 26.9412 27.5 26.25C27.5 25.5588 26.94 25 26.25 25H22.3738C22.4563 25.4037 22.5 25.8212 22.5 26.25Z",
-    fill: "black"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_AllergyFilters__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_iconcomponents_Filter__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    setModalShow: setModalShow
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_AllergyFilters__WEBPACK_IMPORTED_MODULE_5__["default"], {
     modalShow,
     setModalShow,
     restaurantAllergies: restaurant.locations[0].menu.allergies,
     primaryColor: restaurant.primaryColor
-  })), showWindow ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(PopUpFilterWindow, null) : null));
+  }))));
 };
 function selectCard(cardName, selected) {
   var selectedCard = "allergen-card-" + cardName;
@@ -11391,7 +11297,7 @@ const MainScreen = ({
     onClick: function () {
       setHasRestrictions(true);
     }
-  }, "View ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("strong", null, "Allergy Menu \u2192")))));
+  }, "View ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("strong", null, "Allergy Menu \u2192")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CallToActionBanner__WEBPACK_IMPORTED_MODULE_2__["default"], null));
 };
 const mapStateToProps = state => ({});
 const mapDispatchToProps = {};
@@ -11502,7 +11408,7 @@ const MenuItemCard = ({
   })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "menu-item-card-wrapper bottom-box-shadow",
     style: {
-      border: `4px solid ${type === "Safe" ? safeColor : modColor}`
+      border: `6px solid ${type === "Safe" ? safeColor : modColor}`
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "menu-item-card-image-container",
@@ -11515,15 +11421,15 @@ const MenuItemCard = ({
     className: "menu-item-card-title"
   }, menuitem.name.substring(0, 100), " ", menuitem.name.length >= 100 && '...'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     className: "menu-item-card-description"
-  }, " ", menuitem.description.substring(0, 110), " ", menuitem.description.length >= 110 && '...')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "full-width-center-flex",
+  }, " ", menuitem.description.substring(0, 110), " ", menuitem.description.length >= 110 && '...')), type !== "Safe" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "full-width-center-flex mod-necessary-button",
     onClick: function () {
       !modalShow && setModalShow(true);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "menu-item-card-button hover",
     style: {
-      backgroundColor: `${type === "Safe" ? safeColor : modColor}`
+      backgroundColor: `${modColor}`
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     style: {
@@ -11538,7 +11444,7 @@ const MenuItemCard = ({
       paddingBottom: "8px",
       marginTop: "-8px"
     }
-  }, "Click here for details"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_MenuItemDescription_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, "Click here for details")))) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_modals_MenuItemDescription_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
     modalShow,
     setModalShow,
     menuitem,
@@ -11567,9 +11473,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
 /* harmony import */ var _utils_menuitemFilter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/menuitemFilter */ "./client/utils/menuitemFilter.js");
 /* harmony import */ var _MenuItemCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MenuItemCard */ "./client/views/frontend/MenuItemCard.js");
+/* harmony import */ var _Category__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Category */ "./client/views/frontend/Category.js");
+/* harmony import */ var _Categories__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Categories */ "./client/views/frontend/Categories.js");
+
+
 
 
 
@@ -11580,6 +11490,11 @@ const MenuItems = ({
   selectedAllergies,
   categories
 }) => {
+  // const { safeMenuitems, modMenuitems } = menuitemFilter(
+  //   category.menuitems,
+  //   selectedAllergies
+  // );
+
   const allItems = categories.map(({
     name,
     menuitems
@@ -11590,12 +11505,15 @@ const MenuItems = ({
       filteredMenuitems
     };
   });
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], null, allItems.some(item => item.filteredMenuitems.length > 0) ? allItems.map(item => item.filteredMenuitems.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    className: "menu-category-container"
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    className: "p-0"
+  }, allItems.some(item => item.filteredMenuitems.length > 0) ? allItems.map(item => item.filteredMenuitems.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    className: "d-flex flex-column p-0"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", {
+    className: "mt-3",
     id: item.categoryName
-  }, item.categoryName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    className: "menu-item-container"
+  }, item.categoryName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    className: "menuitem-container p-0"
   }, item.filteredMenuitems.map(({
     type,
     menuitem
@@ -11606,10 +11524,8 @@ const MenuItems = ({
     primaryColor: primaryColor,
     selectedAllergies: selectedAllergies
   }))))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    className: "no-items",
     style: {
       width: "100%",
-      color: "green",
       textAlign: "center"
     }
   }, "No Items"));
@@ -11642,7 +11558,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_idle_timer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-idle-timer */ "./node_modules/react-idle-timer/dist/index.esm.js");
 /* harmony import */ var react_scrollspy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-scrollspy */ "./node_modules/react-scrollspy/lib/scrollspy.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _modals_CrossContact__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modals/CrossContact */ "./client/views/frontend/modals/CrossContact.js");
 /* harmony import */ var _MenuItems__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./MenuItems */ "./client/views/frontend/MenuItems.js");
 /* harmony import */ var _Category__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Category */ "./client/views/frontend/Category.js");
@@ -11656,6 +11572,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/dist/mixpanel.cjs.js");
 /* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(mixpanel_browser__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var _FilterBar__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./FilterBar */ "./client/views/frontend/FilterBar.js");
+/* harmony import */ var _utils_menuitemFilter__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../utils/menuitemFilter */ "./client/utils/menuitemFilter.js");
+/* harmony import */ var _MenuItemCard__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./MenuItemCard */ "./client/views/frontend/MenuItemCard.js");
+
+
 
 
 
@@ -11677,12 +11597,16 @@ __webpack_require__.r(__webpack_exports__);
 const MenuWindow = ({
   restaurant,
   categories,
+  category,
+  categoryId,
+  menuItems,
+  menuitemFilter,
   selectedAllergies
 }) => {
-  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_16__.useLocation)();
-  const history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_16__.useHistory)();
+  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_18__.useLocation)();
+  const history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_18__.useHistory)();
   if (!restaurant.id) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Redirect, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Redirect, {
       to: `${location.pathname.replace("/menu", "")}`
     });
   }
@@ -11710,7 +11634,9 @@ const MenuWindow = ({
   }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "custom-sticky-top"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "menu-section"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
     className: "menu-section"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ScrollSpyTabs__WEBPACK_IMPORTED_MODULE_13__["default"], {
     primaryColor: restaurant.primaryColor,
@@ -11756,9 +11682,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Image.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
 /* harmony import */ var _MenuWindow__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MenuWindow */ "./client/views/frontend/MenuWindow.js");
 /* harmony import */ var react_loading_skeleton_dist_skeleton_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-loading-skeleton/dist/skeleton.css */ "./node_modules/react-loading-skeleton/dist/skeleton.css");
 /* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/dist/mixpanel.cjs.js");
@@ -11766,6 +11692,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_reducers_frontend__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../redux/reducers/frontend */ "./client/redux/reducers/frontend.js");
 /* harmony import */ var _WaitlistBanner__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./WaitlistBanner */ "./client/views/frontend/WaitlistBanner.js");
 /* harmony import */ var _KitchenProceduresWindow__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./KitchenProceduresWindow */ "./client/views/frontend/KitchenProceduresWindow.js");
+/* harmony import */ var _CallToActionBanner__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./CallToActionBanner */ "./client/views/frontend/CallToActionBanner.js");
+/* harmony import */ var _FilterBar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./FilterBar */ "./client/views/frontend/FilterBar.js");
+/* harmony import */ var _Categories__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Categories */ "./client/views/frontend/Categories.js");
+/* harmony import */ var _Category__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Category */ "./client/views/frontend/Category.js");
+
+
+
+
 
 
 
@@ -11782,10 +11716,10 @@ const OrderMenu = ({
   selectedAllergies,
   setSelectedAllergies
 }) => {
-  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useLocation)();
-  const history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useHistory)();
+  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_12__.useLocation)();
+  const history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_12__.useHistory)();
   if (!restaurant.id) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Redirect, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Redirect, {
       to: `${location.pathname.replace("/menu", "")}`
     });
   }
@@ -11825,11 +11759,11 @@ const OrderMenu = ({
     className: "menu-header-contents  center-flex"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "menu-header-logo-container center-flex"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
     className: "menu-back-button",
     onClick: () => history.push(`${location.pathname.replace("/menu", "")}`),
     src: "/img/back-arrow.png"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__["default"], {
     className: "menu-header-logo",
     src: restaurant.logo ? restaurant.logo.url : "/img/demo-restauarant.png"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -11875,9 +11809,9 @@ const OrderMenu = ({
     style: {
       backgroundColor: !show ? '#e2e2e2' : restaurant.primaryColor
     }
-  }, "Kitchen Procedures")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  }, "Kitchen Procedures")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__["default"], {
     className: "tab-section-window "
-  }, show ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_KitchenProceduresWindow__WEBPACK_IMPORTED_MODULE_7__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuWindow__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
+  }, show ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_KitchenProceduresWindow__WEBPACK_IMPORTED_MODULE_7__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MenuWindow__WEBPACK_IMPORTED_MODULE_2__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CallToActionBanner__WEBPACK_IMPORTED_MODULE_8__["default"], null));
 };
 const changeStyles = () => {
   let element = document.getElementById('menu-tab-button');
@@ -12319,9 +12253,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/throttle */ "./node_modules/lodash/throttle.js");
 /* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_throttle__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _FilterBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FilterBar */ "./client/views/frontend/FilterBar.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _CallToActionBanner__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CallToActionBanner */ "./client/views/frontend/CallToActionBanner.js");
+/* harmony import */ var _FilterBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FilterBar */ "./client/views/frontend/FilterBar.js");
 
 
+
+
+
+// import { makeStyles, withStyles } from "@material-ui/core/styles";
+// import Tabs from "@material-ui/core/Tabs";
+// import Tab from "@material-ui/core/Tab";
 
 const tabHeight = 50;
 const makeUnique = (hash, unique, i = 1) => {
@@ -12363,7 +12306,8 @@ function ScrollSpyTabs(props) {
       icon: tab.icon || "",
       text: tab.text,
       component: tab.component,
-      hash: hash
+      hash: hash,
+      node: document.getElementById(hash)
     };
   });
   const itemsClientRef = react__WEBPACK_IMPORTED_MODULE_0__.useRef([]);
@@ -12417,14 +12361,16 @@ function ScrollSpyTabs(props) {
   useThrottledOnScroll(itemsServer.length > 0 ? findActiveIndex : null, 166);
   const snapCategoryNav = hash => {
     const offset = document.getElementById(`category-nav-${hash}`).offsetLeft;
-    const gutterLeftWidth = document.getElementById("category-nav-gutter-left").offsetWidth;
+    const gutterLeftWidth = 50;
     const colEl = document.getElementById("category-nav-bar-col");
-    const paddingLeftWidth = parseFloat(window.getComputedStyle(colEl, null).getPropertyValue("padding-left"));
-    document.getElementById(`category-nav-bar`).scrollTo({
-      left: offset - gutterLeftWidth - paddingLeftWidth,
-      behavior: "auto"
-    });
+    const paddingLeftWidth = 50;
+
+    // document.getElementById(`category-nav-bar`).scrollTo({
+    //   left: offset - gutterLeftWidth - paddingLeftWidth,
+    //   behavior: "auto",
+    // });
   };
+
   const disableAutoDetect = () => {
     clickedRef.current = true;
     unsetClickedRef.current = setTimeout(() => {
@@ -12436,7 +12382,7 @@ function ScrollSpyTabs(props) {
     if (window) {
       const scrollDiff = document.getElementById(hash).getBoundingClientRect().top + window.pageYOffset;
       window.scrollTo({
-        top: scrollDiff - 50,
+        top: scrollDiff - 115,
         behavior: "smooth"
       });
       snapCategoryNav(hash);
@@ -12460,6 +12406,9 @@ function ScrollSpyTabs(props) {
       return idx !== -1 && idx !== 0;
     }
   };
+
+  // const classes = useStyles();
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     ref: catNav,
     className: "custom-sticky-top category-container bottom-box-shadow",
@@ -12483,7 +12432,7 @@ function ScrollSpyTabs(props) {
     label: item2.text,
     onClick: handleClick(item2.hash),
     value: item2.hash
-  }, item2.text)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FilterBar__WEBPACK_IMPORTED_MODULE_2__["default"], null), itemsServer.map(item1 => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
+  }, item2.text)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FilterBar__WEBPACK_IMPORTED_MODULE_4__["default"], null), itemsServer.map(item1 => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
     id: item1.hash,
     key: item1.text
   }, item1.component)));
@@ -12733,26 +12682,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const CheckmarkSVG = props => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", {
-  id: "b",
-  "data-name": "Layer 2",
   xmlns: "http://www.w3.org/2000/svg",
   fill: props.fill,
   className: "checkmark",
   width: "70.8",
   height: "69.235",
   viewBox: "0 0 70.8 69.235"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("g", {
-  id: "c",
-  "data-name": "Layer 1"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("g", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
   d: "m0,33.723c1.577-1.611,3.172-3.207,4.723-4.843.578-.609.915-.75,1.736-.149,4.099,3.005,8.293,5.883,12.45,8.81,1.566,1.102,3.124,2.215,4.808,3.41,2.417-2.293,4.905-4.508,7.223-6.888,3.234-3.319,6.344-6.758,9.503-10.149,3.078-3.303,6.139-6.623,9.233-9.912,1.96-2.083,3.887-4.208,5.974-6.161,2.978-2.786,5.78-5.799,9.389-7.842.32,0,.64,0,.96,0,1.6,1.515,3.2,3.03,4.8,4.544v.239c-1.48,1.676-2.997,3.322-4.431,5.036-1.611,1.925-3.146,3.913-4.717,5.87-2.26,2.815-4.577,5.587-6.771,8.452-3.354,4.381-6.705,8.769-9.908,13.259-3.538,4.96-6.996,9.983-10.328,15.083-3.521,5.39-6.851,10.904-10.269,16.361-.061.097-.173.163-.422.389C15.955,57.537,7.978,45.869,0,34.202c0-.159,0-.319,0-.478Z"
 })));
-const DedicatedBanner = allergy => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-  className: "dedicated-banner-wrapper",
-  style: {
-    backgroundImage: "url(/img/banner2.png)"
-  }
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "DEDICATED FREE"));
 const AllergyFilters = ({
   modalShow,
   setModalShow,
@@ -12761,10 +12699,133 @@ const AllergyFilters = ({
   selectedAllergies,
   setSelected
 }) => {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
-    id: "allergyFiltersWindowComponent noscroll"
-  }));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    className: "noscroll",
+    show: modalShow,
+    onHide: () => setModalShow(false)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "overlay-window full-width-center-flex noscroll"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "modify-filters-window-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "filter-window-header"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", null, "Modify the Filters for this Menu"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    className: "styled-button",
+    onClick: () => setModalShow(false),
+    style: {
+      backgroundColor: primaryColor
+    }
+  }, "X")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
+    className: "restrictedAllergensGridComponent"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "select-allergens-wrapper"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "select-allergens-grid center-flex"
+  }, restaurantAllergies.map(allergy => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    key: allergy.id,
+    className: "allergy-card-wrapper"
+  }, selectedAllergies[allergy.id].selected && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "checkbox-container",
+    style: {
+      display: "flex"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "checkbox-active",
+    id: "allergen-check-" + `${allergy.name}`
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(CheckmarkSVG, {
+    fill: primaryColor
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "dedicated-banner-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "dedicated-banner-wrapper",
+    style: {
+      backgroundImage: "url(/img/banner2.png)",
+      display: "none"
+    },
+    id: "dedications-" + `${allergy.name}`
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "DEDICATED FREE"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "allergen-card center-flex bottom-box-shadow",
+    style: {
+      border: selectedAllergies[allergy.id].selected ? "2px solid black" : "1px solid black"
+    },
+    id: "allergen-card-" + `${allergy.name}`,
+    onClick: () => {
+      setSelected({
+        ...selectedAllergies,
+        [allergy.id]: {
+          ...selectedAllergies[allergy.id],
+          selected: !selectedAllergies[allergy.id].selected
+        }
+      });
+      selectCard(selectedAllergies[allergy.id].name, selectedAllergies[allergy.id].selected);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "allergen-card-contents"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "allergen-image-container",
+    style: {
+      backgroundImage: `url('/icons/allergens/${allergy.name}.png')`
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    class: "allergen-title",
+    style: {
+      fontWeight: selectedAllergies[allergy.id].selected ? "600" : "400"
+    }
+  }, allergy.name))), selectedAllergies[allergy.id].selected && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "cross-contamination-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    className: "cross-contamination-text"
+  }, "Sensitive to cross contact?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "cross-contamination-button-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    onClick: () => setSelected({
+      ...selectedAllergies,
+      [allergy.id]: {
+        ...selectedAllergies[allergy.id],
+        cross: true
+      }
+    }),
+    className: "cross-contact-button",
+    style: {
+      color: !selectedAllergies[allergy.id].cross ? "black" : "white",
+      backgroundColor: !selectedAllergies[allergy.id].cross ? "white" : primaryColor,
+      border: !selectedAllergies[allergy.id].cross ? "1px solid black" : "none"
+    }
+  }, "Yes"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    onClick: () => setSelected({
+      ...selectedAllergies,
+      [allergy.id]: {
+        ...selectedAllergies[allergy.id],
+        cross: false
+      }
+    }),
+    className: "cross-contact-button ms-3",
+    style: {
+      color: selectedAllergies[allergy.id].cross ? "black" : "white",
+      backgroundColor: selectedAllergies[allergy.id].cross ? "white" : primaryColor,
+      border: selectedAllergies[allergy.id].cross ? "1px solid black" : "none"
+    }
+  }, "No")))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    className: "full-width-button",
+    onClick: () => setModalShow(false),
+    style: {
+      backgroundColor: primaryColor
+    }
+  }, "Update Menu")))));
 };
+function selectCard(cardName, selected) {
+  var selectedCard = "allergen-card-" + cardName;
+  var selectedCardCheck = "allergen-check-" + cardName;
+  var modifyCard = document.getElementById(selectedCard);
+  var modifyCardCheck = document.getElementById(selectedCardCheck);
+  if (selected) {
+    modifyCard.classList.remove("selected-allergen");
+    modifyCardCheck.style.display = "none";
+  } else {
+    modifyCard.classList.add("selected-allergen");
+    modifyCardCheck.style.display = "block";
+  }
+}
 const mapState = state => {
   const {
     selectedAllergies

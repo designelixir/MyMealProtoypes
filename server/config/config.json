@@ -1,11 +1,12 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
+    "username": "awsdefault",
+   "password": "Foodallergies0101!", 
+   "database": "ebdb", 
+   "host": "aah8y3esls4krk.ccm1ywaa56gc.us-east-1.rds.amazonaws.com", 
+   "port": "5432", 
+   "dialect": "postgres", 
+   "dialectOptions": { "ssl": { "require": true, "rejectUnauthorized": false } } },
   "test": {
     "username": "root",
     "password": null,
@@ -14,10 +15,11 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  }
+    "username": "awsdefault",
+   "password": "Foodallergies0101!", 
+   "database": "ebdb", 
+   "host": "aah8y3esls4krk.ccm1ywaa56gc.us-east-1.rds.amazonaws.com", 
+   "port": "5432", 
+   "dialect": "postgres", 
+   "dialectOptions": { "ssl": { "require": true, "rejectUnauthorized": false } } }
 }

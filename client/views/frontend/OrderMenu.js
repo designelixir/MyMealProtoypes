@@ -8,7 +8,10 @@ import mixpanel from 'mixpanel-browser';
 import { setSelectedAllergy } from "../../redux/reducers/frontend";
 import WaitlistBanner from "./WaitlistBanner";
 import KitchenProceduresWindow from "./KitchenProceduresWindow";
-
+import CallToActionBanner from "./CallToActionBanner";
+import FilterBar from "./FilterBar";
+import Categories from "./Categories";
+import Category from "./Category";
 const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAllergies }) => {
 
   const location = useLocation();
@@ -134,12 +137,14 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAller
         
       </div>
     </div>
+    
+    
     {/* SELECTED WINDOW */}
     <Container className="tab-section-window ">
         { show ? <KitchenProceduresWindow/> : <MenuWindow></MenuWindow> }
       </Container>
 
-      
+      <CallToActionBanner></CallToActionBanner>
     </section>
   );
 };

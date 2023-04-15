@@ -30,7 +30,8 @@ button {border: none!important;}
 .container {padding: 0!important;} 
 
 .justify-content-evenly {justify-content: space-between!important;}
-
+.full-width-button {padding: 10px 15px; width: 100%; border: none; border-radius: 0 0 6px 6px; font-weight: 400; font-size: 16px; color: white; font-family: "Poppins"}
+.full-width-button:hover {transform: scale(1.1); cursor: pointer;}
 .styled-button {padding: 10px 15px; border: none; border-radius: 6px; font-weight: 400; font-size: 16px; color: white; font-family: "Poppins"}
 .styled-button:hover {transform: scale(1.1); cursor: pointer;}
 .styled-button strong {font-weight: 600;}
@@ -49,7 +50,7 @@ button {border: none!important;}
 
 /* Page Header Styling */
 .menu-header {  background-size: cover; background-position: center center; background-repeat: no-repeat; }
-.menu-header-contents {padding: 10px 15px; }
+.menu-header-contents {width: 100vw; }
 .menu-header-logo-container { width: 250px; }
 .menu-header-logo {height: 100px; width: auto; padding: 12.5px; }
 .menu-header-title-container {text-align: center; line-height: 18px; width: 100%;}
@@ -69,22 +70,25 @@ button {border: none!important;}
 
 
 /* Restrictions.js */
-#restrictionsComponent {height: 100%; background: #FEFEFF; overflow-y: scroll;}
+#restrictionsComponent {height: 100%; background: #FEFEFF; overflow-y: scroll; }
 .select-allergens-wrapper { padding: 25px 15px;  }
-.select-allergens-grid { width: 100%; flex-wrap: wrap; align-items: flex-start!important;}
+.select-allergens-grid { width: 100%; display: inline-flex; align-items: center; justify-content: center; flex-wrap: wrap; align-items: flex-start!important;}
 
-.allergy-card-wrapper { padding: 0px 0px 10px 5px;}
-.allergen-title {line-height: 14px; height: 40px; margin: 0!important; padding-top: 5px;}
-.allergen-card { cursor: pointer; width: 100px; padding: 5px; min-height: 140px;  background-color: white; text-align: center;  border: 1px solid black; border-radius: 6px; }
+
+.allergen-title {line-height: 14px; margin-top: 10px!important;}
+.allergen-card { cursor: pointer; width: 100px; padding: 5px;  background-color: white; text-align: center;  border: 1px solid black; border-radius: 6px; }
 .selected-allergen {background: #eeeeee; border: 4px solid black; font-weight: 600;}
+
+
 
 .dedicated-banner-container {height: 25px; width: 128px; pointer-events: none; transform: translateY(100px) translateX(-8px);}
 .dedicated-banner-wrapper { height: 35px; width: 128px; background-size: contain; background-repeat: no-repeat; background-position-x: 0;  display: flex; align-items: center; justify-content: center; }
 .dedicated-banner-wrapper p { text-align: center; color: white; font-size: 14px;}
 
-
-.checkbox-container { width: 120px; height: 30px; display: flex; align-items: flex-end; justify-content: flex-end; transform: translateY(40px)}
+.allergy-card-wrapper {display: flex; align-items: center; justify-content: center; flex-direction: column;}
+.checkbox-container { width: 120px; height: 35px;  display: flex; align-items: flex-end; justify-content: flex-end; margin-bottom: -38px; margin-right: -5px; z-index: 5;}
 .checkbox {display: none; height: 20px; width: 20px; border: 2px solid black; background: white; border-radius: 6px;}
+.checkbox-active { height: 20px; width: 20px; border: 2px solid black; background: white; border-radius: 6px;}
 .checkmark {height: 25px; margin-left: -20px; transform: translateY(-8px)}
 .allergen-image-container {height: 100%; min-height: 80px; width: 90px; background-size: contain; background-position: center center; background-repeat: no-repeat; }
 .cross-contamination-container { background-color: #eeeeee; width: 100px; height: 65px; padding: 2.5px; margin: 0px 5px 5px; border-radius: 0 0px 6px 6px; }
@@ -103,7 +107,7 @@ button {border: none!important;}
 
 /* OrderMenu.js */
 .restaurant-message-banner {
-  padding: 5px; color: white; text-align: center; font-size: 18px; position: sticky;
+  padding: 5px; color: white; text-align: center; font-size: 16px; position: sticky;
 }
 .restaurant-message {
   font-size: 18px; font-weight: 300;
@@ -129,18 +133,21 @@ button {border: none!important;}
 .category-container {padding: 25px; display: flex; align-items: center; justify-content: flex-start; color: white; border-radius: 0px 6px 6px 6px;}
 .categories-scroller {background: white; overflow-x: scroll; border: 1px solid black; display: flex; align-items: center; justify-content: flex-start; border-radius: 25px; margin-left: 15px; padding: 3px; overflow-x: scroll; margin-right: 15px;}
 .category-item {color: black; white-space: nowrap; margin: 0px 5px; border-radius: 20px;  padding: 5px 10px;}
+.category-container {background-color: #e2e2e2; border-radius: 0px 6px 6px 6px;}
 .custom-sticky-top {position: -webkit-sticky; position: sticky; top: 0; z-index: 1020;}
 
 /* FilterBar.js */
 .filtered-by-container {display: flex; align-items: center; justify-content: space-between;  margin: 10px 0px 10px 25px;   }
 .filtered-allergens-row {display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; }
+.filtered-allergens-row p {margin: 0!important;}
 .filtered-allergen {width: auto; margin: 0px 3px; border-radius: 2px; padding: 0px 5px; font-size: 14px; }
 .filter-text-container {display: flex;}
 
-.modify-filters-window-container {margin: 10vw; background: white; border-radius: 6px; border: 1px solid black;}
+.modify-filters-window-container {margin: 10vw; background: white; border-radius: 6px; border: 1px solid black; max-height: 80vh; overflow-y: scroll;}
 
 
-.filter-window-header {width: 95%; padding: 10px 2.5%; background: #eeeeee; border-radius: 6px 6px 0px 0px; text-align: center;}
+.filter-window-header {width: 95%; padding: 10px 2.5%; background: #eeeeee; border-radius: 6px 6px 0px 0px; text-align: center; display: inline-flex; justify-content: center; align-items: center; flex-wrap:wrap-reverse}
+.filter-window-header .styled-button {height: 40px; width: 40px; margin-left: 10px;}
 .filter-window-filters {background: white; padding: 15px;}
 
 /* AllergyFilters.js */
@@ -148,20 +155,26 @@ button {border: none!important;}
 
 /* Category.js */
 .category-title-container {margin-left: 20px}
-.category-menu-item-container {background: #eeeeee; border-radius: 6px; display: flex; align-items: center; justify-content: flex-start; flex-wrap: nowrap; overflow-x: scroll; padding: 25px 15px 25px 15px;}
-.menu-card-wrapper {margin: 0px 15px 25px; }
+.category-type-container {background: #eeeeee; border-radius: 6px; padding:  15px;}
+.category-no-mods-container h3 {color: #68834E; margin: 0!important; font-size: 24px; font-weight: 500; line-height: 24px; padding: 10px 0px 10px 10px}
+.category-mods-container h3 {color: #E18544; margin: 0!important; font-size: 24px; font-weight: 500; line-height: 24px; padding: 10px 0px 10px 10px}
+.category-menu-item-container { display: flex; align-items: center; justify-content: flex-start; flex-wrap: nowrap; overflow-x: scroll; }
+
 
 /* MenuItemCard.js */
-.menu-item-card-container {width: 250px; margin-top: -25px; margin-bottom: 25px; }
-.safe-check-container {width: 100%; display: flex; align-items: center; justify-content: flex-end; transform: translateY(25px) translateX(10px)}
-.menu-item-card-wrapper {border-radius: 6px; padding: 10px; height: 350px; background: white;}
+.menu-item-card-container {width: 250px; margin: 0px 10px 25px 10px; }
+.menu-item-card-container:hover {transform: scale(1.01); cursor: pointer;}
+.safe-check-container {width: 100%; display: flex; align-items: center; justify-content: flex-end; transform: translateY(25px) translateX(10px); margin-top: -25px;}
+.menu-item-card-wrapper {border-radius: 6px; padding: 10px; max-height: 350px; background: white;}
 .menu-item-card-image-container {height: 200px; padding: 5px; border-radius: 6px 6px 0px 0px; background-size: cover; background-position: center center; background-repeat: no-repeat;}
 
-.menu-item-card-title {line-height: 16px; height: 20px;}
-.menu-item-card-description {font-size: 12px; line-height: 14px; height: 50px;}
+.menu-item-card-title {line-height: 16px; margin: 10px 0px 10px; font-weight: 600;}
+.menu-item-card-description {font-size: 12px; line-height: 14px; height: 50px; margin: 0 0 10px;}
 
 .menu-item-card-button {color: white; text-align: center; padding: 0px 10px; height: 55px; border-radius: 6px;}
-
+.mod-necessary-button {transform: translateY(25px);
+  margin-top: -25px;}
+  .mod-necessary-button:hover {transform: scale(1.1) translateY(25px); cursor: pointer;}
 
 /* MenuItemDescription.js */
 .menu-item-pop-up-container {background: white; margin: 275px 10vw 0; padding: 25px; border-radius: 6px; width: 80vw;}

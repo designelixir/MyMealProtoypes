@@ -47,7 +47,7 @@ const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
             </svg>
         </div>
       <div className="menu-item-card-wrapper bottom-box-shadow" style={{
-        border: `4px solid ${type === "Safe" ? safeColor : modColor}`,
+        border: `6px solid ${type === "Safe" ? safeColor : modColor}`,
       }}>
         
       
@@ -56,17 +56,17 @@ const MenuItemCard = ({ menuitem, type, selectedAllergies, primaryColor }) => {
              <h4 className="menu-item-card-title">{menuitem.name.substring(0, 100)} {menuitem.name.length >= 100 && '...'}</h4>
              <p className="menu-item-card-description"> {menuitem.description.substring(0, 110)} {menuitem.description.length >= 110 && '...'}</p>
           </div>
-
-          <div className="full-width-center-flex" onClick={function() {!modalShow && setModalShow(true)}} >
+          {type !== "Safe" ? <>
+          <div className="full-width-center-flex mod-necessary-button" onClick={function() {!modalShow && setModalShow(true)}} >
             <div className="menu-item-card-button hover" style={{
-            backgroundColor: `${type === "Safe" ? safeColor : modColor}`
+            backgroundColor: `${modColor}`
           }}>
               <p  style={{fontWeight: "600", lineHeight: "14px", fontSize: "14px"}}>{type === "Safe" ? "No Modifications Required" : "Modification Required"}</p>
               <p style={{fontSize: "10px", lineHeight: "0px", paddingBottom: "8px", marginTop: "-8px"}}>Click here for details</p>
             </div>
             
           </div>
-
+          </> : null}
           
 
           <MenuItemDescription

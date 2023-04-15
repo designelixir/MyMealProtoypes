@@ -22,8 +22,9 @@
 .breadcrumb {color: black!important; font-size: 16px; }
 
 .backend-allergy-grid {display: flex; align-items: flex-start; justify-content: flex-start; flex-wrap: wrap;}
-.backend-allergy-card {padding: 10px 5px!important; border: 1px solid black; border-radius: 6px; text-align: center; width: 100px!important; height: 125px; margin: 8px 8px 8px 0px;}
-.backend-allergy-image {height: 80px; width: 80px; background-size: contain; background-position: center center; background-repeat: no-repeat;}
+.backend-allergy-card {padding: 5px!important; border: 1px solid black; border-radius: 6px; text-align: center; display: flex; align-items: center; justify-content: center; flex-direction: column; width: 100px!important;  margin: 8px 8px 8px 0px;}
+.backend-allergy-card p {margin: 15px 0px!important;}
+.backend-allergy-image {margin: 5px; height: 80px; min-width: 80px; background-size: contain; background-position: center center; background-repeat: no-repeat; text-align: center;}
 
 /* Corporation.js */
 #corporationComponent {margin: 50px;}

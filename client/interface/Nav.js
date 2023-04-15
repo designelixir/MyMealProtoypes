@@ -9,7 +9,7 @@ const Nav = ({ isLoggedIn, logout }) => {
   return (
     <nav className="backend-nav bottom-drop-shadow space-between-flex bottom-box-shadow">
       <div className="center-flex-start">
-        <img src="https://findmymeal.io/wp-content/uploads/2022/11/cropped-logo_black-1-1.png" style={{height: "30px"}}></img>
+        <img src="/mymeal-logolettermark-blueblack.png" style={{height: "25px", paddingRight: "5px"}}></img>
         <p style={{fontSize: "28px"}}>&nbsp;Admin Portal</p>  
       </div>
       <div>

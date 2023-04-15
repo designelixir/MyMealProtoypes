@@ -4,6 +4,8 @@ import { fetchFrontendCategoryMenuitems } from "../../redux/reducers/frontend";
 import menuitemFilter from "../../utils/menuitemFilter";
 import MenuItemCard from "./MenuItemCard";
 
+
+
 export const Category = ({
   category,
   getMenuitems,
@@ -13,7 +15,6 @@ export const Category = ({
 }) => {
   const [filteredMenuitems, setFilteredMenuitems] = useState([]);
   const [unfilteredMenuitems, setUnfilteredMenuitems] = useState([]);
-
   
   useEffect(() => {
     getMenuitems({
@@ -30,44 +31,75 @@ export const Category = ({
       menuitemFilter(unfilteredMenuitems, selectedAllergies)
     );
   }, [selectedAllergies]);
+ 
+
   return (
-    <div key={category.name}>
-      {
-        <div>
-          <div className="category-title-container">
-            <h3 id={category.name} ref={categoryRef}>
-              {category.name} - {filteredMenuitems.length}
-            </h3>
-          </div>
+    <section id={category.name} className="category-section" ref={categoryRef} >
+      <h3>{category.name}</h3>  
+      {/* Container for No Mods and Mods Required */} 
+      <div className="category-type-container">   
+
+            
           
-          <div className="category-menu-item-container">
-            {filteredMenuitems.length > 0 ? (
-              filteredMenuitems.map(({ type, menuitem }) => (
-                <div className="menu-card-wrapper">
-                  {type === "Safe" ? <>
-                  <p>No Modifications Necessary</p>
-                  </> : <></>}
-                  <MenuItemCard
-                    key={menuitem.id}
-                    type={type}
-                    menuitem={menuitem}
-                    primaryColor={primaryColor}
-                    selectedAllergies={selectedAllergies}
-                  />
-                </div>
+  
+            <div className="category-no-mods-container" >
+              
+              <h3>No Modifications Necessary</h3>
+                <div className="category-menu-item-container" >
+                {filteredMenuitems.map(({ type, menuitem }) => (
+                  <div className="menu-card-wrapper">
+                    {type === "Safe" ? <>
+                    <MenuItemCard
+                      key={menuitem.id}
+                      type={type}
+                      menuitem={menuitem}
+                      primaryColor={primaryColor}
+                      selectedAllergies={selectedAllergies}
+                    />
+                    </> : null}
+                    
+                  </div>
+                ))}
                 
-              ))
-            ) : (
-              <p style={{ width: "100%", textAlign: "center" }}>No Items</p>
-            )}
-          </div>
-          
-        </div>
-        
-      }
-    </div>
+                </div>
+              </div>
+
+              <div className="category-mods-container ">
+              <h3>Modifications Necessary</h3>
+                <div className="category-menu-item-container" >
+                
+                {filteredMenuitems.map(({ type, menuitem }) => (
+                  <div className="menu-card-wrapper">
+                    
+                    {type !== "Safe" ? <>
+                    <MenuItemCard
+                      key={menuitem.id}
+                      type={type}
+                      menuitem={menuitem}
+                      primaryColor={primaryColor}
+                      selectedAllergies={selectedAllergies}
+                    />
+                    </> : null}
+                  </div>
+                  
+                ))}
+                </div>
+              </div>
+      </div>
+    </section>
   );
 };
+
+function hideEmptyCategories(categoryCount){
+  if (categoryCount === 0){
+    console.log("empty" + categoryCount)
+  } else {
+    console.log("full" + categoryCount)
+  }
+
+}
+
+
 
 const mapStateToProps = (state) => {
   const { selectedAllergies } = state.frontend;
@@ -80,7 +112,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getMenuitems(data) {
       dispatch(fetchFrontendCategoryMenuitems(data));
-      
     },
   };
 };

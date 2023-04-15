@@ -14,9 +14,15 @@ const DedicatedBanner = (allergy) => (
 )
 
 
+
 const SelectAllergens = ({ restaurant, setHasRestrictions, setSelected }) => {
   const history = useHistory();
   const location = useLocation();
+  if (!restaurant.id) {
+    return <Redirect to={`${location.pathname.replace("/menu", "")}`} />;
+  }
+  
+  
   const [selectedAllergies, setSelectedAllergies] = useState(
     restaurant.locations[0].menu.allergies.reduce((allergyObj, allergy) => {
       allergyObj[allergy.id] = {
@@ -33,6 +39,7 @@ const SelectAllergens = ({ restaurant, setHasRestrictions, setSelected }) => {
 
 <div className="select-allergens-wrapper">
         <div className="select-allergens-grid center-flex">
+          
           {restaurant.locations[0].menu.allergies.map((allergy) => (
             <div key={allergy.id} className="allergy-card-wrapper">
                 <div className="checkbox-container">
