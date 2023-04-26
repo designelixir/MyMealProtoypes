@@ -34,13 +34,13 @@ const AllergyFilters = ({
         show={modalShow}
         onHide={() => setModalShow(false)}
       >
-        <div className="overlay-window full-width-center-flex noscroll" >
+        <div className="overlay-window full-width-center-flex noscroll bottom-box-shadow" >
         <div className="modify-filters-window-container">
             <div className="filter-window-header">
               <h4>Modify the Filters for this Menu</h4>
-              <button className="styled-button" onClick={() => setModalShow(false)} style={{backgroundColor: primaryColor}}>X</button>
+              <button className="styled-button" onClick={() => setModalShow(false)} style={{backgroundColor: primaryColor}}>Save</button>
             </div>
-            <section className="restrictedAllergensGridComponent">
+            <section className="restrictedAllergensGridComponent" >
             <div className="select-allergens-wrapper">
               <div className="select-allergens-grid center-flex">
               {restaurantAllergies.map((allergy) => (
@@ -85,7 +85,7 @@ const AllergyFilters = ({
                       backgroundImage: `url('/icons/allergens/${allergy.name}.png')`,
                     }}
                   ></div>
-                  <p class="allergen-title" style={{fontWeight: selectedAllergies[allergy.id].selected ? "600" : "400" }}>
+                  <p className="allergen-title" style={{fontWeight: selectedAllergies[allergy.id].selected ? "600" : "400" }}>
                     {allergy.name}
                   </p>
                 </div>
@@ -158,7 +158,7 @@ const AllergyFilters = ({
             </div>
             </section>
 
-            <button className="full-width-button" onClick={() => setModalShow(false)} style={{backgroundColor: primaryColor}}>Update Menu</button>
+            {/* <button className="full-width-button" onClick={() => setModalShow(false)} style={{backgroundColor: primaryColor}}>Update Menu</button> */}
         </div>
         
 

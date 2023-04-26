@@ -46,7 +46,7 @@ const AdminDashboard = ({
     addCorporation(corporationData);
   };
   return (
-    <Container id="adminDashboardComponent">
+    <div id="adminDashboardComponent">
        <div className="center-flex-start page-path-container">
         <div onClick={() => history.push("/")}>Dashboard</div>
       </div>
@@ -66,7 +66,7 @@ const AdminDashboard = ({
                 onClick={() => history.push(`/corporations/${corporation.id}`)}
                 style={{ cursor: "pointer" }}
               >
-                {corporation.name}
+               <p className="p2-text"> {corporation.name}</p>
               </Col>
               <Col className="center-flex-start">
                 <InviteUser corporation={corporation} />
@@ -117,7 +117,7 @@ const AdminDashboard = ({
           
         ))}
       </ListGroup>
-    </Container>
+    </div>
   );
 };
 

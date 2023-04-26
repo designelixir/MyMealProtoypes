@@ -12,8 +12,9 @@ import CallToActionBanner from "./CallToActionBanner";
 import FilterBar from "./FilterBar";
 import Categories from "./Categories";
 import Category from "./Category";
+import GeneratedByBanner from "./GeneratedByBanner"
 const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAllergies }) => {
-
+  window.scrollTo(0, 0);
   const location = useLocation();
   const history = useHistory();
 
@@ -46,13 +47,19 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAller
   return (
     <section id="orderMenuComponent">
       <div className="restaurant-message-banner bottom-box-shadow" style={{backgroundColor: restaurant.primaryColor}}>
-      <p className="restaurant-message">{restaurant.locations[0].menu.dedicatedFrom}</p>
+        <p className="restaurant-message">{restaurant.locations[0].menu.dedicatedFrom}</p>
       </div>
     {/* MAIN HEADER */}
-    <div className="blur-overlay" style= {{backgroundImage: `url(${restaurant.bg ? restaurant.bg.url : "/img/generic-bg.jpg"})`}}>
-      <div className="menu-header blur-overlay" >
-      <div className="menu-header-contents  center-flex">
-        <div className="menu-header-logo-container center-flex">
+    <div className="blur-overlay">
+            
+      <div className="menu-header blur-overlay" style={{
+          backgroundImage: `url(${
+            restaurant.bg ? restaurant.bg.url : "/img/generic-bg.jpg"
+          })`,
+        }}>
+      <div className="menu-header-contents">
+        <div className="menu-header-logo-container">
+          <div className="center-flex ">
         <Image
             className="menu-back-button"
             onClick={() =>
@@ -65,13 +72,20 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAller
             src={
               restaurant.logo
                 ? restaurant.logo.url
-                : "/img/demo-restauarant.png"
+                : "/bartaco.png" 
+                // REPLACE ME GENERIC PHOTO
             }
           />
+          </div>
+          
         </div>
         <div className="menu-header-title-container">
-            <h1>{restaurant.name} Menu</h1>
-            <a style={{color: 'black', textDecoration: 'none', cursor: "pointer"}} href={addressSearchUrl} target='_blank'><p>{restaurant.locations[0].address}</p></a>
+            <h1>{restaurant.name}</h1>
+            <a style={{color: 'black', textDecoration: 'none', cursor: "pointer", textAlign: "center"}} href={addressSearchUrl} target='_blank'>
+              <p style={{margin: "0px"}}>{restaurant.locations[0].streetOne} {restaurant.locations[0].streetTwo && ( <span>, {restaurant.locations[0].streetTwo}</span>) }</p>
+              <p style={{margin: "0px", paddingBottom: "10px"}}>{restaurant.locations[0].city}, {restaurant.locations[0].state}, {restaurant.locations[0].zip}</p>
+            </a>
+            
         </div>
         <div className="menu-header-order-button-container center-flex">
         {restaurant.locations[0].menu.orderNow && (
@@ -79,6 +93,7 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAller
             className="bottom-box-shadow styled-button"
             style={{
               backgroundColor: restaurant.primaryColor,
+              fontSize: "12px"
             }}
             onClick={function() {
               mixpanel.track('Clicked Menu Order Now button')
@@ -117,7 +132,7 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAller
    
     
 {/* MENU NAVIGATION STICKY */}
-<div className="menu-nav-container">
+<div className="menu-nav-container" style={{}}>
       <div className="menu-nav-tabs">
       <div className="last-updated"><strong>Last Updated:</strong> {restaurant.locations[0].country} </div>
         <div className="menu-tab-container">
@@ -143,7 +158,7 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAller
     <Container className="tab-section-window ">
         { show ? <KitchenProceduresWindow/> : <MenuWindow></MenuWindow> }
       </Container>
-
+      <div style={{height: "100px"}}></div>
       <CallToActionBanner></CallToActionBanner>
     </section>
   );

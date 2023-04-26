@@ -3,18 +3,22 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Container, Image, Button, Modal, Form } from "react-bootstrap";
 import CallToActionBanner from "./CallToActionBanner";
+import GeneratedByBanner from "./GeneratedByBanner";
 
 
 const MainScreen = ({ restaurant, setHasRestrictions }) => {
   const history = useHistory();
   return (
-    <section className="blur-overlay center-flex" id="mainScreenComponent">
-      <div className="main-screen-component-wrapper">
+    <section className="blur-overlay center-flex" id="mainScreenComponent" style={{
+      backgroundImage: `url(${
+        restaurant.bg ? restaurant.bg.url : "/bartacobg.jpeg"
+      })`}}>
+      <div className="main-screen-component-wrapper" >
         
           <Image
-            className="restaurant-logo"
+            className="restaurant-logo img-drop-shadow"
             src={
-              restaurant.logo ? restaurant.logo.url : "/img/demo-restauarant.png"
+              restaurant.logo ? restaurant.logo.url : '/bartaco.png'
             }
           />
         
@@ -31,7 +35,7 @@ const MainScreen = ({ restaurant, setHasRestrictions }) => {
         </div>
       </div>
       
-      <CallToActionBanner></CallToActionBanner>
+      <GeneratedByBanner></GeneratedByBanner>
     </section>
   );
 };

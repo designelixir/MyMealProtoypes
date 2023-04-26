@@ -67,18 +67,6 @@
         <div className="menu-section">
         
         </div>
-        
-  
-        {/* {categories.map((category) => (
-                  <div className="category-item" 
-                  >{category.name} - {category.length}
-                  <div className="category-container">
-                    
-                  </div>
-                  </div>
-                  
-                  
-                ))} */}
         <section className="menu-section">
         
         <ScrollSpyTabs

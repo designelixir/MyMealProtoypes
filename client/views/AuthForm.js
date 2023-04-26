@@ -29,31 +29,36 @@ const AuthForm = ({ name, displayName, authenticateUser, error }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3">
-        {hasLabel && <Form.Label>Email address</Form.Label>}
+    <Form onSubmit={handleSubmit} id="authFormComponent">
+      <Form.Group className="login-field">
+        {hasLabel && <Form.Label>Email &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </Form.Label>}
         <Form.Control
           placeholder={!hasLabel ? "Email address" : ""}
           value={formData.email}
           name="email"
           onChange={handleFieldChange}
           type="email"
+          className="login-textbox"
         />
       </Form.Group>
+      <br></br>
 
-      <Form.Group className="mb-3">
-        {hasLabel && <Form.Label>Password</Form.Label>}
+      <Form.Group className="login-field">
+        {hasLabel && <Form.Label>Password &nbsp;</Form.Label>}
         <Form.Control
           placeholder={!hasLabel ? "Password" : ""}
           value={formData.password}
           name="password"
           onChange={handleFieldChange}
           type="password"
+          className="login-textbox"
+          
         />
       </Form.Group>
+      <br></br>
 
-      <Row className="justify-content-between align-items-center">
-        <Col xs="auto">
+      <Row>
+        <Col>
           <Form.Check type="checkbox" id="rememberMe">
             <Form.Check.Input
               type="checkbox"
@@ -81,17 +86,20 @@ const AuthForm = ({ name, displayName, authenticateUser, error }) => {
           </Link>
         </Col> */}
       </Row>
+      <br></br>
+      
 
       <Form.Group>
-        <Button
+        <button className="styled-button"
           type="submit"
-          color="primary"
-          className="mt-3 w-100"
+          style={{backgroundColor: "#4B9BD2", maxWidth: "440px", width: "100%"}}
           disabled={!formData.email || !formData.password}
         >
-          Log in
-        </Button>
+          Log In
+        </button>
       </Form.Group>
+
+      
 
       {/* <Divider className="mt-4">or log in with</Divider> */}
     </Form>

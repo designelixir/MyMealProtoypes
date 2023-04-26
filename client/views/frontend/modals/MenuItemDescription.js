@@ -28,65 +28,43 @@ const MenuItemDescription = ({
       <Modal
         className="noscroll"
         show={modalShow}
-        onHide={() => setModalShow(false)}
-        // fullscreen
-        
-      >
-        <div className="report-error-container bottom-box-shadow center-flex">
-          <p style={{color: "white", fontWeight: "600", fontSize: "18px"}}>Always notify the restaurant of your allergens! &nbsp; &nbsp;</p>
-          <button className="utility-button hover" style={{fontStyle: "italic"}}>Suggest an Edit</button>
-        </div>
-
-        <div className="overlay-window full-width-center-flex" style={{height: "100%"}}>
-          <div className="menu-item-pop-up-container bottom-box-shadow" style={{border: '3px solid orange'}} >
-        
-        {menuitem.image ? (
+        onHide={() => setModalShow(false)}>
           
-          <div className="menu-item-image-wrapper full-width-center-flex">
-          <img
-            className="menu-item-image"
-            style={{
-              backgroundImage: "url(/img/generic-bg.jpg)", 
-              border: '3px solid #68834E' 
-            }}
-          />
-        </div>
-          ) : (
-            <div className="menu-item-image-wrapper full-width-center-flex">
-            <img
-              className="menu-item-image"
-              style={{
-                backgroundImage: "url(/img/generic-bg.jpg)", 
-                border: '3px solid #68834E',
-                
-                // need to fix color
-              }}
-            />
+        
+
+        <div className="overlay-window" style={{height: "100vh"}}>
+        <section className="menu-pop-up-contents">
+          {/* Notify Restaurant of Allergens Message */}
+          <div className="report-error-container bottom-box-shadow center-flex">
+            <p className="report-error-message p2-text">Always notify the restaurant of your allergens!</p>
+            <button className="utility-button hover" style={{fontStyle: "italic"}}>Suggest an Edit</button>
+          </div>
+          {/* Menu Description Card */}
+          <div className="menu-item-pop-up-wrapper">
+            <div className="menu-item-pop-up bottom-box-shadow" style={{border: `6px solid ${data.modifiable.length > 0 ? modColor : safeColor}`}} >
+            {menuitem.image ? (
+              <div className="menu-image" style={{backgroundImage: "url(/img/generic-bg.jpg)"}}> 
+              <button className="hover menu-pop-up-close-button" onClick={function() {modalShow && setModalShow(false)}}>X</button>
+                </div> ) 
+                : 
+                (
+              <div className="no-menu-image"> 
+                <button className="hover menu-pop-up-close-button" onClick={function() {modalShow && setModalShow(false)}}>X</button>
+                </div>)}
+             
+
+          
+            <div className="menu-item-info">
+              <h4 className="menu-title"><strong>{menuitem.name}</strong>{menuitem.price && (
+                <span className="menu-price"> - ${menuitem.price}</span>
+              )}</h4>
+              <p className="menu-description">{menuitem.description}</p>
+              
             </div>
+            
+          
 
-          )} 
-  
-
-
-          <div className="menu-item-popup-contents">
-            <div className="menu-item-popup-header" style={{marginTop: "25px"}}>
-            <h3 style={{lineHeight: "22px", width: "100%"}}>{menuitem.name}</h3>
-              <div className="hover" style={{fontWeight: "600"}} onClick={function() {modalShow && setModalShow(false)}}>X</div>
-            </div>
-
-            
-            
-            {/* {menuitem.price && (
-              <p className="menu-price">$ {menuitem.price}</p>
-            )} */}
-            <p >{menuitem.description}</p>
-              
-              
-              
-            
-            
-              
-            
+          <div className="modifications-container">
           {data.modifiable.length > 0 ? (
             <>
               <div className="modifications-container bottom-box-shadow">
@@ -110,11 +88,10 @@ const MenuItemDescription = ({
                   <p>No Mods Necessary</p>
                 </div>
                 <div className="instructions">
-                  <p>Make sure to always notify the restaurant of your allergens!</p>
+                  <p style={{textAlign: "center"}}>Make sure to always notify the restaurant of your allergens!</p>
                   </div>
 
           </div>)}
-
           {data.crossContact.length > 0 ? (
             <>
               <div className="cross-contact-container bottom-box-shadow">
@@ -133,31 +110,31 @@ const MenuItemDescription = ({
                 </div>
               </div>
             </>
-          ) : (<div>
+          ) : (null)}
+        
 
-
-          </div>)}
-          
           {menuitem.ingredients && (
-            <>
-              <h4 style={{ fontSize: "1rem" }}>Ingredients</h4>
-              <p>{menuitem.ingredients}</p>
-            </>
+            <div className="menu-ingredients">
+              <p className="p2-text" style={{fontWeight: 600}}>Ingredients</p>
+              <p style={{opacity: "0.85"}}>{menuitem.ingredients}</p>
+              <br></br>
+            </div>
+              
+          
           )}
+
           {menuitem.nutritionFacts && (
-            <>
-              <h4 style={{ fontSize: "1rem" }}>Nutrition Facts</h4>
-              <p>{menuitem.nutritionFacts}</p>
-            </>
+            <div className="menu-nutrition">
+              <p className="p2-text" style={{fontWeight: 600}}>Nutrition Facts</p>
+              <p style={{opacity: "0.85"}}>{menuitem.nutritionFacts}</p>
+            </div>
           )}
           </div>
       </div>
-        </div>
-        
+      </div>
 
-        
-        
-        
+        </section>
+        </div>
       </Modal>
     </>
   );

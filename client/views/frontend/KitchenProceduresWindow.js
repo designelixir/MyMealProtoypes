@@ -29,11 +29,11 @@ const MenuWindow = ({ restaurant, categories, selectedAllergies, CCP }) => {
 
   return (
     <section className="menu-section ">
-      <div className="bottom-box-shadow" style={{backgroundColor: restaurant.primaryColor, width: "100%", padding: "25px", borderRadius: "0px 6px 6px 6px"}}>
+      <div className="bottom-box-shadow" style={{backgroundColor: restaurant.primaryColor, padding: "25px", borderRadius: "0px 6px 6px 6px"}}>
         <p style={{color: "white"}}>{restaurant.name} does the following to ensure your food is safe: </p>
       </div>
       <div className="kitchen-procedures-container">
-          <p style={{ whiteSpace: "pre-line" }}>{CCP}</p>
+          <p style={{ whiteSpace: "pre-line" }}>{restaurant.crossContactProcedure}</p>
       </div>
     </section>
     

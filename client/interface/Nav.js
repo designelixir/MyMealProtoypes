@@ -13,7 +13,9 @@ const Nav = ({ isLoggedIn, logout }) => {
         <p style={{fontSize: "28px"}}>&nbsp;Admin Portal</p>  
       </div>
       <div>
-          {isLoggedIn && (
+
+        {/* DOES NOT WORK - so taking out for the mean time */}
+          {/* {isLoggedIn && (
             <div id="navbarSupportedContent">
                   <a
                     className="nav-link dropdown-toggle backend-styled-edit-button"
@@ -37,7 +39,7 @@ const Nav = ({ isLoggedIn, logout }) => {
                     Logout
                   </a>
             </div>
-          )}
+          )} */}
       </div>
       
        

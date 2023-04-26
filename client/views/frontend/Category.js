@@ -4,6 +4,7 @@ import { fetchFrontendCategoryMenuitems } from "../../redux/reducers/frontend";
 import menuitemFilter from "../../utils/menuitemFilter";
 import MenuItemCard from "./MenuItemCard";
 
+export var totalItems = 0;
 
 
 export const Category = ({
@@ -31,73 +32,103 @@ export const Category = ({
       menuitemFilter(unfilteredMenuitems, selectedAllergies)
     );
   }, [selectedAllergies]);
- 
 
-  return (
-    <section id={category.name} className="category-section" ref={categoryRef} >
-      <h3>{category.name}</h3>  
-      {/* Container for No Mods and Mods Required */} 
-      <div className="category-type-container">   
 
-            
-          
+
+  // my own stuff
+
   
-            <div className="category-no-mods-container" >
-              
-              <h3>No Modifications Necessary</h3>
-                <div className="category-menu-item-container" >
-                {filteredMenuitems.map(({ type, menuitem }) => (
-                  <div className="menu-card-wrapper">
-                    {type === "Safe" ? <>
-                    <MenuItemCard
-                      key={menuitem.id}
-                      type={type}
-                      menuitem={menuitem}
-                      primaryColor={primaryColor}
-                      selectedAllergies={selectedAllergies}
-                    />
-                    </> : null}
-                    
-                  </div>
-                ))}
-                
-                </div>
-              </div>
+  const safeCollection = filteredMenuitems.filter(menuitem => menuitem.type === "Safe");
+  const unsafeCollection = filteredMenuitems.filter(menuitem => menuitem.type != "Safe");
+  const totalCategoryItems = unsafeCollection.length + safeCollection.length;
+  totalItems = totalItems + totalCategoryItems;
+  console.log(totalItems)
 
-              <div className="category-mods-container ">
-              <h3>Modifications Necessary</h3>
-                <div className="category-menu-item-container" >
-                
-                {filteredMenuitems.map(({ type, menuitem }) => (
-                  <div className="menu-card-wrapper">
-                    
-                    {type !== "Safe" ? <>
-                    <MenuItemCard
-                      key={menuitem.id}
-                      type={type}
-                      menuitem={menuitem}
-                      primaryColor={primaryColor}
-                      selectedAllergies={selectedAllergies}
-                    />
-                    </> : null}
-                  </div>
-                  
-                ))}
-                </div>
-              </div>
-      </div>
-    </section>
-  );
-};
+  const determineSafeItems = (safeCollection) => {
+    return safeCollection.map(({ type, menuitem }) => 
+     ( type === "Safe" ?   
+      (<div className="menu-card-wrapper">
+        <MenuItemCard
+          key={menuitem.id}
+          type={type}
+          menuitem={menuitem}
+          primaryColor={primaryColor}
+          selectedAllergies={selectedAllergies}
+        />
+      </div>)
+     : null))
+  }
+ 
+  const filteredSafeItems = determineSafeItems(filteredMenuitems)
 
-function hideEmptyCategories(categoryCount){
-  if (categoryCount === 0){
-    console.log("empty" + categoryCount)
-  } else {
-    console.log("full" + categoryCount)
+  const determineUnsafeItems = (unsafeCollection) => {
+    
+    return unsafeCollection.map(({ type, menuitem }) => 
+    
+     ( type != "Safe" ?   
+      (<div className="menu-card-wrapper">
+        
+        <MenuItemCard
+          key={menuitem.id}
+          type={type}
+          menuitem={menuitem}
+          primaryColor={primaryColor}
+          selectedAllergies={selectedAllergies}
+        />
+      </div>)
+     : null))
   }
 
-}
+  const filteredUnsafeItems = determineUnsafeItems(filteredMenuitems)
+  
+  
+  return (
+    
+    <section id={category.name} className="category-section" ref={categoryRef} >
+       <h3>{category.name} ({totalCategoryItems})</h3>  
+      {/* Container for No Mods and Mods Required */} 
+      <div className="category-type-container">
+            {safeCollection.length > 0 ? 
+            <div className="category-no-mods-container" >
+              <h3>No Modifications Necessary</h3>
+                <div className="category-menu-item-container" >
+                {filteredSafeItems.map((s) => (
+                  <div className="menu-card-wrapper">{s}</div>
+                ))}
+                </div>
+              </div>
+              : null}
+            
+
+            {unsafeCollection.length > 0 ?
+            <div className="category-mods-container ">
+            <h3>Modifications Necessary</h3>
+              <div className="category-menu-item-container" id="mods-container">
+              {filteredUnsafeItems.map((s) => (
+                <div className="menu-card-wrapper">{s}</div>
+              ))}
+              </div>
+            </div> : null }
+      
+            </div>
+              
+      
+    </section>
+    
+  );
+  
+};
+
+
+// function hideEmptyCategories(categoryCount){
+//   if (categoryCount === 0){
+//     console.log("empty" + categoryCount)
+//   } else {
+//     console.log("full" + categoryCount)
+//   }
+
+// }
+
 
 
 
@@ -112,8 +143,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getMenuitems(data) {
       dispatch(fetchFrontendCategoryMenuitems(data));
-    },
+    }, 
   };
 };
+
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

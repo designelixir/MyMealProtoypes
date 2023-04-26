@@ -49,11 +49,14 @@ const Location = ({ getLocation, restaurantLocation, match, isLoading }) => {
         <div onClick={() =>history.push(`/corporations/${corporationId}/restaurants/${restaurantId}`)}>{restaurantLocation.menu?.restaurant.name}</div><p>&nbsp;/&nbsp;</p>
         <div className="active-breadcrumb" >{restaurantLocation.address}</div>
       </div>
+      <br></br>
           <h1>Edit Location</h1>
         </div>
       <Row className="space-between-flex corporations">
-        
-        <h3>{restaurantLocation.address}</h3>
+        <div>
+        <p className="p2-text">{restaurantLocation.address}</p>
+        <p><strong>Last updated:</strong> {restaurantLocation.country}</p>
+        </div>
         <EditLocation
        
           restaurantLocation={restaurantLocation}

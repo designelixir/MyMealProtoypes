@@ -31,6 +31,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "history": "^4.9.0",
+    "jquery": "^3.6.4",
     "jsonwebtoken": "^8.5.1",
     "loader": "^2.1.1",
     "mixpanel-browser": "^2.45.0",

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, rgba } from "react";
 import { connect } from "react-redux";
 import { Redirect, useLocation, useHistory } from "react-router-dom";
 import FilterButton from "./FilterButton";
-import RestrictedAllergiesGrid from "./RestrictedAllergiesGrid";
+import { totalItems } from "./Category";
 import Filter from "./iconcomponents/Filter";
 import AllergyFilters from "./modals/AllergyFilters";
 
@@ -39,16 +39,19 @@ const FilterBar = ({ restaurant, categories, selectedAllergies, setSelectedAller
   const [showWindow, setShowWindow] = React.useState(false)
     const toggleWindow = () => setShowWindow(true)
     const hidePop = () => setShowWindow(false)
-
+  
    
   return (
     <div>
       <div className="filtered-by-container">
         <div className="filtered-allergens-row center-flex-start">
-           <p>Showing  Menu Items </p> {selectedAllergies && <p> &nbsp; filtered by &nbsp;</p>}
+           <p style={{margin: "5px 0!important"}}>Showing <strong>{totalItems / 2} </strong>Menu Items &nbsp;</p> 
+           
+           <><p>filtered by &nbsp;</p></>
           {Object.values(selectedAllergies)
             .filter(({ selected }) => selected) 
             .map(({ name }) => (
+              
               <p
                 key={name}
                 className="filtered-allergen center-flex"
@@ -60,7 +63,7 @@ const FilterBar = ({ restaurant, categories, selectedAllergies, setSelectedAller
                 {name}
               </p>
             ))}
-          <p>&nbsp; •{" "}<strong><i>15 items removed</i></strong></p>
+         
         </div>
 
         <div className="filter-icon">

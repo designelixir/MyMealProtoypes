@@ -7,7 +7,11 @@ import Nav from "./Nav";
 
 export const Portal = ({ Component, props, auth, preCheck }) => {
   return (
-    <main style={{ height: "100vh" }}>
+    <div className="login-container">
+      
+      <div className="login-form-container">
+      
+      <div>
       {!preCheck ? (
         <Loading />
       ) : !auth.id ? (
@@ -17,12 +21,14 @@ export const Portal = ({ Component, props, auth, preCheck }) => {
       ) : (
         <>
           <Nav />
-          <div style={{ marginTop: 56 }}>
+          
             <Component auth={auth} {...props} />
-          </div>
+          
         </>
       )}
-    </main>
+      </div>
+      </div>
+    </div>
   );
 };
 

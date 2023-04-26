@@ -96,7 +96,7 @@ const Menu = ({
         <h1>Categories</h1>
         </div>
         
-        <div>
+        <div style={{marginBottom: "10px"}}>
         <EditMenu menu={menu} allergies={allergies} />
         <CreateNewCategory
           {...{
@@ -118,7 +118,7 @@ const Menu = ({
             action
             style={{opacity: `${category.archived ? "0.25" : "1" }`, boxShadow: `${category.archived ? "4px 4px gray" : "4px 4px green" }`}}
           >
-            <div style={{display: "flex", maxWidth: "25px", flexWrap: "wrap", marginRight: "10px"}}>
+            <div style={{display: "flex", maxWidth: "25px", flexWrap: "wrap", margin: "0 10px"}}>
               {idx !== 0 && (
                 <button
                   variant="link"
@@ -146,9 +146,9 @@ const Menu = ({
               className="backend-category-contents space-between-flex"
               
               >
-              <h4 className="backend-category-name hover-text" onClick={() => history.push(`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${category.id}`)}>
+              <p className="p2-text hover-text" onClick={() => history.push(`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${category.id}`)}>
                 &nbsp; {category.name}
-              </h4>
+              </p>
               <div >
                 <div className="center-flex">
                   <Form.Check

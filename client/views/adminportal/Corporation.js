@@ -54,9 +54,9 @@ export const Corporation = ({
       <div>
         {corporation.restaurants &&
           corporation.restaurants.map((restaurant, index) => (
-            <div key={index} className="space-between-flex corporations ">
+            <div key={index} className="space-between-flex corporations hover" onClick={() =>history.push(`/corporations/${corporationId}/restaurants/${restaurant.id}`)}>
 
-                <Row className="center-flex-start">
+                <Row className="center-flex-start" >
                   <img
                     style={{ width: "auto", height: 50 }}
                     src={
@@ -67,10 +67,10 @@ export const Corporation = ({
                     className="img-fluid rounded shadow"
                   />
 
-                  <p className="hover-text" style={{fontSize: "22px"}} onClick={() =>history.push(`/corporations/${corporationId}/restaurants/${restaurant.id}`)}>&nbsp; {restaurant.name}</p>
+                  <p className="hover-text p2-text">&nbsp; {restaurant.name}</p>
                 </Row>
-                <Button className="backend-styled-edit-button" onClick={() =>history.push(`/corporations/${corporationId}/restaurants/${restaurant.id}`)}>
-                  &#9998;  Edit
+                <Button className="backend-styled-edit-button" >
+                  View
                 </Button>
             </div>
             

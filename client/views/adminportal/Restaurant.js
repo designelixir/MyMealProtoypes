@@ -66,7 +66,7 @@ const Restaurant = ({
           <div className="center-flex-start page-path-container">
           <div onClick={() => history.push("/")}>Dashboard</div> <p>&nbsp;/&nbsp;</p>
           <div onClick={() => history.push(`/corporations/${corporationId}`)}>{restaurant.corporation?.name}</div> <p>&nbsp;/&nbsp;</p>
-          <div className="active-breadcrumb" >{restaurant.name}</div>
+          <div className="active-breadcrumb">{restaurant.name}</div>
         </div>
         <h1>Menus</h1>
         </div>
@@ -91,7 +91,7 @@ const Restaurant = ({
               className="space-between-flex hover-text"
                 style={{ cursor: "pointer" }} onClick={() =>history.push(`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menu.id}`)}
               >
-                {menu.name}
+                <p className="p2-text">{menu.name}</p>
                 <div>
                   
                   <Button
@@ -126,10 +126,11 @@ const Restaurant = ({
             <ListGroupItem key={location.id}>
               <div className="space-between-flex corporations">
                 <div>
-                <p style={{fontSize: "16px" }}>
-                &#128204; {location.address}
+                <p className="p2-text">
+               {location.address}
               </p>
-              <p> <a target="_blank" className="hover" href={`${window.location.origin}/order/restaurants/${restaurantId}/locations/${location.id}`}>{`${window.location.origin}/order/restaurants/${restaurantId}/locations/${location.id}`}</a></p>
+              <p><strong>Last updated:</strong> {location.country}</p>
+              <p  style={{overflowWrap: "anywhere"}} > <a target="_blank" className="hover" href={`${window.location.origin}/order/restaurants/${restaurantId}/locations/${location.id}`}>{`${window.location.origin}/order/restaurants/${restaurantId}/locations/${location.id}`}</a></p>
               </div>
               
               <div className="backend-styled-edit-button" onClick={() =>

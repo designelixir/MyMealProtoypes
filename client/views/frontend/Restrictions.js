@@ -4,8 +4,9 @@ import { useHistory, useLocation } from "react-router-dom";
 import { Container, Image, Button, Row, Col } from "react-bootstrap";
 import { setSelectedAllergy } from "../../redux/reducers/frontend";
 import Disclaimer from "./modals/Disclaimer";
-import RestrictedAllergiesGrid from "./RestrictedAllergiesGrid";
 
+
+import $ from 'jquery'
 const CheckmarkSVG = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -44,47 +45,50 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
     }, {})
   );
 
+
   return (
     <section id="restrictionsComponent">
-      <div
+      <div id="restrictionsHeader"
         className="menu-header bottom-box-shadow"
         style={{
           backgroundImage: `url(${
-            restaurant.bg ? restaurant.bg.url : "/img/generic-bg.jpg"
-          })`,
+            restaurant.bg ? restaurant.bg.url : "/bartacobg.jpeg"
+          })`
         }}
       >
-        <div className="menu-header-contents blur-overlay center-flex">
-          <div className="menu-header-logo-container center-flex">
+        <div className="menu-header-contents blur-overlay space-between-flex bottom-box-shadow">
+          <div className="menu-header-logo-container">
+            <div className="center-flex">
             <Image
               className="menu-back-button"
               onClick={() => setHasRestrictions(false)}
               src={"/img/back-arrow.png"}
             />
             <Image
-              className="menu-header-logo"
+              className="menu-header-logo img-drop-shadow"
               src={
                 restaurant.logo
                   ? restaurant.logo.url
-                  : "/img/demo-restauarant.png"
+                  : "/bartaco.png"
               }
             />
+            </div>
           </div>
           <div className="menu-header-title-container">
-            <h1 className="menu-header-title-no-order-button">
+            <h1 >
               Select your food restrictions
             </h1>
           </div>
+          <div style={{width: "100px"}}></div>
         </div>
       </div>
 
       {/* Select the allergen cards */}
-      <section className="restrictedAllergensGridComponent">
+      <div id="restrictionsGrid">
 
 
       {/* Select the allergen cards */}
-      <div className="select-allergens-wrapper">
-        <div className="select-allergens-grid center-flex">
+        <div className="select-allergens-grid">
           {restaurant.locations[0].menu.allergies.map((allergy) => (
             <div key={allergy.id} className="allergy-card-wrapper">
               <div className="checkbox-container">
@@ -193,9 +197,8 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
             </div>
           ))}
         </div>
-      </div>
-    </section>
-      <div className="disclaimer-placeholder">
+    </div>
+    <div className="disclaimer-placeholder">
         <Disclaimer
           primaryColor={restaurant.primaryColor}
           location={location}
@@ -207,6 +210,8 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
     </section>
   );
 };
+
+
 
 function checkDedications(dedications, allergen) {
   console.log(allergen, dedications);
@@ -233,6 +238,8 @@ function selectCard(cardName, selected) {
   }
 }
 
+
+
 const mapStateToProps = (state) => ({});
 
 const mapDispatch = (dispatch) => {
@@ -240,6 +247,7 @@ const mapDispatch = (dispatch) => {
     setSelected(selectedAllergies) {
       dispatch(setSelectedAllergy(selectedAllergies));
     },
+    
   };
 };
 

@@ -1,5 +1,5 @@
 /* AdminDashboard.js */
-#adminDashboardComponent {margin: 50px;}
+#adminDashboardComponent {margin: 25px;}
 .corporations {padding: 15px 10px; margin: 15px 0px; border: 1px solid rgba(174, 154, 154, 0.5); border-radius: 6px; font-size: 18px!important;}
 .backend-styled-button {background-color: #4F9BD6; color: white; padding: 10px 15px; margin:5px 10px 5px 0px; border-radius: 6px; border: none; font-family: "poppins"; font-size: 14px; }
 .backend-styled-button:hover {cursor: pointer; transform: scale(1.1)}
@@ -27,7 +27,7 @@
 .backend-allergy-image {margin: 5px; height: 80px; min-width: 80px; background-size: contain; background-position: center center; background-repeat: no-repeat; text-align: center;}
 
 /* Corporation.js */
-#corporationComponent {margin: 50px;}
+#corporationComponent {margin: 25px;}
 
 .backend-image-preview {width: 40%; height: 200px; object-fit: contain; }
 .backend-photo-preview {width: auto; height: 100%;}
@@ -36,31 +36,32 @@
 .backend-nav {padding: 15px; background-color: #eeeeee;}
 
 /* Restaurant.js */
-#restaurantComponent {margin: 50px;}
+#restaurantComponent {margin: 25px;}
 .backend-checkbox {padding-right: 10px;}
 
 /* Category.js */
-#categoryComponent {margin: 50px;}
+#categoryComponent {margin: 25px;}
 .new-menu-item {padding: 25px!important; border: 1px solid black; border-radius: 6px;}
 
 /* Menu.js */
-#menuComponent {margin: 50px;}
-.backend-category {border: 1px solid gray; border-radius: 6px; margin-bottom: 25px; padding: 10px 15px!important; display: flex; align-items: center; justify-content: flex-start;}
-.backend-category-contents {padding: 10px; cursor: pointer; width: 100%;}
+#menuComponent {margin: 25px;}
+.backend-category {border: 1px solid gray; border-radius: 6px; margin-bottom: 25px;  display: flex; align-items: center; justify-content: flex-start;}
+.backend-category-contents {margin: 10px; cursor: pointer; width: 100%;}
 .reposition-arrow {padding: 5px 10px; margin: 2px; border-radius: 6px; }
 .reposition-arrow:hover {border: 1px solid black; cursor: pointer;}
 .active-category-switch { width: 100px;}
 .backend-category-name {font-size: 18px; line-height: 24px; font-weight: 400; width: calc(80% - 80px)}
 
 @media screen and (max-width: 800px) {
-    #categoryComponent, #menuComponent, #corporationComponent, #adminDashboardComponent, #menuItemComponent, #locationComponent, #restaurantComponent {margin: 25px}
+   
     .modal-container {margin:25px;}
     .half-col {min-width: 100%}
     .safety-container:first-child {border-right: 1px solid rgba(0,0,0,0) ; border-bottom: 1px solid black;}
 }
 
-#locationComponent {margin: 50px;}
+
 /* EditLocation.js */
+#locationComponent {margin: 5vw;}
 .form-select {padding: 10px 5px; font-family: "poppins"; background: white; border: 1px solid black; border-radius: 6px;}
 
 .backend-switcher {background: white; border-radius: 25px; border: 1px solid black;  padding: 1px}
@@ -83,7 +84,7 @@
 .backend-menu-item {border: 1px solid black; border-radius: 6px; padding: 0px 10px; margin: 10px 0px;}
 
 .active-breadcrumb {font-weight: 600;}
-.page-path-container {  color: gray;  flex-wrap: wrap!important;  margin-bottom: -25px;}
+.page-path-container {  color: gray;  flex-wrap: wrap!important; line-height: 20px;}
 .page-path-container div {white-space: nowrap;  }
 .page-path-container p {line-height: 0px;}
 .page-path-container div:hover {cursor: pointer; font-weight: 600; }

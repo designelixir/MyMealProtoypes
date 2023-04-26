@@ -199,7 +199,8 @@ const Category = ({
         <div onClick={() => history.push(`/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}`)}>{category.menu?.name}</div> <p>&nbsp;/&nbsp;</p>
         <div className="active-breadcrumb">{category.name}</div>
       </div>
-          <h1>Menu Items</h1>
+      
+          <h1>{category.name} Items</h1>
         </div>
 
         <div>
@@ -285,13 +286,13 @@ const Category = ({
                 </div>
                 <div className="center-flex " style={{padding: "10px", textAlign: "left"}}>
                   <img
-                    style={{ width: "auto", height: 100}}
+                    style={{ width: "auto", height: 50}}
                     src={
                       menuitem.image ? menuitem.image.url : "/icons/gallery.png"
                     }
                     className="img-fluid rounded shadow"
                   />
-                  <p className="backend-item-title hover-text" onClick={() =>
+                  <p className="backend-item-title hover-text p2-text" onClick={() =>
             history.push(
               `/corporations/${corporationId}/restaurants/${restaurantId}/menus/${menuId}/categories/${categoryId}/menuitems/${menuitem.id}`
             )
