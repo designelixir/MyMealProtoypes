@@ -24,7 +24,7 @@ const CreateNewCorporation = ({ addCorporation }) => {
         style={{ width: "fit-content" }}
         onClick={() => setModalShow(true)}
       >
-        + Create New Corporation
+        + Create Corporation
       </Button>
 
       <Modal

@@ -11,14 +11,14 @@ const MainScreen = ({ restaurant, setHasRestrictions }) => {
   return (
     <section className="blur-overlay center-flex" id="mainScreenComponent" style={{
       backgroundImage: `url(${
-        restaurant.bg ? restaurant.bg.url : "/bartacobg.jpeg"
+        restaurant.bg ? restaurant.bg.url : "img/generic-bg.jpeg"
       })`}}>
       <div className="main-screen-component-wrapper" >
         
           <Image
             className="restaurant-logo img-drop-shadow"
             src={
-              restaurant.logo ? restaurant.logo.url : '/bartaco.png'
+              restaurant.logo ? restaurant.logo.url : null
             }
           />
         

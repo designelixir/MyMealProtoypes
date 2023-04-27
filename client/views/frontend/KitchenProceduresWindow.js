@@ -14,7 +14,7 @@ import { Categories } from "./Categories";
 import { capitalize } from "../../utils/common";
 import "react-loading-skeleton/dist/skeleton.css";
 import ScrollSpyTabs from "./ScrollSpyTabs";
-import mixpanel from 'mixpanel-browser';
+
 
 
 const MenuWindow = ({ restaurant, categories, selectedAllergies, CCP }) => {
@@ -52,3 +52,4 @@ const mapState = (state) => {
 const mapDispatchToProps = {};
 
 export default connect(mapState, mapDispatchToProps)(MenuWindow);
+

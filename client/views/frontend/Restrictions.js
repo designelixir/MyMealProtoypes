@@ -5,8 +5,6 @@ import { Container, Image, Button, Row, Col } from "react-bootstrap";
 import { setSelectedAllergy } from "../../redux/reducers/frontend";
 import Disclaimer from "./modals/Disclaimer";
 
-
-import $ from 'jquery'
 const CheckmarkSVG = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -32,6 +30,11 @@ const DedicatedBanner = (allergy) => (
 );
 
 const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
+  
+
+  
+  const restaurantName = restaurant.name;
+   
   const history = useHistory();
   const location = useLocation();
   const [selectedAllergies, setSelectedAllergies] = useState(
@@ -52,24 +55,24 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
         className="menu-header bottom-box-shadow"
         style={{
           backgroundImage: `url(${
-            restaurant.bg ? restaurant.bg.url : "/bartacobg.jpeg"
+            restaurant.bg ? restaurant.bg.url : "/img/generic-bg.jpg"
           })`
         }}
       >
         <div className="menu-header-contents blur-overlay space-between-flex bottom-box-shadow">
           <div className="menu-header-logo-container">
             <div className="center-flex">
-            <Image
+            {/* <Image
               className="menu-back-button"
               onClick={() => setHasRestrictions(false)}
               src={"/img/back-arrow.png"}
-            />
+            /> */}
             <Image
               className="menu-header-logo img-drop-shadow"
               src={
                 restaurant.logo
                   ? restaurant.logo.url
-                  : "/bartaco.png"
+                  : null
               }
             />
             </div>
@@ -83,9 +86,13 @@ const Restrictions = ({ restaurant, setHasRestrictions, setSelected }) => {
         </div>
       </div>
 
+      
+
       {/* Select the allergen cards */}
       <div id="restrictionsGrid">
-
+      <div className="restaurant-message-banner bottom-box-shadow" style={{backgroundColor: restaurant.primaryColor} }>
+        <p className="restaurant-message" style={{fontSize: "18px", padding: "10px", fontWeight: "500"}}>{restaurant.locations[0].menu.dedicatedFrom}</p>
+      </div>
 
       {/* Select the allergen cards */}
         <div className="select-allergens-grid">

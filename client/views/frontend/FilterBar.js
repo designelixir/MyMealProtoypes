@@ -45,9 +45,9 @@ const FilterBar = ({ restaurant, categories, selectedAllergies, setSelectedAller
     <div>
       <div className="filtered-by-container">
         <div className="filtered-allergens-row center-flex-start">
-           <p style={{margin: "5px 0!important"}}>Showing <strong>{totalItems / 2} </strong>Menu Items &nbsp;</p> 
-           
-           <><p>filtered by &nbsp;</p></>
+           {/* <p style={{margin: "5px 0!important"}}>Showing <strong>{totalItems / 2} </strong>Menu Items &nbsp;</p> 
+            */}
+           <><p>Filtered by &nbsp;</p></>
           {Object.values(selectedAllergies)
             .filter(({ selected }) => selected) 
             .map(({ name }) => (

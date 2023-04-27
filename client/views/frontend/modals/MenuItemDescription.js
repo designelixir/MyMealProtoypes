@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+
 import {
-  Button,
   Modal,
   Container,
-  Form,
-  Row,
-  Col,
-  Image,
+  Row, Col
 } from "react-bootstrap";
 import menuitemData from "../../../utils/menuitemData";
 import priceFormat from "../../../utils/priceFormat";
 
+
 const MenuItemDescription = ({
+  
   modalShow,
   setModalShow,
   menuitem,
@@ -23,25 +22,26 @@ const MenuItemDescription = ({
   
 }) => {
   const data = menuitemData(menuitem, selectedAllergies);
+  
+  const suggestEditLink = "https://form.jotform.com/231160782167152?dishName=" + menuitem.name;
   return (
     <>
       <Modal
         className="noscroll"
         show={modalShow}
         onHide={() => setModalShow(false)}>
-          
         
-
+        
         <div className="overlay-window" style={{height: "100vh"}}>
         <section className="menu-pop-up-contents">
           {/* Notify Restaurant of Allergens Message */}
           <div className="report-error-container bottom-box-shadow center-flex">
             <p className="report-error-message p2-text">Always notify the restaurant of your allergens!</p>
-            <button className="utility-button hover" style={{fontStyle: "italic"}}>Suggest an Edit</button>
+            <a className="utility-button hover" style={{fontStyle: "italic", textDecoration: "none", backgroundColor: "white", color: "black"}} href={suggestEditLink} target="_blank">Suggest an Edit</a>
           </div>
           {/* Menu Description Card */}
           <div className="menu-item-pop-up-wrapper">
-            <div className="menu-item-pop-up bottom-box-shadow" style={{border: `6px solid ${data.modifiable.length > 0 ? modColor : safeColor}`}} >
+            <div className="menu-item-pop-up bottom-box-shadow" style={{border: `6px solid ${data.modifiable.length > 0 || data.crossContact.length > 0 ? modColor : safeColor}`}} >
             {menuitem.image ? (
               <div className="menu-image" style={{backgroundImage: "url(/img/generic-bg.jpg)"}}> 
               <button className="hover menu-pop-up-close-button" onClick={function() {modalShow && setModalShow(false)}}>X</button>
@@ -55,9 +55,25 @@ const MenuItemDescription = ({
 
           
             <div className="menu-item-info">
-              <h4 className="menu-title"><strong>{menuitem.name}</strong>{menuitem.price && (
-                <span className="menu-price"> - ${menuitem.price}</span>
-              )}</h4>
+              <div className="space-between-flex">
+              <h4 className="menu-title"><strong>{menuitem.name}</strong></h4>
+              
+            {menuitem.pricetypes.length === 0 ? (
+              priceFormat(menuitem.price)
+            ) : (
+              <span className="menu-price">
+                {menuitem.pricetypes.map((pt) => (
+                  <p key={pt.id} className="price-type">
+                    {pt.type} - {priceFormat(pt.price)}
+                  </p>
+                ))}
+              </span>
+            )}
+            </div>
+            
+          
+              
+              
               <p className="menu-description">{menuitem.description}</p>
               
             </div>

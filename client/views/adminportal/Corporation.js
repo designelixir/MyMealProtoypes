@@ -39,16 +39,20 @@ export const Corporation = ({
             <p>&nbsp;/&nbsp;</p>
             <div className="active-breadcrumb">{corporation.name}</div>
           </div>
-          <h1>Restaurants</h1>
+          <div className="space-between-flex">
+            <h1>Restaurants</h1>
+            <div>
+              <EditCorporation corporation={corporation} />
+              <CreateNewRestaurant
+                corporationId={corporationId}
+                corporationCCP={corporation.crossContactProcedure}
+              />
+            </div>
+          </div>
+          
         </div>
 
-        <div>
-          <EditCorporation corporation={corporation} />
-          <CreateNewRestaurant
-            corporationId={corporationId}
-            corporationCCP={corporation.crossContactProcedure}
-          />
-        </div>
+        
       </Row>
 
       <div>

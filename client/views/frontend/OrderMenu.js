@@ -4,7 +4,6 @@ import { Redirect, useLocation, useHistory } from "react-router-dom";
 import { Container, Row, Col, Image, Button, Tabs, Tab } from "react-bootstrap";
 import MenuWindow from "./MenuWindow";
 import "react-loading-skeleton/dist/skeleton.css";
-import mixpanel from 'mixpanel-browser';
 import { setSelectedAllergy } from "../../redux/reducers/frontend";
 import WaitlistBanner from "./WaitlistBanner";
 import KitchenProceduresWindow from "./KitchenProceduresWindow";
@@ -60,20 +59,23 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAller
       <div className="menu-header-contents">
         <div className="menu-header-logo-container">
           <div className="center-flex ">
-        <Image
+        {/* <Image
             className="menu-back-button"
             onClick={() =>
               history.push(`${location.pathname.replace("/menu", "")}`)
             }
             src={"/img/back-arrow.png"}
-          />
+          /> */}
           <Image
             className="menu-header-logo"
             src={
               restaurant.logo
                 ? restaurant.logo.url
-                : "/bartaco.png" 
-                // REPLACE ME GENERIC PHOTO
+                : null 
+                
+            }
+            onClick={() =>
+              history.push(`${location.pathname.replace("/menu", "")}`)
             }
           />
           </div>
@@ -95,10 +97,7 @@ const OrderMenu = ({ restaurant, categories, selectedAllergies, setSelectedAller
               backgroundColor: restaurant.primaryColor,
               fontSize: "12px"
             }}
-            onClick={function() {
-              mixpanel.track('Clicked Menu Order Now button')
-              window.open(restaurant.locations[0].menu.orderNow, "_blank")
-            }}
+            
           >
             Order Online
           </button>

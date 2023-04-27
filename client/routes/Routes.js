@@ -26,7 +26,7 @@ import UserCategory from "../views/userportal/UserCategory";
 import UserMenuItem from "../views/userportal/UserMenuItem";
 import UserLocation from "../views/userportal/UserLocation";
 import ScrollSpyTest from "../views/frontend/ScrollSpyTest";
-import mixpanel from 'mixpanel-browser';
+
 
 const Routes = ({ getMe, isLoggedIn, preCheck, auth }) => {
 

@@ -4,7 +4,6 @@ import { Redirect, useLocation, useHistory } from "react-router-dom";
 import { Container, Row, Col, Image, Button, Tabs, Tab } from "react-bootstrap";
 import MenuWindow from "./MenuWindow";
 import "react-loading-skeleton/dist/skeleton.css";
-import mixpanel from 'mixpanel-browser';
 import { setSelectedAllergy } from "../../redux/reducers/frontend";
 import WaitlistBanner from "./WaitlistBanner";
 import KitchenProceduresWindow from "./KitchenProceduresWindow";

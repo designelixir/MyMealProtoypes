@@ -15,7 +15,6 @@
   import { capitalize } from "../../utils/common";
   import "react-loading-skeleton/dist/skeleton.css";
   import ScrollSpyTabs from "./ScrollSpyTabs";
-  import mixpanel from 'mixpanel-browser';
   import FilterBar from "./FilterBar";
   import menuitemFilter from "../../utils/menuitemFilter";
    import MenuItemCard from "./MenuItemCard";

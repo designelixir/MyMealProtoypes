@@ -15,7 +15,6 @@ import { Categories } from "./Categories";
 import { capitalize } from "../../utils/common";
 import "react-loading-skeleton/dist/skeleton.css";
 import ScrollSpyTabs from "./ScrollSpyTabs";
-import mixpanel from 'mixpanel-browser';
 
 import WaitlistBanner from "./WaitlistBanner";
 import KitchenProceduresWindow from "./KitchenProceduresWindow";
